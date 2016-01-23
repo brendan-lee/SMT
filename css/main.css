@@ -22,7 +22,9 @@ body {
 	height: 100%;
 	transition: opacity 0.5s linear;
 }
-
+#cont_wrapper {
+	display: none;
+}
 a:link, a:visited {
 	text-decoration: none; 
 	color: #03a9f4;
