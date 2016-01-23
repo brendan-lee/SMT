@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 	<title>Blocksdata教程</title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js"></script>
 	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
 	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
@@ -12,799 +13,807 @@
 </head>
 
 <body>
-<!--顶栏 按钮-->
-<div id="buttons">
-	<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
-	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
-</div>
+<iframe id="error" src="error.html"></iframe>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+	</script>
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
+		<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+	</div>
 
-<!--目录-->
-<div id="menu">
-	<li class="parent"><span onclick="menuTo('cont_1')">一.数据类型</span></li>
-	<div class="divide_line"></div>
+	<!--目录-->
+	<div id="menu">
+		<li class="parent"><span onclick="menuTo('cont_1')">一.数据类型</span></li>
+		<div class="divide_line"></div>
 
-	<li class="parent"><span onclick="menuTo('cont_2')">二.内容详解</span></li>
-	<div class="divide_line"></div>
+		<li class="parent"><span onclick="menuTo('cont_2')">二.内容详解</span></li>
+		<div class="divide_line"></div>
 
-	<li class="parent"><span onclick="menuTo('cont_3')">三.启发例子</span></li>
-	<div class="divide_line"></div>
+		<li class="parent"><span onclick="menuTo('cont_3')">三.启发例子</span></li>
+		<div class="divide_line"></div>
 
-	<li class="parent"><span onclick="menuTo('cont_appendix')">附录</span></li>
-</div>
+		<li class="parent"><span onclick="menuTo('cont_appendix')">附录</span></li>
+	</div>
 
-<!--导航-->
-<div id="nav"></div>
-<div id="nav_bottom" onclick="navHide()"></div>
-<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
+	<!--导航-->
+	<div id="nav" class="nav"></div>
+	<div id="nav_overlay"></div>
+	
+	<!--顶栏-->
+	<div id="big_title_div" onclick="goTop()">Blocksdata教程</div>
+	<div id="last_update">——更新日期 2016年1月22日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
 
-<!--顶栏-->
-<div id="big_title_div" onclick="goTop()">Blocksdata教程</div>
-<div id="last_update">——更新日期 2016年1月22日——</div>
-<div id="top_box"></div>
-<div id="top_box_top"></div>
-<div id="top_box_strutting"></div>
+	<!--上栏-->
+	<div id="upper_box">
+		<h1>前言</h1>
+		<div class="content">
+			内容详解原表大致框架及翻译由百度贴吧-大王派提供，游戏1.22.7及以后更新内容和其他更多解释说明由百度贴吧-销锋镝铸编写。<br />
+			目前本页内容对应游戏1.29。
+			<script>if(isMobile == true){document.write("<br />提示：手机端建议横屏查看");}</script>
+		</div>
+	</div>
 
-<!--上栏-->
-<div id="upper_box">
-	<h1>前言</h1>
-	<div class="content">
-		内容详解原表大致框架及翻译由百度贴吧-大王派提供，游戏1.22.7及以后更新内容和其他更多解释说明由百度贴吧-销锋镝铸编写。<br />
-		目前本页内容对应游戏1.29。
-		<script>if(isMobile == true){document.write("<br />提示：手机端建议横屏查看");}</script>
+	<!--内容栏-->
+	<div id="content_box">
+		<div class="chapter" id="cont_1">
+			<h1>第一节 数据类型</h1>
+			<span style="font-size:10pt; display:block; font-weight:bold;">——每个属性能够支持的数据类型</span>
+			<div class="content">
+				<table>
+					<tr style="font-weight:bold; text-align:center">
+						<td>英文名</td>
+						<td>中文名</td>
+						<td>数值范围</td>
+					</tr>
+					<tr>
+						<td>Boolean</td>
+						<td>布尔值</td>
+						<td>[TRUE/FALSE]</td>
+					</tr>
+					<tr>
+						<td>int</td>
+						<td>4字节整数</td>
+						<td>[-2147483648 ~ 2147483647]</td>
+					</tr>
+					<tr>
+						<td>uint</td>
+						<td>4字节非负整数</td>
+						<td>[0 ~ 4294967295]</td>
+					</tr>
+					<tr>
+						<td>double</td>
+						<td>双精度浮点数</td>
+						<td>[-10e+17 ~ +10e+308]</td>
+					</tr>
+					<tr>
+						<td>String</td>
+						<td>字符串</td>
+						<td>不超过256字符的任意内容</td>
+					</tr>
+					<tr>
+						<td>Array</td>
+						<td>数组</td>
+						<td>逗号分隔的一组数字</td>
+					</tr>
+					<tr>
+						<td colspan=3 style="text-align:center">特殊值：Infinity 无穷大[仅限double类型]</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="chapter" id="cont_2">
+			<h1>第二节 内容详解</h2>
+			<span style="font-size:10pt; display:block; font-weight:bold;">——每一行第n个分号之后所代表的内容详解</span>
+			<div class="content" style="overflow-x:auto;">
+				<table style="font-size:10pt;">
+					<tr style="font-weight:bold; text-align:center;">
+						<td>n</td>
+						<td nowrap>数据类型</td>
+						<td>英文原名</td>
+						<td nowrap>中文翻译</td>
+						<td>说明</td>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>String</td>
+						<td>Class Name</td>
+						<td>类名</td>
+						<td>游戏内部文件使用的名字，例如物品被破坏和动物死亡掉落的物品就要用到</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>String</td>
+						<td>Default Display Name</td>
+						<td>默认显示名称</td>
+						<td>游戏中玩家看到的物品名字</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>String</td>
+						<td>Default Category</td>
+						<td>默认类别</td>
+						<td>帮助中的类别</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>String</td>
+						<td>Behaviors</td>
+						<td>行为</td>
+						<td>即特殊属性多种行为可以用逗号隔开，详情见<a href="#cont_appendix">附录</a></td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>uint</td>
+						<td>Display Order</td>
+						<td>显示顺序</td>
+						<td>游戏中创造模式物品栏中物品的显示顺序(同时是这个方块在该文件中所在的行数)</td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>Array(2)</td>
+						<td>Icon Block Offset</td>
+						<td>图标偏移</td>
+						<td>x,y方向</td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>Array(3)</td>
+						<td>Icon View Offset</td>
+						<td>图标偏移</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>uint</td>
+						<td>Default Icon View Scale</td>
+						<td>默认图标视角大小缩放</td>
+						<td>在物品栏里显示的大小</td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>uint</td>
+						<td>First Person Scale</td>
+						<td>第一人称大小缩放</td>
+						<td>第一人称视角下手持物品的大小缩放倍数</td>
+					</tr>
+					<tr>
+						<td>9</td>
+						<td>uint</td>
+						<td>First Person Offset</td>
+						<td>第一人称位置偏移</td>
+						<td>第一人称视角下手持物品的位置偏移</td>
+					</tr>
+					<tr>
+						<td>10</td>
+						<td>uint</td>
+						<td>First Person Rotation</td>
+						<td>第一人称物品旋转</td>
+						<td>第一人称视角下手持物品的旋转角度</td>
+					</tr>
+					<tr>
+						<td>11</td>
+						<td>uint</td>
+						<td>In Hand Scale</td>
+						<td>在手里的大小缩放</td>
+						<td>第三人称视角下手持物品的大小缩放倍数</td>
+					</tr>
+					<tr>
+						<td>12</td>
+						<td>Array(2)</td>
+						<td>In Hand Offset</td>
+						<td>在手里的位置偏移</td>
+						<td>第三人称视角下手持物品的位置偏移</td>
+					</tr>
+					<tr>
+						<td nowrap>13</td>
+						<td>uint</td>
+						<td>In Hand Rotation</td>
+						<td>在手里时旋转角度</td>
+						<td>第三人称视角下手持物品的旋转角度</td>
+					</tr>
+					<tr>
+						<td>14</td>
+						<td>String</td>
+						<td>CraftingId</td>
+						<td>合成标识</td>
+						<td>在CraftingRecipes.xml中作为合成材料时方块标识</td>
+					</tr>
+					<tr>
+						<td>15</td>
+						<td>int</td>
+						<td>Default Creative Data</td>
+						<td>默认创造模式是否提供</td>
+						<td>-1不提供，0创造模式免费提供</td>
+					</tr>
+					<tr>
+						<td>16</td>
+						<td>Boolean</td>
+						<td>Is Collidable</td>
+						<td>是否可碰撞</td>
+						<td>当此项为FALSE时，主角和动物可以穿过它(例如草和花)；TRUE时则不可穿过（例如石头和土）</td>
+					</tr>
+					<tr>
+						<td>17</td>
+						<td>Boolean</td>
+						<td>Is Placeable</td>
+						<td>是否可放置</td>
+						<td>工具武器什么的改成TRUE便可以放置到地上，但不可见</td>
+					</tr>
+					<tr>
+						<td>18</td>
+						<td>Boolean</td>
+						<td>Is Digging Transparent</td>
+						<td>挖掘时是否透明</td>
+						<td>是否可挖掘</td>
+					</tr>
+					<tr>
+						<td>19</td>
+						<td>Boolean</td>
+						<td>Is Placement Transparent</td>
+						<td>是否放置透明</td>
+						<td>是否可以在它上面放东西，如果是TRUE就会点到后面的方块来放置</td>
+					</tr>
+					<tr>
+						<td>20</td>
+						<td>Boolean</td>
+						<td>Is Interactive</td>
+						<td>是否交互</td>
+						<td>电器此项为TRUE，但改了没任何效果</td>
+					</tr>
+					<tr>
+						<td>21</td>
+						<td>Boolean</td>
+						<td>Is Editable</td>
+						<td>是否可编辑</td>
+						<td>内存条，真值表此值为TRUE</td>
+					</tr>
+					<tr>
+						<td>22</td>
+						<td>Boolean</td>
+						<td>Is Gatherable</td>
+						<td>是否可收集</td>
+						<td>即可不可以捡起来</td>
+					</tr>
+					<tr>
+						<td>23</td>
+						<td>Boolean</td>
+						<td>Has Collision Behavior</td>
+						<td>是否有碰撞动作</td>
+						<td>压力板此属性为true，改其他物品貌似无效果</td>
+					</tr>
+					<tr>
+						<td>24</td>
+						<td>Boolean</td>
+						<td>Kills When Stuck</td>
+						<td>卡住时杀死卡在其中的实体</td>
+						<td>仙人掌和倒刺板此值为TRUE</td>
+					</tr>
+					<tr>
+						<td>25</td>
+						<td>Boolean</td>
+						<td>Is Fluid Blocker</td>
+						<td>能否阻挡流体</td>
+						<td>流体指水和岩浆，空气此属性为TRUE时它们就不会乱流了</td>
+					</tr>
+					<tr>
+						<td>26</td>
+						<td>Boolean</td>
+						<td>Is Transparent</td>
+						<td>是否透明</td>
+						<td>即是否实体，是就代表材质透明时黑的，否就代表透明材质时透明。同时决定是否被沙子压碎。还和方块刷新位置有关，如果玄武岩上方会长生的方块此属性为”TRUE”时就会刷新到地面（直接在草地上）</td>
+					</tr>
+					<tr>
+						<td>27</td>
+						<td>uint</td>
+						<td>Shadow Strength</td>
+						<td>阴影强度（-1~15）</td>
+						<td>-1就是实体方块，方块透明的同时还必须把它改成大于等于0</td>
+					</tr>
+					<tr>
+						<td>28</td>
+						<td>uint</td>
+						<td>Light Attenuation</td>
+						<td>光衰减</td>
+						<td>仅透明方块有效，光透过方块时衰减的亮度，越小越透光</td>
+					</tr>
+					<tr>
+						<td>29</td>
+						<td>uint</td>
+						<td>Emitted Light Amount</td>
+						<td>发光强度</td>
+						<td>9时照亮一格，15时照亮7格，以上虽然照亮更大范围，但会出bug，最大23</td>
+					</tr>
+					<tr>
+						<td>30</td>
+						<td>uint</td>
+						<td>Object Shadow Strength</td>
+						<td>物体阴影强度</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>31</td>
+						<td>String</td>
+						<td>Default Drop Content</td>
+						<td>默认掉落物品</td>
+						<td>写#号开头的要掉落的物品的标识符。花，稻子没法改，若掉落自己本身，直接写个#就行</td>
+					</tr>
+					<tr>
+						<td>32</td>
+						<td>uint</td>
+						<td>Default Drop Count</td>
+						<td>默认掉落数量</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>33</td>
+						<td>uint</td>
+						<td>Required Tool Level</td>
+						<td>需求工具等级</td>
+						<td>挖掘时需求的装备等级，钻石矿为4</td>
+					</tr>
+					<tr>
+						<td>34</td>
+						<td>uint</td>
+						<td>Max Stacking</td>
+						<td>最大背包</td>
+						<td>箱子,工作台和火炉里可以堆叠的数量</td>
+					</tr>
+					<tr>
+						<td>35</td>
+						<td>uint</td>
+						<td>Max In Hand Stacking</td>
+						<td>最大手持</td>
+						<td>下面6个方框堆叠数量</td>
+					</tr>
+					<tr>
+						<td>36</td>
+						<td>Boolean</td>
+						<td>Sleep Suitability</td>
+						<td>适合睡觉</td>
+						<td>0.5好像是最适合，0代表不能睡</td>
+					</tr>
+					<tr>
+						<td>37</td>
+						<td>double</td>
+						<td>Friction Factor</td>
+						<td>（行走）摩擦系数</td>
+						<td>越小越滑，为0时无法走动</td>
+					</tr>
+					<tr>
+						<td>38</td>
+						<td>double</td>
+						<td>Density</td>
+						<td>密度</td>
+						<td>物品掉落水中浮沉的指标</td>
+					</tr>
+					<tr>
+						<td>39</td>
+						<td>Boolean</td>
+						<td>No Auto Jump</td>
+						<td>走上方块不执行自动跳跃</td>
+						<td>此值为TRUE时面前遇到一格高此方块将自动停住或绕道</td>
+					</tr>
+					<tr>
+						<td>40</td>
+						<td>Boolean</td>
+						<td>No Smooth Rise</td>
+						<td>进入其中不执行流畅上升</td>
+						<td>其中栅栏此属性为TRUE所以动物不会跳过去</td>
+					</tr>
+					<tr>
+						<td>41</td>
+						<td>uint</td>
+						<td>Fuel Heat Level</td>
+						<td>燃料等级</td>
+						<td>只有煤的此属性是2, 烧铁块需求的等级是2</td>
+					</tr>
+					<tr>
+						<td>42</td>
+						<td>uint</td>
+						<td>Fuel Fire Duration</td>
+						<td>燃料燃烧持续时间</td>
+						<td>相当于热值,越大烧的时间越长，产出越多</td>
+					</tr>
+					<tr>
+						<td>43</td>
+						<td>String</td>
+						<td>Sound Material Name</td>
+						<td>声音材料名称</td>
+						<td>对应到Content/Audio里的文件</td>
+					</tr>
+					<tr>
+						<td>44</td>
+						<td>String</td>
+						<td>Digging Sounds Folder</td>
+						<td>挖掘声音文件夹</td>
+						<td>被挖掘时发出的声音所在的位置</td>
+					</tr>
+					<tr>
+						<td>45</td>
+						<td>double</td>
+						<td>Digging Sounds Volume</td>
+						<td>挖掘声音音量</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>46</td>
+						<td>double</td>
+						<td>Destruction Sounds Volume</td>
+						<td>破坏声音音量</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>47</td>
+						<td>double</td>
+						<td>Shovel Power</td>
+						<td>铲子效率</td>
+						<td rowspan=3>各种工具（ShovelPower等）是挖掘速度（每秒）（不含反应/识别时间）例如Quarry Power是20的工具挖Dig Resilience是60的方块要3秒空手的速度目前测得全部为1</td>
+					</tr>
+					<tr>
+						<td>48</td>
+						<td>double</td>
+						<td>Quarry Power</td>
+						<td>镐子效率</td>
+					</tr>
+					<tr>
+						<td>49</td>
+						<td>double</td>
+						<td>Hack Power</td>
+						<td>斧头效率</td>
+					</tr>
+					<tr>
+						<td>50</td>
+						<td>double</td>
+						<td>Default Melee Power</td>
+						<td>打击(近战)攻击力</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>51</td>
+						<td>double</td>
+						<td>Default Melee Hit Probability</td>
+						<td>默认近战击中概率</td>
+						<td>在1.27某些版本中，它处于DefaultMeleePower与DefaultProjectilePower之间，现已消失</td>
+					</tr>
+					<tr>
+						<td>52</td>
+						<td>double</td>
+						<td>Default Projectile Power</td>
+						<td>投掷攻击力</td>
+						<td>丢出去的物品的攻击力</td>
+					</tr>
+					<tr>
+						<td>53</td>
+						<td>uint</td>
+						<td>Tool Level</td>
+						<td>工具等级</td>
+						<td>木头工具该属性为1，石头为2，铁为3，钻石为4</td>
+					</tr>
+					<tr>
+						<td>54</td>
+						<td>uint</td>
+						<td>Durability</td>
+						<td>工具耐久度</td>
+						<td>即使用次数，建议不要超过七万</td>
+					</tr>
+					<tr>
+						<td>55</td>
+						<td>Boolean</td>
+						<td>Is Aimable</td>
+						<td>是否可瞄准</td>
+						<td>可投掷物品及弓此属性都为TRUE</td>
+					</tr>
+					<tr>
+						<td>56</td>
+						<td>Boolean</td>
+						<td>Is Stickable</td>
+						<td>击中方块是否停留</td>
+						<td>比如矛的为TRUE，煤，铁锭为FALSE。若该方块有BombBlockBehavior则按一定概率穿过Projectile Stick Probability大于0的方块</td>
+					</tr>
+					<tr>
+						<td>57</td>
+						<td>Boolean</td>
+						<td>Align To Velocity</td>
+						<td>成直线速率</td>
+						<td>此值为TRUE时该物品被抛出看起来是横向的(例如矛)，不建议给无3D模型的物品调成TRUE（实在不知如何翻译）</td>
+					</tr>
+					<tr>
+						<td>58</td>
+						<td>double</td>
+						<td>Projectile Speed</td>
+						<td>投掷速度</td>
+						<td>亲测就是最大投掷距离</td>
+					</tr>
+					<tr>
+						<td>59</td>
+						<td>double</td>
+						<td>Projectile Damping</td>
+						<td>投掷阻力(衰减)</td>
+						<td>改为零出现超时空现象</td>
+					</tr>
+					<tr>
+						<td>60</td>
+						<td>Array(3)</td>
+						<td>Projectile Tip Offset</td>
+						<td>扔出点偏移</td>
+						<td> </td>
+					</tr>
+					<tr>
+						<td>61</td>
+						<td>Boolean</td>
+						<td>Disintegrates On Hit</td>
+						<td>撞击时碎裂</td>
+						<td>蛋的此属性为TRUE</td>
+					</tr>
+					<tr>
+						<td>62</td>
+						<td>double</td>
+						<td>Projectile Stick Probability</td>
+						<td>物品粘性可能性</td>
+						<td>使IsStickable为TRUE的方块被投掷到它上面粘住的可能性(若那个物品有BombBlockBehavior属性则为穿过可能性)</td>
+					</tr>
+					<tr>
+						<td>63</td>
+						<td>double</td>
+						<td>Fire Duration</td>
+						<td>露天点火持续时间</td>
+						<td>这个值改成小数会向下取整</td>
+					</tr>
+					<tr>
+						<td>64</td>
+						<td>double</td>
+						<td>Explosion Resilience</td>
+						<td>爆炸抗性</td>
+						<td>爆炸血量，越大越耐炸，可以为无限</td>
+					</tr>
+					<tr>
+						<td>65</td>
+						<td>double</td>
+						<td>Default Explosion Pressure</td>
+						<td>默认爆炸压力</td>
+						<td>此值影响爆炸范围和威力。对范围的影响是要多少倍范围乘1后面多少个0，例如2倍范围数值需要乘100。威力和此值成正比，为每秒的伤害</td>
+					</tr>
+					<tr>
+						<td>66</td>
+						<td>uint</td>
+						<td>IsExplosionTransparent</td>
+						<td>是否爆炸透明</td>
+						<td>此值为TRUE时该物品可被炸飞</td>
+					</tr>
+					<tr>
+						<td>67</td>
+						<td>String</td>
+						<td>Dig Method</td>
+						<td>挖掘方法</td>
+						<td>取消挖掘透明这里至少要选一种工具</td>
+					</tr>
+					<tr>
+						<td>68</td>
+						<td>double</td>
+						<td>Dig Resilience</td>
+						<td>挖掘抗性</td>
+						<td>越大要挖得越久，基岩这个属性是无限</td>
+					</tr>
+					<tr>
+						<td>69</td>
+						<td>double</td>
+						<td>Projectile Resilience</td>
+						<td>弹射物抗性</td>
+						<td>越大越不容易被矛等投掷出的物品砸破</td>
+					</tr>
+					<tr>
+						<td>70</td>
+						<td>double</td>
+						<td>Nutritional Value</td>
+						<td>营养价值</td>
+						<td>大于0时可以食用，范围0-1，食用增加等量饱食度</td>
+					</tr>
+					<tr>
+						<td>71</td>
+						<td>uint</td>
+						<td>Food Type</td>
+						<td>食物类型</td>
+						<td>可自定义，Database.xml中规定了每种动物对不同食物类型的喜好程度，原版有Fruit、Grass、Meat、Fish</td>
+					</tr>
+					<tr>
+						<td>72</td>
+						<td>uint</td>
+						<td>Default Texture Slot</td>
+						<td>默认材质位置</td>
+						<td>材质图上从左向右，从上向下排列顺序，第一个（草地顶面）是0，第二个（花岗岩）是1</td>
+					</tr>
+					<tr>
+						<td>73</td>
+						<td>double</td>
+						<td>Destruction Debris Scale</td>
+						<td>破坏碎片大小缩放</td>
+						<td>方块被破坏时爆出的一堆碎片一样的东西的大小缩放倍数</td>
+					</tr>
+					<tr>
+						<td>74</td>
+						<td>String</td>
+						<td>Default Description</td>
+						<td>默认描述</td>
+						<td>会在游戏帮助的方块说明界面出现，可以随意删除添加内容</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="chapter" id="cont_3">
+			<h1>第三节 启发例子</h1>
+			<div class="content">
+					(提示：善于使用查找替换功能以及<a href="regex_tutorial.html">正则表达式</a>，方便批量修改。)
+			</div>
+
+			<div class="section">
+				<h2>1.物体发光</h2>
+				<div class="content">
+					这里的物品必须是可以放置的，船和矛什么的也不行<br />
+					修改要修改的方块的Emitted Light Amount为9~22,Light Attenuation为大于0（一般改为1）
+				</div>
+			</div>
+			<div class="section">
+				<h2>2.狙击矛</h2>
+				<div class="content">
+					修改要修改的可投掷方块的Projectile Speed为较大值(例如9999)，Projectile Damping为0(会导致超时空现象，即瞬间击中目标并弹回到主角面前，也可不改)
+				</div>
+			</div>
+			<div class="section">
+				<h2>3.铁砂掌</h2>
+				<div class="content">
+					(生存模式像创造模式一样破坏物品)<br />
+					修改所有方块的Dig Resilience为0
+				</div>
+			</div>
+			<div class="section">
+				<h2>4.超级工具</h2>
+				<div class="content">
+					即秒砍挖铲杀，耐久几乎无限。<br />
+					修改要修改的工具方块的ShovelPower，QuarryPower，HackPower为99，DefaultMeleePower或DefaultProjectilePower为999(虎鲸攻击抗性为200)，ToolLevel为4，ToolDurability为50000(没人用的完，比无限省3个字节，且太大容易出错)
+				</div>
+			</div>
+			<div class="section">
+				<h2>5.超级大炮</h2>
+				<div class="content">
+					修改任意火药桶方块的Default Explosion Pressure为99999，作镗的方块的Explosion Resilience为Infinity
+				</div>
+			</div>
+			<div class="section">
+				<h2>6.会掉落物品的水，岩浆，火</h2>
+				<div class="content">
+					修改WaterBlock、MagmaBlock、FireBlock的Digging Transparent为FALSE，Default Drop Content为你想要让它掉落的方块，Dig Method若原来为空，则需要改为一种工具类别，包括Shovel、Quarry、Hack
+				</div>
+			</div>
+			<div class="section">
+				<h2>7.基岩综合</h2>
+				<div class="content">
+					（基岩可挖掘，拾取，创造模式提供）<br />
+					修改BedrockBlock的Is Placeable、Is Gatherable为TRUE，Default Creative Data、Dig Resilience为0
+				</div>
+			</div>
+			<div class="section">
+				<h2>8.水透视</h2>
+				<div class="content">
+					(通过水看地下岩浆分布，也会带来副作用，大海表面被草原覆盖)<br />
+					修改WaterBlock的Is Transparent为FALSE，Light Attenuation为0，Emitted Light Amount为适当值使方块发光
+				</div>
+			</div>
+			<div class="section">
+				<h2>9.超级挖沙挖落岩</h2>
+				<div class="content">
+					(挖一块连着它的方块全部破坏)<br />
+					修改SandBlock和GraveBlock的Is Transparent为TRUE，Shadow Strength为大于等于0的数。
+				</div>
+			</div>
+			<div class="section">
+				<h2>10.快速除水</h2>
+				<div class="content">
+					（引爆大炸弹将一定范围内流体（水和岩浆）全部炸掉，同时大炸弹可以直接放置于水中并在水中爆炸，而其他方块不受影响；空气能阻止流体继续流动）<br />
+					修改WaterBlock和MagmaBlock的ExplosionResilience为0，IsExplosionTransparent为True，修改WaterBlock的IsPlacementTransparent为False，修改LargeGunpowderKegBlock的IsFluidBlocker为True，DefaultExplosionPressure为99999，修改除WaterBlock和MagmaBlock外所有方块的ExplosionResilience为Infinity
+				</div>
+			</div>
+
+		</div>
+
+		<div class="chapter" id="cont_appendix">
+			<h1>附录</h1>
+			<div class="content">
+					注：本附录最后一次更新对应的游戏版本为1.25左右
+			</div>
+			<div class="content">
+				<h3>(1)此项输入以下内容此方块将获得各种不同特殊属性，原来留空但有特殊属性的不会发生覆盖，而会同时拥有这两种特殊属性(收集于Database.xml)</h3>
+				<div style="font-size:10pt;">
+					<ul>
+						<li>FertilizerBlockBehavior此方块可作为肥料使用，同时将导致不可放置。发现：TallGrassBlock有此属性时，地形生成时该方块下方的土块会一同消失</li>
+						<li>FireBlockBehavior此方块将自燃并消失，并引燃其他可燃物，也可直接点可燃物上表面点燃该物品</li>
+						<li>MatchBlockBehavior此方块成为火柴，可点燃可燃物，将不可放置</li>
+						<li>RakeBlockBehavior此方块可作为耙子使用</li>
+						<li>SaplingBlockBehavior此方块放置到土地上如果条件适合，将长成Oak树，若条件不允许将直接消失。用途示例：让杂草长成树木</li>
+						<li>CactusBlockBehavior此方块将从上面长出仙人掌，如果此方块不是沙子，长出的仙人掌将直接破坏并掉落，此方块也将只能放置在沙子和仙人掌上表面。用途示例：长满仙人掌沙漠，沙滩；刷仙人掌机</li>
+						<li>IvyBlockBehavior此方块若透明将只能挂在树上(未知原因经常挂不上)，并向下长出此方块。用途示例：刷物品机</li>
+						<li>TreasureGeneratorBlockBehavior此方块将在周围有方块变为空气时随机掉落宝物。</li>
+						<li>SaddleBlockBehavior此方块将可作为马鞍使用</li>
+						<li>WhistleBlockBehavior此方块将可作为哨子使用，并将不可放置</li>
+						<li>ThrowableBlockBehavior此方块将可投掷，需要调整其他和投掷有关属性</li>
+						<li>MagnetBlockBehavior此方块被放置后将相当于一个磁铁</li>
+						<li>ExplosivesBlockBehavior此方块将可爆炸，需要调整其他和爆炸有关属性。</li>
+						<li>MagmaBlockBehavior此方块将点燃周围可燃物如果该物品可燃则自己也会燃烧。不一定对所有方块有效</li>
+						<li>GrassBlockBehavior此方块上表面放置实心方块后变成DirtBlock</li>
+						<li>SoilBlockBehavior此方块上表面放置实心方块后变成DirtBlock</li>
+						<li>BombBlockBehavior此方块投掷出后可爆炸，同时也会影响Is Stickable</li>
+						<li>BowBlockBehavior有此属性后该方块在物品栏放一个弓箭到上面会变成弓</li>
+					</ul>
+				</div>
+			</div>
+			<div class="content">
+				<h3>(2)一些有效果但不知道如何有那种方块原本拥有的特殊属性的属性：</h3>
+				<div style="font-size:10pt;">
+					<ul>
+						<li>GraveBlockBehavior将可导致方块只能放到一个方块上表面，下方方块被破坏后上面的此方块将破坏(原版GraveBlock会向下掉落)。用途示例：撸树mod</li>
+						<li>SignBlockBehavior</li>
+						<li>BatteryBlockBehavior</li>
+						<li>ElectricBlockBehavior</li>
+						<li>BucketBlockBehavior</li>
+						<li>MatersBlockBehavior</li>
+						<li>MemoryBlockBehavior</li>
+						<li>FenceGateBlockBehavior</li>
+						<li>FenceBlockBehavior(Fence类无此属性将不能和其他Fence类连接)</li>
+						<li>ArrowBlockBehavior弓箭和弩箭都是ArrowBlock，含有此属性</li>
+						<li>StairsBlockBehavior</li>
+						<li>EggBlockBehavior</li>
+						<li>CollapsingBlockBehavior</li>
+						<li>BoatBlockBehavior</li>
+						<li>ImpactExplosivesBlockBehavior炸弹都有此属性，但去掉不影响</li>
+						<li>CrossbowBlockBehavior</li>
+					</ul>
+				</div>
+			</div>
+			<div class="content">
+				<h3>(3)直接报错的属性</h3>
+				<div style="font-size:10pt;">
+					<ul>
+						<li>TruthTableBlockBehavior</li>
+						<li>TorchBlockBehavior</li>
+						<li>LedBlockBehavior</li>
+						<li>LadderBlockBehavior</li>
+						<li>PlantBlockBehavior</li>
+						<li>WoodBlockBehavior</li>
+						<li>TrapDoorBlockBehavior</li>
+						<li>GravestoneBlockBehavior</li>
+						<li>SnowBlockBehavior</li>
+						<li>GrassTrapBlockBehavior</li>
+						<li>SpikesBlockBehavior</li>
+						<li>ChestBlockBehavior</li>
+						<li>CraftingTableBlockBehavior</li>
+						<li>FurnaceBlockBehavior</li>
+						<li>WaterBlockBehavior</li>
+						<li>DoorBlockBehavior</li>
+						<li>FluidBlockBehavior</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="chapter">
+			<h1>附件</h1>
+			<div class="content">
+				<a href="http://pan.baidu.com/share/link?shareid=170360941&uk=2788149454" target="_blank">表格化1.26Blocksdata</a>
+			</div>
+		</div>
+		<br />
 	</div>
 </div>
 
-<!--内容栏-->
-<div id="content_box">
-	<div class="chapter" id="cont_1">
-		<h1>第一节 数据类型</h1>
-		<span style="font-size:10pt; display:block; font-weight:bold;">——每个属性能够支持的数据类型</span>
-		<div class="content">
-			<table>
-				<tr style="font-weight:bold; text-align:center">
-					<td>英文名</td>
-					<td>中文名</td>
-					<td>数值范围</td>
-				</tr>
-				<tr>
-					<td>Boolean</td>
-					<td>布尔值</td>
-					<td>[TRUE/FALSE]</td>
-				</tr>
-				<tr>
-					<td>int</td>
-					<td>4字节整数</td>
-					<td>[-2147483648 ~ 2147483647]</td>
-				</tr>
-				<tr>
-					<td>uint</td>
-					<td>4字节非负整数</td>
-					<td>[0 ~ 4294967295]</td>
-				</tr>
-				<tr>
-					<td>double</td>
-					<td>双精度浮点数</td>
-					<td>[-10e+17 ~ +10e+308]</td>
-				</tr>
-				<tr>
-					<td>String</td>
-					<td>字符串</td>
-					<td>不超过256字符的任意内容</td>
-				</tr>
-				<tr>
-					<td>Array</td>
-					<td>数组</td>
-					<td>逗号分隔的一组数字</td>
-				</tr>
-				<tr>
-					<td colspan=3 style="text-align:center">特殊值：Infinity 无穷大[仅限double类型]</td>
-				</tr>
-			</table>
-		</div>
-	</div>
-
-	<div class="chapter" id="cont_2">
-		<h1>第二节 内容详解</h2>
-		<span style="font-size:10pt; display:block; font-weight:bold;">——每一行第n个分号之后所代表的内容详解</span>
-		<div class="content" style="overflow-x:auto;">
-			<table style="font-size:10pt;">
-				<tr style="font-weight:bold; text-align:center;">
-					<td>n</td>
-					<td nowrap>数据类型</td>
-					<td>英文原名</td>
-					<td nowrap>中文翻译</td>
-					<td>说明</td>
-				</tr>
-				<tr>
-					<td>0</td>
-					<td>String</td>
-					<td>Class Name</td>
-					<td>类名</td>
-					<td>游戏内部文件使用的名字，例如物品被破坏和动物死亡掉落的物品就要用到</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>String</td>
-					<td>Default Display Name</td>
-					<td>默认显示名称</td>
-					<td>游戏中玩家看到的物品名字</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>String</td>
-					<td>Default Category</td>
-					<td>默认类别</td>
-					<td>帮助中的类别</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>String</td>
-					<td>Behaviors</td>
-					<td>行为</td>
-					<td>即特殊属性多种行为可以用逗号隔开，详情见<a href="#cont_appendix">附录</a></td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>uint</td>
-					<td>Display Order</td>
-					<td>显示顺序</td>
-					<td>游戏中创造模式物品栏中物品的显示顺序(同时是这个方块在该文件中所在的行数)</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>Array(2)</td>
-					<td>Icon Block Offset</td>
-					<td>图标偏移</td>
-					<td>x,y方向</td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>Array(3)</td>
-					<td>Icon View Offset</td>
-					<td>图标偏移</td>
-					<td> </td>
-				</tr>
-				<tr>
-					<td>7</td>
-					<td>uint</td>
-					<td>Default Icon View Scale</td>
-					<td>默认图标视角大小缩放</td>
-					<td>在物品栏里显示的大小</td>
-				</tr>
-				<tr>
-					<td>8</td>
-					<td>uint</td>
-					<td>First Person Scale</td>
-					<td>第一人称大小缩放</td>
-					<td>第一人称视角下手持物品的大小缩放倍数</td>
-				</tr>
-				<tr>
-					<td>9</td>
-					<td>uint</td>
-					<td>First Person Offset</td>
-					<td>第一人称位置偏移</td>
-					<td>第一人称视角下手持物品的位置偏移</td>
-				</tr>
-				<tr>
-					<td>10</td>
-					<td>uint</td>
-					<td>First Person Rotation</td>
-					<td>第一人称物品旋转</td>
-					<td>第一人称视角下手持物品的旋转角度</td>
-				</tr>
-				<tr>
-					<td>11</td>
-					<td>uint</td>
-					<td>In Hand Scale</td>
-					<td>在手里的大小缩放</td>
-					<td>第三人称视角下手持物品的大小缩放倍数</td>
-				</tr>
-				<tr>
-					<td>12</td>
-					<td>Array(2)</td>
-					<td>In Hand Offset</td>
-					<td>在手里的位置偏移</td>
-					<td>第三人称视角下手持物品的位置偏移</td>
-				</tr>
-				<tr>
-					<td nowrap>13</td>
-					<td>uint</td>
-					<td>In Hand Rotation</td>
-					<td>在手里时旋转角度</td>
-					<td>第三人称视角下手持物品的旋转角度</td>
-				</tr>
-				<tr>
-					<td>14</td>
-					<td>String</td>
-					<td>CraftingId</td>
-					<td>合成标识</td>
-					<td>在CraftingRecipes.xml中作为合成材料时方块标识</td>
-				</tr>
-				<tr>
-					<td>15</td>
-					<td>int</td>
-					<td>Default Creative Data</td>
-					<td>默认创造模式是否提供</td>
-					<td>-1不提供，0创造模式免费提供</td>
-				</tr>
-				<tr>
-					<td>16</td>
-					<td>Boolean</td>
-					<td>Is Collidable</td>
-					<td>是否可碰撞</td>
-					<td>当此项为FALSE时，主角和动物可以穿过它(例如草和花)；TRUE时则不可穿过（例如石头和土）</td>
-				</tr>
-				<tr>
-					<td>17</td>
-					<td>Boolean</td>
-					<td>Is Placeable</td>
-					<td>是否可放置</td>
-					<td>工具武器什么的改成TRUE便可以放置到地上，但不可见</td>
-				</tr>
-				<tr>
-					<td>18</td>
-					<td>Boolean</td>
-					<td>Is Digging Transparent</td>
-					<td>挖掘时是否透明</td>
-					<td>是否可挖掘</td>
-				</tr>
-				<tr>
-					<td>19</td>
-					<td>Boolean</td>
-					<td>Is Placement Transparent</td>
-					<td>是否放置透明</td>
-					<td>是否可以在它上面放东西，如果是TRUE就会点到后面的方块来放置</td>
-				</tr>
-				<tr>
-					<td>20</td>
-					<td>Boolean</td>
-					<td>Is Interactive</td>
-					<td>是否交互</td>
-					<td>电器此项为TRUE，但改了没任何效果</td>
-				</tr>
-				<tr>
-					<td>21</td>
-					<td>Boolean</td>
-					<td>Is Editable</td>
-					<td>是否可编辑</td>
-					<td>内存条，真值表此值为TRUE</td>
-				</tr>
-				<tr>
-					<td>22</td>
-					<td>Boolean</td>
-					<td>Is Gatherable</td>
-					<td>是否可收集</td>
-					<td>即可不可以捡起来</td>
-				</tr>
-				<tr>
-					<td>23</td>
-					<td>Boolean</td>
-					<td>Has Collision Behavior</td>
-					<td>是否有碰撞动作</td>
-					<td>压力板此属性为true，改其他物品貌似无效果</td>
-				</tr>
-				<tr>
-					<td>24</td>
-					<td>Boolean</td>
-					<td>Kills When Stuck</td>
-					<td>卡住时杀死卡在其中的实体</td>
-					<td>仙人掌和倒刺板此值为TRUE</td>
-				</tr>
-				<tr>
-					<td>25</td>
-					<td>Boolean</td>
-					<td>Is Fluid Blocker</td>
-					<td>能否阻挡流体</td>
-					<td>流体指水和岩浆，空气此属性为TRUE时它们就不会乱流了</td>
-				</tr>
-				<tr>
-					<td>26</td>
-					<td>Boolean</td>
-					<td>Is Transparent</td>
-					<td>是否透明</td>
-					<td>即是否实体，是就代表材质透明时黑的，否就代表透明材质时透明。同时决定是否被沙子压碎。还和方块刷新位置有关，如果玄武岩上方会长生的方块此属性为”TRUE”时就会刷新到地面（直接在草地上）</td>
-				</tr>
-				<tr>
-					<td>27</td>
-					<td>uint</td>
-					<td>Shadow Strength</td>
-					<td>阴影强度（-1~15）</td>
-					<td>-1就是实体方块，方块透明的同时还必须把它改成大于等于0</td>
-				</tr>
-				<tr>
-					<td>28</td>
-					<td>uint</td>
-					<td>Light Attenuation</td>
-					<td>光衰减</td>
-					<td>仅透明方块有效，光透过方块时衰减的亮度，越小越透光</td>
-				</tr>
-				<tr>
-					<td>29</td>
-					<td>uint</td>
-					<td>Emitted Light Amount</td>
-					<td>发光强度</td>
-					<td>9时照亮一格，15时照亮7格，以上虽然照亮更大范围，但会出bug，最大23</td>
-				</tr>
-				<tr>
-					<td>30</td>
-					<td>uint</td>
-					<td>Object Shadow Strength</td>
-					<td>物体阴影强度</td>
-					<td> </td>
-				</tr>
-				<tr>
-					<td>31</td>
-					<td>String</td>
-					<td>Default Drop Content</td>
-					<td>默认掉落物品</td>
-					<td>写#号开头的要掉落的物品的标识符。花，稻子没法改，若掉落自己本身，直接写个#就行</td>
-				</tr>
-				<tr>
-					<td>32</td>
-					<td>uint</td>
-					<td>Default Drop Count</td>
-					<td>默认掉落数量</td>
-					<td> </td>
-				</tr>
-				<tr>
-					<td>33</td>
-					<td>uint</td>
-					<td>Required Tool Level</td>
-					<td>需求工具等级</td>
-					<td>挖掘时需求的装备等级，钻石矿为4</td>
-				</tr>
-				<tr>
-					<td>34</td>
-					<td>uint</td>
-					<td>Max Stacking</td>
-					<td>最大背包</td>
-					<td>箱子,工作台和火炉里可以堆叠的数量</td>
-				</tr>
-				<tr>
-					<td>35</td>
-					<td>uint</td>
-					<td>Max In Hand Stacking</td>
-					<td>最大手持</td>
-					<td>下面6个方框堆叠数量</td>
-				</tr>
-				<tr>
-					<td>36</td>
-					<td>Boolean</td>
-					<td>Sleep Suitability</td>
-					<td>适合睡觉</td>
-					<td>0.5好像是最适合，0代表不能睡</td>
-				</tr>
-				<tr>
-					<td>37</td>
-					<td>double</td>
-					<td>Friction Factor</td>
-					<td>（行走）摩擦系数</td>
-					<td>越小越滑，为0时无法走动</td>
-				</tr>
-				<tr>
-					<td>38</td>
-					<td>double</td>
-					<td>Density</td>
-					<td>密度</td>
-					<td>物品掉落水中浮沉的指标</td>
-				</tr>
-				<tr>
-					<td>39</td>
-					<td>Boolean</td>
-					<td>No Auto Jump</td>
-					<td>走上方块不执行自动跳跃</td>
-					<td>此值为TRUE时面前遇到一格高此方块将自动停住或绕道</td>
-				</tr>
-				<tr>
-					<td>40</td>
-					<td>Boolean</td>
-					<td>No Smooth Rise</td>
-					<td>进入其中不执行流畅上升</td>
-					<td>其中栅栏此属性为TRUE所以动物不会跳过去</td>
-				</tr>
-				<tr>
-					<td>41</td>
-					<td>uint</td>
-					<td>Fuel Heat Level</td>
-					<td>燃料等级</td>
-					<td>只有煤的此属性是2, 烧铁块需求的等级是2</td>
-				</tr>
-				<tr>
-					<td>42</td>
-					<td>uint</td>
-					<td>Fuel Fire Duration</td>
-					<td>燃料燃烧持续时间</td>
-					<td>相当于热值,越大烧的时间越长，产出越多</td>
-				</tr>
-				<tr>
-					<td>43</td>
-					<td>String</td>
-					<td>Sound Material Name</td>
-					<td>声音材料名称</td>
-					<td>对应到Content/Audio里的文件</td>
-				</tr>
-				<tr>
-					<td>44</td>
-					<td>String</td>
-					<td>Digging Sounds Folder</td>
-					<td>挖掘声音文件夹</td>
-					<td>被挖掘时发出的声音所在的位置</td>
-				</tr>
-				<tr>
-					<td>45</td>
-					<td>double</td>
-					<td>Digging Sounds Volume</td>
-					<td>挖掘声音音量</td>
-					<td> </td>
-				</tr>
-				<tr>
-					<td>46</td>
-					<td>double</td>
-					<td>Destruction Sounds Volume</td>
-					<td>破坏声音音量</td>
-					<td> </td>
-				</tr>
-				<tr>
-					<td>47</td>
-					<td>double</td>
-					<td>Shovel Power</td>
-					<td>铲子效率</td>
-					<td rowspan=3>各种工具（ShovelPower等）是挖掘速度（每秒）（不含反应/识别时间）例如Quarry Power是20的工具挖Dig Resilience是60的方块要3秒空手的速度目前测得全部为1</td>
-				</tr>
-				<tr>
-					<td>48</td>
-					<td>double</td>
-					<td>Quarry Power</td>
-					<td>镐子效率</td>
-				</tr>
-				<tr>
-					<td>49</td>
-					<td>double</td>
-					<td>Hack Power</td>
-					<td>斧头效率</td>
-				</tr>
-				<tr>
-					<td>50</td>
-					<td>double</td>
-					<td>Default Melee Power</td>
-					<td>打击(近战)攻击力</td>
-					<td> </td>
-				</tr>
-				<tr>
-					<td>51</td>
-					<td>double</td>
-					<td>Default Melee Hit Probability</td>
-					<td>默认近战击中概率</td>
-					<td>在1.27某些版本中，它处于DefaultMeleePower与DefaultProjectilePower之间，现已消失</td>
-				</tr>
-				<tr>
-					<td>52</td>
-					<td>double</td>
-					<td>Default Projectile Power</td>
-					<td>投掷攻击力</td>
-					<td>丢出去的物品的攻击力</td>
-				</tr>
-				<tr>
-					<td>53</td>
-					<td>uint</td>
-					<td>Tool Level</td>
-					<td>工具等级</td>
-					<td>木头工具该属性为1，石头为2，铁为3，钻石为4</td>
-				</tr>
-				<tr>
-					<td>54</td>
-					<td>uint</td>
-					<td>Durability</td>
-					<td>工具耐久度</td>
-					<td>即使用次数，建议不要超过七万</td>
-				</tr>
-				<tr>
-					<td>55</td>
-					<td>Boolean</td>
-					<td>Is Aimable</td>
-					<td>是否可瞄准</td>
-					<td>可投掷物品及弓此属性都为TRUE</td>
-				</tr>
-				<tr>
-					<td>56</td>
-					<td>Boolean</td>
-					<td>Is Stickable</td>
-					<td>击中方块是否停留</td>
-					<td>比如矛的为TRUE，煤，铁锭为FALSE。若该方块有BombBlockBehavior则按一定概率穿过Projectile Stick Probability大于0的方块</td>
-				</tr>
-				<tr>
-					<td>57</td>
-					<td>Boolean</td>
-					<td>Align To Velocity</td>
-					<td>成直线速率</td>
-					<td>此值为TRUE时该物品被抛出看起来是横向的(例如矛)，不建议给无3D模型的物品调成TRUE（实在不知如何翻译）</td>
-				</tr>
-				<tr>
-					<td>58</td>
-					<td>double</td>
-					<td>Projectile Speed</td>
-					<td>投掷速度</td>
-					<td>亲测就是最大投掷距离</td>
-				</tr>
-				<tr>
-					<td>59</td>
-					<td>double</td>
-					<td>Projectile Damping</td>
-					<td>投掷阻力(衰减)</td>
-					<td>改为零出现超时空现象</td>
-				</tr>
-				<tr>
-					<td>60</td>
-					<td>Array(3)</td>
-					<td>Projectile Tip Offset</td>
-					<td>扔出点偏移</td>
-					<td> </td>
-				</tr>
-				<tr>
-					<td>61</td>
-					<td>Boolean</td>
-					<td>Disintegrates On Hit</td>
-					<td>撞击时碎裂</td>
-					<td>蛋的此属性为TRUE</td>
-				</tr>
-				<tr>
-					<td>62</td>
-					<td>double</td>
-					<td>Projectile Stick Probability</td>
-					<td>物品粘性可能性</td>
-					<td>使IsStickable为TRUE的方块被投掷到它上面粘住的可能性(若那个物品有BombBlockBehavior属性则为穿过可能性)</td>
-				</tr>
-				<tr>
-					<td>63</td>
-					<td>double</td>
-					<td>Fire Duration</td>
-					<td>露天点火持续时间</td>
-					<td>这个值改成小数会向下取整</td>
-				</tr>
-				<tr>
-					<td>64</td>
-					<td>double</td>
-					<td>Explosion Resilience</td>
-					<td>爆炸抗性</td>
-					<td>爆炸血量，越大越耐炸，可以为无限</td>
-				</tr>
-				<tr>
-					<td>65</td>
-					<td>double</td>
-					<td>Default Explosion Pressure</td>
-					<td>默认爆炸压力</td>
-					<td>此值影响爆炸范围和威力。对范围的影响是要多少倍范围乘1后面多少个0，例如2倍范围数值需要乘100。威力和此值成正比，为每秒的伤害</td>
-				</tr>
-				<tr>
-					<td>66</td>
-					<td>uint</td>
-					<td>IsExplosionTransparent</td>
-					<td>是否爆炸透明</td>
-					<td>此值为TRUE时该物品可被炸飞</td>
-				</tr>
-				<tr>
-					<td>67</td>
-					<td>String</td>
-					<td>Dig Method</td>
-					<td>挖掘方法</td>
-					<td>取消挖掘透明这里至少要选一种工具</td>
-				</tr>
-				<tr>
-					<td>68</td>
-					<td>double</td>
-					<td>Dig Resilience</td>
-					<td>挖掘抗性</td>
-					<td>越大要挖得越久，基岩这个属性是无限</td>
-				</tr>
-				<tr>
-					<td>69</td>
-					<td>double</td>
-					<td>Projectile Resilience</td>
-					<td>弹射物抗性</td>
-					<td>越大越不容易被矛等投掷出的物品砸破</td>
-				</tr>
-				<tr>
-					<td>70</td>
-					<td>double</td>
-					<td>Nutritional Value</td>
-					<td>营养价值</td>
-					<td>大于0时可以食用，范围0-1，食用增加等量饱食度</td>
-				</tr>
-				<tr>
-					<td>71</td>
-					<td>uint</td>
-					<td>Food Type</td>
-					<td>食物类型</td>
-					<td>可自定义，Database.xml中规定了每种动物对不同食物类型的喜好程度，原版有Fruit、Grass、Meat、Fish</td>
-				</tr>
-				<tr>
-					<td>72</td>
-					<td>uint</td>
-					<td>Default Texture Slot</td>
-					<td>默认材质位置</td>
-					<td>材质图上从左向右，从上向下排列顺序，第一个（草地顶面）是0，第二个（花岗岩）是1</td>
-				</tr>
-				<tr>
-					<td>73</td>
-					<td>double</td>
-					<td>Destruction Debris Scale</td>
-					<td>破坏碎片大小缩放</td>
-					<td>方块被破坏时爆出的一堆碎片一样的东西的大小缩放倍数</td>
-				</tr>
-				<tr>
-					<td>74</td>
-					<td>String</td>
-					<td>Default Description</td>
-					<td>默认描述</td>
-					<td>会在游戏帮助的方块说明界面出现，可以随意删除添加内容</td>
-				</tr>
-			</table>
-		</div>
-	</div>
-
-	<div class="chapter" id="cont_3">
-		<h1>第三节 启发例子</h1>
-		<div class="content">
-				(提示：善于使用查找替换功能以及<a href="regex_tutorial.html">正则表达式</a>，方便批量修改。)
-		</div>
-
-		<div class="section">
-			<h2>1.物体发光</h2>
-			<div class="content">
-				这里的物品必须是可以放置的，船和矛什么的也不行<br />
-				修改要修改的方块的Emitted Light Amount为9~22,Light Attenuation为大于0（一般改为1）
-			</div>
-		</div>
-		<div class="section">
-			<h2>2.狙击矛</h2>
-			<div class="content">
-				修改要修改的可投掷方块的Projectile Speed为较大值(例如9999)，Projectile Damping为0(会导致超时空现象，即瞬间击中目标并弹回到主角面前，也可不改)
-			</div>
-		</div>
-		<div class="section">
-			<h2>3.铁砂掌</h2>
-			<div class="content">
-				(生存模式像创造模式一样破坏物品)<br />
-				修改所有方块的Dig Resilience为0
-			</div>
-		</div>
-		<div class="section">
-			<h2>4.超级工具</h2>
-			<div class="content">
-			    即秒砍挖铲杀，耐久几乎无限。<br />
-				修改要修改的工具方块的ShovelPower，QuarryPower，HackPower为99，DefaultMeleePower或DefaultProjectilePower为999(虎鲸攻击抗性为200)，ToolLevel为4，ToolDurability为50000(没人用的完，比无限省3个字节，且太大容易出错)
-			</div>
-		</div>
-		<div class="section">
-			<h2>5.超级大炮</h2>
-			<div class="content">
-				修改任意火药桶方块的Default Explosion Pressure为99999，作镗的方块的Explosion Resilience为Infinity
-			</div>
-		</div>
-		<div class="section">
-			<h2>6.会掉落物品的水，岩浆，火</h2>
-			<div class="content">
-				修改WaterBlock、MagmaBlock、FireBlock的Digging Transparent为FALSE，Default Drop Content为你想要让它掉落的方块，Dig Method若原来为空，则需要改为一种工具类别，包括Shovel、Quarry、Hack
-			</div>
-		</div>
-		<div class="section">
-			<h2>7.基岩综合</h2>
-			<div class="content">
-			    （基岩可挖掘，拾取，创造模式提供）<br />
-				修改BedrockBlock的Is Placeable、Is Gatherable为TRUE，Default Creative Data、Dig Resilience为0
-			</div>
-		</div>
-		<div class="section">
-			<h2>8.水透视</h2>
-			<div class="content">
-				(通过水看地下岩浆分布，也会带来副作用，大海表面被草原覆盖)<br />
-				修改WaterBlock的Is Transparent为FALSE，Light Attenuation为0，Emitted Light Amount为适当值使方块发光
-			</div>
-		</div>
-		<div class="section">
-			<h2>9.超级挖沙挖落岩</h2>
-			<div class="content">
-				(挖一块连着它的方块全部破坏)<br />
-				修改SandBlock和GraveBlock的Is Transparent为TRUE，Shadow Strength为大于等于0的数。
-			</div>
-		</div>
-		<div class="section">
-			<h2>10.快速除水</h2>
-			<div class="content">
-				（引爆大炸弹将一定范围内流体（水和岩浆）全部炸掉，同时大炸弹可以直接放置于水中并在水中爆炸，而其他方块不受影响；空气能阻止流体继续流动）<br />
-				修改WaterBlock和MagmaBlock的ExplosionResilience为0，IsExplosionTransparent为True，修改WaterBlock的IsPlacementTransparent为False，修改LargeGunpowderKegBlock的IsFluidBlocker为True，DefaultExplosionPressure为99999，修改除WaterBlock和MagmaBlock外所有方块的ExplosionResilience为Infinity
-			</div>
-		</div>
-
-	</div>
-
-	<div class="chapter" id="cont_appendix">
-		<h1>附录</h1>
-		<div class="content">
-				注：本附录最后一次更新对应的游戏版本为1.25左右
-		</div>
-		<div class="content">
-			<h3>(1)此项输入以下内容此方块将获得各种不同特殊属性，原来留空但有特殊属性的不会发生覆盖，而会同时拥有这两种特殊属性(收集于Database.xml)</h3>
-			<div style="font-size:10pt;">
-				<ul>
-					<li>FertilizerBlockBehavior此方块可作为肥料使用，同时将导致不可放置。发现：TallGrassBlock有此属性时，地形生成时该方块下方的土块会一同消失</li>
-					<li>FireBlockBehavior此方块将自燃并消失，并引燃其他可燃物，也可直接点可燃物上表面点燃该物品</li>
-					<li>MatchBlockBehavior此方块成为火柴，可点燃可燃物，将不可放置</li>
-					<li>RakeBlockBehavior此方块可作为耙子使用</li>
-					<li>SaplingBlockBehavior此方块放置到土地上如果条件适合，将长成Oak树，若条件不允许将直接消失。用途示例：让杂草长成树木</li>
-					<li>CactusBlockBehavior此方块将从上面长出仙人掌，如果此方块不是沙子，长出的仙人掌将直接破坏并掉落，此方块也将只能放置在沙子和仙人掌上表面。用途示例：长满仙人掌沙漠，沙滩；刷仙人掌机</li>
-					<li>IvyBlockBehavior此方块若透明将只能挂在树上(未知原因经常挂不上)，并向下长出此方块。用途示例：刷物品机</li>
-					<li>TreasureGeneratorBlockBehavior此方块将在周围有方块变为空气时随机掉落宝物。</li>
-					<li>SaddleBlockBehavior此方块将可作为马鞍使用</li>
-					<li>WhistleBlockBehavior此方块将可作为哨子使用，并将不可放置</li>
-					<li>ThrowableBlockBehavior此方块将可投掷，需要调整其他和投掷有关属性</li>
-					<li>MagnetBlockBehavior此方块被放置后将相当于一个磁铁</li>
-					<li>ExplosivesBlockBehavior此方块将可爆炸，需要调整其他和爆炸有关属性。</li>
-					<li>MagmaBlockBehavior此方块将点燃周围可燃物如果该物品可燃则自己也会燃烧。不一定对所有方块有效</li>
-					<li>GrassBlockBehavior此方块上表面放置实心方块后变成DirtBlock</li>
-					<li>SoilBlockBehavior此方块上表面放置实心方块后变成DirtBlock</li>
-					<li>BombBlockBehavior此方块投掷出后可爆炸，同时也会影响Is Stickable</li>
-					<li>BowBlockBehavior有此属性后该方块在物品栏放一个弓箭到上面会变成弓</li>
-				</ul>
-			</div>
-		</div>
-		<div class="content">
-			<h3>(2)一些有效果但不知道如何有那种方块原本拥有的特殊属性的属性：</h3>
-			<div style="font-size:10pt;">
-				<ul>
-					<li>GraveBlockBehavior将可导致方块只能放到一个方块上表面，下方方块被破坏后上面的此方块将破坏(原版GraveBlock会向下掉落)。用途示例：撸树mod</li>
-					<li>SignBlockBehavior</li>
-					<li>BatteryBlockBehavior</li>
-					<li>ElectricBlockBehavior</li>
-					<li>BucketBlockBehavior</li>
-					<li>MatersBlockBehavior</li>
-					<li>MemoryBlockBehavior</li>
-					<li>FenceGateBlockBehavior</li>
-					<li>FenceBlockBehavior(Fence类无此属性将不能和其他Fence类连接)</li>
-					<li>ArrowBlockBehavior弓箭和弩箭都是ArrowBlock，含有此属性</li>
-					<li>StairsBlockBehavior</li>
-					<li>EggBlockBehavior</li>
-					<li>CollapsingBlockBehavior</li>
-					<li>BoatBlockBehavior</li>
-					<li>ImpactExplosivesBlockBehavior炸弹都有此属性，但去掉不影响</li>
-					<li>CrossbowBlockBehavior</li>
-				</ul>
-			</div>
-		</div>
-		<div class="content">
-			<h3>(3)直接报错的属性</h3>
-			<div style="font-size:10pt;">
-				<ul>
-					<li>TruthTableBlockBehavior</li>
-					<li>TorchBlockBehavior</li>
-					<li>LedBlockBehavior</li>
-					<li>LadderBlockBehavior</li>
-					<li>PlantBlockBehavior</li>
-					<li>WoodBlockBehavior</li>
-					<li>TrapDoorBlockBehavior</li>
-					<li>GravestoneBlockBehavior</li>
-					<li>SnowBlockBehavior</li>
-					<li>GrassTrapBlockBehavior</li>
-					<li>SpikesBlockBehavior</li>
-					<li>ChestBlockBehavior</li>
-					<li>CraftingTableBlockBehavior</li>
-					<li>FurnaceBlockBehavior</li>
-					<li>WaterBlockBehavior</li>
-					<li>DoorBlockBehavior</li>
-					<li>FluidBlockBehavior</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="chapter">
-		<h1>附件</h1>
-		<div class="content">
-			<a href="http://pan.baidu.com/share/link?shareid=170360941&uk=2788149454" target="_blank">表格化1.26Blocksdata</a>
-		</div>
-	</div>
-	<br />
-</div>
 <script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
 </body>
 </html>

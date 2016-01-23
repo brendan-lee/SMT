@@ -1,27 +1,6 @@
-﻿/*	主样式表
-	作用于全部页面
-	更新日期 2015年8月7日	*/
-
-body, div, iframe, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4, table, th, td, input, button, select, textarea {
-	margin:0; 
-	padding:0;
-} 
-
-* {
+﻿* {
 	color:#373737;
 	font-family:Arial;
-}
-
-html {
-	background-color:#E4E4E4;
-	height:100%;
-}
-
-body {
-	height:100%;
-}
-#cont_wrapper {
-	display: none;
 }
 a:link, a:visited {
 	text-decoration: none; 

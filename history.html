@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 	<title>SMT历史</title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js"></script>
 	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
 	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
@@ -23,146 +24,154 @@
 </head>
 
 <body>
-<!--顶栏 按钮-->
-<div id="buttons">
-	<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
-	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
-</div>
+<iframe id="error" src="error.html"></iframe>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+	</script>
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
+		<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+	</div>
 
-<!--目录-->
-<div id="menu">
-	<li class="parent"><span onclick="menuTo('cont_1')">2013年</span></li>
-	<div class="divide_line"></div>
+	<!--目录-->
+	<div id="menu">
+		<li class="parent"><span onclick="menuTo('cont_1')">2013年</span></li>
+		<div class="divide_line"></div>
+		
+		<li class="parent"><span onclick="menuTo('cont_2')">2014年</span></li>
+		<div class="divide_line"></div>
+		
+		<li class="parent"><span onclick="menuTo('cont_3')">2015年</span></li>
+		<div class="divide_line"></div>
+	</div>
+	<!--导航-->
+	<div id="nav" class="nav"></div>
+	<div id="nav_overlay"></div>
 	
-	<li class="parent"><span onclick="menuTo('cont_2')">2014年</span></li>
-	<div class="divide_line"></div>
-	
-	<li class="parent"><span onclick="menuTo('cont_3')">2015年</span></li>
-	<div class="divide_line"></div>
-</div>
-<!--导航-->
-<div id="nav"></div>
-<div id="nav_bottom" onclick="navHide()"></div>
-<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
+	<!--顶栏-->
+	<div id="big_title_div" onclick="goTop()">SMT历史</div>
+	<div id="last_update">——更新日期 2015年8月7日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
 
-<!--顶栏-->
-<div id="big_title_div" onclick="goTop()">SMT历史</div>
-<div id="last_update">——更新日期 2015年8月7日——</div>
-<div id="top_box"></div>
-<div id="top_box_top"></div>
-<div id="top_box_strutting"></div>
-
-<!--内容栏-->
-<div id="content_box">
-	<div class="chapter" id="cont_1">
-		<date>2013年3月8日</date>
-		<div class="content">		
-			第一个至今仍能找到依据的mod——基岩mod改良版由百度贴吧-512542248发布
+	<!--内容栏-->
+	<div id="content_box">
+		<div class="chapter" id="cont_1">
+			<date>2013年3月8日</date>
+			<div class="content">		
+				第一个至今仍能找到依据的mod——基岩mod改良版由百度贴吧-512542248发布
+			</div>
 		</div>
+		<div class="chapter">
+			<date>2013年7月10日</date>
+			<div class="content">		
+				SMT组由百度贴吧-512542248组建，成为第一任组长，并开始第一次新组员邀请<br />
+				可能此日开始使用SMT第一版logo
+			</div>
+		</div>
+		<div class="chapter" id="cont_2">
+			<date>2014年1月23日</date>
+			<div class="content">		
+				百度贴吧-512542248第二次邀请新成员，组员达到30人<br />
+				开始使用SMT第二版logo
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2014年6月13日</date>
+			<div class="content">		
+				qq群-SMT无关讨论群（群号105035033）成立，供组员讨论无关事项
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2014年8月24日</date>
+			<div class="content">		
+				百度贴吧-512542248将组长转交给百度贴吧-销锋镝铸
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2014年8月28日</date>
+			<div class="content">		
+				SMT组规1.0beta由百度贴吧-销锋镝铸编写完成<br />
+				与百度贴吧-512542248、lzm956902416、_0超新星0_共同成立第一期SMT委员会<br />
+				第一期SMT委员会讨论SMT组规1.0beta，并做适量修改
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2014年9月1日</date>
+			<div class="content">		
+				SMT组规1.0beta2完成并在官方群发布
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2014年9月10日</date>
+			<div class="content">		
+				开始使用SMT第三版logo
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2014年10月16日</date>
+			<div class="content">		
+				百度贴吧-销锋镝铸开始制作网页版SMT导航（主版本号：1）
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2014年10月28日</date>
+			<div class="content">		
+				百度贴吧-lzm956902416对网页版SMT导航完成重制（主版本号：2）
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2014年11月17日</date>
+			<div class="content">		
+				百度贴吧-瞄准地雷制作出首个mod制作器
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2014年11月27日</date>
+			<div class="content">		
+				建立qq群-SMT组（群号430076592），原qq群-补丁组（群号302758716）改名为SMT组交流群（供组员讨论无关事项），原qq群-SMT无关讨论群（群号105035033）解散。
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2014年11月30日</date>
+			<div class="content">		
+				百度贴吧-_0超新星0_成为副组长
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2014年12月1日</date>
+			<div class="content">		
+				第三次邀请新组员
+			</div>
+		</div>	
+		<div class="chapter" id="cont_3">
+			<date>2015年1月28日</date>
+			<div class="content">		
+				SMT情报部成立，百度贴吧-512542248担任首任部长。SMT情报部在当时主要为应对组内资料外传事件进行调查取证，以及探查各工作室对mod的研究进展情况进行调查。
+			</div>
+		</div>	
+		<div class="chapter">
+			<date>2015年8月1日</date>
+			<div class="content">		
+				第一个组员花名册开始制作，同月3日基本完成
+			</div>
+		</div>
+		<div class="chapter">
+			<date>2015年8月5日</date>
+			<div class="content">		
+				用于对外公布的SMT导航2.6.6.9已基本完成，开始内测，并再次在网站上线<br />
+				QQ群-SMT组交流群改名为SC MOD交流群(SMT)，也开始用于给组外人员讨论mod，以及教学用途
+			</div>
+		</div>
+		<br />
 	</div>
-	<div class="chapter">
-		<date>2013年7月10日</date>
-		<div class="content">		
-			SMT组由百度贴吧-512542248组建，成为第一任组长，并开始第一次新组员邀请<br />
-			可能此日开始使用SMT第一版logo
-		</div>
-	</div>
-	<div class="chapter" id="cont_2">
-		<date>2014年1月23日</date>
-		<div class="content">		
-			百度贴吧-512542248第二次邀请新成员，组员达到30人<br />
-			开始使用SMT第二版logo
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2014年6月13日</date>
-		<div class="content">		
-			qq群-SMT无关讨论群（群号105035033）成立，供组员讨论无关事项
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2014年8月24日</date>
-		<div class="content">		
-			百度贴吧-512542248将组长转交给百度贴吧-销锋镝铸
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2014年8月28日</date>
-		<div class="content">		
-			SMT组规1.0beta由百度贴吧-销锋镝铸编写完成<br />
-			与百度贴吧-512542248、lzm956902416、_0超新星0_共同成立第一期SMT委员会<br />
-			第一期SMT委员会讨论SMT组规1.0beta，并做适量修改
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2014年9月1日</date>
-		<div class="content">		
-			SMT组规1.0beta2完成并在官方群发布
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2014年9月10日</date>
-		<div class="content">		
-			开始使用SMT第三版logo
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2014年10月16日</date>
-		<div class="content">		
-			百度贴吧-销锋镝铸开始制作网页版SMT导航（主版本号：1）
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2014年10月28日</date>
-		<div class="content">		
-			百度贴吧-lzm956902416对网页版SMT导航完成重制（主版本号：2）
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2014年11月17日</date>
-		<div class="content">		
-			百度贴吧-瞄准地雷制作出首个mod制作器
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2014年11月27日</date>
-		<div class="content">		
-			建立qq群-SMT组（群号430076592），原qq群-补丁组（群号302758716）改名为SMT组交流群（供组员讨论无关事项），原qq群-SMT无关讨论群（群号105035033）解散。
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2014年11月30日</date>
-		<div class="content">		
-			百度贴吧-_0超新星0_成为副组长
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2014年12月1日</date>
-		<div class="content">		
-			第三次邀请新组员
-		</div>
-	</div>	
-	<div class="chapter" id="cont_3">
-		<date>2015年1月28日</date>
-		<div class="content">		
-			SMT情报部成立，百度贴吧-512542248担任首任部长。SMT情报部在当时主要为应对组内资料外传事件进行调查取证，以及探查各工作室对mod的研究进展情况进行调查。
-		</div>
-	</div>	
-	<div class="chapter">
-		<date>2015年8月1日</date>
-		<div class="content">		
-			第一个组员花名册开始制作，同月3日基本完成
-		</div>
-	</div>
-	<div class="chapter">
-		<date>2015年8月5日</date>
-		<div class="content">		
-			用于对外公布的SMT导航2.6.6.9已基本完成，开始内测，并再次在网站上线<br />
-			QQ群-SMT组交流群改名为SC MOD交流群(SMT)，也开始用于给组外人员讨论mod，以及教学用途
-		</div>
-	</div>
-	<br />
 </div>
+
 <script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
 </body>
 </html>

@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 	<title>资源下载整合</title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js"></script>
 	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
 	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
@@ -12,303 +13,311 @@
 </head>
 
 <body>
-<!--顶栏 按钮-->
-<div id="buttons">
-	<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
-	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
-</div>
-
-<!--目录-->
-<div id="menu">
-	<li class="parent"><span onclick="menuTo('cont_1')">一.游戏下载</span></li>
-	<div class="divide_line"></div>
-
-	<li class="parent"><span onclick="menuTo('cont_2')">二.安卓资源</span></li>
-	<div class="divide_line"></div>
-
-	<li class="parent"><span onclick="menuTo('cont_3')">三.IOS资源</span></li>
-	<div class="divide_line"></div>
-
-	<li class="parent"><span onclick="menuTo('cont_4')">四.Windows资源</span></li>
-</div>
-
-<!--导航-->
-<div id="nav"></div>
-<div id="nav_bottom" onclick="navHide()"></div>
-<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
-
-<!--顶栏-->
-<div id="big_title_div" onclick="goTop()">资源下载整合</div>
-<div id="last_update">——更新日期 2016年1月22日——</div>
-<div id="top_box"></div>
-<div id="top_box_top"></div>
-<div id="top_box_strutting"></div>
-
-<!--上栏-->
-<div id="upper_box">
-	<h1>前言</h1>
-	<div class="content">
-		本相关资源下载整合由百度贴吧-销锋镝铸整理、推荐，部分资源不直接提供网盘下载原因是保证各位使用到最新版软件，部分资源使用方法请另看教程。<br />
-		如果有更多，更好的相关资源，欢迎向编者我推荐！
+<iframe id="error" src="error.html"></iframe>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+	</script>
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
+		<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
 	</div>
-</div>
 
-<!--内容栏-->
-<div id="content_box">
-	<div class="chapter" id="cont_1">
-		<h1>第一节 游戏下载</h1>
+	<!--目录-->
+	<div id="menu">
+		<li class="parent"><span onclick="menuTo('cont_1')">一.游戏下载</span></li>
+		<div class="divide_line"></div>
+
+		<li class="parent"><span onclick="menuTo('cont_2')">二.安卓资源</span></li>
+		<div class="divide_line"></div>
+
+		<li class="parent"><span onclick="menuTo('cont_3')">三.IOS资源</span></li>
+		<div class="divide_line"></div>
+
+		<li class="parent"><span onclick="menuTo('cont_4')">四.Windows资源</span></li>
+	</div>
+
+	<!--导航-->
+	<div id="nav" class="nav"></div>
+	<div id="nav_overlay"></div>
+	
+	<!--顶栏-->
+	<div id="big_title_div" onclick="goTop()">资源下载整合</div>
+	<div id="last_update">——更新日期 2016年1月22日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
+
+	<!--上栏-->
+	<div id="upper_box">
+		<h1>前言</h1>
 		<div class="content">
-			<a name="game_down" href="http://survivalcraft.cn/index.php/%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2#.E5.8E.86.E5.8F.B2.E7.89.88.E6.9C.AC.E4.B8.8B.E8.BD.BD" target="_blank">点击进入Survivalcraft中文Wiki提供的下载页面</a>
+			本相关资源下载整合由百度贴吧-销锋镝铸整理、推荐，部分资源不直接提供网盘下载原因是保证各位使用到最新版软件，部分资源使用方法请另看教程。<br />
+			如果有更多，更好的相关资源，欢迎向编者我推荐！
 		</div>
 	</div>
 
-	<div class="chapter" id="cont_2">
-		<h1>第二节 安卓资源</h1>
-		<span style="font-size:10pt; display:block; font-weight:bold;">——以下大部分资源由酷市场提供，可以通过查看评论区很快地找到汉化版、破解版、去广告版</span>
-		<div class="section" id="cont_2.1">
-			<h2>1.文件管理</h2>
+	<!--内容栏-->
+	<div id="content_box">
+		<div class="chapter" id="cont_1">
+			<h1>第一节 游戏下载</h1>
 			<div class="content">
-				<a name="a_mt" href="http://www.coolapk.com/apk/bin.mt" target="_blank">mt管理器</a><br />
-				可批量删除添加安装包内文件，需另外签名
-			</div>
-			<div class="content">
-				<a name="a_apk" href="http://www.coolapk.com/apk/cn.luomao.apkeditor" target="_blank">apk编辑器</a><br />
-				单个单个文件替换，无需另外签名
-			</div>
-			<div class="content">
-				<a href="http://www.coolapk.com/apk/com.estrongs.android.pop" target="_blank">ES文件管理器</a><br />
-				臃肿但比较方便好用，能够创建FTP来与其他设备快速传输文件
+				<a name="game_down" href="http://survivalcraft.cn/index.php/%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2#.E5.8E.86.E5.8F.B2.E7.89.88.E6.9C.AC.E4.B8.8B.E8.BD.BD" target="_blank">点击进入Survivalcraft中文Wiki提供的下载页面</a>
 			</div>
 		</div>
 
-		<div class="section" id="cont_2.2">
-			<h2>2.文本编辑</h2>
-			<div class="content">
-				<a name="a_920" href="http://www.coolapk.com/apk/com.jecelyin.editor" target="_blank">920文本编辑器</a>
+		<div class="chapter" id="cont_2">
+			<h1>第二节 安卓资源</h1>
+			<span style="font-size:10pt; display:block; font-weight:bold;">——以下大部分资源由酷市场提供，可以通过查看评论区很快地找到汉化版、破解版、去广告版</span>
+			<div class="section" id="cont_2.1">
+				<h2>1.文件管理</h2>
+				<div class="content">
+					<a name="a_mt" href="http://www.coolapk.com/apk/bin.mt" target="_blank">mt管理器</a><br />
+					可批量删除添加安装包内文件，需另外签名
+				</div>
+				<div class="content">
+					<a name="a_apk" href="http://www.coolapk.com/apk/cn.luomao.apkeditor" target="_blank">apk编辑器</a><br />
+					单个单个文件替换，无需另外签名
+				</div>
+				<div class="content">
+					<a href="http://www.coolapk.com/apk/com.estrongs.android.pop" target="_blank">ES文件管理器</a><br />
+					臃肿但比较方便好用，能够创建FTP来与其他设备快速传输文件
+				</div>
 			</div>
-			<div class="content">
-				<a name="a_jota_plus" href="http://www.coolapk.com/apk/jp.sblo.pandora.jota.plus" target="_blank">jota+</a>
+
+			<div class="section" id="cont_2.2">
+				<h2>2.文本编辑</h2>
+				<div class="content">
+					<a name="a_920" href="http://www.coolapk.com/apk/com.jecelyin.editor" target="_blank">920文本编辑器</a>
+				</div>
+				<div class="content">
+					<a name="a_jota_plus" href="http://www.coolapk.com/apk/jp.sblo.pandora.jota.plus" target="_blank">jota+</a>
+				</div>
+				<div class="content">
+					<a name="a_jota_plus" href="http://www.coolapk.com/apk/com.rhmsoft.edit" target="_blank">QuickEdit</a>
+				</div>
 			</div>
-			<div class="content">
-				<a name="a_jota_plus" href="http://www.coolapk.com/apk/com.rhmsoft.edit" target="_blank">QuickEdit</a>
+
+			<div class="section" id="cont_2.3">
+				<h2>3.图像处理</h2>
+				<div class="content">
+					<a href="http://www.coolapk.com/apk/com.nullium.isopix.pro" target="_blank">像素小画家</a><br />
+					类似电脑上windows自带的画板软件
+				</div>
+				<div class="content">
+					<a href="http://shouji.baidu.com/soft/item?docid=2755600" target="_blank">像素艺术</a><br />
+					类似电脑上windows自带的画板软件
+				</div>
+				<div class="content">
+					<a href="http://www.coolapk.com/apk/air.com.adobe.pstouchphone" target="_blank">Photoshop Touch For Phone</a><br />
+					Photoshop Touch 手机版
+				</div>
+				<div class="content">
+					<a href="http://www.coolapk.com/apk/air.com.adobe.pstouch" target="_blank">Photoshop Touch</a><br />
+					photoshop touch 平板版
+				</div>
+			</div>
+
+			<div class="section" id="cont_2.4">
+				<h2>4.音频编辑</h2>
+				<div class="content">
+					<a href="http://www.coolapk.com/apk/com.imageline.FLM" target="_blank">FL studio</a>
+				</div>
+			</div>
+			<div class="section" id="cont_2.5">
+				<h2>5.其他推荐</h2>
+				<div class="content">
+					<a name="a_lucky_patcher" href="http://www.coolapk.com/apk/com.forpda.lp" target="_blank">幸运破解器</a><br />
+					安卓核心破解后可无视安装包签名直接安装，需root，<a href="android_tutorial.html#cont_3">详情</a>
+				</div>
+			</div>
+			<div class="section" id="cont_2.6">
+				<h2>6.解包打包工具</h2>
+				<div class="content">
+					<a name="a_lucky_patcher" href="http://pan.baidu.com/share/link?shareid=1066340296&uk=2788149454" target="_blank">pak处理器</a><br />
+					感谢百度贴吧-瞄准地雷的开发和提供！（暂不能处理Content.pak中的图片为png格式）<br />
+				</div>
 			</div>
 		</div>
 
-		<div class="section" id="cont_2.3">
-			<h2>3.图像处理</h2>
-			<div class="content">
-				<a href="http://www.coolapk.com/apk/com.nullium.isopix.pro" target="_blank">像素小画家</a><br />
-				类似电脑上windows自带的画板软件
+		<div class="chapter" id="cont_3">
+			<h1>第三节 IOS资源</h1>
+			<div class="section" id="cont_3.1">
+				<h2>1.文件管理</h2>
+				<div class="content">
+					ifile<br />
+					自带文本编辑器，还可创建ftp来与其他设备传输文件
+				</div>
+				<div class="content">
+					Filza<br />
+					类似ifile，某些功能可能更好用<br /><br />
+					注：以上两款文件管理器都需要越狱后在cydia下载安装，破解方法或破解版请自行百度（因为会随着版本更新而发生改变）
+				</div>
 			</div>
-			<div class="content">
-				<a href="http://shouji.baidu.com/soft/item?docid=2755600" target="_blank">像素艺术</a><br />
-				类似电脑上windows自带的画板软件
+
+			<div class="section" id="cont_3.2">
+				<h2>2.文本编辑</h2>
+				<div class="content">
+					Textastic<br />
+					<a href="pphelperns://soft?b=com.textasticapp.textastic-iphone&i=1308312" target="_blank">iphone版</a>
+					<a href="pphelperns://soft?b=com.textasticapp.textastic&i=537094" target="_blank">ipad版</a><br />
+					请在有PP助手的IOS设备上用浏览器打开
+				</div>
 			</div>
-			<div class="content">
-				<a href="http://www.coolapk.com/apk/air.com.adobe.pstouchphone" target="_blank">Photoshop Touch For Phone</a><br />
-				Photoshop Touch 手机版
+
+			<div class="section" id="cont_3.3">
+				<h2>3.图像处理</h2>
+				<div class="content">
+					photoshop touch<br />
+					<a href="pphelperns://soft?b=com.adobe.pstouchphone&i=850145" target="_blank">iphone版</a>
+					<a href="pphelperns://soft?b=com.adobe.pstouch.ipad&i=504610" target="_blank">ipad版</a><br />
+					请在有PP助手的IOS设备上用浏览器打开
+				</div>
 			</div>
-			<div class="content">
-				<a href="http://www.coolapk.com/apk/air.com.adobe.pstouch" target="_blank">Photoshop Touch</a><br />
-				photoshop touch 平板版
+
+			<div class="section" id="cont_3.4">
+				<h2>4.音频处理</h2>
+				<div class="content">
+					<a href="http://pptool.25pp.com/pp_ios_jb/app_share/iphone.html?rid=40515" target="_blank">FL studio mobile</a>
+				</div>
 			</div>
 		</div>
 
-		<div class="section" id="cont_2.4">
-			<h2>4.音频编辑</h2>
-			<div class="content">
-				<a href="http://www.coolapk.com/apk/com.imageline.FLM" target="_blank">FL studio</a>
+		<div class="chapter" id="cont_4">
+			<h1>第四节 Windows资源</h1>
+			<div class="section" id="cont_4.1">
+				<h2>1.文本编辑</h2>
+				<div class="content">
+					<a href="http://w.x.baidu.com/alading/anquan_soft_down_normal/13478">Notepad++</a>
+				</div>
+				<div class="content">
+					<a href="http://www.orsoon.com/soft/4791.html#xiazai">BeyondComparePro</a><br />
+					拥有强大的文本对比和文本合并功能
+				</div>
+			</div>
+			<div class="section" id="cont_4.3">
+				<h2>3.图像处理</h2>
+				<div class="content">
+					Photoshop cc<br />
+					<a href="http://www.xdowns.com/soft/31/93/2013/soft_107049.html" target="_blank">精简版</a>(32位)
+					<a href="http://www.smzy.com/smzy/smzy100391.html" target="_blank">特别版</a>(64位)
+				</div>
+			</div>
+
+			<div class="section" id="cont_4.4">
+				<h2>4.音频处理</h2>
+				<div class="content">
+					<a href="http://www.xiazaiba.com/html/26002.html" target="_blank">Audition</a>
+				</div>
+				<div class="content">
+					<a href="http://www.smzy.com/smzy/smzy104333.html" target="_blank">FL studio</a>
+				</div>
+			</div>
+
+			<div class="section" id="cont_4.5">
+				<h2>5.DLL相关</h2>
+				<div class="content">
+					<a name="w_ilspy" href="http://www.orsoon.com/plus/download.php?open=2&id=14703&uhash=f38555b6db96b634ee698814">ILSpy</a><br />
+					查看dll文件
+				</div>
+				<div class="content">
+					<a name="w_vs" href="http://www.xiazaiba.com/html/4615.html" target="_blank">Visual Studio 2008</a>（含ilasm和ildasm）<br />
+					附<a href="http://zhu498833539.blog.163.com/blog/static/170712951201081163144448" target="_blank">VS2008破解方法</a>
+				</div>
+			</div>
+
+			<div class="section" id="cont_4.6">
+				<h2>6.Android相关</h2>
+				<div class="content">
+					<a href="http://www.java.com/zh_CN/download/manual.jsp" target="_blank">Java运行环境(JRE)</a>
+				</div>
+				<div class="content">
+					<a href="http://www.pc6.com/softview/SoftView_67410.html" target="_blank">apktool 1.4.1 绿色中文版</a><br />
+					用于安装包签名
+				</div>
+				<div class="content">
+					<a href="http://tieba.baidu.com/androidx86" target="_blank">Android x86</a><br />
+					PC运行Android系统
+				</div>
+				<div class="content">
+					<a href="http://www.bluestacks.cn" target="_blank">BlueStacks</a><br />
+					一款基础的Android模拟器
+				</div>
+				<div class="content">
+					<a href="http://www.kaopu001.com" target="_blank">靠谱助手</a><br />
+					基于Bluestacks的一款多功能Android模拟器
+				</div>
+			</div>
+
+			<div class="section" id="cont_4.7">
+				<h2>7.IOS相关</h2>
+				<div class="content">
+					<a href="http://www.apple.com/cn/itunes/download/" target="_blank">iTunes</a><br />
+					IOS设备与pc连接必备
+				</div>
+				<div class="content">
+					<a name="w_pp" href="http://ghost.25pp.com/soft/ppsetup.exe">PP助手</a><br />
+					与IOS设备传输文件
+				</div>
+				<div class="content">
+					<a href="http://www.33lc.com/article/4460.html" target="_blank">Windows使用xCode教程</a>（xcode：IOS软件开发工具）
+				</div>
+				<div class="content">
+					<a href="http://blog.csdn.net/pjk1129/article/details/6534825" target="_blank">xCode签名安装包教程</a>
+				</div>
+			</div>
+			<div class="section">
+				<h2>8.WindowsPhone相关</h2>
+				<div class="content">
+					<a href="http://www.cr173.com/soft/33647.html" target="_blank">Windows Phone SDK 7.1.1</a><br />
+					Windows7及以上使用，内附WindowsPhone模拟器以及xap部署工具
+				</div>
+				<div class="content">
+					<a href="http://dev.windows.com/zh-cn/develop/download-phone-sdk/">Windows Phone SDK 8.1</a><br />
+					Windows8及以上使用
+				</div>
+				<div class="content">
+					<a href="http://www.microsoft.com/zh-cn/download/details.aspx?id=27163" target="_blank">Zune</a><br />
+					安装xap必备
+				</div>
+				<div class="content">
+					<a href="http://wp.it168.com/thread-37952-1-1.html" target="_blank">xap部署工具破解教程</a><br />
+					xap部署工具无法安装xap到模拟器时请尝试
+				</div>
+				<div class="content">
+					<a href="http://www.wpxap.com/thread-518932-1-1.html" target="_blank">开启WP真正的U盘模式教程</a>
+				</div>
+			</div>
+			<div class="section" id="cont_4.9">
+				<h2>9.解包打包工具</h2>
+				<div class="content">
+					<a href="http://pan.baidu.com/share/link?shareid=711454717&uk=2788149454">SCPacker</a><br />
+					感谢百度贴吧-电离的Tesla 的开发和提供！
+				</div>
 			</div>
 		</div>
-		<div class="section" id="cont_2.5">
-			<h2>5.其他推荐</h2>
-			<div class="content">
-				<a name="a_lucky_patcher" href="http://www.coolapk.com/apk/com.forpda.lp" target="_blank">幸运破解器</a><br />
-				安卓核心破解后可无视安装包签名直接安装，需root，<a href="android_tutorial.html#cont_3">详情</a>
-			</div>
+
+		<div class="chapter" id="cont_5">
+			<h1>第五节 其他资源</h1>
+				<div class="content">
+					<a href="http://pan.baidu.com/share/link?shareid=170360941&uk=2788149454" target="_blank">表格化1.26Blocksdata</a><br />
+					更直观地查看和比较方块属性
+				</div>
+				<div class="content">
+					<a href="http://pan.baidu.com/share/link?shareid=2218194687&uk=2788149454" target="_blank">中文版1.25Database</a><br />
+				</div>
+				<div class="content">
+					<a href="http://pan.baidu.com/share/link?shareid=4293478391&uk=2788149454" target="_blank">简化版 1.27 database.xml</a><br />
+					由百度贴吧-销锋镝铸简化并提供（去除Guid，InheritanceParent，Type三种参数，方便查看）
+				</div>
 		</div>
-		<div class="section" id="cont_2.6">
-			<h2>6.解包打包工具</h2>
-			<div class="content">
-				<a name="a_lucky_patcher" href="http://pan.baidu.com/share/link?shareid=1066340296&uk=2788149454" target="_blank">pak处理器</a><br />
-				感谢百度贴吧-瞄准地雷的开发和提供！（暂不能处理Content.pak中的图片为png格式）<br />
-			</div>
-		</div>
+		<br />
 	</div>
-
-	<div class="chapter" id="cont_3">
-		<h1>第三节 IOS资源</h1>
-		<div class="section" id="cont_3.1">
-			<h2>1.文件管理</h2>
-			<div class="content">
-				ifile<br />
-				自带文本编辑器，还可创建ftp来与其他设备传输文件
-			</div>
-			<div class="content">
-				Filza<br />
-				类似ifile，某些功能可能更好用<br /><br />
-				注：以上两款文件管理器都需要越狱后在cydia下载安装，破解方法或破解版请自行百度（因为会随着版本更新而发生改变）
-			</div>
-		</div>
-
-		<div class="section" id="cont_3.2">
-			<h2>2.文本编辑</h2>
-			<div class="content">
-				Textastic<br />
-				<a href="pphelperns://soft?b=com.textasticapp.textastic-iphone&i=1308312" target="_blank">iphone版</a>
-				<a href="pphelperns://soft?b=com.textasticapp.textastic&i=537094" target="_blank">ipad版</a><br />
-				请在有PP助手的IOS设备上用浏览器打开
-			</div>
-		</div>
-
-		<div class="section" id="cont_3.3">
-			<h2>3.图像处理</h2>
-			<div class="content">
-				photoshop touch<br />
-				<a href="pphelperns://soft?b=com.adobe.pstouchphone&i=850145" target="_blank">iphone版</a>
-				<a href="pphelperns://soft?b=com.adobe.pstouch.ipad&i=504610" target="_blank">ipad版</a><br />
-				请在有PP助手的IOS设备上用浏览器打开
-			</div>
-		</div>
-
-		<div class="section" id="cont_3.4">
-			<h2>4.音频处理</h2>
-			<div class="content">
-				<a href="http://pptool.25pp.com/pp_ios_jb/app_share/iphone.html?rid=40515" target="_blank">FL studio mobile</a>
-			</div>
-		</div>
-	</div>
-
-	<div class="chapter" id="cont_4">
-		<h1>第四节 Windows资源</h1>
-		<div class="section" id="cont_4.1">
-			<h2>1.文本编辑</h2>
-			<div class="content">
-				<a href="http://w.x.baidu.com/alading/anquan_soft_down_normal/13478">Notepad++</a>
-			</div>
-			<div class="content">
-				<a href="http://www.orsoon.com/soft/4791.html#xiazai">BeyondComparePro</a><br />
-				拥有强大的文本对比和文本合并功能
-			</div>
-		</div>
-		<div class="section" id="cont_4.3">
-			<h2>3.图像处理</h2>
-			<div class="content">
-				Photoshop cc<br />
-				<a href="http://www.xdowns.com/soft/31/93/2013/soft_107049.html" target="_blank">精简版</a>(32位)
-				<a href="http://www.smzy.com/smzy/smzy100391.html" target="_blank">特别版</a>(64位)
-			</div>
-		</div>
-
-		<div class="section" id="cont_4.4">
-			<h2>4.音频处理</h2>
-			<div class="content">
-				<a href="http://www.xiazaiba.com/html/26002.html" target="_blank">Audition</a>
-			</div>
-			<div class="content">
-				<a href="http://www.smzy.com/smzy/smzy104333.html" target="_blank">FL studio</a>
-			</div>
-		</div>
-
-		<div class="section" id="cont_4.5">
-			<h2>5.DLL相关</h2>
-			<div class="content">
-				<a name="w_ilspy" href="http://www.orsoon.com/plus/download.php?open=2&id=14703&uhash=f38555b6db96b634ee698814">ILSpy</a><br />
-				查看dll文件
-			</div>
-			<div class="content">
-				<a name="w_vs" href="http://www.xiazaiba.com/html/4615.html" target="_blank">Visual Studio 2008</a>（含ilasm和ildasm）<br />
-				附<a href="http://zhu498833539.blog.163.com/blog/static/170712951201081163144448" target="_blank">VS2008破解方法</a>
-			</div>
-		</div>
-
-		<div class="section" id="cont_4.6">
-			<h2>6.Android相关</h2>
-			<div class="content">
-				<a href="http://www.java.com/zh_CN/download/manual.jsp" target="_blank">Java运行环境(JRE)</a>
-			</div>
-			<div class="content">
-				<a href="http://www.pc6.com/softview/SoftView_67410.html" target="_blank">apktool 1.4.1 绿色中文版</a><br />
-				用于安装包签名
-			</div>
-			<div class="content">
-				<a href="http://tieba.baidu.com/androidx86" target="_blank">Android x86</a><br />
-				PC运行Android系统
-			</div>
-			<div class="content">
-				<a href="http://www.bluestacks.cn" target="_blank">BlueStacks</a><br />
-				一款基础的Android模拟器
-			</div>
-			<div class="content">
-				<a href="http://www.kaopu001.com" target="_blank">靠谱助手</a><br />
-				基于Bluestacks的一款多功能Android模拟器
-			</div>
-		</div>
-
-		<div class="section" id="cont_4.7">
-			<h2>7.IOS相关</h2>
-			<div class="content">
-				<a href="http://www.apple.com/cn/itunes/download/" target="_blank">iTunes</a><br />
-				IOS设备与pc连接必备
-			</div>
-			<div class="content">
-				<a name="w_pp" href="http://ghost.25pp.com/soft/ppsetup.exe">PP助手</a><br />
-				与IOS设备传输文件
-			</div>
-			<div class="content">
-				<a href="http://www.33lc.com/article/4460.html" target="_blank">Windows使用xCode教程</a>（xcode：IOS软件开发工具）
-			</div>
-			<div class="content">
-				<a href="http://blog.csdn.net/pjk1129/article/details/6534825" target="_blank">xCode签名安装包教程</a>
-			</div>
-		</div>
-		<div class="section">
-			<h2>8.WindowsPhone相关</h2>
-			<div class="content">
-				<a href="http://www.cr173.com/soft/33647.html" target="_blank">Windows Phone SDK 7.1.1</a><br />
-				Windows7及以上使用，内附WindowsPhone模拟器以及xap部署工具
-			</div>
-			<div class="content">
-				<a href="http://dev.windows.com/zh-cn/develop/download-phone-sdk/">Windows Phone SDK 8.1</a><br />
-				Windows8及以上使用
-			</div>
-			<div class="content">
-				<a href="http://www.microsoft.com/zh-cn/download/details.aspx?id=27163" target="_blank">Zune</a><br />
-				安装xap必备
-			</div>
-			<div class="content">
-				<a href="http://wp.it168.com/thread-37952-1-1.html" target="_blank">xap部署工具破解教程</a><br />
-				xap部署工具无法安装xap到模拟器时请尝试
-			</div>
-			<div class="content">
-				<a href="http://www.wpxap.com/thread-518932-1-1.html" target="_blank">开启WP真正的U盘模式教程</a>
-			</div>
-		</div>
-		<div class="section" id="cont_4.9">
-			<h2>9.解包打包工具</h2>
-			<div class="content">
-				<a href="http://pan.baidu.com/share/link?shareid=711454717&uk=2788149454">SCPacker</a><br />
-				感谢百度贴吧-电离的Tesla 的开发和提供！
-			</div>
-		</div>
-	</div>
-
-	<div class="chapter" id="cont_5">
-		<h1>第五节 其他资源</h1>
-			<div class="content">
-				<a href="http://pan.baidu.com/share/link?shareid=170360941&uk=2788149454" target="_blank">表格化1.26Blocksdata</a><br />
-				更直观地查看和比较方块属性
-			</div>
-			<div class="content">
-				<a href="http://pan.baidu.com/share/link?shareid=2218194687&uk=2788149454" target="_blank">中文版1.25Database</a><br />
-			</div>
-			<div class="content">
-				<a href="http://pan.baidu.com/share/link?shareid=4293478391&uk=2788149454" target="_blank">简化版 1.27 database.xml</a><br />
-				由百度贴吧-销锋镝铸简化并提供（去除Guid，InheritanceParent，Type三种参数，方便查看）
-			</div>
-	</div>
-	<br />
 </div>
+
 <script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
 </body>
 </html>

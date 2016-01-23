@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 	<title>SMT Logo 2014</title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js"></script>
 	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
 	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
@@ -24,83 +25,91 @@
 </head>
 
 <body>
-<!--顶栏 按钮-->
-<div id="buttons">
-	<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
-	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
-</div>
-
-<!--目录-->
-<div id="menu">
-	<li class="parent"><span onclick="menuTo('cont_1')">一.现用logo</span></li>
-	<div class="divide_line"></div>
-	
-	<li class="parent"><span onclick="menuTo('cont_2')">二.曾用logo</span></li>
-</div>
-
-<!--导航-->
-<div id="nav"></div>
-<div id="nav_bottom" onclick="navHide()"></div>
-<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
-
-<!--顶栏-->
-<div id="big_title_div" onclick="goTop()">SMT Logo</div>
-<div id="last_update">——更新日期 2015年1月22日——</div>
-<div id="top_box"></div>
-<div id="top_box_top"></div>
-<div id="top_box_strutting"></div>
-
-<!--内容栏-->
-<div id="content_box">
-	<div class="chapter" id="cont_1">
-		<h1>第一节 现用logo</h1>
-		<div class="content">
-			<div>
-				<img class="saimg" title="SMT logo 2014.9.10"
-				online="image/logo_1.png"
-				offline="image/logo_1.png" />
-				SMT logo 2014.9.10<br />
-			</div>
-		</div>
-		<div class="content">
-			<div>
-				<img class="saimg" title="CandyRufusGames logo"
-				online="image/logo_2.jpg"
-				offline="image/logo_2.jpg" />
-				CandyRufusGames logo<br />
-			</div>
-		</div>
-		<div class="content">
-			<div>
-				<img class="saimg" title="SMT&CRG logo 2014.9.10"
-				online="image/logo_3.png"
-				offline="image/logo_3.png" />
-				SMT&CRG logo 2014.9.10<br />
-			</div>
-		</div>
+<iframe id="error" src="error.html"></iframe>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+	</script>
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
+		<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
 	</div>
-	
-	<div class="chapter" id="cont_2">
-		<h1>第二节 曾用logo</h1>
-		<div class="content">
-			<div>
-				<img class="saimg" title="SMT logo 2014.1.23"
-				online="image/logo_4.png"
-				offline="image/logo_4.png" />
-				SMT logo 2014.1.23<br />
-			</div>
-		</div>
-		<div class="content">
-			<div>
-				<img class="saimg" title="SMT经典logo 2013"
-				online="image/logo_5.jpg"
-				offline="image/logo_5.jpg" />
-				SMT经典logo 2013<br />
-			</div>
-		</div>
+
+	<!--目录-->
+	<div id="menu">
+		<li class="parent"><span onclick="menuTo('cont_1')">一.现用logo</span></li>
+		<div class="divide_line"></div>
+		
+		<li class="parent"><span onclick="menuTo('cont_2')">二.曾用logo</span></li>
 	</div>
-	<br />
+
+	<!--导航-->
+	<div id="nav" class="nav"></div>
+	<div id="nav_overlay"></div>
+	
+	<!--顶栏-->
+	<div id="big_title_div" onclick="goTop()">SMT Logo</div>
+	<div id="last_update">——更新日期 2015年1月22日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
+
+	<!--内容栏-->
+	<div id="content_box">
+		<div class="chapter" id="cont_1">
+			<h1>第一节 现用logo</h1>
+			<div class="content">
+				<div>
+					<img class="saimg" title="SMT logo 2014.9.10"
+					online="image/logo_1.png"
+					offline="image/logo_1.png" />
+					SMT logo 2014.9.10<br />
+				</div>
+			</div>
+			<div class="content">
+				<div>
+					<img class="saimg" title="CandyRufusGames logo"
+					online="image/logo_2.jpg"
+					offline="image/logo_2.jpg" />
+					CandyRufusGames logo<br />
+				</div>
+			</div>
+			<div class="content">
+				<div>
+					<img class="saimg" title="SMT&CRG logo 2014.9.10"
+					online="image/logo_3.png"
+					offline="image/logo_3.png" />
+					SMT&CRG logo 2014.9.10<br />
+				</div>
+			</div>
+		</div>
+		
+		<div class="chapter" id="cont_2">
+			<h1>第二节 曾用logo</h1>
+			<div class="content">
+				<div>
+					<img class="saimg" title="SMT logo 2014.1.23"
+					online="image/logo_4.png"
+					offline="image/logo_4.png" />
+					SMT logo 2014.1.23<br />
+				</div>
+			</div>
+			<div class="content">
+				<div>
+					<img class="saimg" title="SMT经典logo 2013"
+					online="image/logo_5.jpg"
+					offline="image/logo_5.jpg" />
+					SMT经典logo 2013<br />
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
 </div>
+
 <script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
 </body>
 </html>

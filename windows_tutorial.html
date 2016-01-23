@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 	<title>Windows基础教程</title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js"></script>
 	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
 	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
@@ -12,94 +13,102 @@
 </head>
 
 <body>
-<!--顶栏 按钮-->
-<div id="buttons">
-	<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
-	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
-</div>
+<iframe id="error" src="error.html"></iframe>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+	</script>
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
+		<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+	</div>
 
-<!--目录-->
-<div id="menu">
-	<li class="parent"><span onclick="menuTo('cont_1')">一.所需工具</span></li>
-	<div class="divide_line"></div>
+	<!--目录-->
+	<div id="menu">
+		<li class="parent"><span onclick="menuTo('cont_1')">一.所需工具</span></li>
+		<div class="divide_line"></div>
+		
+		<li class="parent"><span onclick="menuTo('cont_2')">二.详细步骤</span></li>
+			<li class="child"><span onclick="menuTo('cont_2.1')">1.获取游戏</span></li>
+			<li class="child"><span onclick="menuTo('cont_2.2')">2.安装游戏</span></li>
+			<li class="child"><span onclick="menuTo('cont_2.3')">3.替换Content</span></li>
+	</div>
+
+	<!--导航-->
+	<div id="nav" class="nav"></div>
+	<div id="nav_overlay"></div>
 	
-	<li class="parent"><span onclick="menuTo('cont_2')">二.详细步骤</span></li>
-		<li class="child"><span onclick="menuTo('cont_2.1')">1.获取游戏</span></li>
-		<li class="child"><span onclick="menuTo('cont_2.2')">2.安装游戏</span></li>
-		<li class="child"><span onclick="menuTo('cont_2.3')">3.替换Content</span></li>
-</div>
+	<!--顶栏-->
+	<div id="big_title_div" onclick="goTop()">Windows基础教程</div>
+	<div id="last_update">——更新日期 2015年8月3日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
 
-<!--导航-->
-<div id="nav"></div>
-<div id="nav_bottom" onclick="navHide()"></div>
-<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
-
-<!--顶栏-->
-<div id="big_title_div" onclick="goTop()">Windows基础教程</div>
-<div id="last_update">——更新日期 2015年8月3日——</div>
-<div id="top_box"></div>
-<div id="top_box_top"></div>
-<div id="top_box_strutting"></div>
-
-<!--上栏-->
-<div id="upper_box">
-	<h1>前言</h1>
-	<div class="content">
-		Survivalcraft在1.27版本的更新中已支持Windows系统，但是是作为Mordern应用登录应用市场，所以至少要Windows 8才能运行（8.1、10也能）。同时因为Mordern应用不用打包安装后才能更新应用中的文件，以及目前Content.pak只有Windows版，所以在Windows系统上测试和使用mod是最方便的。<br />
-		本教程由百度贴吧-销锋镝铸编写
-	</div>
-</div>
-
-<!--内容栏-->
-<div id="content_box">
-	<div class="chapter" id="cont_1">
-		<h1>第一节 所需工具</h1>
+	<!--上栏-->
+	<div id="upper_box">
+		<h1>前言</h1>
 		<div class="content">
-			一台至少Windows 8系统的设备
+			Survivalcraft在1.27版本的更新中已支持Windows系统，但是是作为Mordern应用登录应用市场，所以至少要Windows 8才能运行（8.1、10也能）。同时因为Mordern应用不用打包安装后才能更新应用中的文件，以及目前Content.pak只有Windows版，所以在Windows系统上测试和使用mod是最方便的。<br />
+			本教程由百度贴吧-销锋镝铸编写
 		</div>
 	</div>
- 
-	<div class="chapter" id="cont_2">
-		<div class="section" id="cont_2.1">
-			<h1>第二节 详细步骤</h1>
-			<h2>1.获取游戏</h2>
+
+	<!--内容栏-->
+	<div id="content_box">
+		<div class="chapter" id="cont_1">
+			<h1>第一节 所需工具</h1>
 			<div class="content">
-				免费获取游戏（有能力建议Windows应用商店购买）：在<a href="http://tieba.baidu.com/f/good?kw=%E7%94%9F%E5%AD%98%E6%88%98%E4%BA%89&cid=7" target="_blank">生存战争吧精品区-资源与补丁分组</a>将及时发布最新版的破解版，其中<a href="http://tieba.baidu.com/p/3869036352" target="_blank">SC with JS</a>是一个附带可以使用Javascript代码操纵游戏数据的版本，同时比另一个破解版更加好使用和测试mod，以下教程将以它为例进行说明
-				<img class="saimg"
-				online="http://ww2.sinaimg.cn/large/0065QQIxgw1eurinr7zwyj30iv0h9tbn.jpg"
-				offline="saimg/windows_01.png" />
+				一台至少Windows 8系统的设备
 			</div>
 		</div>
-		<div class="section" id="cont_2.2">
-			<h2>2.安装游戏</h2>
+	 
+		<div class="chapter" id="cont_2">
+			<div class="section" id="cont_2.1">
+				<h1>第二节 详细步骤</h1>
+				<h2>1.获取游戏</h2>
+				<div class="content">
+					免费获取游戏（有能力建议Windows应用商店购买）：在<a href="http://tieba.baidu.com/f/good?kw=%E7%94%9F%E5%AD%98%E6%88%98%E4%BA%89&cid=7" target="_blank">生存战争吧精品区-资源与补丁分组</a>将及时发布最新版的破解版，其中<a href="http://tieba.baidu.com/p/3869036352" target="_blank">SC with JS</a>是一个附带可以使用Javascript代码操纵游戏数据的版本，同时比另一个破解版更加好使用和测试mod，以下教程将以它为例进行说明
+					<img class="saimg"
+					online="http://ww2.sinaimg.cn/large/0065QQIxgw1eurinr7zwyj30iv0h9tbn.jpg"
+					offline="saimg/windows_01.png" />
+				</div>
+			</div>
+			<div class="section" id="cont_2.2">
+				<h2>2.安装游戏</h2>
+				<div class="content">
+					解压下载下来的压缩文件，右键后缀为ps1的文件，进行安装（此过程你可能遇到各种问题，请按照提示进行百度寻找答案）
+					<img class="saimg"
+					online="http://ww4.sinaimg.cn/large/0065QQIxgw1eurinrqccfj30f503egm6.jpg"
+					offline="saimg/windows_02.png" />
+				</div>
+			</div>
+			<div class="section" id="cont_2.3">
+				<h2>3.替换Content</h2>
+				<div class="content">
+					打开SurvivalcraftAppX文件夹，，就可以看到Content.pak了，之前的<a href="content_folder_tutorial.html">Content解析</a>已对它进行讲解，此不复述，接下来把修改好的Content.pak复制粘贴到此，即可直接打开游戏对mod进行测试<br />
+					提示：将所有工作集中在SurvivalcraftAppX文件夹进行，能大大提高工作效率，如下<br />
+					<ul>
+						<li>把SCPacker.exe复制粘贴到该文件夹，将Conten.pak拖到它上面，完成解包</li>
+						<li>修改解包生成的Content文件夹中的文件，完成后直接把Content文件夹拖到SCPacker.exe上面，完成打包（自动覆盖之前版本）</li>
+						<li>打开Survivalcraft快捷方式进入游戏测试（该快捷方式需要自己创建）</li>
+					</ul>
+					<img class="saimg"
+					online="http://ww3.sinaimg.cn/large/0065QQIxgw1eurinsdnkij30ci0gedjr.jpg"
+					offline="saimg/windows_03.png" />
+				</div>
+			</div>
 			<div class="content">
-				解压下载下来的压缩文件，右键后缀为ps1的文件，进行安装（此过程你可能遇到各种问题，请按照提示进行百度寻找答案）
-				<img class="saimg"
-				online="http://ww4.sinaimg.cn/large/0065QQIxgw1eurinrqccfj30f503egm6.jpg"
-				offline="saimg/windows_02.png" />
+					要将已完成的作品分享给别人，可以直接分享已完成的Content.pak让他人自行替换，也可以将整个游戏安装目录（包含SurvivalcraftAppX文件夹和一个后缀为ps1的文件夹）压缩成单独一个文件再进行分享
 			</div>
 		</div>
-		<div class="section" id="cont_2.3">
-			<h2>3.替换Content</h2>
-			<div class="content">
-				打开SurvivalcraftAppX文件夹，，就可以看到Content.pak了，之前的<a href="content_folder_tutorial.html">Content解析</a>已对它进行讲解，此不复述，接下来把修改好的Content.pak复制粘贴到此，即可直接打开游戏对mod进行测试<br />
-				提示：将所有工作集中在SurvivalcraftAppX文件夹进行，能大大提高工作效率，如下<br />
-				<ul>
-					<li>把SCPacker.exe复制粘贴到该文件夹，将Conten.pak拖到它上面，完成解包</li>
-					<li>修改解包生成的Content文件夹中的文件，完成后直接把Content文件夹拖到SCPacker.exe上面，完成打包（自动覆盖之前版本）</li>
-					<li>打开Survivalcraft快捷方式进入游戏测试（该快捷方式需要自己创建）</li>
-				</ul>
-				<img class="saimg"
-				online="http://ww3.sinaimg.cn/large/0065QQIxgw1eurinsdnkij30ci0gedjr.jpg"
-				offline="saimg/windows_03.png" />
-			</div>
-		</div>
-		<div class="content">
-				要将已完成的作品分享给别人，可以直接分享已完成的Content.pak让他人自行替换，也可以将整个游戏安装目录（包含SurvivalcraftAppX文件夹和一个后缀为ps1的文件夹）压缩成单独一个文件再进行分享
-		</div>
+		<br />
 	</div>
-	<br />
 </div>
+
 <script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
 </body>
 </html>
