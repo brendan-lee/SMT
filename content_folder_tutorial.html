@@ -22,7 +22,7 @@
 <div id="menu">
 	<li class="parent"><span onclick="menuTo('cont_1')">一.处理Content.pak</span></li>
 	<div class="divide_line"></div>
-	
+
 	<li class="parent"><span onclick="menuTo('cont_2')">二.具体解析</span></li>
 		<li class="child"><span onclick="menuTo('cont_2.1')">1.根目录</span></li>
 		<li class="child"><span onclick="menuTo('cont_2.2')">2.文件夹</span></li>
@@ -58,35 +58,35 @@
 		<div class="content">
 		<ul>
 			<li>在文件管理器中更改任意平台的游戏安装包的后缀为zip后解压，直接搜索Content.pak即可快速找到</li>
-			<li>在windows系统上使用目前唯一的解包工具——<a href="resources.html#cont_4.9" target="_blank">SCPacker</a>进行解包，完成编辑其生成的文件夹中的文件后，再同样用SCPacker打包该文件夹，即可生成已经修改完成的Content.pak，同时该文件也可以直接作为“mod”发布了！</li>
-			<li>要使用这个mod，还需要替换安装目录或安装包中的Content.pak为修改完成的Content.pak</li>
-			<li>附SCPacker使用方法：解包：将Content.pak拖动到SCPacker.exe上方即可开始解包；打包：和解包一样，不过拖动的对象是你要打包的文件夹</li>
+			<li>windows系统使用<a href="resources.html#cont_4.9" target="_blank">SCPacker</a>进行解包，安卓则使用<a href="resources.html#cont_2.6" target="_blank">pak处理器</a>（目前两者解包出来的文件不能交由对方打包），解包后会生成一个Content文件夹，按照对应的教程编辑其生成的文件夹中的文件后，使用之前解包的工具打包该文件夹，即可生成已经修改完成的Content.pak，这个时候一个“mod”就做出来了！</li>
+			<li>要使用这个mod，还需要替换安装目录或安装包中的Content.pak为新打包的Content.pak</li>
+			<li>附SCPacker使用方法：解包：将Content.pak拖动到SCPacker.exe文件上方即可开始解包；打包：和解包一样，不过拖动的对象是你要打包的文件夹</li>
 		</div>
 	</div>
- 
+
 	<div class="chapter" id="cont_2">
 		<h1>第二节 具体解析</h1>
 		<span style="font-size:10pt; display:block; font-weight:bold;">——针对解包生成的文件夹的具体解析</span>
-		
+
 		<div class="section" id="cont_2.1">
 			<h2>1.根目录</h2>
 			<div class="content">
 				具体每个文件夹等下说，先说直接在该目录下的文件
 				<img class="saimg"
-				online="http://ww3.sinaimg.cn/large/0065QQIxgw1euricqdy4nj308u0cqmz3.jpg" 
+				online="http://ww3.sinaimg.cn/large/0065QQIxgw1euricqdy4nj308u0cqmz3.jpg"
 				offline="saimg/content_1.png" />
 			</div>
 			<div class="content">
 				<h3>BlocksData.txt</h3>
-				存储了所有方块的大部分属性的文件，可直接用文本编辑器打开并编辑，修改详情参考<a href="blocksdata_tutorial.html">Blocksdata 解析</a>
+				存储了所有方块的大部分属性的类csv文件（以纯文本形式存储表格数据，使用特定的符号分隔字段），可直接用文本编辑器打开并编辑，修改详情参考<a href="blocksdata_tutorial.html">Blocksdata 解析</a>
 			</div>
 			<div class="content">
 				<h3>Clothes.xml</h3>
-				存储了游戏中1.26更新以来的所有衣物的数据，可直接用文本编辑器编辑，修改详情参考<a href="clothes_tutorial.html">Clothes 解析</a>
+				存储了游戏中所有衣物数据的xml文件，可直接用文本编辑器编辑，修改详情参考<a href="clothes_tutorial.html">Clothes 解析</a>
 			</div>
 			<div class="content">
 				<h3>CraftingRecipes.xml</h3>
-				存储了所有合成表的文件，可直接用文本编辑器打开并编辑，修改详情参考<a href="crafting_recipes_tutorial.html">CraftingRecipes 解析</a>
+				存储了所有合成表的xml文件，可直接用文本编辑器打开并编辑，修改详情参考<a href="crafting_recipes_tutorial.html">CraftingRecipes 解析</a>
 			</div>
 			<div class="content">
 				<h3>ctags.tmp</h3>
@@ -94,30 +94,31 @@
 			</div>
 			<div class="content">
 				<h3>DataBase.xml</h3>
-				存储了所有动物（还有人、船等实体）的大部分属性的文件，可直接用文本编辑器打开并编辑，修改详情参考<a href="database_tutorial.html">Database 解析</a>
+				存储了所有动物（还有人、船等实体）的大部分属性的xml文件，可直接用文本编辑器打开并编辑，修改详情参考<a href="database_tutorial.html">Database 解析</a>
 			</div>
 			<div class="content">
 				<h3>Help.xml</h3>
-				存储了所有游戏自带帮助的内容，可直接用文本编辑器编辑，容易看懂，无需解释
+				存储了所有游戏自带帮助内容的xml文件，可直接用文本编辑器编辑
 			</div>
 			<div class="content">
 				<h3>NewWorldNames.txt</h3>
-				新建世界时随机出现的世界名，可直接用文本编辑器编辑，容易看懂，无需解释
+				存储了新建世界时随机出现的世界名的文本文件，可直接用文本编辑器编辑，以行为分割，每行对应一个随机出现的世界名字
 			</div>
 			<div class="content">
 				<h3>PackageInfo.txt</h3>
-				SCPacker解包后自动生成的文件，如果在该生成的文件夹中添加了新的文件，那么就需要对其进行编辑（具体照葫芦画瓢），让SCPacker在打包该文件夹时会把添加的文件也打包进去
+				SCPacker解包后自动生成的文本文件，如果在解包生成的文件夹中添加或删除了文件，那么就需要对其进行编辑<br />
+				例如在\Textures\Creatures\中添加了一个Zebra_Saddled.png，那么需要在该文件中另起一行加上Textures/Creatures/Zebra_Saddled:Engine.Graphics.Texture2D，这样SCPacker在打包该文件夹时会把添加的文件也打包进去
 			</div>
 			<div class="content">
 				<h3>RecoveryProject.xml</h3>
-				一个最简单世界的Project.xml，可能是初始世界的Project.xml就是使用的它
+				一个最简单的世界的Project.xml，可能是初始世界的Project.xml就是在它的基础上修改的
 			</div>
 			<div class="content">
 				<h3>Strings.xml</h3>
-				一些游戏中出现的文字，可直接用文本编辑器编辑，容易看懂，无需解释
+				存储一些游戏中出现的文字的xml文件，可直接用文本编辑器编辑
 			</div>
 		</div>
-			
+
 		<div class="section" id="cont_2.2">
 			<h2>2.文件夹</h2>
 			<div class="content">
@@ -127,49 +128,46 @@
 				<h3>Atlases</h3>
 				该文件夹内有一些主要的操作界面的贴图（后缀为png的图片），例如方向键和各种按钮，以及其对应的配置文件（后缀为txt的文本）
 				<img class="saimg"
-				online="http://ww2.sinaimg.cn/large/0065QQIxgw1euricqzx2sj30bb04jmy3.jpg" 
+				online="http://ww2.sinaimg.cn/large/0065QQIxgw1euricqzx2sj30bb04jmy3.jpg"
 				offline="saimg/content_2.png" />
 				配置文件打开如下
 				<img class="saimg"
-				online="http://ww1.sinaimg.cn/large/0065QQIxgw1euricrmj3sj308j07mdh5.jpg" 
+				online="http://ww1.sinaimg.cn/large/0065QQIxgw1euricrmj3sj308j07mdh5.jpg"
 				offline="saimg/content_3.png" />
-				每一行第一个空格前的文字为被切割的部分的名称，接下来的数字分别是从左上角数起横向第n个像素点开始，竖向第n个像素点开始，横向第n个像素点结束，竖向第n个像素点结束，接下来的我就不清楚是什么了~
+				每一行第一个空格前的文字为被切割的部分的名称，接下来的数字分别是从左上角数起横向第几个像素点开始，竖向第几个像素点开始，横向第几个像素点结束，竖向第几个像素点结束，接下来作用有待研究
 			</div>
 			<div class="content">
 				<h3>Audio</h3>
-				所有音效文件都在这个文件夹，通过文件名字可知是什么东西的音效，目前解包工具暂不能对它们进行解码
-				这里说下其中/SoundGenerator里的音效文件，这些是游戏中SoundGenerator不同电压对应的乐器音效，分别是1.BELL，2.ORGAN，3.PING，4.STRING，5.TRUMPET，6.VOICE，7~F.PIANO。后面的C4、C5是这个文件对应的音调音阶，其中C4会被游戏变成C3~B4的音调，C5会被变为C5到B5的音调。
-				<img class="saimg"
-				online="http://ww4.sinaimg.cn/large/0065QQIxgw1eurinomc3oj3071092ab4.jpg" 
-				offline="saimg/content_4.png" />
+				所有音效文件都在这个文件夹，通过文件名字可知是什么的音效，目前解包工具暂不能对它们进行解析
+				这里说下其中/SoundGenerator里的音效文件，这些是游戏中SoundGenerator不同电压对应的乐器音效，电压与乐器的应对关系详见游戏自带说明。文件名末尾的C4、C5是这个文件对应的音调音阶，其中C4会被游戏变成C3~B4的音调，C5会被变为C5到B5的音调。
 			</div>
 			<div class="content">
 				<h3>Dialogs</h3>
-				这个文件夹里包含有所有对话框的布局文件，根据文件名可知道是属于什么对话框的
+				这个文件夹里包含有所有对话框的布局文件，根据文件名可知道是什么对话框的
 			</div>
 			<div class="content">
 				<h3>Fonts</h3>
-				包含游戏的字库文件，目前未知其修改方式。可相互替换来改"字体"
+				包含游戏的字库文件，目前未知其修改方式。可相互替换来改"字体"。
 			</div>
 			<div class="content">
 				<h3>Models</h3>
-				包含游戏的所有3D模型（动物、圣诞树、船等物品），暂无法修改。可相互替换来改模型，其中一些普通物品可以随意改成别的物品的模型（例如Boat），而动物中两只脚的只能改成两只脚的（包括Human、Werewolf、Ostrich），四只脚的只能改四只脚的（例如Bull、Wolf），没有脚的只能改没有脚的（例如Orca、Shark）……
+				包含游戏的所有3D模型（动物、圣诞树、船等物品），暂无法修改。可相互替换来改模型，在未修改Database.xml时，一些简单的物品可以随意改成别的物品的模型（例如Boat），而动物中两只脚的只能改成两只脚的（包括Human、Werewolf、Ostrich），四只脚的只能改四只脚的（例如Bull、Wolf），没有脚的只能改没有脚的（例如Orca、Shark）……
 			</div>
 			<div class="content">
 				<h3>Screens</h3>
-				和Dialogs文件夹类似，存储了所有界面的布局文件
+				和Dialogs文件夹类似，存储了所有全屏界面的布局文件
 			</div>
 			<div class="content">
 				<h3>Styles</h3>
-				所有按钮的配置文件，现在改了也没什么用
+				存放所有按钮的配置文件
 			</div>
 			<div class="content">
 				<h3>Textures</h3>
-				几乎所有纹理的存放处，包括自带材质，动物皮肤，天象贴图，以及一些其他图片（例如主界面背景），现在已可被SCPaker直接转换为PNG图像文件
+				几乎所有贴图的存放处，包括自带材质，动物皮肤，天象贴图，以及一些其他图片（例如主界面背景），现在已可被SCPaker直接转换为PNG图像文件
 			</div>
 			<div class="content">
 				<h3>Widgets</h3>
-				也是一些界面布局文件，主要是弹出式窗口的布局以及其他布局文件调用的子布局（例如使用频率较高的TopBarContents）<br />
+				和Dialogs文件夹类似，存放的主要是弹出式窗口的布局以及其他布局文件调用的子布局（例如使用频率较高的TopBarContents）<br />
 			</div>
 			<div class="content">
 				以上Dialoogs、Screens、Widgets存储的界面布局文件，在Survivalcraft中这些文件使用的语言和Windows Presentation Foundation（WPF）使用的XAML语言非常相似，因此可以参考来自MSDN的<a href="https://msdn.microsoft.com/zh-cn/library/ms747122(v=vs.110).aspx" target="_blank">WPF中的XAML</a>以及<a href="https://msdn.microsoft.com/zh-cn/library/aa970268.aspx#Controls" target="_blank">WPF介绍-控件</a>来学习如何修改游戏的界面，这里本导航不再另外提供教程。<br />
