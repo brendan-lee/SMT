@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 	<title>IOS基础教程</title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js"></script>
 	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
 	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
@@ -12,108 +13,116 @@
 </head>
 
 <body>
-<!--顶栏 按钮-->
-<div id="buttons">
-	<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
-	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
-</div>
-
-<!--目录-->
-<div id="menu">
-	<li class="parent"><span onclick="menuTo('cont_1')">一.所需工具</span></li>
-	<div class="divide_line"></div>
-	
-	<li class="parent"><span onclick="menuTo('cont_2')">二.详细步骤</span></li>
-		<li class="child"><span onclick="menuTo('cont_2.1')">1.获取游戏</span></li>
-		<li class="child"><span onclick="menuTo('cont_2.2')">2.替换Content</span></li>
-	<div class="divide_line"></div>
-	
-	<li class="parent"><span onclick="menuTo('cont_3')">三.生成安装包</span></li>
-</div>
-
-<!--导航-->
-<div id="nav"></div>
-<div id="nav_bottom" onclick="navHide()"></div>
-<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
-
-<!--顶栏-->
-<div id="big_title_div" onclick="goTop()">IOS基础教程</div>
-<div id="last_update">——更新日期 2015年8月3日——</div>
-<div id="top_box"></div>
-<div id="top_box_top"></div>
-<div id="top_box_strutting"></div>
-
-<!--上栏-->
-<div id="upper_box">
-	<h1>前言</h1>
-	<div class="content">
-		本教程由百度贴吧-销锋镝铸编写
+<iframe id="error" src="error.html"></iframe>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+	</script>
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
+		<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
 	</div>
-</div>
 
-<!--内容栏-->
-<div id="content_box">
-	<div class="chapter" id="cont_1">
-		<h1>第一节 所需工具</h1>
+	<!--目录-->
+	<div id="menu">
+		<li class="parent"><span onclick="menuTo('cont_1')">一.所需工具</span></li>
+		<div class="divide_line"></div>
+		
+		<li class="parent"><span onclick="menuTo('cont_2')">二.详细步骤</span></li>
+			<li class="child"><span onclick="menuTo('cont_2.1')">1.获取游戏</span></li>
+			<li class="child"><span onclick="menuTo('cont_2.2')">2.替换Content</span></li>
+		<div class="divide_line"></div>
+		
+		<li class="parent"><span onclick="menuTo('cont_3')">三.生成安装包</span></li>
+	</div>
+
+	<!--导航-->
+	<div id="nav" class="nav"></div>
+	<div id="nav_overlay"></div>
+	
+	<!--顶栏-->
+	<div id="big_title_div" onclick="goTop()">IOS基础教程</div>
+	<div id="last_update">——更新日期 2015年8月3日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
+
+	<!--上栏-->
+	<div id="upper_box">
+		<h1>前言</h1>
 		<div class="content">
-			一台越狱了的IOS系统设备，<a href="resources.html#cont_3">ifile</a>（一个越狱后使用的文件管理器），<a href="resources.html#cont_4">PP助手（越狱版）</a>
+			本教程由百度贴吧-销锋镝铸编写
 		</div>
 	</div>
-	
-	<div class="chapter" id="cont_2">
-		<h1>第二节 详细步骤</h1>
-		<div class="section" id="cont_2.1">
-			<h2>1.获取游戏</h2>
+
+	<!--内容栏-->
+	<div id="content_box">
+		<div class="chapter" id="cont_1">
+			<h1>第一节 所需工具</h1>
 			<div class="content">
-				免费获取游戏（有能力建议App Store购买）：在PP助手（其他第三方应用市场亦可）中下载并安装Survivalcraft（如图第一个）
-				<img class="saimg"
-				online="http://ww2.sinaimg.cn/large/005yyi5Jjw1emy58p1vr1j30lc0g0mzz.jpg"
-				offline="saimg/ios_01.jpg" />
+				一台越狱了的IOS系统设备，<a href="resources.html#cont_3">ifile</a>（一个越狱后使用的文件管理器），<a href="resources.html#cont_4">PP助手（越狱版）</a>
 			</div>
 		</div>
-		<div class="section" id="cont_2.2">
-			<h2>2.替换Content.pak</h2>
-			<div class="content">
-				如果使用ifile，请将设置-文件管理器-应用程序名称开启；如果使用Filza，请打开设置-高级设置-显示应用名-是<br />
-				IOS 7.X及以下设备使用文件管理器打开此路径：/var/mobile/Applications；IOS 8.X及以上设备则打开：/var/mobile/Containers/Bundle/Applications<br />
+		
+		<div class="chapter" id="cont_2">
+			<h1>第二节 详细步骤</h1>
+			<div class="section" id="cont_2.1">
+				<h2>1.获取游戏</h2>
+				<div class="content">
+					免费获取游戏（有能力建议App Store购买）：在PP助手（其他第三方应用市场亦可）中下载并安装Survivalcraft（如图第一个）
+					<img class="saimg"
+					online="http://ww2.sinaimg.cn/large/005yyi5Jjw1emy58p1vr1j30lc0g0mzz.jpg"
+					offline="saimg/ios_01.jpg" />
+				</div>
 			</div>
-			<div class="content">
-				打开如上路径后找到并打开Survivalcraft文件夹
-				<img class="saimg"
-				online="http://ww4.sinaimg.cn/large/0065QQIxgw1eurinpw6vwj30hs0qowi8.jpg"
-				offline="saimg/ios_02.png" />
-			</div>
-			<div class="content">
-				再打开Survivalcraft.app文件夹，就可以看到Content.pak了，之前的<a href="content_folder_tutorial.html">Content解析</a>已对它进行讲解，此不复述，接下来把修改好的Content.pak复制粘贴到此，即可直接打开游戏对mod进行测试
-				<img class="saimg"
-				online="http://ww1.sinaimg.cn/large/0065QQIxgw1eurinqin2rj30hs0qo0wc.jpg"
-				offline="saimg/ios_03.png" />
+			<div class="section" id="cont_2.2">
+				<h2>2.替换Content.pak</h2>
+				<div class="content">
+					如果使用ifile，请将设置-文件管理器-应用程序名称开启；如果使用Filza，请打开设置-高级设置-显示应用名-是<br />
+					IOS 7.X及以下设备使用文件管理器打开此路径：/var/mobile/Applications；IOS 8.X及以上设备则打开：/var/mobile/Containers/Bundle/Applications<br />
+				</div>
+				<div class="content">
+					打开如上路径后找到并打开Survivalcraft文件夹
+					<img class="saimg"
+					online="http://ww4.sinaimg.cn/large/0065QQIxgw1eurinpw6vwj30hs0qowi8.jpg"
+					offline="saimg/ios_02.png" />
+				</div>
+				<div class="content">
+					再打开Survivalcraft.app文件夹，就可以看到Content.pak了，之前的<a href="content_folder_tutorial.html">Content解析</a>已对它进行讲解，此不复述，接下来把修改好的Content.pak复制粘贴到此，即可直接打开游戏对mod进行测试
+					<img class="saimg"
+					online="http://ww1.sinaimg.cn/large/0065QQIxgw1eurinqin2rj30hs0qo0wc.jpg"
+					offline="saimg/ios_03.png" />
+				</div>
 			</div>
 		</div>
+		
+		<div class="chapter" id="cont_3">
+			<h1>第三节 生成安装包</h1>
+			<div class="content">
+				打开pp助手，更多-系统管理（3.X版本PP助手则是管理-系统管理）-Survivalcraft-备份-不保存存档
+				<img class="saimg"
+				online="http://ww1.sinaimg.cn/large/005yyi5Jjw1emy58bwis6j30lc0g0wfq.jpg"
+				offline="saimg/ios_4.jpg" />
+				<img class="saimg"
+				online="http://ww1.sinaimg.cn/large/005yyi5Jjw1emy58b4mzgj30lc0g0wfx.jpg"
+				offline="saimg/ios_5.jpg" />
+			</div>
+			<div class="content">
+				根据安装方式不同，可以在以下两个位置找到生成的安装包（如图，后缀为ipa）<br />
+				在Cydia中安装：/var/mobile/Library/PPHelperNS/Documents/Others<br />
+				以上为PP助手2.X的路径，如果是3.X则把以上路径中的PPHelperNS改成PPHelperNS3或PPniubility即可<br />
+				其他方式安装：IOS 7.X及以下设备使用文件管理器打开此路径：/var/mobile/Applications；IOS 8.X及以上设备则使用Filza打开：/var/mobile/Containers/Bundle/Data，找到文件夹——PP助手，再依次打开Documents/Others即可找到生成的安装包<br />
+				<img class="saimg"
+				online="http://ww1.sinaimg.cn/large/005yyi5Jjw1emy583ufzaj30e80lcdhg.jpg"
+				offline="saimg/ios_6.jpg" />
+		</div>
+		<br />
 	</div>
-	
-	<div class="chapter" id="cont_3">
-		<h1>第三节 生成安装包</h1>
-		<div class="content">
-			打开pp助手，更多-系统管理（3.X版本PP助手则是管理-系统管理）-Survivalcraft-备份-不保存存档
-			<img class="saimg"
-			online="http://ww1.sinaimg.cn/large/005yyi5Jjw1emy58bwis6j30lc0g0wfq.jpg"
-			offline="saimg/ios_4.jpg" />
-			<img class="saimg"
-			online="http://ww1.sinaimg.cn/large/005yyi5Jjw1emy58b4mzgj30lc0g0wfx.jpg"
-			offline="saimg/ios_5.jpg" />
-		</div>
-		<div class="content">
-			根据安装方式不同，可以在以下两个位置找到生成的安装包（如图，后缀为ipa）<br />
-			在Cydia中安装：/var/mobile/Library/PPHelperNS/Documents/Others<br />
-			以上为PP助手2.X的路径，如果是3.X则把以上路径中的PPHelperNS改成PPHelperNS3或PPniubility即可<br />
-			其他方式安装：IOS 7.X及以下设备使用文件管理器打开此路径：/var/mobile/Applications；IOS 8.X及以上设备则使用Filza打开：/var/mobile/Containers/Bundle/Data，找到文件夹——PP助手，再依次打开Documents/Others即可找到生成的安装包<br />
-			<img class="saimg"
-			online="http://ww1.sinaimg.cn/large/005yyi5Jjw1emy583ufzaj30e80lcdhg.jpg"
-			offline="saimg/ios_6.jpg" />
-	</div>
-	<br />
 </div>
+
 <script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
 </body>
 </html>

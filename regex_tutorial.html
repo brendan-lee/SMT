@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
 	<title>正则表达式教程</title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js"></script>
 	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
 	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
@@ -12,122 +13,130 @@
 </head>
 
 <body>
-<!--顶栏 按钮-->
-<div id="buttons">
-	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
-</div>
-
-<!--导航-->
-<div id="nav"></div>
-<div id="nav_bottom" onclick="navHide()"></div>
-<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
-
-<!--顶栏-->
-<div id="big_title_div" onclick="goTop()">正则表达式教程</div>
-<div id="last_update">——更新日期 2015年8月5日——</div>
-<div id="top_box"></div>
-<div id="top_box_top"></div>
-<div id="top_box_strutting"></div>
-
-<!--上栏-->
-<div id="upper_box">
-	<h1>前言</h1>
-	<div class="content">
-		<ul>
-			<li>正则表达式使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。在很多文本编辑器里，正则表达式通常被用来检索、替换那些符合某个模式的文本。</li>
-			<li>在这里不要求各位完全掌握，只需要了解最基本的几个符号的用法达到加快批量修改速度的目的即可。</li>
-			<li>本教程由-百度贴吧销锋镝铸编写</li>
-		</ul>
+<iframe id="error" src="error.html"></iframe>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+	</script>
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
 	</div>
-</div>
 
-<!--内容栏-->
-<div id="content_box">
-	<div class="chapter" id="cont_1">
-		<h1>第一节 符号</h1>
-		<span style="font-size:10pt; display:block; font-weight:bold;">——详情查看<a href="http://www.baidu.com/link?url=15NvmiXqUtjMAzj_PPF8wiD-KRx_auGGeJtW8ffqlqn61azUXk84Pu56kUiRJbsiaT3Mr6DzjouJzqUuORvKra">百度百科-正则表达式</a></span>
-		<div class="content" style="overflow-x:auto;">
-			<table >
-				<tr style="font-weight:bold; text-align:center;">
-					<td>符号</td>
-					<td>说明</td>
-				</tr>
-				<tr>
-					<td>.</td>
-					<td>匹配除换行和回车外任意单个字符。</td>
-				</tr>
-				<tr>
-					<td>^</td>
-					<td>匹配输入字符串的开始位置。</td>
-				</tr>
-				<tr>
-					<td>$</td>
-					<td>匹配输入字符串的结束位置。</td>
-				</tr>
-				<tr>
-					<td>\n</td>
-					<td>匹配一个换行符。</td>
-				</tr>
-				<tr>
-					<td>\d</td>
-					<td>匹配一个数字字符（0~9）。</td>
-				</tr>
-				<tr>
-					<td>{n}</td>
-					<td>匹配前面一个字符或字符集合确定的n次。</td>
-				</tr>
-				<tr>
-					<td>*</td>
-					<td>匹配前面的子表达式零次或多次（0~+∞）。例如，zo*能匹配“z”，“zo”以及“zoo”。</td>
-				</tr>
-				<tr>
-					<td>[xyz]</td>
-					<td>字符集合。匹配所包含的任意一个字符。例如，“[abc]”可以匹配“plain”中的“a”。</td>
-				</tr>
-				<tr>
-					<td>[^xyz]</td>
-					<td>负值字符集合。匹配未包含的任意字符。例如，“[^abc]”可以匹配“plain”中的“plin”。</td>
-				</tr>
-				<tr>
-					<td>(xxx)</td>
-					<td>匹配xxx（任意字符串）并获取这一匹配，在替换时写$1~$9即代表获取的第1~9个xxx。</td>
-				</tr>
-				<tr>
-					<td>x|y</td>
-					<td>匹配x或y。例如，“z|food”能匹配“z”或“food”。“(z|f)ood”则匹配“zood”或“food”。</td>
-				</tr>
-			</table>
-		</div>	
-	</div>
- 
-	<div class="chapter" id="cont_2">
-		<h1>第二节 例子</h1>				
-		<div class="section">
-			<h2>例一</h2>
-			<div class="content">
-				批量修改Database.xml中所有生物的一个属性值，以攻击抗性为例<br />
-				查找<br />
-				&lt;Parameter Name="AttackResilience" Guid="(.*)" Value=".*" Type="(.*)" /&gt;<br />
-				替换<br />
-				&lt;Parameter Name="AttackResilience" Guid="$1" Value="x" Type="$2" /&gt;<br />
-				x为要替换成的值
-			</div>
-		</div>
-		<div class="section">
-			<h2>例二</h2>
-			<div class="content">
-				批量修改Blocksdata.txt中第m个分号后面的属性值<br />
-				查找<br />
-				^((([^;\n]*);){m})[^;\n]*<br />
-				替换<br />
-				($1)x<br />
-				m为该属性前面的分号个数，x为要替换成的值<br />（注：部分只有分号的行需要把手动改回没有内容,在1.26版的blocksdata.txt中第2,29,50,74,132,134,136,163,176,186行是这样的。<br />
-				查找中最后的[^;\n]*就是那个位置的值，可以把它改成特定的值来批量修改所有为该值的属性的值。）
-			</div>
+	<!--导航-->
+	<div id="nav" class="nav"></div>
+	<div id="nav_overlay"></div>
+	
+	<!--顶栏-->
+	<div id="big_title_div" onclick="goTop()">正则表达式教程</div>
+	<div id="last_update">——更新日期 2015年8月5日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
+
+	<!--上栏-->
+	<div id="upper_box">
+		<h1>前言</h1>
+		<div class="content">
+			<ul>
+				<li>正则表达式使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。在很多文本编辑器里，正则表达式通常被用来检索、替换那些符合某个模式的文本。</li>
+				<li>在这里不要求各位完全掌握，只需要了解最基本的几个符号的用法达到加快批量修改速度的目的即可。</li>
+				<li>本教程由-百度贴吧销锋镝铸编写</li>
+			</ul>
 		</div>
 	</div>
-	<br />
+
+	<!--内容栏-->
+	<div id="content_box">
+		<div class="chapter" id="cont_1">
+			<h1>第一节 符号</h1>
+			<span style="font-size:10pt; display:block; font-weight:bold;">——详情查看<a href="http://www.baidu.com/link?url=15NvmiXqUtjMAzj_PPF8wiD-KRx_auGGeJtW8ffqlqn61azUXk84Pu56kUiRJbsiaT3Mr6DzjouJzqUuORvKra">百度百科-正则表达式</a></span>
+			<div class="content" style="overflow-x:auto;">
+				<table >
+					<tr style="font-weight:bold; text-align:center;">
+						<td>符号</td>
+						<td>说明</td>
+					</tr>
+					<tr>
+						<td>.</td>
+						<td>匹配除换行和回车外任意单个字符。</td>
+					</tr>
+					<tr>
+						<td>^</td>
+						<td>匹配输入字符串的开始位置。</td>
+					</tr>
+					<tr>
+						<td>$</td>
+						<td>匹配输入字符串的结束位置。</td>
+					</tr>
+					<tr>
+						<td>\n</td>
+						<td>匹配一个换行符。</td>
+					</tr>
+					<tr>
+						<td>\d</td>
+						<td>匹配一个数字字符（0~9）。</td>
+					</tr>
+					<tr>
+						<td>{n}</td>
+						<td>匹配前面一个字符或字符集合确定的n次。</td>
+					</tr>
+					<tr>
+						<td>*</td>
+						<td>匹配前面的子表达式零次或多次（0~+∞）。例如，zo*能匹配“z”，“zo”以及“zoo”。</td>
+					</tr>
+					<tr>
+						<td>[xyz]</td>
+						<td>字符集合。匹配所包含的任意一个字符。例如，“[abc]”可以匹配“plain”中的“a”。</td>
+					</tr>
+					<tr>
+						<td>[^xyz]</td>
+						<td>负值字符集合。匹配未包含的任意字符。例如，“[^abc]”可以匹配“plain”中的“plin”。</td>
+					</tr>
+					<tr>
+						<td>(xxx)</td>
+						<td>匹配xxx（任意字符串）并获取这一匹配，在替换时写$1~$9即代表获取的第1~9个xxx。</td>
+					</tr>
+					<tr>
+						<td>x|y</td>
+						<td>匹配x或y。例如，“z|food”能匹配“z”或“food”。“(z|f)ood”则匹配“zood”或“food”。</td>
+					</tr>
+				</table>
+			</div>	
+		</div>
+	 
+		<div class="chapter" id="cont_2">
+			<h1>第二节 例子</h1>				
+			<div class="section">
+				<h2>例一</h2>
+				<div class="content">
+					批量修改Database.xml中所有生物的一个属性值，以攻击抗性为例<br />
+					查找<br />
+					&lt;Parameter Name="AttackResilience" Guid="(.*)" Value=".*" Type="(.*)" /&gt;<br />
+					替换<br />
+					&lt;Parameter Name="AttackResilience" Guid="$1" Value="x" Type="$2" /&gt;<br />
+					x为要替换成的值
+				</div>
+			</div>
+			<div class="section">
+				<h2>例二</h2>
+				<div class="content">
+					批量修改Blocksdata.txt中第m个分号后面的属性值<br />
+					查找<br />
+					^((([^;\n]*);){m})[^;\n]*<br />
+					替换<br />
+					($1)x<br />
+					m为该属性前面的分号个数，x为要替换成的值<br />（注：部分只有分号的行需要把手动改回没有内容,在1.26版的blocksdata.txt中第2,29,50,74,132,134,136,163,176,186行是这样的。<br />
+					查找中最后的[^;\n]*就是那个位置的值，可以把它改成特定的值来批量修改所有为该值的属性的值。）
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
 </div>
+
 <script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
 </body>
 </html>
