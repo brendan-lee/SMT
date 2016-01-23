@@ -1,0 +1,144 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	<title>Clothes解析</title>
+	<script src="js/jquery.min.js"></script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
+	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
+	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+</head>
+
+<body>
+<!--顶栏 按钮-->
+<div id="buttons">
+	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+</div>
+
+<!--导航-->
+<div id="nav"></div>
+<div id="nav_bottom" onclick="navHide()"></div>
+<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
+
+<!--顶栏-->
+<div id="big_title_div" onclick="goTop()">Clothes解析</div>
+<div id="last_update">——更新日期 2015年7月23日——</div>
+<div id="top_box"></div>
+<div id="top_box_top"></div>
+<div id="top_box_strutting"></div>
+
+<!--上栏-->
+<div id="upper_box">
+	<h1>前言</h1>
+	<div class="content">
+		本教程由百度贴吧-销锋镝铸编写
+		<script>if(isMobile == true){document.write("<br />提示：手机端建议横屏查看");}</script>
+	</div>
+</div>
+
+<!--内容栏-->
+<div id="content_box">
+	<div class="chapter">
+		<h1>简述</h1>
+		<div class="content">
+			用文本编辑器打开此文件后，从第二行开始，每一行都是一种衣物<br />
+			例如第二行：
+		</div>
+		<div class="content">
+			&lt;ClothingData Index=&quot;1&quot; DisplayName=&quot;Old Shirt&quot; Slot=&quot;Torso&quot; ArmorProtection=&quot;0.2&quot; Sturdiness=&quot;10&quot; Insulation=&quot;2.0&quot; MovementSpeedFactor=&quot;1&quot; DensityModifier=&quot;0.0&quot; IsOuter=&quot;False&quot; CanByDyed=&quot;True&quot; Layer=&quot;1&quot; TextureName=&quot;Textures\Clothing\OldShirt&quot; ImpactSoundsFolder=&quot;&quot; Description=&quot;Old shirt you wore when being abandoned on this land. Can be dyed. No protection. Weak insulation.&quot; /&gt;
+		</div>
+	</div>
+	
+	<div class="chapter">
+		<h1>属性解析</h1>
+		<div class="content">
+			<table>
+				<tr style="font-weight:bold; text-align:center;">
+					<td>英文名</td>
+					<td>中文名</td>
+					<td>说明</td>
+				</tr>
+				<tr>
+					<td>ClothingData Index</td>
+					<td>衣物创造模式显示顺序</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>DisplayName</td>
+					<td>游戏中显示的名称</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Slot</td>
+					<td>类别</td>
+					<td>有Torso（上衣），Legs（裤子），Head（帽子），Feet（鞋子）四类</td>
+				</tr>
+				<tr>
+					<td>ArmorProtection</td>
+					<td>护甲值</td>
+					<td>直接提升玩家AttackResistance(攻击抗性，初始值为1，受到伤害等于攻击力/攻击抗性）</td>
+				</tr>
+				<tr>
+					<td>Sturdiness</td>
+					<td>耐久度</td>
+					<td>被攻击n次后消失</td>
+				</tr>
+				<tr>
+					<td>Insulation</td>
+					<td>保暖能力</td>
+					<td>越大越保暖</td>
+				</tr>
+				<tr>
+					<td>MovementSpeedFactor</td>
+					<td nowrap>步行速度增幅</td>
+					<td>使玩家移动速度变成初始速度*该值</td>
+				</tr>
+				<tr>
+					<td>SteedMovementSpeedFactor</td>
+					<td nowrap>骑行速度增幅</td>
+					<td>使坐骑移动速度变成初始速度*该值</td>
+				</tr>
+				<tr>
+					<td>DensityModifier</td>
+					<td>密度增幅</td>
+					<td>使玩家密度等于初始速度加该值（大于1会在水中下沉）</td>
+				</tr>
+				<tr>
+					<td>IsOuter</td>
+					<td>是否为最外层</td>
+					<td>指是否不可以被其他衣物外套（即该值为True则不能再在外面穿其他衣服）</td>
+				</tr>
+				<tr>
+					<td>CanByDyed</td>
+					<td>能否染色</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Layer</td>
+					<td>层</td>
+					<td>指该衣物可以套在比它Layer更小的同类衣物上</td>
+				</tr>
+				<tr>
+					<td>TextureName</td>
+					<td>衣物贴图文件位置</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>ImpactSoundsFolder</td>
+					<td>发生撞击时发出的声音文件位置</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Description</td>
+					<td>描述</td>
+					<td>可以将其中内容删除或添加来使文件大小保持不变</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<br />
+</div>
+<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+</body>
+</html>

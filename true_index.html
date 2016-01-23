@@ -1,0 +1,97 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	<title>SMT导航</title>
+	<script src="js/jquery.min.js"></script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
+	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
+	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
+	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+</head>
+
+<body>
+
+<!--判断js是否已正常载入-->
+<script>if(typeof ver == "undefined"){document.body.innerHTML="你的浏览器无法正常访问该网页，请换用其他浏览器访问！<br />（安卓设备建议使用UC浏览器、QQ浏览器；IOS设备建议使用Filza、ifile）";alert("你的浏览器无法正常访问该网页，请换用其他浏览器访问！"+"\n"+"（安卓设备建议使用UC浏览器、QQ浏览器；IOS设备建议使用Filza、ifile）");window.opener=null;window.open('','_self');window.close();window.stop();}</script>
+
+<!--顶栏 按钮-->
+<div id="buttons">
+	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+</div>
+
+<!--导航-->
+<div id="nav" class="nav"></div>
+<div id="nav_overlay"></div>
+
+<!--顶栏-->
+<div id="big_title_div" onclick="goTop()">SMT导航</div>
+<div id="top_box"></div>
+<div id="top_box_top"></div>
+<div id="top_box_strutting"></div>
+
+<!--内容栏-->
+<div id="content_box">
+	<div class="chapter">
+		<div class="content">
+			<img class="saimg" title="SMT logo 2014.9.10"
+			style="border:none; margin:0 auto; width:200px;"
+			online="image/logo_1.png"
+			offline="image/logo_1.png" />
+		</div>
+		<div class="content">
+			SMT全名Survivalcraft Mods & Textures，简称SMT或SMT组，为生存战争吧官方组织之一
+		</div>
+		<div class="content">
+			宗旨：深入研究Survivalcraft，使游戏更加有趣，多样化
+		</div>
+		<div class="content">
+			本导航主要用于教授Survivalcraft Mod的制作方法，提供相关资源，以及介绍SMT组<br />
+		</div>
+	</div>
+	
+	<div class="chapter">
+		<h1>版本号</h1>
+		<div class="content" id="current_version">
+			<!--缓存校验-->
+			<span style="color:#F00; font-weight:bold;">当看到这段话，请清除缓存并刷新页面！</span><br />
+			当前版本：<script>document.write(ver)</script><br />
+			缓存版本：<script>document.write(version)</script><br />
+			为保证正常浏览，请清除浏览器缓存
+			<script>
+				if (ver == version){
+					document.getElementById("current_version").innerHTML = version;
+				}
+			</script>
+		</div>
+		<div class="content">
+		本版本更新日期 2015年9月18日<br />
+		本版本mod教程对应Survivalcraft 1.27
+		</div>
+		<div class="content">
+		<script>
+		if(isOnline == false && navigator.onLine){
+			document.write("<script src='http://survivalcraft.cn/smt/js/online_version.js?" + Math.random() +  "'><"+"/script>");}
+		</script>
+		<script>
+		if(isOnline == false && navigator.onLine){
+			if(ver != online_ver){
+				document.write("在线最新版：" + online_ver +"<br />请更新离线导航 <a href='http://survivalcraft.cn/smt/nav_update.html' target='_blank'>点击更新</a>")
+			}
+		}</script>
+		</div>
+	</div>	
+	<div class="chapter">
+		<h1>使用提示</h1>
+		<div class="content">
+		左上角菜单键——导航目录（建议从上向下依次阅读）<br />
+		右上角菜单键——小节目录（内容过少时不显示）<br />
+		标题栏标题——返回顶部
+		</div>
+	</div>
+	<h1 style="text-align: center; margin-bottom:25px">转载请注明出处！</h1>
+</div>
+<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+</body>
+</html>

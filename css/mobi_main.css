@@ -1,0 +1,307 @@
+﻿/*	主样式表
+	作用于全部页面
+	更新日期 2015年8月7日	*/
+
+body, div, iframe, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4, table, th, td, input, button, select, textarea {
+	margin:0; 
+	padding:0;
+} 
+
+* {
+	color:#373737;
+	font-family:Arial;
+}
+
+html {
+	background-color:#E4E4E4;
+	height:100%;
+}
+
+body {
+	height:100%;
+}
+
+a:link, a:visited {
+	text-decoration: none; 
+	color: #03a9f4;
+}
+
+/*顶栏*/
+	#top_box, #top_box_top{
+		position:fixed;
+		top:0;
+		width:100%;
+		height:46px;
+		background-color:#259b24;
+		z-index:1;
+		box-shadow:0px 0px 6px 1px #000; 
+	}
+
+	#top_box_top {/*顶栏 遮罩层*/
+		z-index:2;
+		box-shadow:0 0 0 0;
+		position:absolute;
+		height:160px;
+	}
+
+	#top_box_strutting {/*顶撑*/
+		height:160px;
+	}
+	
+	#big_title_div {/*标题样式 滚动为0时的样式*/
+		position:absolute;
+		z-index:3;
+		color:#FFF; 
+		font-size:30px; 
+		text-shadow:1px 1px 3px #000;
+		font-weight:bold;
+		top: 90px;
+		left: 40px;
+	}
+	
+	#last_update {/*更新日期 滚动为0时的样式*/
+		position:absolute;
+		z-index:3;
+		color:#FFF; 
+		font-size:14px; 
+		text-shadow:1px 1px 2px #000;
+		font-weight:lighter;
+		top: 130px;
+		left: 40px;
+	}
+
+/*按钮*/
+	#buttons #menu_btn, #buttons #nav_btn {
+		position:fixed;
+		z-index:4;
+		top:13px;
+	}
+
+	#buttons #menu_btn {
+		right:12px;
+	}
+
+	#buttons #nav_btn {
+		left:12px;
+	}
+
+/*目录*/
+	#menu {/*菜单 文字内容*/
+		z-index:6;
+		position:fixed;
+		right:10px;
+		top:40px;
+		padding:10px 14px;
+		visibility:hidden;
+		background:#FFF;
+		box-shadow:0 1px 6px #000;
+		border-radius:2px;
+	}
+	
+	#menu li {/*列表项*/
+		list-style:none;
+		cursor:default;
+	}
+	
+	#menu li span {
+		cursor:default;
+	}
+
+	#menu .parent {/*父级*/
+		font-size:16px;
+	}
+
+	#menu .child {/*子级*/
+		margin:6px 0 0 15px;
+		font-size:14px;
+	}
+
+	#menu .divide_line {/*分隔线*/
+		height:1px;
+		border-top:solid 1px #e0e0e0;
+		margin:6px -8px;
+	}
+
+/*导航*/
+	.nav {
+		z-index:7;
+		position:fixed;
+		transform:translate(-215px);
+		-webkit-transform:translate(-215px);
+		height:100%;
+		width:190px;
+		background-color:#FFF;
+		box-shadow:0 0 10px 2px #000;
+		overflow-x:hidden;
+		overflow-y:auto;
+		transition: transform 0.5s;
+		-webkit-transition: -webkit-transform 0.5s;
+	}
+	.nav_show {
+		transform: translate(0);
+		-webkit-transform: translate(0);
+	}
+	.nav_hide {
+		transform: translate(-215px);
+		-webkit-transform: translate(-215px);
+	}
+
+	#nav_overlay {/*打开导航栏时的黑色透明背景（单击关闭导航）*/
+		z-index:6;
+		position:fixed;
+		height:100%;
+		width:100%;
+		background-color:#000;
+		opacity:0;
+		visibility:hidden;
+	}
+
+	#nav_logo {
+		margin: 20px auto;
+		width:80px;
+		display:block;
+	}
+
+	#nav .parent {
+		width: calc(100% - 20px);
+		height: 35px;
+		line-height: 35px;
+		padding-left:20px;
+		font-size:18px;
+		font-weight:bold;
+		transition: background 0.06s linear;
+	}
+	#nav .child {
+		display: block;
+		width: calc(100% - 30px);
+		height: 35px;
+		line-height: 35px;
+		padding-left: 30px;
+		font-size: 15px;
+		transition: background 0.08s linear;
+	}
+	#nav .children {
+		transition: height 0.3s;
+		overflow: hidden;
+		height: 0px;
+	}
+	#nav .parent:hover, #nav .child:hover {
+		background: #ddd;
+	}
+	#nav .parent:active, #nav .child:active {
+		background: #bbb;
+	}
+
+/*动画*/
+	@keyframes fade_in{
+		from{
+			opacity: 0;
+		}
+		to{
+			opacity: 1;
+		}
+	}
+	@-webkit-keyframes fade_in{
+		from{
+			opacity: 0;
+		}
+		to{
+			opacity: 1;
+		}
+	}
+	@keyframes fade_out{
+		from{
+			opacity: 1;
+		}
+		to{
+			opacity: 0;
+		}
+	}
+	@-webkit-keyframes fade_out{
+		from{
+			opacity: 1;
+		}
+		to{
+			opacity: 0;
+		}
+	}
+	@keyframes menu_show {
+		from {
+			visibility: hidden;
+			opacity: 0;
+		}
+		to {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+	@-webkit-keyframes menu_show {
+		from {
+			visibility: hidden;
+			opacity: 0;
+		}
+		to {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+	@keyframes menu_hide {
+		from {
+			visibility: visible;
+			opacity: 1;
+		}
+		to {
+			visibility: hidden;
+			opacity: 0;
+		}
+	}
+	@-webkit-keyframes menu_hide {
+		from {
+			visibility: visible;
+			opacity: 1;
+		}
+		to {
+			visibility: hidden;
+			opacity: 0;
+		}
+	}
+	@keyframes nav_overlay_show {
+		from {
+			visibility: hidden;
+			opacity: 0;
+		}
+		to {
+			visibility: visible;
+			opacity: 0.5;
+		}
+	}
+	@-webkit-keyframes nav_overlay_show {
+		from {
+			visibility: hidden;
+			opacity: 0;
+		}
+		to {
+			visibility: visible;
+			opacity: 0.5;
+		}
+	}
+	@keyframes nav_overlay_hide {
+		from {
+			opacity: 0.5;
+			visibility: visible;
+		}
+		to {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+	@-webkit-keyframes nav_overlay_hide {
+		from {
+			opacity: 0.5;
+			visibility: visible;
+		}
+		to {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}

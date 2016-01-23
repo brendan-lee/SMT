@@ -1,0 +1,156 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	<title>Android基础教程</title>
+	<script src="js/jquery.min.js"></script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
+	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
+	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
+	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+</head>
+
+<body>
+<!--顶栏 按钮-->
+<div id="buttons">
+	<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
+	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+</div>
+
+<!--目录-->
+<div id="menu">
+	<li class="parent"><span onclick="menuTo('cont_1')">一.所需工具</span></li>
+	<div class="divide_line"></div>
+	
+	<li class="parent"><span onclick="menuTo('cont_2')">二.详细步骤</span></li>
+		<li class="child"><span onclick="menuTo('cont_2.1')">1.apk编辑器篇</span></li>
+		<li class="child"><span onclick="menuTo('cont_2.2')">2.mt管理器篇</span></li>
+	<div class="divide_line"></div>
+	
+	<li class="parent"><span onclick="menuTo('cont_3')">三.关于安卓核心破解</span></li>
+</div>
+
+<!--导航-->
+<div id="nav"></div>
+<div id="nav_bottom" onclick="navHide()"></div>
+<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
+
+<!--顶栏-->
+<div id="big_title_div" onclick="goTop()">Android基础教程</div>
+<div id="last_update">——更新日期 2015年8月3日——</div>
+<div id="top_box"></div>
+<div id="top_box_top"></div>
+<div id="top_box_strutting"></div>
+
+<!--上栏-->
+<div id="upper_box">
+	<h1>前言</h1>
+	<div class="content">
+		本教程由百度贴吧-销锋镝铸编写
+	</div>
+</div>
+
+<!--内容栏-->
+<div id="content_box">
+	<div class="chapter" id="cont_1">
+		<h1>第一节 所需工具</h1>
+		<div class="content">
+			一台Android系统的设备，<a href="resources.html#cont_2">apk编辑器</a>或<a href="resources.html#cont_2">mt管理器</a>，<a href="resources.html#cont_2">920文本编辑器</a>
+		</div>
+	</div>
+ 
+	<div class="chapter" id="cont_2">
+		<h1>第二节 详细步骤</h1>
+		<span style="font-size:10pt; display:block; font-weight:bold;">（部分截图为老截图，不影响阅读）</span>
+		<div class="section" id="cont_2.1">
+			<h2>1.apk编辑器篇</h2>
+			<div class="content">
+				打开apk编辑器，并找到Survivalcraft的<a href="resources.html">安装包</a>（后缀为apk）
+				<img class="saimg"
+				online="http://ww3.sinaimg.cn/large/005yyi5Jjw1emxze5tmb1j30ct0lcjsh.jpg" 
+				offline="saimg/android_01.jpg" />
+			</div>
+			<div class="content">
+				单击安装包
+				<img class="saimg"
+				online="http://ww4.sinaimg.cn/large/005yyi5Jjw1emxze4twvvj30ct0lc3zk.jpg"  
+				offline="saimg/android_02.jpg" />
+			</div>
+			<div class="content">
+				打开assest文件夹，就可以看到Content.pak了，之前的Content解析已对它进行讲解，此不复述<br />
+				长按Content.pak，替换，选择已经修改好的Content.pak完成替换（apk编辑器将自动对安装包进行签名，无需再次签名）
+				<img class="saimg"
+				online="http://ww4.sinaimg.cn/large/0065QQIxgw1euricmsbb5j30dc0m8dge.jpg"  
+				offline="saimg/android_03.png" />
+			</div>
+			<div class="content">
+				卸载之前版本后安装已修改完成的安装包即可测试mod
+			</div>
+		</div>	
+			
+		<div class="section" id="cont_2.2">
+			<h2>2.MT管理器篇</h2>
+			<div class="content">
+				至少一边打开安装包所在目录
+				<img class="saimg"
+				online="http://ww2.sinaimg.cn/large/005yyi5Jjw1emxze0g6evj30ct0lcq4o.jpg"  
+				offline="saimg/android_06.jpg" />
+			</div>
+			<div class="content">
+				单击安装包，选择查看
+				<img class="saimg"
+				online="http://ww3.sinaimg.cn/large/005yyi5Jjw1emxzdz39vfj30ct0lcgn9.jpg"  
+				offline="saimg/android_07.jpg" />
+			</div>
+			<div class="content">
+				打开assest文件夹，就可以看到Content.pak了，之前的Content解析已对它进行讲解，此不复述
+				<img class="saimg"
+				online="http://ww2.sinaimg.cn/large/0065QQIxgw1euricn9am6j30ce0kkt95.jpg"  
+				offline="saimg/android_08.png" />
+			</div>
+			<div class="content">
+				在另外一边长按已修改好的Content.pak，点添加，确定
+				<img class="saimg"
+				online="http://ww4.sinaimg.cn/large/0065QQIxgw1euricnxvhjj30ce0kk0tj.jpg"  
+				offline="saimg/android_10.png" />
+			</div>
+			<div class="content">
+				确定之后回到安装包所在目录，点击已完成修改的安装包，签名（不签名无法安装）
+				<img class="saimg"
+				online="http://ww3.sinaimg.cn/large/005yyi5Jjw1emxzdz39vfj30ct0lcgn9.jpg"  
+				offline="saimg/android_07.jpg" />
+			</div>
+			<div class="content">
+				卸载之前版本后安装已签名的新安装包即可测试mod
+			</div>
+		</div>
+	</div>
+	
+	<div class="chapter" id="cont_3">
+		<h1>第三节 关于安卓核心破解</h1>
+		<div class="content">
+			在apk编辑器中长按安装包可制作共存，但成功率很低，需要做很多遍才能使用~这里推荐用<a href="resources.html#cont_2">幸运破解器</a>的安卓核心破解功能
+		</div>
+		
+		<div class="section">
+			<h2>步骤</h2>
+			<div class="content">
+				打开幸运破解器，点击左下角工具箱-Android核心破解
+				<img class="saimg"
+				online="http://ww3.sinaimg.cn/large/005yyi5Jjw1emxzdsh4qaj30ct0lcwgg.jpg"  
+				offline="saimg/android_12.jpg" />
+			</div>
+			<div class="content">
+				一次勾选一个点应用，前两次可能需要花费较长时间，请耐心等待。全部完成后可以无视签名直接安装软件
+				<img class="saimg"
+				online="http://ww3.sinaimg.cn/large/005yyi5Jjw1emxzdr00vbj30ct0lcac3.jpg"  
+				offline="saimg/android_13.jpg" />
+			</div>
+		</div>
+	</div>
+	<br />
+</div>
+<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+</body>
+</html>

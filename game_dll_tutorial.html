@@ -1,0 +1,112 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	<title>Survivalcraft.dll教程</title>
+	<script src="js/jquery.min.js"></script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
+	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
+	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+</head>
+
+<body>
+<!--顶栏 按钮-->
+<div id="buttons">
+	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+</div>
+
+<!--导航-->
+<div id="nav"></div>
+<div id="nav_bottom" onclick="navHide()"></div>
+<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
+
+<!--顶栏-->
+<div id="big_title_div" onclick="goTop()">Survivalcraft.dll教程</div>
+<div id="last_update">——更新日期 2015年8月5日——</div>
+<div id="top_box"></div>
+<div id="top_box_top"></div>
+<div id="top_box_strutting"></div>
+
+<!--上栏-->
+<div id="upper_box">
+	<h1>前言</h1>
+	<div class="content">
+		<ul>
+			<li>此教程由百度贴吧-_0超新星0_ 编写</li>
+			<li>在不同版本中Survivalcraft.dll的位置也不尽相同，甚至不一定存在，如果存在则可以打开安装包后用文件管理器的文件搜索功能快速地找到；如果不存在则可能是以其他的形式存在，因此修改方法也不一样，此教程仅以Survivalcraft.dll为例</li>
+			<li>注：此文件修改较难，需要有PC电脑端及较好的英语基础（有词典，万事通）（还有很好的耐心……）</li>
+		</ul>
+	</div>
+</div>
+
+<!--内容栏-->
+<div id="content_box">
+	<div class="chapter">
+		<h2>1.dll打开、编辑方式教程：</h2>
+		<div class="content">
+			dll文件代码格式是il，查看dll文件的软件叫<a href="resources.html#cont_4">ilspy</a>，<br />
+			它可以把il代码转成更容易理解的C#代码（也可以用VB和il显示），<br />
+			但是这个软件只能查看，不能改代码。<br />
+			改代码需要先用<a href="resources.html#cont_4">ildasm</a>软件把dll格式文件转化成il格式文件，<br />
+			这个文件可以用文本编辑器修改，改完了之后再用<a href="resources.html#cont_4">ilasm</a>转成dll就可以了。<br />
+			可以先用ilspy看看，后面两个软件是装了<a href="resources.html#cont_4">visual studio</a>或者windows sdk之后附带的
+		</div>
+	</div>
+	
+	<div class="chapter">
+		<h2>2.ilasm.exe与ildasm.exe的使用（编译与反编译）</h2>
+		<div class="content">
+			首先打开cmd命令。cd 到 C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin<br />
+			看看你有没这2个工具，没的话自己百度找下<br />
+			然后把要查看的 dll文件或者exe文件拉进来这里面（因为我们是要用命令，你直接打开ildasm.exe也可以找到各目录打开）<br />
+			比如 text.dll  （里面有console.writeline("hello word")）<br />
+			ildasm text.dll 打开dll 找到方法可以查看<br />
+			ildasm text.dll /output:text.il  按回车就编译好一个il文件（可用记事本打开并且编辑hello word保存）<br />
+			然后用ilasm工具反汇编成 dll或者exe 文件<br />
+			ilasm text  按回车自动查找text4.il 文件并且编译成 text4.exe<br />
+			或 ildasm text /dll 可以编译成 text.dll 文件(记得先删除原来的text4.dll)
+		</div>
+	</div>
+	
+	<div class="chapter">
+		<h2>3.至于修改具体代码，因为游戏不同而异，不同游戏不同语言</h2>
+		<div class="content">
+			至于现阶段，我们还需根据相关方块的同一属性来借鉴代码<br />
+			在此举例一段修改冰块透明的原理代码讲解：<br />
+			在游戏里面方块分了三类，OpaqueSubsetsByFace（不透明），AlphaTestSubsetsByFace（只有透明和不透明两种状态，没有透明度）和TransparentSubsetsByFace（透明）冰块的基类叫cubeblock，是不透明的，在iceblock的类里面加了一条语句，覆盖了iceblock的基类cubeblock中的绘制方块表面的方法，本来那个方法是不透明的，改了就变成透明了<br />
+			本来是这样<br />
+			public class IceBlock : CubeBlock<br />
+			{<br />
+			public new const int Index = 62;<br />
+			}<br /><br />
+			 
+			改成这样就可以了
+		</div>
+		<div class="content">
+			public class IceBlock : CubeBlock<br />
+			{<br />
+			public new const int Index = 62;<br />
+			public override void GenerateTerrainVertices(SubsystemTerrain terrain, TerrainChunk chunk, int value, int x, int y, int z)<br />
+			{<br />
+			terrain.BlockGeometryGenerator.GenerateCubeVertices(this, value, x, y, z, Color.White, chunk.Geometry.TransparentSubsetsByFace);<br />
+			}<br />
+			}
+		</div>
+	</div>
+	
+	<div class="chapter">
+		<h2>4.发展前景最大的应该是根据游戏语言，来自添加语句</h2>
+		<div class="content">
+			因为这类方法千变万化，而且难度很高，建议有相关的dll高级编程书（研究明白，再）采取这种修改方法，可以说，会了这个，再有耐心，你基本可以做到游戏里的所有行为（这也需要更改除Game.dll外的其他dll文件）也就是说，你基本成为了这个游戏的作者了
+		</div>
+	</div>
+	
+	<div class="chapter">
+		第三条和第四条的修改方式不同，第三条为复制已有相关代码或删除代码，第四条高大上就是真正的编程了
+	</div>
+	<br />
+</div>
+<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+</body>
+</html>

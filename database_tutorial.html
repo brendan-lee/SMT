@@ -1,0 +1,247 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	<title>Database解析</title>
+	<script src="js/jquery.min.js"></script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
+	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
+	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
+	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+</head>
+
+<body>
+<!--顶栏 按钮-->
+<div id="buttons">
+	<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
+	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+</div>
+
+<!--目录-->
+<div id="menu">
+	<li class="parent"><span onclick="menuTo('cont_1')">一.基础知识</span></li>
+	<div class="divide_line"></div>
+	
+	<li class="parent"><span onclick="menuTo('cont_2')">二.结构解析</span></li>
+	<div class="divide_line"></div>
+	
+	<li class="parent"><span onclick="menuTo('cont_3')">三.要点说明</span></li>
+	<div class="divide_line"></div>
+	
+	<li class="parent"><span onclick="menuTo('cont_4')">四.启发例子</span></li>
+	<div class="divide_line"></div>
+	
+	<li class="parent"><span onclick="menuTo('cont_appendix')">附件</span></li>
+</div>
+
+<!--导航-->
+<div id="nav"></div>
+<div id="nav_bottom" onclick="navHide()"></div>
+<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
+
+<!--顶栏-->
+<div id="big_title_div" onclick="goTop()">Database解析</div>
+<div id="last_update">——更新日期 2015年8月24日——</div>
+<div id="top_box"></div>
+<div id="top_box_top"></div>
+<div id="top_box_strutting"></div>
+
+<!--上栏-->
+<div id="upper_box">
+	<h1>前言</h1>
+	<div class="content">
+		Database.xml可以说是几个重要纯粹游戏数据的文件中最为复杂的一个，主要是因为它包含数据多，层次多，使用了其他文件没有使用的一些东西。<br />
+		本教程由-百度贴吧销锋镝铸编写
+	</div>
+</div>
+
+<!--内容栏-->
+<div id="content_box">
+	<div class="chapter" id="cont_1">
+		<h1>第一节 基础知识</h1>
+		<div class="section" id="cont_1.1">
+			<h2>1.关于XML</h2>
+			<div class="content">
+				XML是可扩展标记语言，被设计用来传输和存储数据，以下是关于它的一些简单说明</br>
+				标记语言由标签包裹内容，包裹形式有以下两种：
+				<h3>(1)&lt;abc&gt;xxx&lt;/abc&gt;</h3>
+				&lt;abc&gt;：<br />
+				开始标签，以&lt;开始，以&gt;结尾，abc是元素名，表示abc元素的开始<br />
+				xxx：<br />
+				abc元素的内容<br />
+				&lt;/abc&gt;：<br />
+				结束标签，以&lt;/开始，以&gt;结尾，abc是元素名，表示abc元素的结束<br />
+				（注：内容为标签时形成层级关系，内层元素从属外层元素。例如&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;中b元素属于a元素，b元素是a元素的子元素，a元素是b元素的父元素，同时a元素在此也叫做根元素，一个xml文件必须包含根元素，它是所有其他元素的父元素）
+				<h3>(2)&lt;xxx/&gt;</h3>
+				自闭合标签，以&lt;开始，以/&gt;结尾，xxx是内容，是最低的层级
+				<h3>元素的属性</h3>
+				&lt;abc def="ghi" /&gt;中，def="ghi"是abd元素的属性，其中def是属性名，ghi是属性值，属性值须加引号</br></br>
+				更多内容请访问<a href='http://runoob.com/xml/xml-tutorial.html' target='_blank'>http://runoob.com/xml/xml-tutorial.html</a>
+			</div>
+		</div>
+		
+		<div class="section" id="cont_1.2">
+			<h2>2.识别码和继承码</h2>
+			<div class="content">
+				<h3>识别码（Guid）</h3>
+				大部分元素都有Guid这个属性，它的全名是全局唯一标识符，这里为了方便称呼称为识别码；作用是使一个元素具有唯一性，能被被识别，因此不可重复。<br />
+				它的格式为“xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx”，其中每个 x 是 0-9 或 a-f 范围内的一个十六进制数。
+				<h3>继承码（InheritanceParent）</h3>
+				一个有InheritanceParent（以下称作继承码）属性的元素，会主动继承与拥有其继承码的值相同识别码值的所有内容，以下把前者称作子对象，后者称作父对象。如果子对象的已有内容和父对象的内容冲突（即都有一样的元素），则子对象继承而来的内容无效，原先有的内容生效。<br />
+				举例说明<br />
+				&lt;Folder Name=&quot;a&quot; Guid =&quot;1950&quot;&gt; （识别码为1950的文件夹a(此例标识码和继承码不按照标准)）<br />
+				  &lt;File Name=&quot;b&quot; Author=&quot;Peter&quot; /&gt; （作者为Peter的文件b）<br />
+				  &lt;File Name=&quot;c&quot; Author=&quot;Susan&quot; /&gt; （作者为Susan的文件c）<br />
+				&lt;/Folder&gt;<br />
+				&lt;Folder Name=&quot;d&quot; InheritanceParent=&quot;1950&quot;&gt; （继承码为1950的文件夹d）<br />
+				 &lt;File Name=&quot;c&quot; Author =&quot;Edmund&quot; /&gt; （作者为Edmund的文件c）<br />
+				 &lt;File Name=&quot;e&quot; Author =&quot;Lucy&quot; /&gt; （作者为Lucy的文件e）<br />
+				&lt;/Folder&gt;<br />
+				从这一段代码可以看出文件夹d继承到了作者为Harry的文件b和作者为Ron的文件c，但是继承来的文件c与已有的文件c相冲突，保留原有的文件c，即文件夹d实际代码为<br />
+				&lt;Folder Name=&quot;d&quot; InheritanceParent =&quot;1950&quot;&gt; （识别码为1234的文件夹d）<br />
+				&lt;File Name=&quot;b&quot; Author=&quot;Peter&quot; /&gt; （作者为Peter的文件b）<br />
+				&lt;File Name=&quot;c&quot; Author=&quot;Edmund&quot; /&gt; （作者为Edmund的文件e）<br />
+				&lt;File Name=&quot;e&quot; Author=&quot;Lucy&quot; /&gt; （作者为Lucy的文件e）<br />
+				&lt;/Folder&gt;<br />
+			</div>
+		</div>
+		
+		<div class="section" id="cont_1.3">
+			<h2>3.默认继承</h2>
+			<div class="content">
+				当一个元素没有继承码属性时，那么它将默认继承其父元素的父对象中相对应元素的内容，实例：<br />
+          &lt;EntityTemplate Name="LandAnimal" Guid="e4275171-a39f-413f-8888-4c472868364d" InheritanceParent="3f077159-f492-419b-859a-bb051de6339f"&gt;<br />
+            &lt;MemberComponentTemplate Name="Mount" Guid="d7855ac3-4c88-4e86-8018-83155cd7bfbc"&gt;<br />
+              &lt;Parameter Name="MountOffset" Guid="3b86ca1c-1765-4fd7-ad58-6f52d9651188" Value="0,1.35,0" Type="Microsoft.Xna.Framework.Vector3" /&gt;<br />
+            &lt;/MemberComponentTemplate&gt;<br />...<br/>&lt;/EntityTemplate&gt;<br /><br />
+			
+          &lt;EntityTemplate Name="AICreature" Guid="3f077159-f492-419b-859a-bb051de6339f" InheritanceParent="bc5be211-c1f8-4e50-9ffb-4fde625d2692"&gt;<br />
+            &lt;MemberComponentTemplate Name="Mount" Guid="d7655ac3-4c88-4e89-8018-83155cd7bfbc" InheritanceParent="d0b14127-39ce-4490-af00-fb4111e9c51e"&gt;<br />
+              &lt;Parameter Name="DismountOffset" Guid="3be6ca1c-17c5-4fd7-ad58-6f52d9651188" Value="1.5,0.3,0" Type="Microsoft.Xna.Framework.Vector3" /&gt;<br />
+            &lt;/MemberComponentTemplate&gt;<br/>...<br />&lt;/EntityTemplate&gt;<br />
+		      LandAnimal的父对象是AICreature，因此LandAnimal中的Mount就会继承得到AICreature中Mount的DismountOffset。<br />
+			</div>
+		</div>
+	</div>
+	
+	<div class="chapter" id="cont_2">
+		<h1>第二节 结构解析</h1>
+		<div class="content">
+			用专门的代码编辑器打开Database.xml，折叠所有层次后打开Database层次，可以看到整个文件由四个大层次组成
+			<img class="saimg"
+			online="http://ww4.sinaimg.cn/large/005yyi5Jjw1enewqnnj44j30sg0lc0u4.jpg"
+			offline="saimg/database_1.png" />
+			1.DatabaseObjectTypes是层次说明，说明每一个层次可以有什么样的内容等等（详见<a href="#cont_appendix">中文版1.25 database.xnb</a>）
+			<img class="saimg"
+			online="http://ww4.sinaimg.cn/large/005yyi5Jjw1enewxizlzhj30sg0lcwuy.jpg"
+			offline="saimg/database_2.png" />
+			2.Assemblies 一个文件说明～无需了解<br />
+			3.DatabaseObjects 各种数据存储的地方，以及描述（就是这个东西的说明书啦）<br />
+			4.GridViewPresets 不知道是什么东西～
+		</div>
+	</div>
+	
+	<div class="chapter" id="cont_3">
+		<h1>第三节 要点说明</h1>
+		<div class="content">
+			第三大层次中有实体和一些其他内容的数据和描述组成
+			<img class="saimg"
+			online="http://ww2.sinaimg.cn/large/005yyi5Jjw1enexgoiz2nj30sg0lc49r.jpg"
+			offline="saimg/database_3.png" />
+			<div class="section">
+				<h2>Creatures文件夹</h2>
+				<div class="content">
+					包含大部分生物的大部分属性以及少量描述。<br />
+					这里有个生物继承导图，从此图可以很容易地看出各生物之间的继承关系。
+					<img class="saimg"
+					online="http://ww2.sinaimg.cn/large/0065QQIxgw1euriubgtvsj30wg1opk6b.jpg"
+					offline="saimg/database_4.png" />
+					<center><div class="note">点击图片直接浏览原图，点击<a href="http://pan.baidu.com/share/link?shareid=68742967&uk=2788149454" target="_blank">此处</a>下载原图或xmind版</div></center>
+					修改生物数据一般照葫芦画瓢即可，各属性详细说明见各个文件夹中的描述，需要注意允许的数据类型（详见<a href="blocksdata_tutorial.html#cont_1">Blocksdata解析第一节</a>）<br />
+					给生物添加行为和数据或添加生物需要注意层次，不要把更高级的层次放到低级或同等级层次中了，否则一定报错。<br />
+					生物转换小技巧：增加一个生物，使它名字是另一个生物名字后面加上_Saddled，继承码写那个生物的识别码，这样给那个生物加上马鞍就变成我们创造的这个生物了。或者像这样直接改一个已存在生物的名字和继承码，可以完成生物之间的转换。<br />
+					还有就是Shapeshifter（变形，原版狼和狼人特有属性）来让一个生物白天或晚上变成别的实体（生物和船都是实体，不是所有实体都能被转换出来（以此还可以卡蓝火bug））
+				</div>
+			</div>
+			
+			<div class="section">
+				<h2>BlocksBehaviors文件夹</h2>
+				<div class="content">
+					包含各种方块的特殊属性的名称，有些可以加到Blocksdata.xml中使一个方块拥有别的方块的特殊属性，详细分类和说明见<a href="blocksdata_tutorial.html#cont_appendix">Blocksdata解析附录</a>
+				</div>
+			</div>
+			
+			<div class="section">
+				<h2>AI文件夹</h2>
+				<div class="content">
+					包含各种人工智能共用属性，其描述重点阅读
+				</div>
+			</div>
+			
+			<div class="section">
+				<h2>Gameplay文件夹</h2>
+				<div class="content">
+					它有大量关于游戏存档中Project.xml各种内容的描述，阅读可以增进对存档的了解
+				</div>
+			</div>
+			
+			<div class="section">
+				<h2>Models文件夹</h2>
+				<div class="content">
+					包含各种生物模型共用属性，其描述重点阅读
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="chapter"  id="cont_4">
+		<h1>第四节 启发例子</h1>
+		<div class="section">
+			<h2>1.宠物海鸟</h2>
+			<div class="content">
+			将此段代码加到Folder Entities/Folder Creatures/Folder Normal中，即可产生一个给海鸟加鞍后再攻击一下便会一直跟着主角的宠物海鸟（原理：被攻击后反击主角，并一直持续追击）。<br />
+          &lt;EntityTemplate Name="Seagull_Saddled" Guid="dd2f737c-30f8-4d62-8de3-9ab48559c3be" InheritanceParent="dd2f737c-30f8-4762-8de3-9ab48559c3ae"&gt;<br />
+		    &lt;MemberComponentTemplate Name="Creature" Guid="0024a011-7626-40c4-927a-84be91ea194d"&gt;<br />
+              &lt;Parameter Name="IsPredator" Guid="7f0bf311-b151-4fb9-9f43-65c8bb28f69f" Value="True" Type="System.Boolean" /&gt;<br />
+            &lt;/MemberComponentTemplate&gt;<br />
+            &lt;MemberComponentTemplate Name="Miner" Guid="047bf6eb-6d85-4b9f-9e37-5a97dc15d8fd" InheritanceParent="8acca888-ba39-464f-bcf5-6ae15e448c62"&gt;<br />
+              &lt;Parameter Name="AttackPower" Guid="c0608320-e57c-56be-9ffd-351aa10a9683" Value="0" Type="System.Single" /&gt;<br />
+            &lt;/MemberComponentTemplate&gt;<span style="float:right;"><div class="note">（有攻击力才能追击）</div></span><br />
+            &lt;MemberComponentTemplate Name="Health" Guid="f8814ebd-7e1d-48b7-83ed-9d3fc75e4a1f"&gt;<br />
+              &lt;Parameter Name="FireResilience" Guid="58baefde-47d9-42fb-879d-345169d3979a" Value="10" Type="System.Single" /&gt;<br />
+              &lt;Parameter Name="AttackResilience" Guid="8b2fd0bc-fb0d-4905-b162-f5afdf5ac5b4" Value="2000" Type="System.Single" /&gt;<br />
+            &lt;/MemberComponentTemplate&gt;<span style="float:right;"><div class="note">（只能被烧死而不能被打死）</div></span><br />
+            &lt;MemberComponentTemplate Name="ChaseBehavior" Guid="d71acd48-f5d5-4bde-8baf-9a4a1db39841" InheritanceParent="31894441-d90a-4549-9264-db9dbe20e234"&gt;<br />
+          &lt;Parameter Name="ChaseWhenAttackedProbability" Guid="60b1024a-acd0-4536-bba4-9a510286a396" Value="1" Type="System.Single" /&gt;<span style="float:right;"><div class="note">（遭到攻击100%还击，即成为宠物）</div></span><br />
+              &lt;Parameter Name="NightChaseRange" Guid="42b0ca10-ed8b-4079-b513-966221ecb1ab" Value="999" Type="System.Single" /&gt;<br />
+              &lt;Parameter Name="DayChaseTime" Guid="558111d8-eb1c-4e53-a94d-df49525121f6" Value="3600" Type="System.Single" /&gt;<br />
+              &lt;Parameter Name="NightChaseTime" Guid="61771540-6229-4f79-b9fd-2a39b50cfd46" Value="3600" Type="System.Single" /&gt;<br />
+              &lt;Parameter Name="DayChaseRange" Guid="f8c4f30d-c05e-d829-99dc-66cd028a59aa" Value="999" Type="System.Single" /&gt;<span style="float:right;"><div class="note">（为了长久且长距离地保持追击）</div></span><br />
+              &lt;Parameter Name="AutoChaseMask" Guid="0434faa5-d599-4ced-989f-7d4c08a2e34c" Value="0" Type="Game.CreatureCategory" /&gt;<span style="float:right;"><div class="note">（使其不会主动追击其他生物）</div></span><br />
+            &lt;/MemberComponentTemplate&gt;<br />
+            &lt;ParameterSet Name="CreatureEggData" Guid="09f2015a-163c-44bb-dc6f-c9d22027cddf"&gt;<br />
+              &lt;Parameter Name="DisplayName" Guid="48c75384-3dcc-4a6b-b566-5a2e4cb21b17" Value="Seagull Pet Egg" Type="System.String" /&gt;<br />
+              &lt;Parameter Name="NutritionalValue" Guid="61dd9c88-2de6-464e-9383-0d0c4a4d2c5d" Value="0" Type="System.Single" /&gt;<span style="float:right;"><div class="note">（设置动物蛋不可煮，免得多占用创造模式物品栏）</div></span><br />
+              &lt;Parameter Name="EggTypeIndex" Guid="cabca26b-f9cd-4908-8f8b-9e5dda5882d4" Value="38" Type="System.Int32" /&gt;<br />
+            &lt;/ParameterSet&gt;<br />
+          &lt;/EntityTemplate&gt;<br />
+			</div>
+		</div>
+	</div>
+	
+	<div class="chapter" id="cont_appendix">
+		<h1>附件</h1>
+		<div class="content">
+			<a href="http://pan.baidu.com/share/link?shareid=2218194687&uk=2788149454" target="_blank">中文版 1.25 database.xnb</a><br />
+			由百度贴吧-销锋镝铸翻译并提供
+		</div>
+		<div class="content">
+			<a href="http://pan.baidu.com/share/link?shareid=4293478391&uk=2788149454" target="_blank">简化版 1.27 database.xml</a><br />
+			由百度贴吧-销锋镝铸简化并提供（去除Guid，InheritanceParent，Type三种参数，方便查看）
+		</div>
+	</div>
+	<br />
+</div>
+<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+</body>
+</html>

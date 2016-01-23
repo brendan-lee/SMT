@@ -1,0 +1,96 @@
+﻿/*	更新日期 2015年8月5日	*/
+
+#content_box {
+	width:55%;
+	margin:0 auto;
+}
+
+#content_box .chapter {/*章节*/
+	margin:20px auto;
+	padding:14px 20px;
+	box-shadow:0px 2px 5px 0px #555;
+	background-color:#FFF;
+	border-radius:2px;
+}
+
+#content_box .section {/*段落*/
+	padding-top:14px;
+}
+
+#content_box .content {/*内容*/
+	font-size:16px;
+	padding-top:14px;
+	overflow-x:auto;
+	line-height:27px;
+}
+
+#content_box .note {/*注释*/
+	font-size:12px;
+	color:#259B24;
+	padding-top:4px;
+	font-weight:bold;
+}
+
+#content_box .saimg {
+	display:block;
+	margin:8px 0 12px 0;
+	max-width:99%;
+	max-width:calc(100% - 2px);
+	cursor:pointer;
+	border:solid 1px;
+}
+
+#content_box li {
+	list-style-position:inside;
+}
+
+#content_box h1 {/*父标题*/
+	font-size:22px;
+	font-weight:bold;
+}
+
+#content_box h2 {/*子标题*/
+	font-size:18px;
+	font-weight:bold;
+}
+
+#content_box h3 {/*后代标题*/
+	font-size:16px;
+	font-weight:bold;
+	padding-top:8px;
+}
+
+#content_box table, #content_box table td {/*表格*/
+	border:solid 1px #000;
+	border-collapse:collapse;
+	padding:1px 4px;
+}
+
+#upper_box {/*上栏*/
+	margin:20px auto;
+	width:55%;
+	padding:6px 0;
+	box-shadow:0px 2px 5px 0px #555;
+	background-color:#FFF;
+	border-radius:2px;
+}
+
+#upper_box h1{/*上栏 标题*/
+	font-size: 20px;
+	font-weight: bold;
+	margin:8px 20px;
+}
+
+#upper_box li {
+	list-style-position:inside;
+}
+
+#upper_box .content {/*上栏 内容*/
+	font-size:16px;
+	margin:8px 20px;
+	line-height:27px;
+}
+
+.break_word {
+	word-break:break-all;
+}

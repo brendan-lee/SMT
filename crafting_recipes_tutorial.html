@@ -1,0 +1,391 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	<title>CraftingRecipes解析</title>
+	<script src="js/jquery.min.js"></script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
+	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
+	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+</head>
+
+<body>
+<!--顶栏 按钮-->
+<div id="buttons">
+	<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
+	<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+</div>
+
+<!--目录-->
+<div id="menu">
+	<li class="parent"><span onclick="menuTo('cont_1')">一.文件解析</span></li>
+	<div class="divide_line"></div>
+	
+	<li class="parent"><span onclick="menuTo('cont_2')">二.一些例子</span></li>
+		<li class="child"><span onclick="menuTo('cont_2.1')">1.例一</span></li>
+		<li class="child"><span onclick="menuTo('cont_2.2')">2.例二</span></li>
+</div>
+
+<!--导航-->
+<div id="nav"></div>
+<div id="nav_bottom" onclick="navHide()"></div>
+<script>document.write("<script src='js/menu_nav.js?" + ver + "'><" + "/script>");</script>
+
+<!--顶栏-->
+<div id="big_title_div" onclick="goTop()">CraftingRecipes解析</div>
+<div id="last_update">——更新日期 2015年7月15日——</div>
+<div id="top_box"></div>
+<div id="top_box_top"></div>
+<div id="top_box_strutting"></div>
+
+<!--上栏-->
+<div id="upper_box">
+	<h1>前言</h1>
+	<div class="content">
+		本教程由百度贴吧-销锋镝铸编写
+	</div>
+</div>
+
+<!--内容栏-->
+<div id="content_box">
+	<div class="chapter" id="cont_1">
+		<h1>第一节 文件解析</h1>
+		<div class="content">
+			用文本编辑器打开此文件后，从第三行开始，每隔一个&lt;/Recipe&gt;就是一个新的合成表开始
+		</div>
+		<div class="content">
+			先说普通的合成表：以铁镐为例：
+		</div>
+		<div class="content">
+			&lt;Recipe Result="IronPickaxeBlock" ResultCount="1" RequiredHeatLevel="0" a="stick" b="ironingot" Description="Make an iron tool"&gt;
+			<div style="padding-left:16px;">
+				"bbb"<br />
+				" a"<br />
+				" a"<br />
+			</div>
+			&lt;/Recipe&gt;
+		</div>
+		<div class="content">
+			先说明每个部分的意思和详解
+		</div>
+		<div class="content">
+			第一行
+		</div>
+		<div class="content">
+			
+			<table>
+				<tr style="font-weight:bold; text-align:center;">
+					<td>原英文</td>
+					<td nowrap>中文翻译</td>
+					<td>说明</td>
+				</tr>
+				<tr>
+					<td>Recipe Result</td>
+					<td>生成物</td>
+					<td>以BlocksData.txt里的Content.StringReader&nbsp;&nbsp;&nbsp;&nbsp;&laquo;&Oslash;Class Name（标识符，那个物品属性所在行第1个分号前面的内容）为准</td>
+				</tr>
+				<tr>
+					<td>ResultCount</td>
+					<td>生成量</td>
+					<td>写数字</td>
+				</tr>
+				<tr>
+					<td>RequiredHeatLevel</td>
+					<td>需求热量等级</td>
+					<td>若为0，则无需加热，且不能在火炉合成；若为1，则需要在火炉加热，且可用任何燃料；若为2，则需要物品属性FuelHeatLevel（见BlocksData.txt）为2的燃料，不过原版貌似没有为2的，可以改为2增大游戏难度 FuelHeatLevel：燃烧热等级。它为2的物品原版只有CoalChunkBlock（煤）</td>
+				</tr>
+				<tr>
+					<td>a，b，c……</td>
+					<td>所需原料名字</td>
+					<td>用Blocksdata.txt里每个方块的CraftingId，如果那个方块没有此属性，则需要自己在BlocksData中给该物品添加该属性，可随意填写，只要不与其他相同</td>
+				</tr>
+				<tr>
+					<td>Description</td>
+					<td>描述</td>
+					<td>可以随便删或添加，但最好不要太长</td>
+				</tr>
+			</table>
+		</div>
+		<div class="content">
+			第二行到最后一行之前为物品放置方式
+		</div>
+		<div class="content">
+			空格代表空白，例如在某一横行第一竖行没东西，第二行才有东西时，输入" a"即可，不需要在后面继续加空格。并不一定要满满当当弄成3×3的，也可以弄成1×1，1×2之类的，合成时只要放置方式对就行。最后一行，代表一个合成表结束
+		</div>
+		<div class="content">
+			第二种合成表，唯一只有湿面团是这样：
+		</div>
+		<div class="content">
+			&lt;Recipe Result="DoughBlock:0" ResultCount="99" Remains="EmptyBucketBlock" RemainsCount="1" RequiredHeatLevel="0" a="flour" b="waterbucket" Description="Mix flour and water to make bread dough"&gt;
+			<div style="margin-left:16px;">
+				&nbsp;&nbsp;"ab"
+			</div>
+			&lt;/Recipe&gt;
+		</div>
+		<div class="content">
+			可以看到它第一行多了两个信息：<br />
+			<table>
+				<tr style="font-weight:bold; text-align:center;">
+					<td>原英文</td>
+					<td>中文翻译</td>
+					<td>说明</td>
+				</tr>
+				<tr>
+					<td>Remains</td>
+					<td>剩余物品</td>
+					<td>即第二产品</td>
+				</tr>
+				<tr>
+					<td>RemainsCount</td>
+					<td>剩余物品数量</td>
+					<td>写数字</td>
+				</tr>
+			</table>
+		</div>
+		<div class="content">
+			可以通过增加这两个项目来使合成时有两个产品
+		</div>
+		<div class="content">
+			其他说明：<br />
+			增加或修改合成表时，需要减少或添加描述来使文件大小不变，否则游戏中无法读取
+		</div>
+	</div>
+
+	<div class="chapter" id="cont_2">
+		<h1>第二节 一些例子</h1>
+		<div class="section" id="cont_2.1">
+			<h2>例一</h2>
+			<div class="content">
+				以下是由 百度贴吧-大王派 独创的大量合成表，有工具修复等方便生存模式的内容(从我的变态版4.0中提取的，默认产量已改为99)
+			</div>
+			<div class="content">
+				&lt;Recipe Result="OakWoodBlock" ResultCount="99" RequiredHeatLevel="0" a="planks" b="oakleaves" Description="SMT"&gt;<br />
+				"a a"<br />
+				" b"<br />
+				"a a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="BirchWoodBlock" ResultCount="99" RequiredHeatLevel="0" a="planks" b="birchleaves" Description="SMT"&gt;<br />
+				"a a"<br />
+				" b"<br />
+				"a a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="SpruceWoodBlock" ResultCount="99" RequiredHeatLevel="0" a="planks" b="spruceleaves" Description="SMT"&gt;<br />
+				"a a"<br />
+				" b"<br />
+				"a a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="SeedsBlock:1" ResultCount="99" RequiredHeatLevel="0" a="redflower" Description=""&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="SeedsBlock:2" ResultCount="99" RequiredHeatLevel="0" a="purpleflower" Description=""&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="SeedsBlock:3" ResultCount="99" RequiredHeatLevel="0" a="whiteflower" Description="Extract seeds"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="WoodenShovelBlock" ResultCount="1" RequiredHeatLevel="0" a="woodenshovel" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="WoodenPickaxeBlock" ResultCount="1" RequiredHeatLevel="0" a="woodenpickaxe" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="WoodenAxeBlock" ResultCount="1" RequiredHeatLevel="0" a="woodenaxe" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="WoodenRakeBlock" ResultCount="1" RequiredHeatLevel="0" a="woodenrake" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="StoneShovelBlock" ResultCount="1" RequiredHeatLevel="0" a="stoneshovel" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="StonePickaxeBlock" ResultCount="1" RequiredHeatLevel="0" a="stonepickaxe" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="StoneAxeBlock" ResultCount="1" RequiredHeatLevel="0" a="stoneaxe" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="StoneRakeBlock" ResultCount="1" RequiredHeatLevel="0" a="stonerake" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="IronShovelBlock" ResultCount="1" RequiredHeatLevel="0" a="ironshovel" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="IronPickaxeBlock" ResultCount="1" RequiredHeatLevel="0" a="ironpickaxe" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="IronAxeBlock" ResultCount="1" RequiredHeatLevel="0" a="ironaxe" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="IronRakeBlock" ResultCount="1" RequiredHeatLevel="0" a="ironrake" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="DiamondShovelBlock" ResultCount="1" RequiredHeatLevel="0" a="diamondshovel" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="DiamondPickaxeBlock" ResultCount="1" RequiredHeatLevel="0" a="diamondpickaxe" b="diamond" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="DiamondAxeBlock" ResultCount="1" RequiredHeatLevel="0" a="diamondaxe" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="DiamondRakeBlock" ResultCount="1" RequiredHeatLevel="0" a="diamondrake" Description="SMT Repair"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="CopperIngotBlock" ResultCount="99" RequiredHeatLevel="0" a="emptybucket" Description="SMT Dismantle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="IronIngotBlock" ResultCount="99" RequiredHeatLevel="0" a="magnet" Description="SMT Dismantle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="PlanksBlock" ResultCount="99" RequiredHeatLevel="0" a="craftingtable" Description="SMT Dismantle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="CobblestoneBlock" ResultCount="99" RequiredHeatLevel="0" a="furnace" Description="SMT Dismantle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="PlanksBlock" ResultCount="99" RequiredHeatLevel="0" a="woodendoor" Description="SMT Dntle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="IronIngotBlock" ResultCount="99" RequiredHeatLevel="0" a="irondoor" Description="SMT Dismantle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="IronIngotBlock" ResultCount="99" RequiredHeatLevel="0" a="celldoor" Description="SMT Dismantle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="PlanksBlock" ResultCount="99" RequiredHeatLevel="0" a="woodentrapdoor" Description="SMT Dismantle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="IronIngotBlock" ResultCount="99" RequiredHeatLevel="0" a="celltrapdoor" Description="SMT Dismantle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="StickBlock" ResultCount="99" RequiredHeatLevel="0" a="ladder" Description="SMT Disantle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="StickBlock" ResultCount="99" RequiredHeatLevel="0" a="woodenfence" Description="SMT Dtle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="StickBlock" ResultCount="99" Remains="PlanksBlock" RemainsCount="1" RequiredHeatLevel="0" a="woodenfencegate" Description="SMT Dismale"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="PlanksBlock" ResultCount="99" RequiredHeatLevel="0" a="boat" Description="SMT Disntle"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="WhistleBlock" ResultCount="1" RequiredHeatLevel="0" a="whistle" Description="SMT Repair"&gt;<br />
+				"aa"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="PlanksBlock" ResultCount="99" RequiredHeatLevel="0" a="wirethroughplanks" Description="SMT"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="GraniteBlock" ResultCount="99" RequiredHeatLevel="0" a="wirethroughstone" Description="SMT"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="GermaniumChunkBlock" ResultCount="99" RequiredHeatLevel="0" a="wirethroughsemiconductor" Description="SMT"&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;
+			</div>
+		</div>
+		
+		<div class="section" id="cont_2.2">
+			<h2>例二</h2>
+			<div class="content">
+				以下是由 百度贴吧-清风明剑兮 制作的易风mod，用熊皮做货币，可以做各种交易
+			</div>
+			<div class="content">
+								&lt;Recipe Result="SpruceLeavesBlock" ResultCount="40" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="BreadBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"aa"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="BowBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"aa"<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="StoneMacheteBlock" ResultCount="2" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"a"<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="CompassBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"aa"<br />
+				"aa"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="PlanksBlock" ResultCount="27" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"aaa"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="IronIngotBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"aaa"<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="DiamondChunkBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"aaa"<br />
+				"aaa"<br />
+				"aaa"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="CopperIngotBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"aaa"<br />
+				"aaa"<br />
+				"aa"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="SulphurChunkBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"aaa"<br />
+				"aaa"<br />
+				"a a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="GermaniumChunkBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"aaa"<br />
+				"aa"<br />
+				"aaa"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="SaltpeterChunkBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"aaa"<br />
+				"aaa"<br />
+				" a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="CoalChunkBlock" ResultCount="1" RequiredHeatLevel="0" a="leather" Description=""&gt;<br />
+				"a a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="LeatherBlock" ResultCount="2" RequiredHeatLevel="0" a="coalchunk" Description=""&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="LeatherBlock" ResultCount="7" RequiredHeatLevel="0" a="saltpeterchunk" Description=""&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="LeatherBlock" ResultCount="8" RequiredHeatLevel="0" a="germaniumchunk" Description=""&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="LeatherBlock" ResultCount="8" RequiredHeatLevel="0" a="sulphurchunk" Description=""&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="LeatherBlock" ResultCount="16" RequiredHeatLevel="0" a="copperingot" Description=""&gt;<br />
+				"aa"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="LeatherBlock" ResultCount="1" RequiredHeatLevel="0" a="planks" Description=""&gt;<br />
+				"aaa"<br />
+				"aaa"<br />
+				"aaa"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="LeatherBlock" ResultCount="1" RequiredHeatLevel="0" a="stone" Description=""&gt;<br />
+				"aa"<br />
+				"aa"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="LeatherBlock" ResultCount="4" RequiredHeatLevel="0" a="ironingot" Description=""&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="LeatherBlock" ResultCount="9" RequiredHeatLevel="0" a="diamond" Description=""&gt;<br />
+				"a"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="LeatherBlock" ResultCount="4" RequiredHeatLevel="0" a="bread" Description=""&gt;<br />
+				"aa"<br />
+				&lt;/Recipe&gt;<br />
+				&lt;Recipe Result="LeatherBlock" ResultCount="1" RequiredHeatLevel="0" a="CookedBacon" Description=""&gt;<br />
+				"aa"<br />
+				&lt;/Recipe&gt;
+			</div>
+		</div>		
+	</div>
+	<br />
+</div>
+<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+</body>
+</html>
