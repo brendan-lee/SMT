@@ -9,14 +9,8 @@
 	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
 	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
 	<style>
-		#content_box date {
-			font-size:20px;
-			font-weight:bold;
-			display:block;
-		}
 		#content_box .content {
-			font-size:16px;
-			padding-left:20px;
+			margin-left: 20px;
 		}
 	</style>
 	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
@@ -43,99 +37,117 @@
 <!--内容栏-->
 <div id="content_box">
 	<div class="chapter">
-		<date>说明</date>
+		<h1>说明</h1>
 		<div class="content">
-		<script>if(isOnline == false){document.write("在线版网址：<a href='http://survivalcraft.cn/smt/index.html' target='_blank'>http://smt.survivalcraft.cn</a><br />")}</script>
+		<script>
+			if (isOnline == false){
+				document.write("在线版网址：<a href='http://survivalcraft.cn/smt/index.html' target='_blank'>http://smt.survivalcraft.cn</a><br />");
+			}
+		</script>
 			版本号中四组数字从左到右代表的意思分别是：<br />
 			主版本号(程序大改).内容子版本号（内容大改）.框架子版本号（程序小改）.修正版本号（内容小改）
 		</div>
 	</div>
 	<div class="chapter">
-		<date>离线导航下载</date>
+		<h1>离线导航下载</h1>
 		<div class="content">
 			点击<a href="http://pan.baidu.com/share/link?shareid=317197273&uk=2788149454" target="_blank">此处</a>下载
 		</div>
 		<script>if(isOnline){if(ua.match(/android/i)){document.write("<div class='content'>安卓设备建议使用UC浏览器、QQ浏览器打开离线导航</div>")}else if(ua.match(/(ipad|iphone|ipod)/i)){document.write("<div class='content'>IOS设备建议使用<a href='resources.html#cont_3'>Filza、ifile</a>打开离线导航</div>")}}</script>
 	</div>
 	<div class="chapter">
-		<date>2.7.7.12</date>
+		<h1>2.7.7.12</h1>
 		<div class="content">
 			更新日期：2016年?月?日<br />
-			1.网页体验优化，完美流畅<br />
-			2.更新Blocksdata教程对应游戏1.29，修改了一些翻译和说明<br />
-			3.资源下载整合增加安卓版pak处理器，感谢百度贴吧-瞄准地雷的开发和提供！<br />
-			4.Content解析针对新出的安卓版pak处理器对第一节做了更新；丰富、精简了第二节对一些文件的说明
+			<ol>
+				<li>网页体验优化，完美流畅</li>
+				<li>更新Blocksdata教程对应游戏1.29，修改了一些翻译和说明</li>
+				<li>资源下载整合增加安卓版pak处理器，感谢百度贴吧-瞄准地雷的开发和提供！</li>
+				<li>Content解析针对新出的安卓版pak处理器对第一节做了更新；丰富、精简了第二节对一些文件的说明</li>
+			</ol>
 		</div>
 	</div>
 	<div class="chapter">
-		<date>2.6.6.11</date>
+		<h1>2.6.6.11</h1>
 		<div class="content">
 			更新日期：2015年9月18日<br />
-			1.改善首页提醒网页不能正常显示的机制<br />
-			2.改善Blocksdata教程中启发例子的语言表述，增加一个快速除水例子<br />
-			3.首页增加介绍本导航的用处<br />
-			4.少量修正<br />
+			<ol>
+				<li>改善首页提醒网页不能正常显示的机制</li>
+				<li>改善Blocksdata教程中启发例子的语言表述，增加一个快速除水例子</li>
+				<li>首页增加介绍本导航的用处</li>
+				<li>少量修正</li>
+			</ol>
 		</div>
 	</div>
 	<div class="chapter">
-		<date>2.6.6.10</date>
+		<h1>2.6.6.10</h1>
 		<div class="content">
 			更新日期：2015年8月24日<br />
-			1.离线版导航首页如果发现网页不能正常显示，将自动提示请更换浏览器<br />
-			2.Database解析第一节更新，更加标准清楚<br />
-			3.第二章导航更新改名导航版本更新&amp;离线，并在其中增加移动端浏览离线版导航的浏览器推荐<br />
-			4.在线版网址现在也可以通过该网址访问：<a href='http://survivalcraft.cn/smt/index.html' target='_blank'>http://smt.survivalcraft.cn</a><br />
-			5.少量修正<br />
+			<ol>
+				<li>离线版导航首页如果发现网页不能正常显示，将自动提示请更换浏览器</li>
+				<li>Database解析第一节更新，更加标准清楚</li>
+				<li>第二章导航更新改名导航版本更新&amp;离线，并在其中增加移动端浏览离线版导航的浏览器推荐</li>
+				<li>在线版网址现在也可以通过该网址访问：<a href='http://survivalcraft.cn/smt/index.html' target='_blank'>http://smt.survivalcraft.cn</a></li>
+				<li>少量修正</li>
+			</ol>
 		</div>
 	</div>
 	<div class="chapter">
-		<date>2.6.6.9</date>
+		<h1>2.6.6.9</h1>
 		<div class="content">
 			更新日期：2015年8月7日<br />
-			1.全面升级各类教程内容对应Survivalcraft 1.27，删除和1.27版本无关的所有教程及工具<br />
-			2.SMT组规为适应2015年8月8日本导航完全公开而大量修改<br />
-			3.新增SMT组员、Windows基础教程<br />
-			4.IOS基础教程内容升级对应IOS 8.X以及PP助手 3.X，新增Filza的使用说明<br />
-			5.第二章Content目录解析改名Content解析，并调位至本章第一篇<br />
-			6.主页增加该导航版本简单说明、使用说明、转载请注明出处；给每一篇内容标题下方加上最后更新日期；给手机版部分页面增加横屏提示<br />
-			7.增大文字行距、美化电脑版的滑动条、手机版标题也有特效了！<br />
-			8.在线版已再次上线，网址：<a href="http://survivalcraft.cn/smt" target="_blank">http://survivalcraft.cn/smt</a><br />
-			9.少量修正<br />
+			<ol>
+				<li>全面升级各类教程内容对应Survivalcraft 1.27，删除和1.27版本无关的所有教程及工具</li>
+				<li>SMT组规为适应2015年8月8日本导航完全公开而大量修改</li>
+				<li>新增SMT组员、Windows基础教程</li>
+				<li>IOS基础教程内容升级对应IOS 8.X以及PP助手 3.X，新增Filza的使用说明</li>
+				<li>第二章Content目录解析改名Content解析，并调位至本章第一篇</li>
+				<li>主页增加该导航版本简单说明、使用说明、转载请注明出处；给每一篇内容标题下方加上最后更新日期；给手机版部分页面增加横屏提示</li>
+				<li>增大文字行距、美化电脑版的滑动条、手机版标题也有特效了！</li>
+				<li>在线版已再次上线，网址：<a href="http://survivalcraft.cn/smt" target="_blank">http://survivalcraft.cn/smt</a></li>
+				<li>少量修正</li>
+			</ol>
 		</div>
 	</div>
 	<div class="chapter">
-		<date>2.5.5.8</date>
+		<h1>2.5.5.8</h1>
 		<div class="content">
 			更新日期：2015年7月15日<br />
-			1.本版本作为Survivalcraft 1.26及以下版本对应mod教程最终版<br />
-			2.第四章章名改为其他教程<br />
-			3.资源下载整合新增安卓版字节处理器3.0<br />
-			4.Database解析附件新增简化版1.27database.xml<br />
-			5.主页增加该导航版本简单说明<br />
-			6.大量修正<br />
+			<ol>
+				<li>本版本作为Survivalcraft 1.26及以下版本对应mod教程最终版</li>
+				<li>第四章章名改为其他教程</li>
+				<li>资源下载整合新增安卓版字节处理器3.0</li>
+				<li>Database解析附件新增简化版1.27database.xml</li>
+				<li>主页增加该导航版本简单说明</li>
+				<li>大量修正</li>
+			</ol>
 		</div>
 	</div>
 	<div class="chapter">
-		<date>2.5.5.7</date>
+		<h1>2.5.5.7</h1>
 		<div class="content">
 			更新日期：2015年2月26日<br />
-            1.第四章章名改为工具教程，将原第三章部分内容转移至此，原第四章内容转移至资源下载整合<br />
-            2.资源下载整合新增BeyoundComparPro下载，开启WP真正的U盘模式教程<br />
-            3.Database解析第一节新增“默认继承”，新增第四节启发例子<br />
-            4.SMT历史新增目录<br />
-			5.第二章离线导航更新更改为导航版本更新<br />
-            6.各种修正<br />
+			<ol>
+				<li>第四章章名改为工具教程，将原第三章部分内容转移至此，原第四章内容转移至资源下载整合</li>
+				<li>资源下载整合新增BeyoundComparPro下载，开启WP真正的U盘模式教程</li>
+				<li>Database解析第一节新增“默认继承”，新增第四节启发例子</li>
+				<li>SMT历史新增目录</li>
+				<li>第二章离线导航更新更改为导航版本更新</li>
+				<li>各种修正</li>
+			</ol>
 		</div>
 	</div>
 	<div class="chapter">
-		<date>2.4.4.6</date>
+		<h1>2.4.4.6</h1>
 		<div class="content">
 			更新日期：2015年2月8日<br />
-            1.SMT组规升级为正式版组规<br />
-            2.SMT历史新增SMT情报部成立事件<br />
-            3.资源下载整合第四节增加WindowsPhone相关，其他修改为文件头破解，新增子项字节处理器2.0<br />
-            4.Database解析第一节更名基础知识，内容优化<br />
-            5.第三章新增正则表达式教程<br />
+			<ol>
+				<li>SMT组规升级为正式版组规</li>
+				<li>SMT历史新增SMT情报部成立事件</li>
+				<li>资源下载整合第四节增加WindowsPhone相关，其他修改为文件头破解，新增子项字节处理器2.0</li>
+				<li>Database解析第一节更名基础知识，内容优化</li>
+				<li>第三章新增正则表达式教程</li>
+			</ol>
 		</div>
 	</div>
 	<br />
