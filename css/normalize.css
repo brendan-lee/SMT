@@ -1,0 +1,18 @@
+html, body, div, iframe, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4, table, th, td, input, button, select, textarea {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    background-color:#E4E4E4;
+}
+#error {
+    height: 99%;
+    width: 100%;
+    border: none;
+    overflow: hidden;
+}
+#error li {
+    font-size: 22px;
+    margin: 10px 15px;
+}
