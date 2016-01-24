@@ -65,7 +65,7 @@
 			<div class="content">
 			<ul>
 				<li>在文件管理器中更改任意平台的游戏安装包的后缀为zip后解压，直接搜索Content.pak即可快速找到</li>
-				<li>windows系统使用<a href="resources.html#cont_4.9" target="_blank">SCPacker</a>进行解包，安卓则使用<a href="resources.html#cont_2.6" target="_blank">pak处理器</a>（目前两者解包出来的文件不能交由对方打包），解包后会生成一个Content文件夹，按照对应的教程编辑其生成的文件夹中的文件后，使用之前解包的工具打包该文件夹，即可生成已经修改完成的Content.pak，这个时候一个“mod”就做出来了！</li>
+				<li>windows系统使用<a href="resources.html#cont_4.9" target="_blank">SCPacker</a>、<a href="resources.html#cont_4.9" target="_blank">scpak</a>进行解包，安卓则使用<a href="resources.html#cont_2.6" target="_blank">pak处理器</a>（目前两者解包出来的文件不能交由对方打包），解包后会生成一个Content文件夹，按照对应的教程编辑其生成的文件夹中的文件后，使用之前解包的工具打包该文件夹，即可生成已经修改完成的Content.pak，这个时候一个“mod”就做出来了！</li>
 				<li>要使用这个mod，还需要替换安装目录或安装包中的Content.pak为新打包的Content.pak</li>
 				<li>附SCPacker使用方法：解包：将Content.pak拖动到SCPacker.exe文件上方即可开始解包；打包：和解包一样，不过拖动的对象是你要打包的文件夹</li>
 			</div>
@@ -113,8 +113,8 @@
 				</div>
 				<div class="content">
 					<h3>PackageInfo.txt</h3>
-					SCPacker解包后自动生成的文本文件，如果在解包生成的文件夹中添加或删除了文件，那么就需要对其进行编辑<br />
-					例如在\Textures\Creatures\中添加了一个Zebra_Saddled.png，那么需要在该文件中另起一行加上Textures/Creatures/Zebra_Saddled:Engine.Graphics.Texture2D，这样SCPacker在打包该文件夹时会把添加的文件也打包进去
+					解包后自动生成的文本文件，如果在解包生成的文件夹中添加或删除了文件，那么就需要对其进行编辑<br />
+					例如在\Textures\Creatures\中添加了一个Zebra_Saddled.png，那么需要在该文件中另起一行加上Textures/Creatures/Zebra_Saddled:Engine.Graphics.Texture2D，这样在打包该文件夹时会把添加的文件也打包进去
 				</div>
 				<div class="content">
 					<h3>RecoveryProject.xml</h3>
@@ -154,7 +154,7 @@
 				</div>
 				<div class="content">
 					<h3>Fonts</h3>
-					包含游戏的字库文件，目前未知其修改方式。可相互替换来改"字体"。
+					包含游戏的字库文件，现在已可被<a href="resources.html#cont_4.9">scpak</a>转换为tga图像文件和对应的后缀为lst配置文件
 				</div>
 				<div class="content">
 					<h3>Models</h3>
@@ -170,7 +170,7 @@
 				</div>
 				<div class="content">
 					<h3>Textures</h3>
-					几乎所有贴图的存放处，包括自带材质，动物皮肤，天象贴图，以及一些其他图片（例如主界面背景），现在已可被SCPaker直接转换为PNG图像文件
+					几乎所有贴图的存放处，包括自带材质，动物皮肤，天象贴图，以及一些其他图片（例如主界面背景），现在已可被<a href="resources.html#cont_4.9">SCPaker</a>、<a href="resources.html#cont_4.9">scpak</a>直接转换为PNG图像文件
 				</div>
 				<div class="content">
 					<h3>Widgets</h3>

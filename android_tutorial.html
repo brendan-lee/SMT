@@ -34,6 +34,7 @@
 		<li class="parent"><span onclick="menuTo('cont_2')">二.详细步骤</span></li>
 			<li class="child"><span onclick="menuTo('cont_2.1')">1.apk编辑器篇</span></li>
 			<li class="child"><span onclick="menuTo('cont_2.2')">2.mt管理器篇</span></li>
+			<li class="child"><span onclick="menuTo('cont_2.3')">3.注：关于zipalign</span></li>
 		<div class="divide_line"></div>
 
 		<li class="parent"><span onclick="menuTo('cont_3')">三.关于安卓核心破解</span></li>
@@ -42,7 +43,7 @@
 	<!--导航-->
 	<div id="nav" class="nav"></div>
 	<div id="nav_overlay"></div>
-	
+
 	<!--顶栏-->
 	<div id="big_title_div" onclick="goTop()">Android基础教程</div>
 	<div id="last_update">——更新日期 2015年8月3日——</div>
@@ -54,7 +55,7 @@
 	<div id="upper_box">
 		<h1>前言</h1>
 		<div class="content">
-			本教程由百度贴吧-销锋镝铸编写
+			本教程由百度贴吧-销锋镝铸编写，第二节第三小节关于zipalign由百度贴吧-看丶小星星哎发现
 		</div>
 	</div>
 
@@ -130,6 +131,19 @@
 				</div>
 				<div class="content">
 					卸载之前版本后安装已签名的新安装包即可测试mod
+				</div>
+			</div>
+
+			<div class="section" id="cont_2.3">
+				<h2>3.注：关于zipalign</h2>
+				<div class="content">
+				一些设备按照上述步骤制作完成安装包后，可能无法打开游戏，原因可能是上述工具不能对安装包进行zipalign操作，这里提供一个不一定有效的解决方法，如果此方法无效，请求助其他能够制作能够使用安装包的人帮忙制作安装包。
+				</div>
+				<div class="content">
+					安装打开<a href="resources.html#cont_2">apktool 5.2</a>，点击安装包，点击zipalign优化，安装处理后的安装包
+					<img class="saimg"
+					online="http://ww2.sinaimg.cn/large/0065QQIxgw1f0b0n3lzkaj30cc0kk0to.jpg"
+					offline="saimg/android_11.png" />
 				</div>
 			</div>
 		</div>
