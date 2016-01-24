@@ -13,4 +13,4 @@
 1. 在线版加入流量统计
 
 #### 除虫
-1. 这么屌的代码怎么可能有虫<img src="http://ww1.sinaimg.cn/large/a60e96bbjw1f0b0czsqe4j203c02pmwy.jpg" />
+1. history.html菜单里多了一条分割线
