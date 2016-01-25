@@ -1,0 +1,130 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	<title>XML基础知识</title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery.min.js"></script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
+	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
+	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
+	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+</head>
+
+<body>
+<iframe id="error" src="error.html"></iframe>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+	</script>
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+	</div>
+
+	<!--导航-->
+	<div id="nav" class="nav"></div>
+	<div id="nav_overlay"></div>
+	
+	<!--顶栏-->
+	<div id="big_title_div" onclick="goTop()">XML基础知识</div>
+	<div id="last_update">——更新日期 2016年1月25日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
+
+	<!--上栏-->
+	<div id="upper_box">
+		<h1>前言</h1>
+		<div class="content">
+			<ul>
+				<li>XML是可扩展标记语言文件的扩展名（后缀），是一种用于标记电子文件使其具有结构性的标记语言</li>
+				<li>在这里不要求各位完全掌握，只需要了解一些基础知识即可。</li>
+				<li>本教程由-百度贴吧销锋镝铸编写</li>
+				<li>更多内容请访问<a href='http://runoob.com/xml/xml-tutorial.html' target='_blank'>http://runoob.com/xml/xml-tutorial.html</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!--内容栏-->
+	<div id="content_box">
+		<div class="chapter" id="cont_1">
+			<h1>第一节 标签</h1>
+			<div class="section">
+				<div class="content">标记语言由标签包裹内容，包裹形式有以下两种：
+					<h2>(1)&lt;abc&gt;xxx&lt;/abc&gt;</h2>
+					<h3>&lt;abc&gt;：</h3>
+					开始标签，以&lt;开始，以&gt;结尾，abc是元素名，表示abc元素的开始<br />
+					<h3>xxx：</h3>
+					abc元素的内容<br />
+					<h3>&lt;/abc&gt;：</h3>
+					结束标签，以&lt;/开始，以&gt;结尾，abc是元素名，表示abc元素的结束<br />
+					（注：内容为标签时形成层级关系，内层元素从属外层元素。例如&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;中b元素属于a元素，b元素是a元素的子元素，a元素是b元素的父元素，同时a元素在此也叫做根元素，一个xml文件必须包含根元素，它是所有其他元素的父元素）
+					<h2>(2)&lt;xxx/&gt;</h2>
+					自闭合标签，以&lt;开始，以/&gt;结尾，xxx是内容，是最低的层级
+					<h2>元素的属性</h2>
+					&lt;abc def="ghi" /&gt;中，def="ghi"是abd元素的属性，其中def是属性名，ghi是属性值，属性值须加引号</br></br>
+				</div>
+			</div>
+		</div>
+	 
+		<div class="chapter" id="cont_2">
+			<h1>第二节 识别码和继承码</h1>
+			<div class="section">
+				<h2>识别码</h2>
+				<div class="content">
+					Database.xml中大部分元素都有Guid这个属性，它的全名是全局唯一标识符，这里为了方便称呼称为识别码；作用是使一个元素具有唯一性，能被被识别，因此不可重复。<br />
+					它的格式为“xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx”，其中每个 x 是 0-9 或 a-f 范围内的一个十六进制数。
+				</div>
+			</div>
+			<div class="section">
+				<h2>继承码</h2>
+				<div class="content">
+					一个有InheritanceParent（以下称作继承码）属性的元素，会主动继承与拥有其继承码的值相同识别码值的所有内容，以下把前者称作子对象，后者称作父对象。如果子对象的已有内容和父对象的内容冲突（即都有一样的元素），则子对象继承而来的内容无效，原先有的内容生效。<br />
+					<h3>举例说明</h3>
+					&lt;Folder Name=&quot;A&quot; Guid =&quot;1950&quot;&gt; （识别码为1950的文件夹A(此例标识码和继承码不按照标准)）<br />
+					  <div style="padding-left:12px;">&lt;File Name=&quot;b&quot; Author=&quot;Peter&quot; /&gt; （作者(Author)为Peter的文件a）</div>
+					  <div style="padding-left:12px;">&lt;File Name=&quot;c&quot; Author=&quot;Susan&quot; /&gt; （作者为Susan的文件b）</div>
+					&lt;/Folder&gt;<br />
+					&lt;Folder Name=&quot;d&quot; InheritanceParent=&quot;1950&quot;&gt; （继承码为1950的文件夹B）<br />
+					 <div style="padding-left:12px;">&lt;File Name=&quot;b&quot; Author =&quot;Edmund&quot; /&gt; （作者为Edmund的文件b）</div>
+					 <div style="padding-left:12px;">&lt;File Name=&quot;c&quot; Author =&quot;Lucy&quot; /&gt; （作者为Lucy的文件c）</div>
+					&lt;/Folder&gt;<br />
+					从这一段代码可以看出文件夹d继承到了来自文件夹A的作者为Peter的文件a和作者为Susan的文件b，但是继承来的文件b与已有的文件b相冲突，此时优先保留原有的文件c，即文件夹B实际代码为<br />
+					&lt;Folder Name=&quot;d&quot; InheritanceParent =&quot;1950&quot;&gt; （识别码为1950的文件夹B）<br />
+					<div style="padding-left:12px;">&lt;File Name=&quot;a&quot; Author=&quot;Peter&quot; /&gt; （作者为Peter的文件a）</div>
+					<div style="padding-left:12px;">&lt;File Name=&quot;b&quot; Author=&quot;Edmund&quot; /&gt; （作者为Edmund的文件b）</div>
+					<div style="padding-left:12px;">&lt;File Name=&quot;c&quot; Author=&quot;Lucy&quot; /&gt; （作者为Lucy的文件c）</div>
+					&lt;/Folder&gt;<br />
+				</div>
+			</div>
+		</div>
+		
+		<div class="chapter" id="cont_3">
+			<h1>第三节 默认继承</h1>
+			<div class="section">
+				<div class="content">
+					当一个元素没有继承码属性时，那么它将默认继承其父元素的父对象中相对应元素的内容，实例：<br />
+			  &lt;EntityTemplate Name="LandAnimal" Guid="e4275171-a39f-413f-8888-4c472868364d" InheritanceParent="3f077159-f492-419b-859a-bb051de6339f"&gt;<br />
+				&lt;MemberComponentTemplate Name="Mount" Guid="d7855ac3-4c88-4e86-8018-83155cd7bfbc"&gt;<br />
+				  &lt;Parameter Name="MountOffset" Guid="3b86ca1c-1765-4fd7-ad58-6f52d9651188" Value="0,1.35,0" Type="Microsoft.Xna.Framework.Vector3" /&gt;<br />
+				&lt;/MemberComponentTemplate&gt;<br />...<br/>&lt;/EntityTemplate&gt;<br /><br />
+				
+			  &lt;EntityTemplate Name="AICreature" Guid="3f077159-f492-419b-859a-bb051de6339f" InheritanceParent="bc5be211-c1f8-4e50-9ffb-4fde625d2692"&gt;<br />
+				&lt;MemberComponentTemplate Name="Mount" Guid="d7655ac3-4c88-4e89-8018-83155cd7bfbc" InheritanceParent="d0b14127-39ce-4490-af00-fb4111e9c51e"&gt;<br />
+				  &lt;Parameter Name="DismountOffset" Guid="3be6ca1c-17c5-4fd7-ad58-6f52d9651188" Value="1.5,0.3,0" Type="Microsoft.Xna.Framework.Vector3" /&gt;<br />
+				&lt;/MemberComponentTemplate&gt;<br/>...<br />&lt;/EntityTemplate&gt;<br />
+				  LandAnimal的父对象是AICreature，因此LandAnimal中的Mount就会继承得到AICreature中Mount的DismountOffset。<br />
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
+</div>
+
+<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+</body>
+</html>
