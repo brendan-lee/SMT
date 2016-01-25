@@ -67,6 +67,7 @@ $("#nav").html(
 	"<a class='child' href='windows_tutorial.html'>Windows基础教程</a>" +
 	"<a class='child' href='android_tutorial.html'>Android基础教程</a>" +
 	"<a class='child' href='ios_tutorial.html'>IOS基础教程</a>" +
+	"<a class='child' href='xml_tutorial.html'>XML基础知识</a>" +
 	"<a class='child' href='crafting_recipes_tutorial.html'>CraftingRecipes解析</a>" +
 	"<a class='child' href='clothes_tutorial.html'>Clothes解析</a>" +
 	"<a class='child' href='blocksdata_tutorial.html'>Blocksdata教程</a>" +

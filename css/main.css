@@ -1,16 +1,4 @@
-﻿* {
-	color:#373737;
-	font-family:Arial;
-}
-body {
-	transition: opacity 0.5s linear;
-}
-a:link, a:visited {
-	text-decoration: none; 
-	color: #03a9f4;
-}
-
-/*顶栏*/
+﻿/*顶栏*/
 	#top_box, #top_box_top{
 		position:fixed;
 		top:0;
