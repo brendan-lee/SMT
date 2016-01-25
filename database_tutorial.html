@@ -6,6 +6,8 @@
 	<title>Database解析</title>
 	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js"></script>
+	<link href="css/prism.css" rel="stylesheet"/>
+	<script src="js/prism.js"></script>
 	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
 	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
 	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
@@ -138,45 +140,45 @@
 			<div class="section">
 				<h2>1.宠物海鸟</h2>
 				<div class="content">
-				将此段代码加到Folder Entities\Folder Creatures\Folder Normal中，即可产生一个给海鸟加鞍后再攻击一下便会一直跟着主角的宠物海鸟（原理：被攻击后反击主角，并一直持续追击）。<br />
-			  &lt;EntityTemplate Name="Seagull_Saddled" Guid="dd2f737c-30f8-4d62-8de3-9ab48559c3be" InheritanceParent="dd2f737c-30f8-4762-8de3-9ab48559c3ae"&gt;<br />
-				<div style="padding-left:12px;">&lt;MemberComponentTemplate Name="Creature" Guid="0024a011-7626-40c4-927a-84be91ea194d"&gt;</div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="IsPredator" Guid="7f0bf311-b151-4fb9-9f43-65c8bb28f69f" Value="True" Type="System.Boolean" /&gt;</div>
-				<div style="padding-left:12px;">&lt;/MemberComponentTemplate&gt;</div>
-				<div style="padding-left:12px;">&lt;MemberComponentTemplate Name="Miner" Guid="047bf6eb-6d85-4b9f-9e37-5a97dc15d8fd" InheritanceParent="8acca888-ba39-464f-bcf5-6ae15e448c62"&gt;</div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="AttackPower" Guid="c0608320-e57c-56be-9ffd-351aa10a9683" Value="0" Type="System.Single" /&gt;</div>
-				<div style="padding-left:12px;">&lt;/MemberComponentTemplate&gt;<span style="float:right;" class="note">（有攻击力才能追击）</span></div>
-				<div style="padding-left:12px;">&lt;MemberComponentTemplate Name="Health" Guid="f8814ebd-7e1d-48b7-83ed-9d3fc75e4a1f"&gt;</div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="FireResilience" Guid="58baefde-47d9-42fb-879d-345169d3979a" Value="10" Type="System.Single" /&gt;</div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="AttackResilience" Guid="8b2fd0bc-fb0d-4905-b162-f5afdf5ac5b4" Value="2000" Type="System.Single" /&gt;</div>
-				<div style="padding-left:12px;">&lt;/MemberComponentTemplate&gt;<span style="float:right;" class="note">（只能被烧死而不能被打死）</span></div>
-				<div style="padding-left:12px;">&lt;MemberComponentTemplate Name="ChaseBehavior" Guid="d71acd48-f5d5-4bde-8baf-9a4a1db39841" InheritanceParent="31894441-d90a-4549-9264-db9dbe20e234"&gt;</div>
-				<div style="padding-left:12px;">&lt;Parameter Name="ChaseWhenAttackedProbability" Guid="60b1024a-acd0-4536-bba4-9a510286a396" Value="1" Type="System.Single" /&gt;<span style="float:right;" class="note">（遭到攻击100%还击，即成为宠物）</span></div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="NightChaseRange" Guid="42b0ca10-ed8b-4079-b513-966221ecb1ab" Value="999" Type="System.Single" /&gt;</div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="DayChaseTime" Guid="558111d8-eb1c-4e53-a94d-df49525121f6" Value="3600" Type="System.Single" /&gt;</div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="NightChaseTime" Guid="61771540-6229-4f79-b9fd-2a39b50cfd46" Value="3600" Type="System.Single" /&gt;</div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="DayChaseRange" Guid="f8c4f30d-c05e-d829-99dc-66cd028a59aa" Value="999" Type="System.Single" /&gt;<span style="float:right;" class="note">（为了长久且长距离地保持追击）</span></div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="AutoChaseMask" Guid="0434faa5-d599-4ced-989f-7d4c08a2e34c" Value="0" Type="Game.CreatureCategory" /&gt;<span style="float:right;" class="note">（使其不会主动追击其他生物）</span></div>
-				<div style="padding-left:12px;">&lt;/MemberComponentTemplate&gt;</div>
-				<div style="padding-left:12px;">&lt;ParameterSet Name="CreatureEggData" Guid="09f2015a-163c-44bb-dc6f-c9d22027cddf"&gt;</div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="DisplayName" Guid="48c75384-3dcc-4a6b-b566-5a2e4cb21b17" Value="Seagull Pet Egg" Type="System.String" /&gt;</div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="NutritionalValue" Guid="61dd9c88-2de6-464e-9383-0d0c4a4d2c5d" Value="0" Type="System.Single" /&gt;<span style="float:right;" class="note">（设置动物蛋不可煮，免得多占用创造模式物品栏）</span></div>
-				  <div style="padding-left:24px;">&lt;Parameter Name="EggTypeIndex" Guid="cabca26b-f9cd-4908-8f8b-9e5dda5882d4" Value="38" Type="System.Int32" /&gt;</div>
-				<div style="padding-left:12px;">&lt;/ParameterSet&gt;</div>
-			  &lt;/EntityTemplate&gt;<br />
+				将此段代码加到Folder Entities\Folder Creatures\Folder Normal中，即可产生一个给海鸟加鞍后再攻击一下便会一直跟着主角的宠物海鸟（原理：被攻击后反击主角，并一直持续追击）。
+<pre class="language-markup line-numbers"><code>&lt;EntityTemplate Name="Seagull_Saddled" Guid="dd2f737c-30f8-4d62-8de3-9ab48559c3be" InheritanceParent="dd2f737c-30f8-4762-8de3-9ab48559c3ae"&gt;
+	&lt;MemberComponentTemplate Name="Creature" Guid="0024a011-7626-40c4-927a-84be91ea194d"&gt;
+		&lt;Parameter Name="IsPredator" Guid="7f0bf311-b151-4fb9-9f43-65c8bb28f69f" Value="True" Type="System.Boolean" /&gt;
+	&lt;/MemberComponentTemplate&gt;
+	&lt;MemberComponentTemplate Name="Miner" Guid="047bf6eb-6d85-4b9f-9e37-5a97dc15d8fd" InheritanceParent="8acca888-ba39-464f-bcf5-6ae15e448c62"&gt;
+		&lt;Parameter Name="AttackPower" Guid="c0608320-e57c-56be-9ffd-351aa10a9683" Value="0" Type="System.Single" /&gt;
+	&lt;/MemberComponentTemplate&gt;<span style="float:right;" class="note">&lt;!--（有攻击力才能追击）--&gt;</span>
+	&lt;MemberComponentTemplate Name="Health" Guid="f8814ebd-7e1d-48b7-83ed-9d3fc75e4a1f"&gt;
+		&lt;Parameter Name="FireResilience" Guid="58baefde-47d9-42fb-879d-345169d3979a" Value="10" Type="System.Single" /&gt;
+		&lt;Parameter Name="AttackResilience" Guid="8b2fd0bc-fb0d-4905-b162-f5afdf5ac5b4" Value="2000" Type="System.Single" /&gt;
+	&lt;/MemberComponentTemplate&gt;<span style="float:right;" class="note">（只能被烧死而不能被打死）</span>
+	&lt;MemberComponentTemplate Name="ChaseBehavior" Guid="d71acd48-f5d5-4bde-8baf-9a4a1db39841" InheritanceParent="31894441-d90a-4549-9264-db9dbe20e234"&gt;
+		&lt;Parameter Name="ChaseWhenAttackedProbability" Guid="60b1024a-acd0-4536-bba4-9a510286a396" Value="1" Type="System.Single" /&gt;<span style="float:right;" class="note">（遭到攻击100%还击，即成为宠物）</span>
+		&lt;Parameter Name="NightChaseRange" Guid="42b0ca10-ed8b-4079-b513-966221ecb1ab" Value="999" Type="System.Single" /&gt;
+		&lt;Parameter Name="DayChaseTime" Guid="558111d8-eb1c-4e53-a94d-df49525121f6" Value="3600" Type="System.Single" /&gt;
+		&lt;Parameter Name="NightChaseTime" Guid="61771540-6229-4f79-b9fd-2a39b50cfd46" Value="3600" Type="System.Single" /&gt;
+		&lt;Parameter Name="DayChaseRange" Guid="f8c4f30d-c05e-d829-99dc-66cd028a59aa" Value="999" Type="System.Single" /&gt;<span style="float:right;" class="note">（为了长久且长距离地保持追击）</span>
+		&lt;Parameter Name="AutoChaseMask" Guid="0434faa5-d599-4ced-989f-7d4c08a2e34c" Value="0" Type="Game.CreatureCategory" /&gt;<span style="float:right;" class="note">（使其不会主动追击其他生物）</span>
+	&lt;/MemberComponentTemplate&gt;
+	&lt;ParameterSet Name="CreatureEggData" Guid="09f2015a-163c-44bb-dc6f-c9d22027cddf"&gt;
+		&lt;Parameter Name="DisplayName" Guid="48c75384-3dcc-4a6b-b566-5a2e4cb21b17" Value="Seagull Pet Egg" Type="System.String" /&gt;
+		&lt;Parameter Name="NutritionalValue" Guid="61dd9c88-2de6-464e-9383-0d0c4a4d2c5d" Value="0" Type="System.Single" /&gt;<span style="float:right;" class="note">（设置动物蛋不可煮，免得多占用创造模式物品栏）</span>
+		&lt;Parameter Name="EggTypeIndex" Guid="cabca26b-f9cd-4908-8f8b-9e5dda5882d4" Value="38" Type="System.Int32" /&gt;
+	&lt;/ParameterSet&gt;
+&lt;/EntityTemplate&gt;</code></pre>
 				</div>
 			</div>
 			<div class="section">
 				<h2>2.使白色加鞍马跑得更快</h2>
 				<div class="content">
-				将此段代码加到Folder Entities\Folder Creatures\Folder Normal\Horse_White_Saddled中，加鞍后的白马步行速度就会变成100<br />
-				&lt;MemberComponentTemplate Name="Locomotion" Guid="24b18bf0-783e-485b-61a2-c61c96db0032"&gt;<br />
-				<div style="padding-left:12px;">&lt;Parameter Name="WalkSpeed" Guid="06922714-6280-48dc-8ac7-2af5dc594889" Value="100" Type="float" /&gt;</div>
-				<div style="padding-left:12px;">&lt;Parameter Name="TurnSpeed" Guid="25af3c58-26ab-4a6a-86bb-8419780f8899" Value="4" Type="float" /&gt;</div>
-				<div style="padding-left:12px;">&lt;Parameter Name="JumpSpeed" Guid="dff9d536-c5f2-43e7-ac7b-1a5f23f0a44c" Value="5.25" Type="float" /&gt;</div>
-				<div style="padding-left:12px;">&lt;Parameter Name="AccelerationFactor" Guid="e551874f-e67b-491f-9ba3-481af5f5c679" Value="0.5" Type="float" /&gt;</div>
-				<div style="padding-left:12px;">&lt;Parameter Name="LookSpeed" Guid="f7eb7017-7400-4490-8de1-0a011822318f" Value="4" Type="float" /&gt;</div>
-				&lt;/MemberComponentTemplate&gt;<br />
+				将此段代码加到Folder Entities\Folder Creatures\Folder Normal\Horse_White_Saddled中，加鞍后的白马步行速度就会变成100
+<pre class="language-markup line-numbers"><code>&lt;MemberComponentTemplate Name="Locomotion" Guid="24b18bf0-783e-485b-61a2-c61c96db0032"&gt;
+	&lt;Parameter Name="WalkSpeed" Guid="06922714-6280-48dc-8ac7-2af5dc594889" Value="100" Type="float" /&gt;
+	&lt;Parameter Name="TurnSpeed" Guid="25af3c58-26ab-4a6a-86bb-8419780f8899" Value="4" Type="float" /&gt;
+	&lt;Parameter Name="JumpSpeed" Guid="dff9d536-c5f2-43e7-ac7b-1a5f23f0a44c" Value="5.25" Type="float" /&gt;
+	&lt;Parameter Name="AccelerationFactor" Guid="e551874f-e67b-491f-9ba3-481af5f5c679" Value="0.5" Type="float" /&gt;
+	&lt;Parameter Name="LookSpeed" Guid="f7eb7017-7400-4490-8de1-0a011822318f" Value="4" Type="float" /&gt;
+&lt;/MemberComponentTemplate&gt;</code></pre>
 				</div>
 			</div>
 		</div>
@@ -189,7 +191,7 @@
 			</div>
 			<div class="content">
 				<a href="http://pan.baidu.com/share/link?shareid=4293478391&uk=2788149454" target="_blank">简化版 1.27 database.xml</a><br />
-				由百度贴吧-销锋镝铸简化并提供（去除Guid，InheritanceParent，Type三种参数，方便查看）
+				由百度贴吧-销锋镝铸简化并提供（去除Guid，InheritanceParent，Type三种属性，方便查看）
 			</div>
 		</div>
 		<br />
