@@ -110,7 +110,7 @@
 			<div class="section">
 				<div class="content">
 					当一个元素没有继承码属性时，那么它将默认继承其父元素的父对象中相对应元素的内容，实例：<br />
-<pre class="line-numbers language-markup">&lt;EntityTemplate Name="LandAnimal" Guid="e4275171-a39f-413f-8888-4c472868364d" InheritanceParent="3f077159-f492-419b-859a-bb051de6339f"&gt;
+<pre class="language-markup line-numbers"><code>&lt;EntityTemplate Name="LandAnimal" Guid="e4275171-a39f-413f-8888-4c472868364d" InheritanceParent="3f077159-f492-419b-859a-bb051de6339f"&gt;
 	&lt;MemberComponentTemplate Name="Mount" Guid="d7855ac3-4c88-4e86-8018-83155cd7bfbc"&gt;
 		&lt;Parameter Name="MountOffset" Guid="3b86ca1c-1765-4fd7-ad58-6f52d9651188" Value="0,1.35,0" Type="Microsoft.Xna.Framework.Vector3" /&gt;
 	&lt;/MemberComponentTemplate&gt;
@@ -122,7 +122,7 @@
 		&lt;Parameter Name="DismountOffset" Guid="3be6ca1c-17c5-4fd7-ad58-6f52d9651188" Value="1.5,0.3,0" Type="Microsoft.Xna.Framework.Vector3" /&gt;
 	&lt;/MemberComponentTemplate&gt;
 	...
-&lt;/EntityTemplate&gt;</pre>
+&lt;/EntityTemplate&gt;</code></pre>
 				  LandAnimal的父对象是AICreature，因此LandAnimal中的Mount就会继承得到AICreature中Mount的DismountOffset。<br />
 				</div>
 			</div>
