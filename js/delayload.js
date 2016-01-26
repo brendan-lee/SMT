@@ -283,16 +283,16 @@ function mouseHandler(e){
 
 	// 移动端禁止在导航栏内滚动正文页面
 	else if (isNavOpen ) {
-/*		if (e.type == "touchstart"){ // 触摸开始
+		if (e.type == "touchstart"){ // 触摸开始
 			// 单点触摸时
 			if (e.targetTouches.length == 1) {
 				var touch = e.targetTouches[0];
 				startY = touch.pageY;
 			}
 		}
-*/		if (e.type == "touchmove"){ // 移动开始
+		if (e.type == "touchmove"){ // 移动开始
 			// 单点触摸时
-/*			if (e.targetTouches.length == 1) {
+			if (e.targetTouches.length == 1) {
 				var touch = e.targetTouches[0];
 				spanY = touch.pageY - startY;
 
@@ -300,22 +300,24 @@ function mouseHandler(e){
 				if (nav.prop("scrollHeight") == $(window).height()){
 				 	e.preventDefault();
 				}
-				// 有滚动条并向上滑动时
+
+				// 向上滑动时
 				else if (spanY > 0) {
-					// 位于导航栏顶端时，禁止向上滚动
+					// 有滚动条且位于导航栏顶端时，禁止向上滚动
 					if ($("#nav").scrollTop() == 0){
 						e.preventDefault();
 					}
 				}
-				// 有滚动条并向下滑动时
+
+				// 向下滑动时
 				else if (spanY < 0) {
-					// 位于导航栏底端时，禁止向下滚动
+					// 有滚动条且位于导航栏底端时，禁止向下滚动
 					if (nav.prop("scrollHeight") - $(window).height() - nav.scrollTop() == 0){
 						e.preventDefault();
 					}
 				}
 			}
-*/
+
 			// 在导航栏内滑动时锁定body的滚动（在navHide方法中解锁）
 			$("body").addClass("lock_position");
 		}
