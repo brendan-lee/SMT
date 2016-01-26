@@ -55,15 +55,17 @@ window.onscroll = function (){
 $("#nav").html(
 	"<img id='nav_logo' src='image/nav_logo.png' onclick='navHide()' />" +
 	"<div><div class='parent'>第一章 SMT相关</div>" +
-	"<div class='children'><a class='child' href='rules.html'>SMT组规</a>" +
+	"<div id='nav_children_1' class='children'><a class='child' href='rules.html'>SMT组规</a>" +
 	"<a class='child' href='history.html'>SMT历史</a>" +
 	"<a class='child' href='members.html'>SMT组员</a></div></div>" +
+
 	"<div><div class='parent'>第二章 资源下载</div>" +
-	"<div class='children'><a class='child' id='offline_ver_down' href='nav_update.html'>导航版本更新&amp;离线</a>" +
+	"<div id='nav_children_2' class='children'><a class='child' id='offline_ver_down' href='nav_update.html'>导航版本更新&amp;离线</a>" +
 	"<a class='child' href='resources.html'>资源下载整合</a>" +
 	"<a class='child' href='logo.html'>SMT logo</a></div></div>" +
+
 	"<div><div class='parent'>第三章 主要教程</div>" +
-	"<div class='children'><a class='child' href='content_folder_tutorial.html'>Content解析</a>" +
+	"<div id='nav_children_3' class='children'><a class='child' href='content_folder_tutorial.html'>Content解析</a>" +
 	"<a class='child' href='windows_tutorial.html'>Windows基础教程</a>" +
 	"<a class='child' href='android_tutorial.html'>Android基础教程</a>" +
 	"<a class='child' href='ios_tutorial.html'>IOS基础教程</a>" +
@@ -73,23 +75,45 @@ $("#nav").html(
 	"<a class='child' href='blocksdata_tutorial.html'>Blocksdata教程</a>" +
 	"<a class='child' href='database_tutorial.html'>Database解析</a>" +
 	"<a class='child' href='game_dll_tutorial.html'>Survivalcraft.dll教程</a></div></div>" +
+
 	"<div><div class='parent'>第四章 其他教程</div>" +
-	"<div class='children'><a class='child' href='regex_tutorial.html'>正则表达式教程</a></div></div>" +
+	"<div id='nav_children_4' class='children'><a class='child' href='regex_tutorial.html'>正则表达式教程</a></div></div>" +
 	"<br />");
 
 /**
  * 折叠导航项
  */
-for (var i = 0; i < $("#nav .children").length; i++){
-	//$("#nav .children").eq(i).css("height", $("#nav .children").eq(i).css("height"));
-}
-$("#nav div .parent").click(function(e){
-	var child_div = $(e.target).next(".children");
-	if (child_div.css("height") == "0px"){
-		child_div.css("height", child_div.children().length * child_div.children().css("height").substr(0, child_div.children().css("height").length - 2) + "px");
+$("#nav .parent").click(function(e){
+	// 取消高亮
+	$("#nav .parent").css("background", "");
+	$("#nav .child").css({"background":"", "color":""});
+	//
+	var childrenDiv = $(e.target).next(".children");
+	if (childrenDiv.css("height") == "0px"){
+		// children高度=0时，设置其高度为child数量 * child高度
+		childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height());
 	}
-	else child_div.css("height", "0px");
+	else childrenDiv.height(0);
 });
+
+/**
+ * 突出导航栏中当前所在页
+ */
+// 展开当前折叠项
+function openNavItem(navItemId){
+	var childrenDiv = $("#nav_children_" + navItemId);
+	childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height());
+	childrenDiv.prev().css("background", "#ddd");
+}
+openNavItem($("#nav").attr("data-open"));
+// 高亮当前页
+function highlightCurPage(){
+	var page = document.location.toString();
+	page = page.substring(page.lastIndexOf("/") + 1, page.length);
+	$("[href='" + page + "']").css({"background":$("#top_box").css("background-color"), "color":"#fff"});
+}
+highlightCurPage();
+
 
 /**
  * 导航开关
@@ -113,6 +137,7 @@ function navHide(){
 $("#nav_overlay").click(function(){
 	navHide();
 });
+
 
 /**
  * 菜单开关
