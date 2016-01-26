@@ -1,4 +1,9 @@
-﻿/*顶栏*/
+﻿.lock_position {
+	height: 100%;
+	overflow-y: hidden;
+}
+
+/*顶栏*/
 	#top_box, #top_box_top{
 		position:fixed;
 		top:0;

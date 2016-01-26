@@ -31,10 +31,10 @@ var bigTitle = $("#big_title_div"), lastUp = $("#last_update"), lastBtPos = 0, t
 if(isMobile) topBoxScroll = 75;
 // PC端阈值
 else topBoxScroll = 120;
-window.onscroll = function () {
+$(window).on("scroll", function () {
 	// 页面滚动超过阈值
-	if ((window.scrollY > topBoxScroll || window.pageYOffset > topBoxScroll) && lastBtPos <= topBoxScroll) {
-		lastBtPos = window.scrollY || window.pageYOffset;
+	if ($(window).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
+		lastBtPos = $(window).scrollTop();
 		bigTitle.css({
 			"animation": "fade_out 0.01s forwards",
 			"-webkit-animation": "fade_out 0.01s forwards"
@@ -64,8 +64,8 @@ window.onscroll = function () {
 		});
 	}
 	// 页面滚动低于阈值
-	else if ((window.scrollY <= topBoxScroll || window.pageYOffset <= topBoxScroll) && lastBtPos > topBoxScroll) {
-		lastBtPos = window.scrollY || window.pageYOffset;
+	else if ($(window).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
+		lastBtPos = $(window).scrollTop();
 		bigTitle.css({
 			"animation": "fade_out 0.01s forwards",
 			"-webkit-animation": "fade_out 0.01s forwards"
@@ -98,7 +98,7 @@ window.onscroll = function () {
 			});
 		});
 	}
-};
+});
 
 
 /**
@@ -182,45 +182,153 @@ highlightCurNavItem();
 /**
  * 导航开关
  */
-var navIsOpen = false;
+var isNavOpen = false;
+
 function navDisp(){
-	$("body").css("overflow", "hidden");
-	$("#nav").removeClass("nav_hide");
-	$("#nav").addClass("nav_show");
-	/*$("#nav_overlay").css({
+	var nav = $("#nav");
+	//$("body").css("overflow", "hidden");
+	nav.removeClass("nav_hide");
+	nav.addClass("nav_show");
+	$("#nav_overlay").css({
 		"animation":"nav_overlay_show 0.4s linear forwards",
 		"-webkit-animation":"nav_overlay_show 0.4s linear forwards"
-	});*/
-	navIsOpen = true;
+	});
+	isNavOpen = true;
 }
 
 function navHide(){
-	$("body").css("overflow", "auto");
-	$("#nav").removeClass("nav_show");
-	$("#nav").addClass("nav_hide");
+	var nav = $("#nav");
+	//$("body").css("overflow", "auto");
+	nav.removeClass("nav_show");
+	nav.addClass("nav_hide");
+	$("body").removeClass("lock_position");
 	$("#nav_overlay").css({
 		"animation":"nav_overlay_hide 0.4s linear forwards",
 		"-webkit-animation":"nav_overlay_hide 0.4s linear forwards"
 	});
-	navIsOpen = false;
+	isNavOpen = false;
 }
 
 /**
- * 点击页面其他位置关闭导航
+ * 鼠标/触摸操作处理函数
  */
-// 移动端
-document.addEventListener("touchstart", function(e){
-	var touch = e.touches[0];
-	if (navIsOpen && touch.pageX > $("#nav").width()){
-		navHide();
+function mouseHandler(e){
+	var nav = $("#nav");
+
+	if (e.target.id == "nav_overlay"){
+		switch (e.type){
+			// 点击nav_overlay时关闭导航栏
+			case "click":
+				navHide();
+				break;
+
+			// 展开导航栏时禁止在nav_overlay上滚动页面
+			case "mousewheel":
+				e.returnValue = false;
+				e.preventDefault();
+				break;
+			case "touchmove":
+				e.returnValue = false;
+				e.preventDefault();
+				break;
+			case "DOMMouseScroll":
+				e.returnValue = false;
+				e.preventDefault();
+				break;
+		}
 	}
-})
 
+	// PC禁止在导航栏内滚动正文页面
+	else if (isNavOpen && (e.type == "mousewheel" || e.type == "DOMMouseScroll")){
+		// 导航栏中没有滚动条时，禁止滚动
+		if (nav.prop("scrollHeight") == $(window).height()){
+			e.returnValue = false;
+			e.preventDefault();
+		}
 
-/**
- * 导航展开时阻止滚动正文
- */
+		// 有滚动条且位于导航栏顶端时，禁止向上滚动
+		else if ($("#nav").scrollTop() == 0){
+			// 鼠标滚轮
+			if (e.wheelDelta){ // 其他浏览器
+				if (e.wheelDelta > 0){ // 向上滚动
+					e.returnValue = false;
+					e.preventDefault();
+				}
+			}
+			else { // FF
+				if (e.detail < 0){ // 向上滚动
+					e.returnValue = false;
+					e.preventDefault();
+				}
+			}
+		}
 
+		// 有滚动条且位于导航栏底端时，禁止向下滚动
+		else if (nav.prop("scrollHeight") - $(window).height() - nav.scrollTop() == 0){
+			// 鼠标滚轮
+			if (e.wheelDelta){ // 其他浏览器
+				if (e.wheelDelta < 0){ // 向下滚动
+					e.returnValue = false;
+					e.preventDefault();
+				}
+			}
+			else { // FF
+				if (e.detail > 0){ // 向下滚动
+					e.returnValue = false;
+					e.preventDefault();
+				}
+			}
+		}
+	}
+
+	// 移动端禁止在导航栏内滚动正文页面
+	else if (isNavOpen ) {
+/*		if (e.type == "touchstart"){ // 触摸开始
+			// 单点触摸时
+			if (e.targetTouches.length == 1) {
+				var touch = e.targetTouches[0];
+				startY = touch.pageY;
+			}
+		}
+*/		if (e.type == "touchmove"){ // 移动开始
+			// 单点触摸时
+/*			if (e.targetTouches.length == 1) {
+				var touch = e.targetTouches[0];
+				spanY = touch.pageY - startY;
+
+				// 无滚动条时禁止滚动
+				if (nav.prop("scrollHeight") == $(window).height()){
+				 	e.preventDefault();
+				}
+				// 有滚动条并向上滑动时
+				else if (spanY > 0) {
+					// 位于导航栏顶端时，禁止向上滚动
+					if ($("#nav").scrollTop() == 0){
+						e.preventDefault();
+					}
+				}
+				// 有滚动条并向下滑动时
+				else if (spanY < 0) {
+					// 位于导航栏底端时，禁止向下滚动
+					if (nav.prop("scrollHeight") - $(window).height() - nav.scrollTop() == 0){
+						e.preventDefault();
+					}
+				}
+			}
+*/
+			// 在导航栏内滑动时锁定body的滚动（在navHide方法中解锁）
+			$("body").addClass("lock_position");
+		}
+	}
+}
+// PC鼠标事件绑定
+document.addEventListener("click", mouseHandler);
+document.addEventListener("mousewheel", mouseHandler);
+document.addEventListener("DOMMouseScroll", mouseHandler);
+// 移动端触摸事件绑定
+document.addEventListener("touchstart", mouseHandler);
+document.addEventListener("touchend", mouseHandler);
+document.addEventListener("touchmove", mouseHandler);
 
 /**
  * 菜单开关
