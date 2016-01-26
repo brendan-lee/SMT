@@ -4,7 +4,6 @@
 ## TODO
 #### Project L.M.L.M.D (Looks More Like [Material Design](http://materializecss.com/getting-started.html)) 
 1. 加入导航栏按钮点击水波纹效果
-1. 侧边栏总是展开当前所在的章节（首页展开第一章）
 
 #### 功能
 1. 加入文章表格展开收起功能
