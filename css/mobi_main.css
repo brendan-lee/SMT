@@ -1,4 +1,9 @@
-﻿/*顶栏*/
+﻿.lock_position {
+	height: 100%;
+	overflow-y: hidden;
+}
+
+/*顶栏*/
 	#top_box, #top_box_top{
 		position:fixed;
 		top:0;
@@ -6,7 +11,7 @@
 		height:46px;
 		background-color:#259b24;
 		z-index:5;
-		box-shadow:0px 0px 6px 1px #000; 
+		box-shadow:0 0 6px 1px #000;
 	}
 
 	#top_box_top {/*顶栏 遮罩层*/
@@ -155,7 +160,7 @@
 	#nav .children {
 		transition: height 0.3s;
 		overflow: hidden;
-		height: 0px;
+		height: 0;
 	}
 	#nav .parent:hover, #nav .child:hover {
 		background: #eee;

@@ -2,11 +2,23 @@
  * class=“saimg”的图片的src根据在线/离线自动适应
  * @module saImg
  */
-var saImg = $("img.saimg");
+var saImg = $("img .saimg"), saImgSrc;
 for(var i = 0; i < saImg.length; i++){
-	if(isOnline) var saImgSrc = saImg.eq(i).attr("online"); 
-	else var saImgSrc = saImg.eq(i).attr("offline");
-	saImg.eq(i).attr({"src":saImgSrc, "onclick":"location.href='" + saImgSrc + "'", "alt":"图片显示失败", "title":"点击查看原图"});
+	// 在线时
+	if (isOnline){
+		saImgSrc = saImg.eq(i).attr("data-online");
+	}
+	// 离线时
+	else {
+		saImgSrc = saImg.eq(i).attr("data-offline");
+	}
+
+	saImg.eq(i).attr({
+		"src": saImgSrc,
+		"onclick": "location.href='" + saImgSrc + "'",
+		"alt": "图片显示失败",
+		"title": "点击查看原图"
+	});
 }
 
 
@@ -14,37 +26,79 @@ for(var i = 0; i < saImg.length; i++){
  * 大标题及更新日期的动画效果
  * @module titleAnime
  */
-var bigTitle = $("#big_title_div"), lastUp = $("#last_update"), lastBtPos = 0;
+var bigTitle = $("#big_title_div"), lastUp = $("#last_update"), lastBtPos = 0, topBoxScroll;
 // 移动端阈值
-if(isMobile) var topBoxScroll = 75;
+if(isMobile) topBoxScroll = 75;
 // PC端阈值
-else var topBoxScroll = 120;
-window.onscroll = function (){
+else topBoxScroll = 120;
+$(window).on("scroll", function () {
 	// 页面滚动超过阈值
-	if((window.scrollY > topBoxScroll || window.pageYOffset > topBoxScroll) && lastBtPos <= topBoxScroll){
-		lastBtPos = window.scrollY || window.pageYOffset;
-		bigTitle.css({"animation":"fade_out 0.01s forwards", "-webkit-animation":"fade_out 0.01s forwards"});
-		lastUp.css({"animation":"fade_out 0.01s forwards", "-webkit-animation":"fade_out 0.01s forwards"});
-		bigTitle.bind("animationend webkitAnimationEnd", function(){
+	if ($(window).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
+		lastBtPos = $(window).scrollTop();
+		bigTitle.css({
+			"animation": "fade_out 0.01s forwards",
+			"-webkit-animation": "fade_out 0.01s forwards"
+		});
+		lastUp.css({
+			"animation": "fade_out 0.01s forwards",
+			"-webkit-animation": "fade_out 0.01s forwards"
+		});
+		bigTitle.bind("animationend webkitAnimationEnd", function () {
 			bigTitle.unbind();
-			if(isMobile) bigTitle.css({"position":"fixed", "top":"12px", "left":"40px", "font-size":"20px"});
-			else bigTitle.css({"position":"fixed", "top":"15px", "left":"60px", "font-size":"24px"});
-			bigTitle.css({"animation":"fade_in 0.2s linear", "-webkit-animation":"fade_in 0.2s linear"});
+			if (isMobile) bigTitle.css({
+				"position": "fixed",
+				"top": "12px",
+				"left": "40px",
+				"font-size": "20px"
+			});
+			else bigTitle.css({
+				"position": "fixed",
+				"top": "15px",
+				"left": "60px",
+				"font-size": "24px"
+			});
+			bigTitle.css({
+				"animation": "fade_in 0.2s linear",
+				"-webkit-animation": "fade_in 0.2s linear"
+			});
 		});
 	}
 	// 页面滚动低于阈值
-	else if((window.scrollY <= topBoxScroll || window.pageYOffset <= topBoxScroll) && lastBtPos > topBoxScroll){
-		lastBtPos = window.scrollY || window.pageYOffset;
-		bigTitle.css({"animation":"fade_out 0.01s forwards", "-webkit-animation":"fade_out 0.01s forwards"});
-		bigTitle.bind("animationend webkitAnimationEnd", function(){
+	else if ($(window).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
+		lastBtPos = $(window).scrollTop();
+		bigTitle.css({
+			"animation": "fade_out 0.01s forwards",
+			"-webkit-animation": "fade_out 0.01s forwards"
+		});
+		bigTitle.bind("animationend webkitAnimationEnd", function () {
 			bigTitle.unbind();
-			if(isMobile) bigTitle.css({"position":"absolute", "top":"90px", "left":"40px", "font-size":"30px"});
-			else bigTitle.css({"position":"absolute", "top":"160px", "left":"22.5%", "font-size":"50px"});
-			bigTitle.css({"animation":"fade_in 0.2s linear", "-webkit-animation":"fade_in 0.2s linear"});
-			lastUp.css({"animation":"fade_in 0.3s linear", "-webkit-animation":"fade_in 0.3s linear"});
+			if (isMobile) {
+				bigTitle.css({
+					"position": "absolute",
+					"top": "90px",
+					"left": "40px",
+					"font-size": "30px"
+				});
+			}
+			else {
+				bigTitle.css({
+					"position": "absolute",
+					"top": "160px",
+					"left": "22.5%",
+					"font-size": "50px"
+				});
+			}
+			bigTitle.css({
+				"animation": "fade_in 0.2s linear",
+				"-webkit-animation": "fade_in 0.2s linear"
+			});
+			lastUp.css({
+				"animation": "fade_in 0.3s linear",
+				"-webkit-animation": "fade_in 0.3s linear"
+			});
 		});
 	}
-}
+});
 
 
 /**
@@ -128,26 +182,153 @@ highlightCurNavItem();
 /**
  * 导航开关
  */
+var isNavOpen = false;
+
 function navDisp(){
-	$("body").css("overflow", "hidden");
-	$("#nav").removeClass("nav_hide");
-	$("#nav").addClass("nav_show");
-	/*if (isMobile) $("#nav_overlay").css("visibility", "visible");
-	else*/ $("#nav_overlay").css({"animation":"nav_overlay_show 0.4s linear forwards", "-webkit-animation":"nav_overlay_show 0.4s linear forwards"});
+	var nav = $("#nav");
+	//$("body").css("overflow", "hidden");
+	nav.removeClass("nav_hide");
+	nav.addClass("nav_show");
+	$("#nav_overlay").css({
+		"animation":"nav_overlay_show 0.4s linear forwards",
+		"-webkit-animation":"nav_overlay_show 0.4s linear forwards"
+	});
+	isNavOpen = true;
 }
 
 function navHide(){
-	$("body").css("overflow", "auto");
-	$("#nav").removeClass("nav_show");
-	$("#nav").addClass("nav_hide");
-	/*if (isMobile) $("#nav_overlay").css("visibility", "hidden");
-	else*/ $("#nav_overlay").css({"animation":"nav_overlay_hide 0.4s linear forwards", "-webkit-animation":"nav_overlay_hide 0.4s linear forwards"});
+	var nav = $("#nav");
+	//$("body").css("overflow", "auto");
+	nav.removeClass("nav_show");
+	nav.addClass("nav_hide");
+	$("body").removeClass("lock_position");
+	$("#nav_overlay").css({
+		"animation":"nav_overlay_hide 0.4s linear forwards",
+		"-webkit-animation":"nav_overlay_hide 0.4s linear forwards"
+	});
+	isNavOpen = false;
 }
-// 单击页面隐藏导航栏
-$("#nav_overlay").click(function(){
-	navHide();
-});
 
+/**
+ * 鼠标/触摸操作处理函数
+ */
+function mouseHandler(e){
+	var nav = $("#nav");
+
+	if (e.target.id == "nav_overlay"){
+		switch (e.type){
+			// 点击nav_overlay时关闭导航栏
+			case "click":
+				navHide();
+				break;
+
+			// 展开导航栏时禁止在nav_overlay上滚动页面
+			case "mousewheel":
+				e.returnValue = false;
+				e.preventDefault();
+				break;
+			case "touchmove":
+				e.returnValue = false;
+				e.preventDefault();
+				break;
+			case "DOMMouseScroll":
+				e.returnValue = false;
+				e.preventDefault();
+				break;
+		}
+	}
+
+	// PC禁止在导航栏内滚动正文页面
+	else if (isNavOpen && (e.type == "mousewheel" || e.type == "DOMMouseScroll")){
+		// 导航栏中没有滚动条时，禁止滚动
+		if (nav.prop("scrollHeight") == $(window).height()){
+			e.returnValue = false;
+			e.preventDefault();
+		}
+
+		// 有滚动条且位于导航栏顶端时，禁止向上滚动
+		else if ($("#nav").scrollTop() == 0){
+			// 鼠标滚轮
+			if (e.wheelDelta){ // 其他浏览器
+				if (e.wheelDelta > 0){ // 向上滚动
+					e.returnValue = false;
+					e.preventDefault();
+				}
+			}
+			else { // FF
+				if (e.detail < 0){ // 向上滚动
+					e.returnValue = false;
+					e.preventDefault();
+				}
+			}
+		}
+
+		// 有滚动条且位于导航栏底端时，禁止向下滚动
+		else if (nav.prop("scrollHeight") - $(window).height() - nav.scrollTop() == 0){
+			// 鼠标滚轮
+			if (e.wheelDelta){ // 其他浏览器
+				if (e.wheelDelta < 0){ // 向下滚动
+					e.returnValue = false;
+					e.preventDefault();
+				}
+			}
+			else { // FF
+				if (e.detail > 0){ // 向下滚动
+					e.returnValue = false;
+					e.preventDefault();
+				}
+			}
+		}
+	}
+
+	// 移动端禁止在导航栏内滚动正文页面
+	else if (isNavOpen ) {
+/*		if (e.type == "touchstart"){ // 触摸开始
+			// 单点触摸时
+			if (e.targetTouches.length == 1) {
+				var touch = e.targetTouches[0];
+				startY = touch.pageY;
+			}
+		}
+*/		if (e.type == "touchmove"){ // 移动开始
+			// 单点触摸时
+/*			if (e.targetTouches.length == 1) {
+				var touch = e.targetTouches[0];
+				spanY = touch.pageY - startY;
+
+				// 无滚动条时禁止滚动
+				if (nav.prop("scrollHeight") == $(window).height()){
+				 	e.preventDefault();
+				}
+				// 有滚动条并向上滑动时
+				else if (spanY > 0) {
+					// 位于导航栏顶端时，禁止向上滚动
+					if ($("#nav").scrollTop() == 0){
+						e.preventDefault();
+					}
+				}
+				// 有滚动条并向下滑动时
+				else if (spanY < 0) {
+					// 位于导航栏底端时，禁止向下滚动
+					if (nav.prop("scrollHeight") - $(window).height() - nav.scrollTop() == 0){
+						e.preventDefault();
+					}
+				}
+			}
+*/
+			// 在导航栏内滑动时锁定body的滚动（在navHide方法中解锁）
+			$("body").addClass("lock_position");
+		}
+	}
+}
+// PC鼠标事件绑定
+document.addEventListener("click", mouseHandler);
+document.addEventListener("mousewheel", mouseHandler);
+document.addEventListener("DOMMouseScroll", mouseHandler);
+// 移动端触摸事件绑定
+document.addEventListener("touchstart", mouseHandler);
+document.addEventListener("touchend", mouseHandler);
+document.addEventListener("touchmove", mouseHandler);
 
 /**
  * 菜单开关
