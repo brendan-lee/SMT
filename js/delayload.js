@@ -83,36 +83,46 @@ $("#nav").html(
 /**
  * 折叠导航项
  */
-$("#nav .parent").click(function(e){
-	// 取消高亮
-	$("#nav .parent").css("background", "");
-	$("#nav .child").css({"background":"", "color":""});
-	//
+function openNavItem(e){
 	var childrenDiv = $(e.target).next(".children");
-	if (childrenDiv.css("height") == "0px"){
-		// children高度=0时，设置其高度为child数量 * child高度
-		childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height());
+
+	$("#nav .parent").css("background", ""); // 取消全部高亮
+	$(e.target).css("background", "#ddd"); // 高亮选择的项
+
+	// 展开/折叠
+	if (childrenDiv.css("height") == "0px"){ // 如果选中的项未展开
+		$("#nav .children").height(0); // 收起全部项
+		childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height()); // 展开选中的项
 	}
-	else childrenDiv.height(0);
+	else { // 如果选中的项已展开
+		$("#nav .parent").css("background", ""); // 取消高亮
+		childrenDiv.height(0); // 收起选中的项
+	}
+}
+
+$("#nav .parent").click(function(e){
+	openNavItem(e);
 });
 
 /**
  * 突出导航栏中当前所在页
  */
-// 展开当前折叠项
-function openNavItem(navItemId){
+// 展开当前所在的项
+function openCurNavItem(navItemId){
 	var childrenDiv = $("#nav_children_" + navItemId);
-	childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height());
-	childrenDiv.prev().css("background", "#ddd");
+	childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height()); // 展开该项
+	childrenDiv.prev().css("background", "#ddd"); // 高亮所在的章节
 }
-openNavItem($("#nav").attr("data-open"));
+openCurNavItem($("#nav").attr("data-open"));
+
 // 高亮当前页
-function highlightCurPage(){
-	var page = document.location.toString();
-	page = page.substring(page.lastIndexOf("/") + 1, page.length);
-	$("[href='" + page + "']").css({"background":$("#top_box").css("background-color"), "color":"#fff"});
+function highlightCurNavItem(){
+	var page = document.location.toString(),
+		tmp = page.split("/");
+	page = tmp[tmp.length - 1]; // 获取当前页面名称
+	$("[href='" + page + "']").css({"background":$("#top_box").css("background-color"), "color":"#fff"}); //href=当前页名称的元素高亮
 }
-highlightCurPage();
+highlightCurNavItem();
 
 
 /**
