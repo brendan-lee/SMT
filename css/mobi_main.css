@@ -150,7 +150,7 @@
 		line-height: 35px;
 		padding-left: 30px;
 		font-size: 15px;
-		transition: background 0.08s linear;
+		transition: background 0.08s linear, color 0.08s linear;
 	}
 	#nav .children {
 		transition: height 0.3s;
@@ -158,10 +158,10 @@
 		height: 0px;
 	}
 	#nav .parent:hover, #nav .child:hover {
-		background: #ddd;
+		background: #eee;
 	}
 	#nav .parent:active, #nav .child:active {
-		background: #bbb;
+		background: #ddd;
 	}
 
 /*动画*/

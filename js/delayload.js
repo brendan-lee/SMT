@@ -83,7 +83,11 @@ $("#nav").html(
 /**
  * 折叠导航项
  */
-$("#nav div .parent").click(function(e){
+$("#nav .parent").click(function(e){
+	// 取消高亮
+	$("#nav .parent").css("background", "");
+	$("#nav .child").css({"background":"", "color":""});
+	//
 	var childrenDiv = $(e.target).next(".children");
 	if (childrenDiv.css("height") == "0px"){
 		// children高度=0时，设置其高度为child数量 * child高度
@@ -93,13 +97,23 @@ $("#nav div .parent").click(function(e){
 });
 
 /**
- * 展开当前所在章节导航项
+ * 突出导航栏中当前所在页
  */
+// 展开当前折叠项
 function openNavItem(navItemId){
 	var childrenDiv = $("#nav_children_" + navItemId);
 	childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height());
+	childrenDiv.prev().css("background", "#ddd");
 }
 openNavItem($("#nav").attr("data-open"));
+// 高亮当前页
+function highlightCurPage(){
+	var page = document.location.toString();
+	page = page.substring(page.lastIndexOf("/") + 1, page.length);
+	$("[href='" + page + "']").css({"background":$("#top_box").css("background-color"), "color":"#fff"});
+}
+highlightCurPage();
+
 
 /**
  * 导航开关
