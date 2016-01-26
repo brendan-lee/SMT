@@ -2,11 +2,23 @@
  * class=“saimg”的图片的src根据在线/离线自动适应
  * @module saImg
  */
-var saImg = $("img.saimg");
+var saImg = $("img .saimg"), saImgSrc;
 for(var i = 0; i < saImg.length; i++){
-	if(isOnline) var saImgSrc = saImg.eq(i).attr("online"); 
-	else var saImgSrc = saImg.eq(i).attr("offline");
-	saImg.eq(i).attr({"src":saImgSrc, "onclick":"location.href='" + saImgSrc + "'", "alt":"图片显示失败", "title":"点击查看原图"});
+	// 在线时
+	if (isOnline){
+		saImgSrc = saImg.eq(i).attr("data-online");
+	}
+	// 离线时
+	else {
+		saImgSrc = saImg.eq(i).attr("data-offline");
+	}
+
+	saImg.eq(i).attr({
+		"src": saImgSrc,
+		"onclick": "location.href='" + saImgSrc + "'",
+		"alt": "图片显示失败",
+		"title": "点击查看原图"
+	});
 }
 
 
@@ -14,37 +26,79 @@ for(var i = 0; i < saImg.length; i++){
  * 大标题及更新日期的动画效果
  * @module titleAnime
  */
-var bigTitle = $("#big_title_div"), lastUp = $("#last_update"), lastBtPos = 0;
+var bigTitle = $("#big_title_div"), lastUp = $("#last_update"), lastBtPos = 0, topBoxScroll;
 // 移动端阈值
-if(isMobile) var topBoxScroll = 75;
+if(isMobile) topBoxScroll = 75;
 // PC端阈值
-else var topBoxScroll = 120;
-window.onscroll = function (){
+else topBoxScroll = 120;
+window.onscroll = function () {
 	// 页面滚动超过阈值
-	if((window.scrollY > topBoxScroll || window.pageYOffset > topBoxScroll) && lastBtPos <= topBoxScroll){
+	if ((window.scrollY > topBoxScroll || window.pageYOffset > topBoxScroll) && lastBtPos <= topBoxScroll) {
 		lastBtPos = window.scrollY || window.pageYOffset;
-		bigTitle.css({"animation":"fade_out 0.01s forwards", "-webkit-animation":"fade_out 0.01s forwards"});
-		lastUp.css({"animation":"fade_out 0.01s forwards", "-webkit-animation":"fade_out 0.01s forwards"});
-		bigTitle.bind("animationend webkitAnimationEnd", function(){
+		bigTitle.css({
+			"animation": "fade_out 0.01s forwards",
+			"-webkit-animation": "fade_out 0.01s forwards"
+		});
+		lastUp.css({
+			"animation": "fade_out 0.01s forwards",
+			"-webkit-animation": "fade_out 0.01s forwards"
+		});
+		bigTitle.bind("animationend webkitAnimationEnd", function () {
 			bigTitle.unbind();
-			if(isMobile) bigTitle.css({"position":"fixed", "top":"12px", "left":"40px", "font-size":"20px"});
-			else bigTitle.css({"position":"fixed", "top":"15px", "left":"60px", "font-size":"24px"});
-			bigTitle.css({"animation":"fade_in 0.2s linear", "-webkit-animation":"fade_in 0.2s linear"});
+			if (isMobile) bigTitle.css({
+				"position": "fixed",
+				"top": "12px",
+				"left": "40px",
+				"font-size": "20px"
+			});
+			else bigTitle.css({
+				"position": "fixed",
+				"top": "15px",
+				"left": "60px",
+				"font-size": "24px"
+			});
+			bigTitle.css({
+				"animation": "fade_in 0.2s linear",
+				"-webkit-animation": "fade_in 0.2s linear"
+			});
 		});
 	}
 	// 页面滚动低于阈值
-	else if((window.scrollY <= topBoxScroll || window.pageYOffset <= topBoxScroll) && lastBtPos > topBoxScroll){
+	else if ((window.scrollY <= topBoxScroll || window.pageYOffset <= topBoxScroll) && lastBtPos > topBoxScroll) {
 		lastBtPos = window.scrollY || window.pageYOffset;
-		bigTitle.css({"animation":"fade_out 0.01s forwards", "-webkit-animation":"fade_out 0.01s forwards"});
-		bigTitle.bind("animationend webkitAnimationEnd", function(){
+		bigTitle.css({
+			"animation": "fade_out 0.01s forwards",
+			"-webkit-animation": "fade_out 0.01s forwards"
+		});
+		bigTitle.bind("animationend webkitAnimationEnd", function () {
 			bigTitle.unbind();
-			if(isMobile) bigTitle.css({"position":"absolute", "top":"90px", "left":"40px", "font-size":"30px"});
-			else bigTitle.css({"position":"absolute", "top":"160px", "left":"22.5%", "font-size":"50px"});
-			bigTitle.css({"animation":"fade_in 0.2s linear", "-webkit-animation":"fade_in 0.2s linear"});
-			lastUp.css({"animation":"fade_in 0.3s linear", "-webkit-animation":"fade_in 0.3s linear"});
+			if (isMobile) {
+				bigTitle.css({
+					"position": "absolute",
+					"top": "90px",
+					"left": "40px",
+					"font-size": "30px"
+				});
+			}
+			else {
+				bigTitle.css({
+					"position": "absolute",
+					"top": "160px",
+					"left": "22.5%",
+					"font-size": "50px"
+				});
+			}
+			bigTitle.css({
+				"animation": "fade_in 0.2s linear",
+				"-webkit-animation": "fade_in 0.2s linear"
+			});
+			lastUp.css({
+				"animation": "fade_in 0.3s linear",
+				"-webkit-animation": "fade_in 0.3s linear"
+			});
 		});
 	}
-}
+};
 
 
 /**
@@ -128,25 +182,44 @@ highlightCurNavItem();
 /**
  * 导航开关
  */
+var navIsOpen = false;
 function navDisp(){
 	$("body").css("overflow", "hidden");
 	$("#nav").removeClass("nav_hide");
 	$("#nav").addClass("nav_show");
-	/*if (isMobile) $("#nav_overlay").css("visibility", "visible");
-	else*/ $("#nav_overlay").css({"animation":"nav_overlay_show 0.4s linear forwards", "-webkit-animation":"nav_overlay_show 0.4s linear forwards"});
+	/*$("#nav_overlay").css({
+		"animation":"nav_overlay_show 0.4s linear forwards",
+		"-webkit-animation":"nav_overlay_show 0.4s linear forwards"
+	});*/
+	navIsOpen = true;
 }
 
 function navHide(){
 	$("body").css("overflow", "auto");
 	$("#nav").removeClass("nav_show");
 	$("#nav").addClass("nav_hide");
-	/*if (isMobile) $("#nav_overlay").css("visibility", "hidden");
-	else*/ $("#nav_overlay").css({"animation":"nav_overlay_hide 0.4s linear forwards", "-webkit-animation":"nav_overlay_hide 0.4s linear forwards"});
+	$("#nav_overlay").css({
+		"animation":"nav_overlay_hide 0.4s linear forwards",
+		"-webkit-animation":"nav_overlay_hide 0.4s linear forwards"
+	});
+	navIsOpen = false;
 }
-// 单击页面隐藏导航栏
-$("#nav_overlay").click(function(){
-	navHide();
-});
+
+/**
+ * 点击页面其他位置关闭导航
+ */
+// 移动端
+document.addEventListener("touchstart", function(e){
+	var touch = e.touches[0];
+	if (navIsOpen && touch.pageX > $("#nav").width()){
+		navHide();
+	}
+})
+
+
+/**
+ * 导航展开时阻止滚动正文
+ */
 
 
 /**
