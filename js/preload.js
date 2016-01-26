@@ -21,8 +21,8 @@ if ((ua.match(/msie/i)) && (ua.match(/windows nt/i))){
 	var isMobile = false;
 	if (ua.match(/(windows phone|symbianos|android|mobile|playbook|ipad|iphone|ipod)/i)) {
 		isMobile = true;
-		document.getElementById("css_main").setAttribute("href", "css/mobi_main.css?" + Math.random());
-		document.getElementById("css_article").setAttribute("href", "css/mobi_article.css?" + Math.random());
+		document.getElementById("css_main").setAttribute("href", "css/mobi_main.css?" + ver);
+		document.getElementById("css_article").setAttribute("href", "css/mobi_article.css?" + ver);
 	}
 
 // 返回顶部
