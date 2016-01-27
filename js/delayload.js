@@ -2,7 +2,7 @@
  * class=“saimg”的图片的src根据在线/离线自动适应
  * @module saImg
  */
-var saImg = $("img .saimg"), saImgSrc;
+var saImg = $(".saimg"), saImgSrc;
 for(var i = 0; i < saImg.length; i++){
 	// 在线时
 	if (isOnline){
@@ -15,9 +15,7 @@ for(var i = 0; i < saImg.length; i++){
 
 	saImg.eq(i).attr({
 		"src": saImgSrc,
-		"onclick": "location.href='" + saImgSrc + "'",
 		"alt": "图片显示失败",
-		"title": "点击查看原图"
 	});
 }
 

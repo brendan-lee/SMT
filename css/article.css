@@ -31,12 +31,13 @@
 	font-weight:bold;
 }
 
-#content_box .saimg {
+.saimg {
 	display:block;
 	margin:8px 0 12px 0;
-	max-width:calc(100% - 2px);
-	cursor:pointer;
-	border:solid 1px;
+	max-width:calc(100% - 8px);
+	max-height: 700px;
+	border:solid 1px #ccc;
+	box-shadow: 5px 6px 8px -4px #aaa;
 }
 
 #content_box li {
