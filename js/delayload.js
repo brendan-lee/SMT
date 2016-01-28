@@ -381,7 +381,7 @@ function mouseHandler(e){
 				break;
 
 			case "touchend":
-				if (finalX == startX && finalY == startY) {
+				if (Math.abs(finalX - startX) < 3 && Math.abs(finalY - startY) < 3) { // 防止屏幕误差导致无法关闭
 					$(this).unbind();
 					closeImg();
 				}
