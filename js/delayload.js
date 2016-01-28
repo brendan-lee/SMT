@@ -52,7 +52,7 @@ function magnifyImg(){
 
 function closeImg(){
 	var imgDiv = $("#mag_img_wrapper");
-	imgDiv.css("animation", "fade_out 0.3s ease-out");
+	imgDiv.css({"animation":"fade_out 0.3s ease-out", "-webkit-animation":"fade_out 0.3s ease-out"});
 	imgDiv.bind("animationend webkitAnimationEnd", function () {
 		imgDiv.remove();
 	});
@@ -67,10 +67,10 @@ var bigTitle = $("#big_title_div"), lastUp = $("#last_update"), lastBtPos = 0, t
 if(isMobile) topBoxScroll = 75;
 // PC端阈值
 else topBoxScroll = 120;
-$(window).on("scroll", function () {
+$(document).on("scroll ready", function () {
 	// 页面滚动超过阈值
-	if ($(window).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
-		lastBtPos = $(window).scrollTop();
+	if ($(document).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
+		lastBtPos = $(document).scrollTop();
 		bigTitle.css({
 			"animation": "fade_out 0.01s forwards",
 			"-webkit-animation": "fade_out 0.01s forwards"
@@ -100,8 +100,8 @@ $(window).on("scroll", function () {
 		});
 	}
 	// 页面滚动低于阈值
-	else if ($(window).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
-		lastBtPos = $(window).scrollTop();
+	else if ($(document).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
+		lastBtPos = $(document).scrollTop();
 		bigTitle.css({
 			"animation": "fade_out 0.01s forwards",
 			"-webkit-animation": "fade_out 0.01s forwards"
@@ -135,7 +135,6 @@ $(window).on("scroll", function () {
 		});
 	}
 });
-
 
 /**
  * 导航&菜单
