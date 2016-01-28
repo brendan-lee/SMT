@@ -33,9 +33,9 @@ pre[class*="language-"] {
 pre[class*="language-"] {
 	position: relative;
 	margin: .5em 0;
-	-webkit-box-shadow: -1px 0px 0px 0px #358ccb, 0px 0px 0px 1px #dfdfdf;
-	-moz-box-shadow: -1px 0px 0px 0px #358ccb, 0px 0px 0px 1px #dfdfdf;
-	box-shadow: -1px 0px 0px 0px #358ccb, 0px 0px 0px 1px #dfdfdf;
+	-webkit-box-shadow: -1px 0 0 0 #358ccb, 0 0 0 1px #dfdfdf;
+	-moz-box-shadow: -1px 0 0 0 #358ccb, 0 0 0 1px #dfdfdf;
+	box-shadow: -1px 0 0 0 #358ccb, 0 0 0 1px #dfdfdf;
 	border-left: 10px solid #358ccb;
 	overflow: visible;
 	padding: 0;
@@ -85,9 +85,9 @@ pre[class*="language-"]:after {
 	width: 40%;
 	height: 20%;
 	max-height: 13em;
-	-webkit-box-shadow: 0px 13px 8px #979797;
-	-moz-box-shadow: 0px 13px 8px #979797;
-	box-shadow: 0px 13px 8px #979797;
+	-webkit-box-shadow: 0 13px 8px #979797;
+	-moz-box-shadow: 0 13px 8px #979797;
+	box-shadow: 0 13px 8px #979797;
 	-webkit-transform: rotate(-2deg);
 	-moz-transform: rotate(-2deg);
 	-ms-transform: rotate(-2deg);
