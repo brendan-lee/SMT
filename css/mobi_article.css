@@ -39,6 +39,35 @@
 	border:solid 1px #ccc;
 	box-shadow: 5px 6px 8px -4px #aaa;
 }
+.magnifiable {
+	cursor: pointer;
+}
+#mag_img_wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 998;
+	background: rgba(0, 0, 0, 0.8);
+	overflow: hidden;
+	-webkit-animation: fade_in 0.3s ease-out;
+	animation: fade_in 0.3s ease-out;
+}
+#mag_img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	cursor: move;
+	transition: width 0.2s ease-out;
+}
+#mag_close_btn {
+	position: fixed;
+	top: 30px;
+	right: 30px;
+	z-index: 999;
+	cursor: pointer;
+}
 
 #content_box li {
 	list-style-position:inside;
