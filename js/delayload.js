@@ -14,7 +14,7 @@ for(var i = 0; i < saImg.length; i++){
 
 	saImg.eq(i).attr({
 		"src": saImgSrc,
-		"alt": "图片显示失败",
+		"alt": "图片显示失败"
 	});
 }
 
@@ -32,11 +32,11 @@ function magnifyImg(){
 	var magImg = $("#mag_img");
 
 	magImg.on("load", function(){
-		magWidth = magImg.width(),
-		magHeight = magImg.height(),
-		magTop = parseInt(magImg.css("top").split("px")[0]),
-		magLeft = parseInt(magImg.css("left").split("px")[0]),
-		magMarginTop = parseInt(magImg.css("margin-top").split("px")[0]),
+		magWidth = magImg.width();
+		magHeight = magImg.height();
+		magTop = parseInt(magImg.css("top").split("px")[0]);
+		magLeft = parseInt(magImg.css("left").split("px")[0]);
+		magMarginTop = parseInt(magImg.css("margin-top").split("px")[0]);
 		magMarginLeft = parseInt(magImg.css("margin-left").split("px")[0]);
 
 		// 设置图片水平垂直居中
@@ -321,8 +321,6 @@ function mouseHandler(e){
 				var touch = e.touches[0];
 				var spanY = touch.pageY - startY;
 
-				console.log(spanY)
-
 				// 无滚动条时禁止滚动
 				if (nav.prop("scrollHeight") == $(window).height()){
 				 	e.preventDefault();
@@ -330,7 +328,6 @@ function mouseHandler(e){
 
 				// 向上滑动时
 				else if (spanY > 0) {
-
 					// 有滚动条且位于导航栏顶端时，禁止向上滚动
 					if ($("#nav").scrollTop() == 0){
 						e.preventDefault();
@@ -487,8 +484,6 @@ function mouseHandler(e){
 			magTop = parseInt(img.css("top").split("px")[0]);
 			magLeft = parseInt(img.css("left").split("px")[0]);
 		}
-
-
 	}
 
 	// 禁止在图片外滚动页面
@@ -554,10 +549,75 @@ $(document).click(function(){
  * 菜单跳转功能
  */
 function menuTo(target){
-	menuToggle();
 	if (isMobile){
-		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 45},250);
+		$("html, body").animate({scrollTop:$("#" + target).prop("offsetTop") - 45},250);
 	} else {
-		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 60},250);
+		$("html, body").animate({scrollTop:$("#" + target).prop("offsetTop") - 60},250);
 	}
+
+	// 关闭菜单
+	menuToggle();
+}
+
+/**
+ * 文章倒序功能
+ */
+function reverseChapter() {
+	var chapt = $(".chapter"),
+		menu = $("#menu .parent"),
+		scrollTop = $(document).scrollTop();
+		tmp = [];
+
+	// 倒序读入正文
+	for (var i = chapt.length - 1, j = 0; i >= 0; i--, j++) {
+		tmp[i] = chapt.eq(j).prop("outerHTML");
+	}
+	// 顺序写出正文
+	for (var i = 0; i < chapt.length; i++) {
+		chapt.eq(i).prop("outerHTML", tmp[i]);
+	}
+
+	// 倒序读入菜单
+	for (var i = menu.length - 1, j = 0; i >= 0; i--, j++){
+		tmp[i] = menu.eq(j).prop("outerHTML");
+	}
+	// 顺序写出菜单
+	for (var i =0; i < menu.length; i++){
+		menu.eq(i).prop("outerHTML", tmp[i]);
+	}
+
+	// 更新数组
+	chapt = $(".chapter"),
+	menu = $("#menu .parent");
+
+	// 如果第一个chapter没有锚标记，则更新锚标记（history.html）
+	if (typeof(chapt.eq(0).attr("id")) == "undefined"){
+		var subscript = [];
+
+		// 记录所有锚标记的角标
+		for (var i = 0, j = 0; i < chapt.length; i++){
+			if (typeof(chapt.eq(i).attr("id")) != "undefined"){
+				subscript[j] = i;
+				j++;
+			}
+		}
+		// 把第一个锚标记提前到第一个chapter
+		chapt.eq(0).attr("id", chapt.eq(subscript[0]).attr("id"));
+		chapt.eq(subscript[0]).removeAttr("id");
+
+		// 提前剩余锚标记
+		for (var i = 1; i < subscript.length; i++){
+			chapt.eq(subscript[i - 1] + 1).attr("id", chapt.eq(subscript[i]).attr("id"));
+			chapt.eq(subscript[i]).removeAttr("id");
+		}
+	}
+
+	// 移到倒序前的阅读位置（目标滚动距离 = content_box高度 + margin(20px) + 2 * top_box_top高度 - 滚动距离 - 可视高度 - top_box高度）
+	var targetScroll = $("#content_box").prop("scrollHeight") + 20 + 2 * $("#top_box_top").height() -
+		$(document).scrollTop() - $(window).height() - $("#top_box").height();
+
+	$("html, body").animate({scrollTop: targetScroll}, 250);
+
+	// 关闭菜单
+	menuToggle();
 }

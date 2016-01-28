@@ -81,14 +81,11 @@
 	#menu li {/*列表项*/
 		list-style:none;
 		cursor:default;
+		font-size:16px;
 	}
 	
 	#menu li span {
 		cursor:pointer;
-	}
-
-	#menu .parent {/*父级*/
-		font-size:16px;
 	}
 
 	#menu .child {/*子级*/
