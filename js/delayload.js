@@ -30,8 +30,16 @@ function magnifyImg(){
 	// 插入放大图片div
 	$("body").append("<div id='mag_img_wrapper'><img id='mag_close_btn' src='image/mag_img_close.png' /><img id='mag_img' src='" + $(this).attr("src") + "' /></div>");
 	var magImg = $("#mag_img");
+	magWidth = magImg.width(),
+	magHeight = magImg.height(),
+	magMarginTop = parseInt(magImg.css("margin-top").split("px")[0]),
+	magMarginLeft = parseInt(magImg.css("margin-left").split("px")[0]);
+
 	// 设置图片水平垂直居中
-	magImg.css("margin", "-" + parseInt(magImg.height() / 2) + "px 0 0 -" + parseInt(magImg.width() / 2) + "px");
+	magMarginTop -= parseInt(magImg.height() / 2);
+	magMarginLeft -= parseInt(magImg.width() / 2);
+	magImg.css({"margin-top":magMarginTop + "px", "margin-left":magMarginLeft + "px"});
+
 	// 明确img宽度，以在首次滚轮缩放时产生transition动画
 	magImg.width(magImg.width());
 }
@@ -362,7 +370,55 @@ function mouseHandler(e){
 					img.css("top", e.clientY - startTop + "px");
 				}
 			});
+		}
+		// 滚轮缩放
+		if ((e.type == "mousewheel" || e.type == "DOMMouseScroll") && (e.target.id == "mag_img" || e.target.id == "mag_img_wrapper")){
+			if (e.target.id == "mag_img") {
+				// 禁止滚动页面
+				e.preventDefault();
+				e.returnValue = false;
 
+				// 放大
+				function magnify() {
+					magWidth += 100;
+					magMarginTop -= 50;
+					magMarginLeft -= 50;
+					img.width(magWidth);
+					img.css("margin-top", magMarginTop);
+					img.css("margin-left", magMarginLeft);
+				}
+				// 缩小
+				function minify() {
+					magWidth -= 100;
+					magMarginTop += 50;
+					magMarginLeft += 50;
+					img.width(magWidth)
+					img.css("margin-top", magMarginTop);
+					img.css("margin-left", magMarginLeft);
+				}
+
+				if (e.wheelDelta) {
+					if (e.wheelDelta > 0) { // 放大
+						magnify();
+					}
+					else { // 缩小
+						minify();
+					}
+				}
+				else { // FF
+					if (e.detail < 0) { // 放大
+						magnify();
+					}
+					else { // 缩小
+						minify();
+					}
+				}
+			}
+			// 在图片外滚轮禁止滚动页面
+			else {
+				e.preventDefault();
+				e.returnValue = false;
+			}
 		}
 	}
 	// 点击关闭按钮关闭图片

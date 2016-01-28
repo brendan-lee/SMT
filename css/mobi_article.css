@@ -59,7 +59,7 @@
 	top: 50%;
 	left: 50%;
 	cursor: move;
-	transition: width 0.2s ease-out;
+	transition: width 0.3s ease-out, margin 0.4s linear;
 }
 #mag_close_btn {
 	position: fixed;
