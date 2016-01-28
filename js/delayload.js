@@ -348,8 +348,13 @@ function mouseHandler(e){
 		}
 	}
 
+	// 点击页面关闭菜单
+	if (e.type == "click" && e.target.id != "menu" && e.target.id != "menu_btn" && $(e.target).parents("#menu").length == 0 && isMenuShow){
+		console.debug()
+		menuToggle();
+	}
 
-	// 作用在放大的图片上时
+	// 放大图片相关操作
 	if (e.target.id == "mag_img_wrapper" || e.target.id == "mag_img") {
 		var img = $("#mag_img");
 
@@ -521,31 +526,6 @@ function menuToggle(){
 }
 
 /**
- * 单击页面其他位置隐藏菜单
- */
-var isMouseOverMenu;
-$(document).click(function(){
-	// Windows Phone跳出
-	if (ua.indexOf("windows phone") != -1) return;
-	// 鼠标覆盖菜单
-	$("#menu").hover(function(){
-		isMouseOverMenu = true;
-	}, function(){
-		isMouseOverMenu = false;
-	});
-	// 鼠标覆盖菜单按钮
-	$("#menu_btn").hover(function(){
-		isMouseOverMenu = true;
-	}, function(){
-		isMouseOverMenu = false;
-	});
-	// 未覆盖则隐藏
-	if (isMouseOverMenu == false && isMenuShow){
-		menuToggle();
-	}
-});
-
-/**
  * 菜单跳转功能
  */
 function menuTo(target){
@@ -562,7 +542,7 @@ function menuTo(target){
 /**
  * 文章倒序功能
  */
-function reverseChapter() {
+function reverseChapter(scroll, addScrollDis) {
 	var chapt = $(".chapter"),
 		menu = $("#menu .parent"),
 		scrollTop = $(document).scrollTop();
@@ -612,11 +592,12 @@ function reverseChapter() {
 		}
 	}
 
-	// 移到倒序前的阅读位置（目标滚动距离 = content_box高度 + margin(20px) + 2 * top_box_top高度 - 滚动距离 - 可视高度 - top_box高度）
-	var targetScroll = $("#content_box").prop("scrollHeight") + 20 + 2 * $("#top_box_top").height() -
-		$(document).scrollTop() - $(window).height() - $("#top_box").height();
-
-	$("html, body").animate({scrollTop: targetScroll}, 250);
+	if (scroll){
+		// 移到倒序前的阅读位置（目标滚动距离 = content_box高度 + margin(20px) + 2 * top_box_top高度 - 滚动距离 - 可视高度 - top_box高度）
+		var targetScroll = $("#content_box").prop("scrollHeight") + 20 + 2 * $("#top_box_top").height() -
+			$(document).scrollTop() - $(window).height() - $("#top_box").height() + addScrollDis;
+		$("html, body").animate({scrollTop: targetScroll}, 250);
+	}
 
 	// 关闭菜单
 	menuToggle();
