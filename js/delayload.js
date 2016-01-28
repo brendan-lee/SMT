@@ -1,8 +1,7 @@
 ﻿/**
  * class=“saimg”的图片的src根据在线/离线自动适应
- * @module saImg
  */
-var saImg = $("img .saimg"), saImgSrc;
+var saImg = $(".saimg"), saImgSrc;
 for(var i = 0; i < saImg.length; i++){
 	// 在线时
 	if (isOnline){
@@ -15,16 +14,47 @@ for(var i = 0; i < saImg.length; i++){
 
 	saImg.eq(i).attr({
 		"src": saImgSrc,
-		"onclick": "location.href='" + saImgSrc + "'",
 		"alt": "图片显示失败",
-		"title": "点击查看原图"
 	});
 }
 
+/**
+ * 单击图片放大
+ * 对图片的操作在mouseHandler函数里
+ */
+var magImgDiv = $(".magnifiable");
+magImgDiv.attr("title", "点击放大查看");
+magImgDiv.on("click", magnifyImg);
+
+function magnifyImg(){
+	// 插入放大图片div
+	$("body").append("<div id='mag_img_wrapper'><img id='mag_close_btn' src='image/mag_img_close.png' /><img id='mag_img' src='" + $(this).attr("src") + "' /></div>");
+	var magImg = $("#mag_img");
+	magWidth = magImg.width(),
+	magHeight = magImg.height(),
+	magMarginTop = parseInt(magImg.css("margin-top").split("px")[0]),
+	magMarginLeft = parseInt(magImg.css("margin-left").split("px")[0]);
+
+	// 设置图片水平垂直居中
+	magMarginTop -= parseInt(magImg.height() / 2);
+	magMarginLeft -= parseInt(magImg.width() / 2);
+	magImg.css({"margin-top":magMarginTop + "px", "margin-left":magMarginLeft + "px"});
+
+	// 明确img宽度，以在首次滚轮缩放时产生transition动画
+	magImg.width(magImg.width());
+}
+
+function closeImg(){
+	var imgDiv = $("#mag_img_wrapper");
+	imgDiv.css("animation", "fade_out 0.3s ease-out");
+	imgDiv.bind("animationend webkitAnimationEnd", function () {
+		imgDiv.remove();
+	});
+	setTimeout(function(){imgDiv.remove()}, 350); // 若animationend久未生效，则强制移除
+}
 
 /**
  * 大标题及更新日期的动画效果
- * @module titleAnime
  */
 var bigTitle = $("#big_title_div"), lastUp = $("#last_update"), lastBtPos = 0, topBoxScroll;
 // 移动端阈值
@@ -214,27 +244,15 @@ function navHide(){
  */
 function mouseHandler(e){
 	var nav = $("#nav");
-
 	if (e.target.id == "nav_overlay"){
-		switch (e.type){
-			// 点击nav_overlay时关闭导航栏
-			case "click":
-				navHide();
-				break;
-
-			// 展开导航栏时禁止在nav_overlay上滚动页面
-			case "mousewheel":
-				e.returnValue = false;
-				e.preventDefault();
-				break;
-			case "touchmove":
-				e.returnValue = false;
-				e.preventDefault();
-				break;
-			case "DOMMouseScroll":
-				e.returnValue = false;
-				e.preventDefault();
-				break;
+		// 点击导航栏外 隐藏导航栏
+		if (e.type == "click"){
+			navHide();
+		}
+		// 导航栏外禁止滚轮
+		else if (e.type == "mousewheel" || e.type == "touchmove" || e.type == "DOMMouseScroll"){
+			e.returnValue = false;
+			e.preventDefault();
 		}
 	}
 
@@ -285,15 +303,15 @@ function mouseHandler(e){
 	else if (isNavOpen ) {
 		if (e.type == "touchstart"){ // 触摸开始
 			// 单点触摸时
-			if (e.targetTouches.length == 1) {
-				var touch = e.targetTouches[0];
+			if (e.touches.length == 1) {
+				var touch = e.touches[0];
 				startY = touch.pageY;
 			}
 		}
 		if (e.type == "touchmove"){ // 移动开始
 			// 单点触摸时
-			if (e.targetTouches.length == 1) {
-				var touch = e.targetTouches[0];
+			if (e.touches.length == 1) {
+				var touch = e.touches[0];
 				spanY = touch.pageY - startY;
 
 				// 无滚动条时禁止滚动
@@ -322,9 +340,99 @@ function mouseHandler(e){
 			$("body").addClass("lock_position");
 		}
 	}
+
+
+	// 作用在放大的图片上时
+	if (e.target.id == "mag_img_wrapper" || e.target.id == "mag_img") {
+		var img = $("#mag_img");
+
+		// 点击图片外区域 关闭图片
+		if ((e.type == "mousedown" || e.type == "touchstart") && e.target.id == "mag_img_wrapper"){
+			$(this).bind("mouseup touchend", function(){
+				$(this).unbind();
+				closeImg();
+			})
+		}
+		// 鼠标移动图片
+		if (e.type == "mousedown" && e.target.id == "mag_img"){
+			e.preventDefault(); // 阻止拖拽img时浏览器弹出禁止标志
+			var startLeft = e.clientX - parseInt(img.css("left")),
+				startTop = e.clientY - parseInt(img.css("top")),
+				isDragging = true;
+
+			$(this).bind("mouseup mouseleave", function(){
+				img.unbind();
+				isDragging = false; // 松开鼠标 & 鼠标离开时 停止拖拽
+			});
+			$(this).bind("mousemove", function(e){
+				if (isDragging){
+					img.css("left", e.clientX - startLeft + "px");
+					img.css("top", e.clientY - startTop + "px");
+				}
+			});
+		}
+		// 滚轮缩放
+		if ((e.type == "mousewheel" || e.type == "DOMMouseScroll") && (e.target.id == "mag_img" || e.target.id == "mag_img_wrapper")){
+			if (e.target.id == "mag_img") {
+				// 禁止滚动页面
+				e.preventDefault();
+				e.returnValue = false;
+
+				// 放大
+				function magnify() {
+					magWidth += 100;
+					magMarginTop -= 50;
+					magMarginLeft -= 50;
+					img.width(magWidth);
+					img.css("margin-top", magMarginTop);
+					img.css("margin-left", magMarginLeft);
+				}
+				// 缩小
+				function minify() {
+					magWidth -= 100;
+					magMarginTop += 50;
+					magMarginLeft += 50;
+					img.width(magWidth)
+					img.css("margin-top", magMarginTop);
+					img.css("margin-left", magMarginLeft);
+				}
+
+				if (e.wheelDelta) {
+					if (e.wheelDelta > 0) { // 放大
+						magnify();
+					}
+					else { // 缩小
+						minify();
+					}
+				}
+				else { // FF
+					if (e.detail < 0) { // 放大
+						magnify();
+					}
+					else { // 缩小
+						minify();
+					}
+				}
+			}
+			// 在图片外滚轮禁止滚动页面
+			else {
+				e.preventDefault();
+				e.returnValue = false;
+			}
+		}
+	}
+	// 点击关闭按钮关闭图片
+	if ((e.type == "mousedown" || e.type == "touchstart") && e.target.id == "mag_close_btn"){
+		$(this).bind("mouseup touchend", function(){
+			$(this).unbind();
+			closeImg();
+		})
+	}
 }
 // PC鼠标事件绑定
 document.addEventListener("click", mouseHandler);
+document.addEventListener("mousedown", mouseHandler);
+document.addEventListener("mousemove", mouseHandler);
 document.addEventListener("mousewheel", mouseHandler);
 document.addEventListener("DOMMouseScroll", mouseHandler);
 // 移动端触摸事件绑定
