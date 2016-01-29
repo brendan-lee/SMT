@@ -1,13 +1,17 @@
-﻿/*	作用于所有页面
-	在<body>前加载	
-	更新日期 2015年8月17日*/
-
-//版本号
+﻿// 版本号
 /*	主版本号(大修).内容子版本号.框架子版本号.修正版本号	*/
 var version = "v2.6.6.11"
 
+// 百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?af71c0d27742f679093d9e185eee17fb";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
 
-//判断是否在线
+// 判断是否在线
 if (window.location.protocol.match(/http/i)) var isOnline = true;
 else var isOnline = false;
 
