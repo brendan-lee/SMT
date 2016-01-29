@@ -14,7 +14,7 @@ for(var i = 0; i < saImg.length; i++){
 
 	saImg.eq(i).attr({
 		"src": saImgSrc,
-		"alt": "图片显示失败",
+		"alt": "图片显示失败"
 	});
 }
 
@@ -32,11 +32,11 @@ function magnifyImg(){
 	var magImg = $("#mag_img");
 
 	magImg.on("load", function(){
-		magWidth = magImg.width(),
-		magHeight = magImg.height(),
-		magTop = parseInt(magImg.css("top").split("px")[0]),
-		magLeft = parseInt(magImg.css("left").split("px")[0]),
-		magMarginTop = parseInt(magImg.css("margin-top").split("px")[0]),
+		magWidth = magImg.width();
+		magHeight = magImg.height();
+		magTop = parseInt(magImg.css("top").split("px")[0]);
+		magLeft = parseInt(magImg.css("left").split("px")[0]);
+		magMarginTop = parseInt(magImg.css("margin-top").split("px")[0]);
 		magMarginLeft = parseInt(magImg.css("margin-left").split("px")[0]);
 
 		// 设置图片水平垂直居中
@@ -52,7 +52,7 @@ function magnifyImg(){
 
 function closeImg(){
 	var imgDiv = $("#mag_img_wrapper");
-	imgDiv.css("animation", "fade_out 0.3s ease-out");
+	imgDiv.css({"animation":"fade_out 0.3s ease-out", "-webkit-animation":"fade_out 0.3s ease-out"});
 	imgDiv.bind("animationend webkitAnimationEnd", function () {
 		imgDiv.remove();
 	});
@@ -67,10 +67,10 @@ var bigTitle = $("#big_title_div"), lastUp = $("#last_update"), lastBtPos = 0, t
 if(isMobile) topBoxScroll = 75;
 // PC端阈值
 else topBoxScroll = 120;
-$(window).on("scroll", function () {
+$(document).on("scroll ready", function () {
 	// 页面滚动超过阈值
-	if ($(window).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
-		lastBtPos = $(window).scrollTop();
+	if ($(document).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
+		lastBtPos = $(document).scrollTop();
 		bigTitle.css({
 			"animation": "fade_out 0.01s forwards",
 			"-webkit-animation": "fade_out 0.01s forwards"
@@ -100,8 +100,8 @@ $(window).on("scroll", function () {
 		});
 	}
 	// 页面滚动低于阈值
-	else if ($(window).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
-		lastBtPos = $(window).scrollTop();
+	else if ($(document).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
+		lastBtPos = $(document).scrollTop();
 		bigTitle.css({
 			"animation": "fade_out 0.01s forwards",
 			"-webkit-animation": "fade_out 0.01s forwards"
@@ -135,7 +135,6 @@ $(window).on("scroll", function () {
 		});
 	}
 });
-
 
 /**
  * 导航&菜单
@@ -321,8 +320,6 @@ function mouseHandler(e){
 				var touch = e.touches[0];
 				var spanY = touch.pageY - startY;
 
-				console.log(spanY)
-
 				// 无滚动条时禁止滚动
 				if (nav.prop("scrollHeight") == $(window).height()){
 				 	e.preventDefault();
@@ -330,7 +327,6 @@ function mouseHandler(e){
 
 				// 向上滑动时
 				else if (spanY > 0) {
-
 					// 有滚动条且位于导航栏顶端时，禁止向上滚动
 					if ($("#nav").scrollTop() == 0){
 						e.preventDefault();
@@ -351,8 +347,13 @@ function mouseHandler(e){
 		}
 	}
 
+	// 点击页面关闭菜单
+	if (e.type == "click" && e.target.id != "menu" && e.target.id != "menu_btn" && $(e.target).parents("#menu").length == 0 && isMenuShow){
+		console.debug()
+		menuToggle();
+	}
 
-	// 作用在放大的图片上时
+	// 放大图片相关操作
 	if (e.target.id == "mag_img_wrapper" || e.target.id == "mag_img") {
 		var img = $("#mag_img");
 
@@ -380,7 +381,7 @@ function mouseHandler(e){
 				break;
 
 			case "touchend":
-				if (finalX == startX && finalY == startY) {
+				if (Math.abs(finalX - startX) < 3 && Math.abs(finalY - startY) < 3) { // 防止屏幕误差导致无法关闭
 					$(this).unbind();
 					closeImg();
 				}
@@ -487,8 +488,6 @@ function mouseHandler(e){
 			magTop = parseInt(img.css("top").split("px")[0]);
 			magLeft = parseInt(img.css("left").split("px")[0]);
 		}
-
-
 	}
 
 	// 禁止在图片外滚动页面
@@ -526,38 +525,79 @@ function menuToggle(){
 }
 
 /**
- * 单击页面其他位置隐藏菜单
- */
-var isMouseOverMenu;
-$(document).click(function(){
-	// Windows Phone跳出
-	if (ua.indexOf("windows phone") != -1) return;
-	// 鼠标覆盖菜单
-	$("#menu").hover(function(){
-		isMouseOverMenu = true;
-	}, function(){
-		isMouseOverMenu = false;
-	});
-	// 鼠标覆盖菜单按钮
-	$("#menu_btn").hover(function(){
-		isMouseOverMenu = true;
-	}, function(){
-		isMouseOverMenu = false;
-	});
-	// 未覆盖则隐藏
-	if (isMouseOverMenu == false && isMenuShow){
-		menuToggle();
-	}
-});
-
-/**
  * 菜单跳转功能
  */
 function menuTo(target){
-	menuToggle();
 	if (isMobile){
-		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 45},250);
+		$("html, body").animate({scrollTop:$("#" + target).prop("offsetTop") - 45},250);
 	} else {
-		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 60},250);
+		$("html, body").animate({scrollTop:$("#" + target).prop("offsetTop") - 60},250);
 	}
+
+	// 关闭菜单
+	menuToggle();
+}
+
+/**
+ * 文章倒序功能
+ */
+function reverseChapter(scroll, addScrollDis) {
+	var chapt = $(".chapter"),
+		menu = $("#menu .parent"),
+		scrollTop = $(document).scrollTop();
+		tmp = [];
+
+	// 倒序读入正文
+	for (var i = chapt.length - 1, j = 0; i >= 0; i--, j++) {
+		tmp[i] = chapt.eq(j).prop("outerHTML");
+	}
+	// 顺序写出正文
+	for (var i = 0; i < chapt.length; i++) {
+		chapt.eq(i).prop("outerHTML", tmp[i]);
+	}
+
+	// 倒序读入菜单
+	for (var i = menu.length - 1, j = 0; i >= 0; i--, j++){
+		tmp[i] = menu.eq(j).prop("outerHTML");
+	}
+	// 顺序写出菜单
+	for (var i =0; i < menu.length; i++){
+		menu.eq(i).prop("outerHTML", tmp[i]);
+	}
+
+	// 更新数组
+	chapt = $(".chapter"),
+	menu = $("#menu .parent");
+
+	// 如果第一个chapter没有锚标记，则更新锚标记（history.html）
+	if (typeof(chapt.eq(0).attr("id")) == "undefined"){
+		var subscript = [];
+
+		// 记录所有锚标记的角标
+		for (var i = 0, j = 0; i < chapt.length; i++){
+			if (typeof(chapt.eq(i).attr("id")) != "undefined"){
+				subscript[j] = i;
+				j++;
+			}
+		}
+		// 把第一个锚标记提前到第一个chapter
+		chapt.eq(0).attr("id", chapt.eq(subscript[0]).attr("id"));
+		chapt.eq(subscript[0]).removeAttr("id");
+
+		// 提前剩余锚标记
+		for (var i = 1; i < subscript.length; i++){
+			chapt.eq(subscript[i - 1] + 1).attr("id", chapt.eq(subscript[i]).attr("id"));
+			chapt.eq(subscript[i]).removeAttr("id");
+		}
+	}
+
+	if (scroll){
+		// 移到倒序前的阅读位置（目标滚动距离 = content_box高度 + margin(20px) + 2 * top_box_top高度 - 滚动距离 - 可视高度 - top_box高度）
+		var targetScroll = $("#content_box").prop("scrollHeight") + 20 + 2 * $("#top_box_top").height() -
+			$(document).scrollTop() - $(window).height() - $("#top_box").height() + addScrollDis;
+		$("html, body").animate({scrollTop: targetScroll}, 250);
+	}
+
+	// 关闭菜单
+	menuToggle();
 }
