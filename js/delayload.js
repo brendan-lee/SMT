@@ -163,7 +163,7 @@ $("#nav").html(
 	"<a class='child' href='clothes_tutorial.html'>Clothes解析</a>" +
 	"<a class='child' href='blocksdata_tutorial.html'>Blocksdata教程</a>" +
 	"<a class='child' href='database_tutorial.html'>Database解析</a>" +
-	"<a class='child' href='game_dll_tutorial.html'>Survivalcraft.dll教程</a></div></div>" +
+	"<a class='child' href='source_code_tutorial.html'>“源代码”教程</a></div></div>" +
 
 	"<div><div class='parent'>第四章 其他教程</div>" +
 	"<div id='nav_children_4' class='children'><a class='child' href='regex_tutorial.html'>正则表达式教程</a></div></div>" +

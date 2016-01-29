@@ -1,0 +1,121 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	<title>“源代码”教程</title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery.min.js"></script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
+	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
+	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
+	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+</head>
+
+<body>
+<iframe id="error" src="error.html"></iframe>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+	</script>
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+	</div>
+
+	<!--导航-->
+	<div id="nav" class="nav" data-open="3"></div>
+	<div id="nav_overlay"></div>
+	
+	<!--顶栏-->
+	<div id="big_title_div" onclick="goTop()">“源代码”教程</div>
+	<div id="last_update">——更新日期 2016年1月29日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
+
+	<!--上栏-->
+	<div id="upper_box">
+		<h1>前言</h1>
+		<div class="content">
+			<ul>
+				<li>此教程由百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=%E9%94%80%E9%94%8B%E9%95%9D%E9%93%B8&ie=utf-8" target="_blank">销锋镝铸</a> 编写</li>
+				<li>源代码（也称源程序）是指未编译的按照一定的程序设计语言规范书写的文本文件，是一系列人类可读的计算机语言指令。 源代码的最终目的是将人类可读的文本翻译成为计算机可以执行的二进制指令，这种过程叫做编译，通过编译器完成。</li>
+				<li>在游戏安装包中我们不能直接获取源代码，但可以通过“反编译”的方式将安装包或安装目录中的dll、exe可执行文件转换为汇编程序（使用一种低级计算机语言编写的程序），编辑后再编译回dll、exe文件，替换回之前的位置，即可产生效果。因此，这里修改的实际上是汇编程序，而不是源程序，所以标题中的“源代码”是打引号的</li>
+				<li>此教程主要以反编译为IL语言为例，修改的文件为Survivalcraft.exe（或dll），需要一定的编程基础</li>
+			</ul>
+		</div>
+	</div>
+
+	<!--内容栏-->
+	<div id="content_box">
+		<div class="chapter" id="cont_1">
+			<h1>第一节 所需工具</h1>
+			<div class="content">
+				一台Windows系统的设备，<a href="resources.html#cont_4.5">IL Spy</a>，<a href="resources.html#cont_4.5">ilasm</a>，<a href="resources.html#cont_4.5">idlasm</a>，任意文本编辑器
+			</div>
+		</div>
+		
+		<div class="chapter" id="cont_2">
+			<h1>第二节 反编译</h1>
+			<div class="content">
+				打开NETFX Tools中的ildasm.exe；文件-打开-要反编译的exe、dll文件
+				<img class="saimg magnifiable"
+				data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/code_01.png"
+				data-offline="saimg/code_01.png" />
+			</div>
+			<div class="content">
+				文件-转储-确定
+				<img class="saimg magnifiable"
+				data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/code_02.png"
+				data-offline="saimg/code_02.png" />
+			</div>
+			<div class="content">
+				输入一个后缀为.il的文件名-保存
+				<img class="saimg magnifiable"
+				data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/code_03.png"
+				data-offline="saimg/code_03.png" />
+				接下来ildasm会自动完成反编译，接下来就可以用文本编辑器直接编辑了
+			</div>
+		</div>
+		
+		<div class="chapter" id="cont_3">
+			<h1>第二节 确定修改位置和内容</h1>
+			<div class="content">
+				打开ILSpy；文件-打开-要查看的exe、dll文件
+				<img class="saimg magnifiable"
+				data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/code_04.png"
+				data-offline="saimg/code_04.png" />
+			</div>
+			<div class="content">
+				使用搜索功能（工具栏放大镜按钮）搜索关键字，没搜到可能目标时切换类型（Type）、成员（Member）、常量（Constant），还是没有则再搜索别的关键字<br />
+				例如我们要破解deemo版的试玩验证，那么可以试着以buy作关键词搜索，在搜索常量时找到了可能的目标——Game.TrialEndedScreen<br />
+				双击跳转过去后阅读代码，然而此处并没有和判断试玩版相关的代码，这个时候可以试着使用ILSpy的分析功能（Analyze）来查看它引用了谁，被谁引用了，这里要看的是它引用了谁
+				可以看到一个可能目标——Game.MarketplaceManager.ShowMarketplace
+				<img class="saimg magnifiable"
+				data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/code_05.png"
+				data-offline="saimg/code_05.png" />
+			</div>
+			<div class="content">
+				双击跳转后，可以看到它所处类型中有一个IsTrialMode，很有可能这就是试玩验证的函数，再以关键词trial搜索，可以确定这就是我们要修改的
+				<img class="saimg magnifiable"
+				data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/code_06.png"
+				data-offline="saimg/code_06.png" />
+			</div>
+			<div class="content">
+				接着选择C#、VB这样的高级语言来显示代码，和IL互相对照，从而确定代码段中大致要修改的位置和内容
+				<img class="saimg magnifiable"
+				data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/code_07.png"
+				data-offline="saimg/code_07.png" />
+				通过搜索-分析-对照三大“法宝”，基本都能准确地定位到需要修改的方法（Method）和大致的代码位置
+			</div>
+		</div>
+		<br />
+	</div>
+</div>
+
+<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+</body>
+</html>

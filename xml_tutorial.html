@@ -99,19 +99,19 @@
 				<div class="content">
 					一个有InheritanceParent（以下称作继承码）属性的元素，会主动继承与拥有其继承码的值相同识别码值的所有内容，以下把前者称作子对象，后者称作父对象。如果子对象的已有内容和父对象的内容冲突（即都有一样的元素），则子对象继承而来的内容无效，原先有的内容生效。<br />
 					<h3>举例说明</h3>
-<pre class="language-markup line-numbers"><code>&lt;Folder Name=&quot;A&quot; Guid=&quot;1950&quot;&gt; （识别码为1950的文件夹A(此例标识码和继承码不按照标准)）
-	&lt;File Name=&quot;b&quot; Author=&quot;Peter&quot; /&gt; （作者(Author)为Peter的文件a）
-	&lt;File Name=&quot;c&quot; Author=&quot;Susan&quot; /&gt; （作者为Susan的文件b）
+<pre class="language-markup line-numbers"><code>&lt;Folder Name=&quot;A&quot; Guid=&quot;1950&quot;&gt; &lt;!--识别码为1950的文件夹A(此例标识码和继承码不按照标准)--&gt;
+	&lt;File Name=&quot;b&quot; Author=&quot;Peter&quot; /&gt; &lt;!--作者(Author)为Peter的文件a--&gt;
+	&lt;File Name=&quot;c&quot; Author=&quot;Susan&quot; /&gt; &lt;!--作者为Susan的文件b--&gt;
 &lt;/Folder&gt;
-&lt;Folder Name=&quot;d&quot; InheritanceParent=&quot;1950&quot;&gt; （继承码为1950的文件夹B）
-	&lt;File Name=&quot;b&quot; Author=&quot;Edmund&quot; /&gt; （作者为Edmund的文件b）
-	&lt;File Name=&quot;c&quot; Author=&quot;Lucy&quot; /&gt; （作者为Lucy的文件c）
+&lt;Folder Name=&quot;d&quot; InheritanceParent=&quot;1950&quot;&gt;  &lt;!--继承码为1950的文件夹B--&gt;
+	&lt;File Name=&quot;b&quot; Author=&quot;Edmund&quot; /&gt;  &lt;!--作者为Edmund的文件b--&gt;
+	&lt;File Name=&quot;c&quot; Author=&quot;Lucy&quot; /&gt;  &lt;!--作者为Lucy的文件c--&gt;
 &lt;/Folder&gt;</code></pre>
 					从这一段代码可以看出文件夹d继承到了来自文件夹A的作者为Peter的文件a和作者为Susan的文件b，但是继承来的文件b与已有的文件b相冲突，此时优先保留原有的文件c，即文件夹B的实际代码为
-<pre class="language-markup line-numbers"><code>&lt;Folder Name=&quot;d&quot; InheritanceParent=&quot;1950&quot;&gt; （识别码为1950的文件夹B）
-	&lt;File Name=&quot;a&quot; Author=&quot;Peter&quot; /&gt; （作者为Peter的文件a）
-	&lt;File Name=&quot;b&quot; Author=&quot;Edmund&quot; /&gt; （作者为Edmund的文件b）
-	&lt;File Name=&quot;c&quot; Author=&quot;Lucy&quot; /&gt; （作者为Lucy的文件c）
+<pre class="language-markup line-numbers"><code>&lt;Folder Name=&quot;d&quot; InheritanceParent=&quot;1950&quot;&gt;  &lt;!--识别码为1950的文件夹B--&gt;
+	&lt;File Name=&quot;a&quot; Author=&quot;Peter&quot; /&gt;  &lt;!--作者为Peter的文件a--&gt;
+	&lt;File Name=&quot;b&quot; Author=&quot;Edmund&quot; /&gt;  &lt;!--作者为Edmund的文件b--&gt;
+	&lt;File Name=&quot;c&quot; Author=&quot;Lucy&quot; /&gt;  &lt;!--作者为Lucy的文件c--&gt;
 &lt;/Folder&gt;</code></pre>
 				</div>
 			</div>
