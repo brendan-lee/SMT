@@ -529,9 +529,9 @@ function menuToggle(){
  */
 function menuTo(target){
 	if (isMobile){
-		$("html, body").animate({scrollTop:$("#" + target).prop("offsetTop") - 45},250);
+		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 45},250);
 	} else {
-		$("html, body").animate({scrollTop:$("#" + target).prop("offsetTop") - 60},250);
+		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 60},250);
 	}
 
 	// 关闭菜单
