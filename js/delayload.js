@@ -534,6 +534,8 @@ function menuTo(target){
 		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 60},250);
 	}
 
+    location.hash = target;
+
 	// 关闭菜单
 	menuToggle();
 }
