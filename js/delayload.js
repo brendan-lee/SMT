@@ -167,6 +167,7 @@ $("#nav").html(
 
 	"<div><div class='parent'>第四章 其他教程</div>" +
 	"<div id='nav_children_4' class='children'><a class='child' href='regex_tutorial.html'>正则表达式教程</a></div></div>" +
+	"<div class='child'><a class='child' href='publication_example.html'>发布范例</a></div></div>" +
 	"<br />");
 
 /**
