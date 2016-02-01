@@ -136,11 +136,12 @@ $(document).on("scroll ready", function () {
 	}
 });
 
+
 /**
  * 导航&菜单
  */
 
-// 写入导航内容
+// 导航内容
 var navContent = [
     {
         section: "第一章 SMT相关",
@@ -181,24 +182,24 @@ var navContent = [
         ]
     }
 ];
+// 写入
 function generateNav(navData) {
     var html = "<img id='nav_logo' src='image/nav_logo.png' onclick='navHide()' />\n";
-	html += "<div>\n";
 	
-    for (var i=0; i<navData.length; ++i) {
+    for (var i = 0; i < navData.length; ++i) {
         var section = navData[i].section;
         var tutors = navData[i].tutors;
 		
 		html += "<div class='parent'> " + section + " </div>\n";
-		html += "<div id='nav_children_" + i.toString() + "' class='children'>\n";
+		html += "<div id='nav_children_" + (i + 1) + "' class='children'>\n";
 		
-        for (var j=0; j<tutors.length; ++j) {
+        for (var j = 0; j < tutors.length; ++j) {
 			var name = tutors[j].name;
 			var uri = tutors[j].uri;
 			var id = tutors[j].id;
 			
             var tag = "<a class='child' href='" +  uri + "' ";
-			if (id != null) { tag += "id='" + id + "' " };
+			if (!!id) { tag += "id='" + id + "' " }; // 如果存在id，则写入
 			tag += "> " + name + " </a>";
 			
 			html += tag + "\n";
@@ -206,11 +207,13 @@ function generateNav(navData) {
 		html += "</div>\n"; // parent
 		html += "</div>\n"; // children
     }
+    
 	html += "</div>\n";
 	html += "<br />\n";
 	return html;
 }
 $("#nav").html(generateNav(navContent));
+
 
 /**
  * 折叠导航项
