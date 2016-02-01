@@ -176,7 +176,8 @@ var navContent = [
     {
         section: "第四章 其他教程",
         tutors: [
-            {name: "正则表达式教程", uri: "regex_tutorial.html"}
+            {name: "正则表达式教程", uri: "regex_tutorial.html"},
+			{name: "发布范例", uri: "publication_example.html"}
         ]
     }
 ];
@@ -206,7 +207,7 @@ function generateNav(navData) {
 		html += "</div>\n"; // children
     }
 	html += "</div>\n";
-	html += "<br />\n"
+	html += "<br />\n";
 	return html;
 }
 $("#nav").html(generateNav(navContent));
