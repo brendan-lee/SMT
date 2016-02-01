@@ -141,33 +141,75 @@ $(document).on("scroll ready", function () {
  */
 
 // 写入导航内容
-$("#nav").html(
-	"<img id='nav_logo' src='image/nav_logo.png' onclick='navHide()' />" +
-	"<div><div class='parent'>第一章 SMT相关</div>" +
-	"<div id='nav_children_1' class='children'><a class='child' href='rules.html'>SMT组规</a>" +
-	"<a class='child' href='history.html'>SMT历史</a>" +
-	"<a class='child' href='members.html'>SMT组员</a></div></div>" +
-
-	"<div><div class='parent'>第二章 资源下载</div>" +
-	"<div id='nav_children_2' class='children'><a class='child' id='offline_ver_down' href='nav_update.html'>导航版本更新&amp;离线</a>" +
-	"<a class='child' href='resources.html'>资源下载整合</a>" +
-	"<a class='child' href='logo.html'>SMT logo</a></div></div>" +
-
-	"<div><div class='parent'>第三章 主要教程</div>" +
-	"<div id='nav_children_3' class='children'><a class='child' href='content_folder_tutorial.html'>Content解析</a>" +
-	"<a class='child' href='windows_tutorial.html'>Windows基础教程</a>" +
-	"<a class='child' href='android_tutorial.html'>Android基础教程</a>" +
-	"<a class='child' href='ios_tutorial.html'>IOS基础教程</a>" +
-	"<a class='child' href='xml_tutorial.html'>XML基础知识</a>" +
-	"<a class='child' href='crafting_recipes_tutorial.html'>CraftingRecipes解析</a>" +
-	"<a class='child' href='clothes_tutorial.html'>Clothes解析</a>" +
-	"<a class='child' href='blocksdata_tutorial.html'>Blocksdata教程</a>" +
-	"<a class='child' href='database_tutorial.html'>Database解析</a>" +
-	"<a class='child' href='source_code_tutorial.html'>“源代码”教程</a></div></div>" +
-
-	"<div><div class='parent'>第四章 其他教程</div>" +
-	"<div id='nav_children_4' class='children'><a class='child' href='regex_tutorial.html'>正则表达式教程</a></div></div>" +
-	"<br />");
+var navContent = [
+    {
+        section: "第一章 SMT相关",
+        tutors: [
+            {name: "SMT组规", uri: "rules.html"},
+            {name: "SMT历史", uri: "history.html"},
+            {name: "SMT组员", uri: "members.html"}
+        ]
+    },
+    {
+        section: "第二章 资源下载",
+        tutors: [
+            {name: "导航版本更新&离线", uri: "nav_update.html", id: "offline_ver_down"},
+            {name: "资源下载整合", uri: "resources.html"},
+            {name: "SMT logo", uri: "logo.html"}
+        ]
+    },
+    {
+        section: "第三章 主要教程",
+        tutors: [
+            {name: "Content解析", uri: "content_folder_tutorial.html"},
+            {name: "Windows基础教程", uri: "windows_tutorial.html"},
+            {name: "Android基础教程", uri: "android_tutorial.html"},
+            {name: "IOS基础教程", uri: "ios_tutorial.html"},
+            {name: "XML基础教程", uri: "xml_tutorial.html"},
+            {name: "CraftingRecipes解析", uri: "crafting_recipes_tutorial.html"},
+            {name: "Clothes解析", uri: "clothes_tutorial.html"},
+            {name: "Blocksdata解析", uri: "blocksdata_tutorial.html"},
+            {name: "Database解析", uri: "database_tutorial.html"},
+            {name: "“源代码”教程", uri: "source_code_tutorial.html"}
+        ]
+    },
+    {
+        section: "第四章 其他教程",
+        tutors: [
+            {name: "正则表达式教程", uri: "regex_tutorial.html"}
+        ]
+    }
+];
+function generateNav(navData) {
+    var html = "<img id='nav_logo' src='image/nav_logo.png' onclick='navHide()' />\n";
+	html += "<div>\n";
+	
+    for (var i=0; i<navData.length; ++i) {
+        var section = navData[i].section;
+        var tutors = navData[i].tutors;
+		
+		html += "<div class='parent'> " + section + " </div>\n";
+		html += "<div id='nav_children_" + i.toString() + "' class='children'>\n";
+		
+        for (var j=0; j<tutors.length; ++j) {
+			var name = tutors[j].name;
+			var uri = tutors[j].uri;
+			var id = tutors[j].id;
+			
+            var tag = "<a class='child' href='" +  uri + "' ";
+			if (id != null) { tag += "id='" + id + "' " };
+			tag += "> " + name + " </a>";
+			
+			html += tag + "\n";
+        }
+		html += "</div>\n"; // parent
+		html += "</div>\n"; // children
+    }
+	html += "</div>\n";
+	html += "<br />\n"
+	return html;
+}
+$("#nav").html(generateNav(navContent));
 
 /**
  * 折叠导航项
