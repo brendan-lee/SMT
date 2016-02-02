@@ -33,8 +33,8 @@
 	</script>
 	<!--顶栏 按钮-->
 	<div id="buttons">
-		<img id="menu_btn" src="image/menu_btn.png" onclick="menuToggle()" />
-		<img id="nav_btn" src="image/nav_btn.png" onclick="navDisp()" />
+		<img id="menu_btn" src="image/menu_btn.png" />
+		<img id="nav_btn" src="image/nav_btn.png" />
 	</div>
 
 	<!--目录-->
@@ -44,6 +44,8 @@
 		<li class="parent"><span onclick="menuTo('cont_2')">2014年</span></li>
 		<div class="divide_line"></div>
 		<li class="parent"><span onclick="menuTo('cont_3')">2015年</span></li>
+		<div class="divide_line"></div>
+		<li><span onclick="reverseChapter(true, 0)">倒序查看</span></li>
 	</div>
 	<!--导航-->
 	<div id="nav" class="nav" data-open="1"></div>

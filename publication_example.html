@@ -1,0 +1,192 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	<title>发布范例</title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery.min.js"></script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
+	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
+	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
+	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+</head>
+
+<body>
+<iframe id="error" src="error.html"></iframe>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+	</script>
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<img id="nav_btn" src="image/nav_btn.png" />
+	</div>
+
+	<!--导航-->
+	<div id="nav" class="nav" data-open="4"></div>
+	<div id="nav_overlay"></div>
+	
+	<!--顶栏-->
+	<div id="big_title_div" onclick="goTop()">发布范例</div>
+	<div id="last_update">——更新日期 2016年2月1日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
+
+	<!--上栏-->
+	<div id="upper_box">
+		<h1>前言</h1>
+		<div class="content">
+			<ul>
+				<li>这里的范例只是范例，不是标准</li>
+				<li>希望大家在发布mod时能够先写好mod介绍再发布，不要边发布边写</li>
+				<li>本范例由-百度贴吧<a href="http://tieba.baidu.com/home/main/?un=%E9%94%80%E9%94%8B%E9%95%9D%E9%93%B8&ie=utf-8" target="_blank">销锋镝铸</a>编写</li>
+			</ul>
+		</div>
+	</div>
+
+	<!--内容栏-->
+	<div id="content_box">
+		<div class="chapter" id="cont_1">
+			<h1>第一节 小型功能mod</h1>
+			<div class="content">
+				<h2>mod名称</h2>
+				除水、岩浆mod
+				<h3>对应版本</h3>
+				1.27.4至1.28中间全平台所有版本
+				<h3>发布日期</h3>
+				公元2015年9月13日
+				<h3>作者</h3>
+				百度贴吧-销锋镝铸
+				<h3>mod内容</h3>
+				<ul>
+					<li>引爆大炸弹（Large Gunpowder Keg）将一定范围内流体（水(Water)和岩浆(Magma)）全部炸掉</li>
+					<li>大炸弹可以直接放置于水中并在水中爆炸</li>
+					<li>水透明，微弱发光</li>
+				</ul>
+				<h3>修改项目</h3>
+			<span style="font-size:10pt; display:block; font-weight:bold;line-height:11px;">（注：加上这个可以帮助他人了解、学习mod）</span>
+				修改文件Content.pak\Blocksdata：
+				<ul style="font-size:15px">
+					<li>修改WaterBlock（水方块）和MagmaBlock（岩浆方块）的ExplosionResilience为0，IsExplosionTransparent为True（是）</li>
+					<li>修改WaterBlock的IsPlacementTransparent(是否放置透明)为False（否），ShadowStrength（阴影强度）为0，LightAttenuation（光衰减）为1，EmittedLightAmount（发光强度）为10</li>
+					<li>修改LargeGunpowderKegBlock（大炸弹方块）的IsFluidBlocker（是否阻挡流体）为True，DefaultExplosionPressure（默认爆炸压力）为99999</li>
+					<li>修改除WaterBlock和MagmaBlock外所有方块的ExplosionResilience（爆炸抗性）为Infinity（无限大）</li>
+				</ul>
+			</div>	
+		</div>
+	 
+		<div class="chapter" id="cont_2">
+			<h1>第二节 大型主题mod</h1>
+			<div class="section" id="cont_2.1">
+				<h2>mod名称</h2>
+				<div class="content">
+					生存战争变态版7.0
+					<h3>基于版本</h3>
+					<ul>
+						<li>Android原版survivalcraft 1.26.7</li>
+						<li>Windows Phone原版survivalcraft 1.26.6</li>
+						<li>IOS原版survivalcraft 1.26.9</li>
+					</ul>
+					<h3>发布日期</h3>
+					公元2015年2月27日
+					<h3>主要作者</h3>
+					百度贴吧-销锋镝铸
+				</div>
+			</div>
+			<div class="section" id="cont_2.2">
+				<h2>详细介绍</h2>
+				<div class="content">
+					<h3>1.方块相关</h3>
+					<ul>
+						<li>一般增强：所有方块可食用，直接在其上睡，不被水冲走（除火和空气），秒破坏，背包一格可容纳99999个</li>
+						<li>亮度增强：南瓜灯、岩浆、矿物、树木、稻子、水、雪、冰、草地、所有人造方块亮度最大；所有透明方块完全透光半透明冰（IOS版无此功能）</li>
+						<li>产物增强：树木、仙人掌、南瓜掉落40，无结晶矿的矿石掉落40矿产物（无需加热），有结晶矿的矿石掉落5结晶矿物，草地、耕地、玻璃、加固的玻璃和窗户掉落本身；破坏火掉宝物生成方块，破坏岩浆掉岩浆桶，破坏基岩掉落基岩；各种浅层矿会在地面生成；钻石矿与煤矿生成位置对调；撸树mod（树木只需要破坏最下面一格整棵树都可以被破坏）</li>
+						<li>爆炸增强：雷管、手雷、小中大炸药桶威力增强，核弹电池（被爆炸间接引爆将产生极强威力的爆炸）；铁块炸不烂</li>
+						<li>其他增强：冰面不打滑；岩浆不可穿过，小麦不可穿过，木牌磁铁彩砖可穿过；火把可堆叠放置</li>
+						<li>特别增强：煤可放置在地面上，形成透视效果；铁锭可放置在地面上，形成透视效果，不可穿过（隐形障碍物）；高草和枯草在条件适宜的情况下可成长为橡树；箱子容积提升至5*6；无限距破坏放置方块（IOS版无此功能）</li>
+					</ul>
+				</div>
+				<div class="content">
+					<h3>2.工具相关</h3>
+					<ul>
+						<li>工具无限耐久，秒杀除狼人外生物</li>
+						<li>可投掷物品超时空（除蛋，手雷,弓箭和弩箭）</li>
+						<li>巨型石器（第三人称视角时石制工具非常巨大）</li>
+						<li>船在水中不会晃动，更大碰撞箱，速度加大（需缓慢加速），无限耐久</li>
+						<li>衣物可叠穿，防御，耐久几乎无限，只需一件即可最大保暖，皮鞋速度+30%，铁鞋速度+80%，钻石鞋速度+120%，累计最大速度为原速度5倍，衣物可食用（饱食度不满时衣物将被吃掉，饱食度满时衣物将被穿上且物品栏仍保留该衣物）</li>
+					</ul>
+				</div>
+				<div class="content">
+					<h3>3.合成相关</h3>
+					<ul>
+						<li>合成产物除工具类都99；去除燃烧需求（火炉将无法使用，请在手持合成台或合成台内直接按照合成表合成原需燃烧的物品）</li>
+						<li>整合“更多合成公式Mod”</li>
+					</ul>
+				</div>
+				<div class="content">
+					<h3>4.主角相关</h3>
+					<ul>
+						<li>主角属性：身高提高至1.9格，能跳两格高，空手秒杀除狼人外动物，走路速度小幅提升，可跳两格高，在水中不会摇晃，摔不死，烧不死，主角不会被火烧死,淹不死（会累，所以水下累倒后还是会淹死）;无限距攻击（IOS版无此功能）</li>
+						<li>背包增强：背包升级至5*6(如果在你设备上显示不完全或覆盖在别的按钮上，请把UI SIZE手动调小)；手持合成台容积由2*2提升为3*3，不必另外制作合成台</li>
+						<li>出生复活：主角出生和复活时直接穿着所有衣物(要减速请脱鞋)</li>
+					</ul>
+				</div>
+				<div class="content">
+					<h3>5.动物相关</h3>
+					<ul>
+						<li>一般增强：所有动物可无限砸蛋,被骑,加鞍后可驾驭（会因为主动攻击其他生物而失控）；所有动物（除狼人）攻击抗性为99；所有有攻击性动物将互相攻击，甚至自相残杀，所有动物不会主动攻击鸟类；所有食肉动物会吃蛋</li>
+						<li>狼人相关：狼人碰撞箱3格高（防止进房间），攻击抗性999,攻击力33，速度提升，无限追击，可爬楼梯，白天不变回狼，死亡掉钻石块概率100%</li>
+						<li>加鞍升级：野猪加鞍后可控制并进化为超快猪；斑马加鞍可控制并后可以水上漂；虎鲸加鞍后速度翻倍（骑时未知原因奇慢无比）；白海鸟加鞍后攻击一下后成为一直跟随主角的宠物鸟（最后一个蛋可直接砸出）</li>
+						<li>其他增强：神兽全开；奶牛无限产奶；鸟不怕生，可直接靠近；马可飞行，跳得更高，未加鞍马不会自动把骑手抛下</li>
+					</ul>
+				</div>
+				<div class="content">
+					<h3>6.界面相关</h3>
+					<ul>
+						<li>主要增强：所有界面半透明化（主要由百度贴吧-_0超新星0_提供，看不清请提高屏幕亮度），字显示更加清楚</li>
+						<li>高清增强：高清雪花，雨，月星，火，蓝火；小船变为黑珍珠，游戏一开始的大船使用高清贴图；采用最新版变态版材质</li>
+						<li>准确准星；生存模式血条显示为5格；主界面logo和底部文字更改；存档加载界面美化；界面背景更改</li>
+					</ul>
+				</div>
+				<div class="content">
+					<h3>7.其他相关</h3>
+					<ul>
+						<li>IOS版应用名SCBT7.0，包名com.SMT.SCBT，与原版共存；WindowsPhone版应用名字生存战争变态版7.0，与原版共存；Android版应用名生存战争变态版7.0，与原版共存</li>
+						<li>新增debug视角（debug视角为开发者调试游戏的时候使用的视角，可以让视角脱离玩家，自由穿梭。IOS版无此功能）</li>
+					</ul>
+				</div>
+			</div>
+			<div class="section" id="cont_2.3">
+				<h2>温馨提示</h2>
+				<div class="content">
+					<ul>
+						<li>建议设备分辨率至少800*480，部件过大覆盖其他部件请调低UI SIZE</li>
+						<li>设备配置过低可能导致游戏无法正常运行，对设备造成损害本人概不负责</li>
+						<li>原版游戏存档可在该mod中使用，但该mod存档在原版游戏中可能无法载入</li>
+						<li>WP版使用部署工具部署时，可能需要把安装包重命名成无中文和特殊符号；IOS共存版安装完成闪退时请尝试卸载后安装覆盖版</li>
+					</ul>
+				</div>
+			</div>
+			<div class="section" id="cont_2.4">
+				<h2>特别鸣谢</h2>
+				<div class="content">
+					<ul>
+						<li>由百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=%E7%94%B5%E7%A6%BB%E7%9A%84Tesla&ie=utf-8" target="_blank">电离的Tesla </a>提供的“MOD-无限距离” <a href="http://tieba.baidu.com/p/3587877646" target="_blank">http://tieba.baidu.com/p/3587877646</a>以及WP版完善和测试</li>
+						<li>由百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=_0%E8%B6%85%E6%96%B0%E6%98%9F0_&ie=utf-8" target="_blank">_0超新星0_ </a>提供的“更多合成公式Mod”<a href="http://tieba.baidu.com/p/3571185807" target="_blank">http://tieba.baidu.com/p/3571185807 </a>，界面半透明化的主要工作，贴图转换，以及WP版完善</li>
+						<li>由百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=tyr2002&ie=utf-8" target="_blank">tyr2002</a>提供的WP版最终安装包以及测试</li>
+						<li>由百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=lzm956902416&ie=utf-8" target="_blank">lzm956902416</a>提供的WP版完善和测试</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<br />
+	</div>
+</div>
+
+<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+</body>
+</html>

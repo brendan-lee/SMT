@@ -78,13 +78,6 @@
 	#menu li {/*列表项*/
 		list-style:none;
 		cursor:default;
-	}
-	
-	#menu li span {
-		cursor:default;
-	}
-
-	#menu .parent {/*父级*/
 		font-size:16px;
 	}
 
