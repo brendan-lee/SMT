@@ -18,6 +18,7 @@ for(var i = 0; i < saImg.length; i++){
 	});
 }
 
+
 /**
  * 单击图片放大
  * 对图片的操作在mouseHandler函数里
@@ -47,8 +48,11 @@ function magnifyImg(){
 		// 明确img宽度，以在首次滚轮缩放时产生transition动画
 		magImg.width(magImg.width());
 	})
-
 }
+
+$("#mag_img_wrapper").mousedown(function(){
+	console.debug("mousedown")
+})
 
 function closeImg(){
 	var imgDiv = $("#mag_img_wrapper");
@@ -58,6 +62,7 @@ function closeImg(){
 	});
 	setTimeout(function(){imgDiv.remove()}, 350); // 若animationend久未生效，则强制移除
 }
+
 
 /**
  * 大标题及更新日期的动画效果
@@ -140,7 +145,6 @@ $(document).on("scroll ready", function () {
 /**
  * 导航&菜单
  */
-
 // 导航内容
 var navContent = [
     {
@@ -204,11 +208,9 @@ function generateNav(navData) {
 			
 			html += tag + "\n";
         }
-		html += "</div>\n"; // parent
 		html += "</div>\n"; // children
     }
     
-	html += "</div>\n";
 	html += "<br />\n";
 	return html;
 }
@@ -238,6 +240,7 @@ function openNavItem(e){
 $("#nav .parent").click(function(e){
 	openNavItem(e);
 });
+
 
 /**
  * 突出导航栏中当前所在页
@@ -289,13 +292,57 @@ function navHide(){
 	});
 	isNavOpen = false;
 }
+// 点击导航栏外，关闭导航栏
+$("#nav_overlay").bind("click touchstart touchmove touchend", function(){
+	click(navHide);
+})
+// 导航按钮
+$("#nav_btn").bind("click touchstart touchmove touchend", function(){
+	click(navDisp);
+})
+
+
+
+
+// 避免click的300ms延迟
+function click(func){
+	var e = e || window.event;
+	
+	switch (e.type){
+		case "touchstart":
+			startX = e.touches[0].pageX;
+			startY = e.touches[0].pageY;
+			spanX = 0;
+			spanY = 0;
+			break;
+			
+		case "touchmove":
+			spanX = e.touches[0].pageX - startX;
+			spanY = e.touches[0].pageY - startY;
+			break;
+		
+		case "touchend":
+			if (Math.abs(spanX) < 3 && Math.abs(spanY) < 3){
+				func();
+			}
+			break;
+			
+		case "click":
+			if (!isMobile){
+				func();
+			}
+			break;
+	}
+}
+
+
 
 /**
  * 鼠标/触摸操作处理函数
  */
-function mouseHandler(e){
+function handler(e){
 	var nav = $("#nav");
-	if (e.target.id == "nav_overlay"){
+/*	if (e.target.id == "nav_overlay"){
 		// 点击导航栏外 隐藏导航栏
 		if (e.type == "click"){
 			navHide();
@@ -305,10 +352,10 @@ function mouseHandler(e){
 			e.returnValue = false;
 			e.preventDefault();
 		}
-	}
+	}*/
 
 	// PC禁止在导航栏内滚动正文页面
-	else if (isNavOpen && (e.type == "mousewheel" || e.type == "DOMMouseScroll")){
+	if (e.target.id != "nav_overlay" && isNavOpen && (e.type == "mousewheel" || e.type == "DOMMouseScroll")){
 		// 导航栏中没有滚动条时，禁止滚动
 		if (nav.prop("scrollHeight") == $(window).height()){
 			e.returnValue = false;
@@ -394,8 +441,7 @@ function mouseHandler(e){
 	}
 
 	// 点击页面关闭菜单
-	if (e.type == "click" && e.target.id != "menu" && e.target.id != "menu_btn" && $(e.target).parents("#menu").length == 0 && isMenuShow){
-		console.debug()
+/*	if (e.type == "click" && e.target.id != "menu" && e.target.id != "menu_btn" && $(e.target).parents("#menu").length == 0 && isMenuShow){
 		menuToggle();
 	}
 
@@ -541,18 +587,20 @@ function mouseHandler(e){
 		e.preventDefault();
 		e.returnValue = false;
 	}
+	
+	*/
 }
 // PC鼠标事件绑定
-document.addEventListener("click", mouseHandler);
-document.addEventListener("mousedown", mouseHandler);
-document.addEventListener("mouseup", mouseHandler);
-document.addEventListener("mousemove", mouseHandler);
-document.addEventListener("mousewheel", mouseHandler);
-document.addEventListener("DOMMouseScroll", mouseHandler);
+$(document).bind("click", handler);
+$(document).bind("mousedown", handler);
+$(document).bind("mouseup", handler);
+$(document).bind("mousemove", handler);
+$(document).bind("mousewheel", handler);
+$(document).bind("DOMMouseScroll", handler);
 // 移动端触摸事件绑定
-document.addEventListener("touchstart", mouseHandler);
-document.addEventListener("touchend", mouseHandler);
-document.addEventListener("touchmove", mouseHandler);
+$(document).bind("touchstart", handler);
+$(document).bind("touchend", handler);
+$(document).bind("touchmove", handler);
 
 /**
  * 菜单开关
@@ -561,14 +609,23 @@ var isMenuShow = false;
 function menuToggle(){
 	if (isMenuShow){
 		$("#menu").css({"animation":"menu_hide 0.3s forwards", "-webkit-animation":"menu_hide 0.3s forwards"});
-		isMenuShow = false;
-		return;
-	}else {
+		$("#menu").bind("animationend webkitAnimationEnd", function(){
+			$("#menu").unbind();
+			isMenuShow = false;
+		})
+	} else {
 		$("#menu").css({"animation":"menu_show 0.3s forwards", "-webkit-animation":"menu_show 0.3s forwards"});
-		isMenuShow = true;
-		return;
+		$("#menu").bind("animationend webkitAnimationEnd", function(){
+			$("#menu").unbind();
+			isMenuShow = true;
+		})
 	}
 }
+// 菜单按钮
+$("#menu_btn").bind("click touchstart touchmove touchend", function(){
+	click(menuToggle);
+})
+
 
 /**
  * 菜单跳转功能
