@@ -11,10 +11,16 @@
 	box-shadow:0 2px 5px 0 #555;
 	background-color:#FFF;
 	border-radius:2px;
+	opacity: 0;
+	transition: opacity 0.5s linear;
+	-webkit-transition: opacity 0.5s linear;
 }
 
 #content_box .section {/*段落*/
 	padding-top:14px;
+	opacity: 0;
+	transition: opacity 0.5s linear;
+	-webkit-transition: opacity 0.5s linear;
 }
 
 #content_box .content {/*内容*/
@@ -22,6 +28,9 @@
 	padding-top:14px;
 	overflow-x:auto;
 	line-height:27px;
+	opacity: 0;
+	transition: opacity 0.5s linear;
+	-webkit-transition: opacity 0.5s linear;
 }
 
 #content_box .note {/*注释*/
@@ -96,6 +105,9 @@
 	box-shadow:0 2px 5px 0 #555;
 	background-color:#FFF;
 	border-radius:2px;
+	opacity: 0;
+	transition: opacity 0.5s linear;
+	-webkit-transition: opacity 0.5s linear;
 }
 
 #upper_box h1{/*上栏 标题*/
@@ -116,4 +128,8 @@
 
 .break_word {
 	word-break:break-all;
+}
+
+.fade_in {
+	opacity: 1 !important;
 }
