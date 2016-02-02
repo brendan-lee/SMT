@@ -1,6 +1,364 @@
-﻿/**
- * class=“saimg”的图片的src根据在线/离线自动适应
+﻿/********************
+ *       导航
+ ********************/
+
+// 导航内容
+var navContent = [
+    {
+        section: "第一章 SMT相关",
+        tutors: [
+            {name: "SMT组规", uri: "rules.html"},
+            {name: "SMT历史", uri: "history.html"},
+            {name: "SMT组员", uri: "members.html"}
+        ]
+    },
+    {
+        section: "第二章 资源下载",
+        tutors: [
+            {name: "导航版本更新&离线", uri: "nav_update.html", id: "offline_ver_down"},
+            {name: "资源下载整合", uri: "resources.html"},
+            {name: "SMT logo", uri: "logo.html"}
+        ]
+    },
+    {
+        section: "第三章 主要教程",
+        tutors: [
+            {name: "Content解析", uri: "content_folder_tutorial.html"},
+            {name: "Windows基础教程", uri: "windows_tutorial.html"},
+            {name: "Android基础教程", uri: "android_tutorial.html"},
+            {name: "IOS基础教程", uri: "ios_tutorial.html"},
+            {name: "XML基础教程", uri: "xml_tutorial.html"},
+            {name: "CraftingRecipes解析", uri: "crafting_recipes_tutorial.html"},
+            {name: "Clothes解析", uri: "clothes_tutorial.html"},
+            {name: "Blocksdata解析", uri: "blocksdata_tutorial.html"},
+            {name: "Database解析", uri: "database_tutorial.html"},
+            {name: "“源代码”教程", uri: "source_code_tutorial.html"}
+        ]
+    },
+    {
+        section: "第四章 其他教程",
+        tutors: [
+            {name: "正则表达式教程", uri: "regex_tutorial.html"},
+			{name: "发布范例", uri: "publication_example.html"}
+        ]
+    }
+];
+
+// 写入导航栏
+function generateNav(navData) {
+    var html = "<img id='nav_logo' src='image/nav_logo.png' onclick='navHide()' />\n";
+	
+    for (var i = 0; i < navData.length; ++i) {
+        var section = navData[i].section;
+        var tutors = navData[i].tutors;
+		
+		html += "<div class='parent'> " + section + " </div>\n";
+		html += "<div id='nav_children_" + (i + 1) + "' class='children'>\n";
+		
+        for (var j = 0; j < tutors.length; ++j) {
+			var name = tutors[j].name;
+			var uri = tutors[j].uri;
+			var id = tutors[j].id;
+			
+            var tag = "<a class='child' href='" +  uri + "' ";
+			if (!!id) { tag += "id='" + id + "' " }; // 如果存在id，则写入
+			tag += "> " + name + " </a>";
+			
+			html += tag + "\n";
+        }
+		html += "</div>\n"; // children
+    }
+    
+	html += "<br />\n";
+	return html;
+}
+$("#nav").html(generateNav(navContent));
+
+
+
+
+
+/**
+ * 点击折叠章节
  */
+
+function openNavItem(e){
+	var childrenDiv = $(e.target).next(".children");
+
+	$("#nav .parent").css("background", ""); // 取消全部高亮
+	$(e.target).css("background", "#ddd"); // 高亮选择的项
+
+	// 展开/折叠
+	if (childrenDiv.css("height") == "0px"){ // 如果选中的项未展开
+		$("#nav .children").height(0); // 收起全部项
+		childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height()); // 展开选中的项
+	}
+	else { // 如果选中的项已展开
+		$("#nav .parent").css("background", ""); // 取消高亮
+		childrenDiv.height(0); // 收起选中的项
+	}
+}
+
+$("#nav .parent").click(function(e){
+	openNavItem(e);
+});
+
+
+
+
+
+/**
+ * 突出当前所在页
+ */
+
+// 展开当前所在的项
+function openCurNavItem(navItemId){
+	var childrenDiv = $("#nav_children_" + navItemId);
+	childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height()); // 展开该项
+	childrenDiv.prev().css("background", "#ddd"); // 高亮所在的章节
+}
+openCurNavItem($("#nav").attr("data-open"));
+
+// 高亮当前页
+function highlightCurNavItem(){
+	var page = document.location.toString(),
+		tmp = page.split("/");
+	page = tmp[tmp.length - 1]; // 获取当前页面名称
+	$("[href='" + page + "']").css({"background":$("#top_box").css("background-color"), "color":"#fff"}); //href=当前页名称的元素高亮
+}
+highlightCurNavItem();
+
+
+
+
+
+/**
+ * 导航开关
+ */
+var isNavOpen = false;
+
+function navDisp(){
+	var nav = $("#nav");
+	//$("body").css("overflow", "hidden");
+	nav.removeClass("nav_hide");
+	nav.addClass("nav_show");
+	$("#nav_overlay").css({
+		"animation":"nav_overlay_show 0.4s linear forwards",
+		"-webkit-animation":"nav_overlay_show 0.4s linear forwards"
+	});
+	isNavOpen = true;
+}
+
+function navHide(){
+	var nav = $("#nav");
+	//$("body").css("overflow", "auto");
+	nav.removeClass("nav_show");
+	nav.addClass("nav_hide");
+	$("body").removeClass("lock_position");
+	$("#nav_overlay").css({
+		"animation":"nav_overlay_hide 0.4s linear forwards",
+		"-webkit-animation":"nav_overlay_hide 0.4s linear forwards"
+	});
+	isNavOpen = false;
+}
+
+// 点击导航栏外，关闭导航栏
+$("#nav_overlay").bind("click touchstart touchmove touchend", function(){
+	click(navHide);
+})
+
+// 导航按钮 点击事件
+$("#nav_btn").bind("click touchstart touchmove touchend", function(){
+	click(navDisp);
+})
+
+
+
+
+
+
+
+
+
+
+/********************
+ *        菜单
+ ********************/
+
+/**
+ * 菜单开关
+ */
+
+var isMenuShow = false;
+function menuToggle(){
+	if (isMenuShow){
+		$("#menu").css({"animation":"menu_hide 0.3s forwards", "-webkit-animation":"menu_hide 0.3s forwards"});
+		$("#menu").bind("animationend webkitAnimationEnd", function(){
+			$("#menu").unbind();
+			isMenuShow = false;
+		})
+	} else {
+		$("#menu").css({"animation":"menu_show 0.3s forwards", "-webkit-animation":"menu_show 0.3s forwards"});
+		$("#menu").bind("animationend webkitAnimationEnd", function(){
+			$("#menu").unbind();
+			isMenuShow = true;
+		})
+	}
+}
+
+// 菜单按钮 点击事件
+$("#menu_btn").bind("click touchstart touchmove touchend", function(){
+	click(menuToggle);
+})
+
+
+
+
+
+/**
+ * 菜单跳转功能
+ */
+function menuTo(target){
+	if (isMobile){
+		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 45},250);
+	} else {
+		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 60},250);
+	}
+
+    location.hash = target;
+
+	// 关闭菜单
+	menuToggle();
+}
+
+
+
+
+
+/**
+ * 文章倒序功能
+ */
+function reverseChapter(scroll, addScrollDis) {
+	var chapt = $(".chapter"),
+		menu = $("#menu .parent"),
+		scrollTop = $(document).scrollTop();
+		tmp = [];
+
+	// 倒序读入正文
+	for (var i = chapt.length - 1, j = 0; i >= 0; i--, j++) {
+		tmp[i] = chapt.eq(j).prop("outerHTML");
+	}
+	// 顺序写出正文
+	for (var i = 0; i < chapt.length; i++) {
+		chapt.eq(i).prop("outerHTML", tmp[i]);
+	}
+
+	// 倒序读入菜单
+	for (var i = menu.length - 1, j = 0; i >= 0; i--, j++){
+		tmp[i] = menu.eq(j).prop("outerHTML");
+	}
+	// 顺序写出菜单
+	for (var i =0; i < menu.length; i++){
+		menu.eq(i).prop("outerHTML", tmp[i]);
+	}
+
+	// 更新数组
+	chapt = $(".chapter"),
+	menu = $("#menu .parent");
+
+	// 如果第一个chapter没有锚标记，则更新锚标记（history.html）
+	if (typeof(chapt.eq(0).attr("id")) == "undefined"){
+		var subscript = [];
+
+		// 记录所有锚标记的角标
+		for (var i = 0, j = 0; i < chapt.length; i++){
+			if (typeof(chapt.eq(i).attr("id")) != "undefined"){
+				subscript[j] = i;
+				j++;
+			}
+		}
+		// 把第一个锚标记提前到第一个chapter
+		chapt.eq(0).attr("id", chapt.eq(subscript[0]).attr("id"));
+		chapt.eq(subscript[0]).removeAttr("id");
+
+		// 提前剩余锚标记
+		for (var i = 1; i < subscript.length; i++){
+			chapt.eq(subscript[i - 1] + 1).attr("id", chapt.eq(subscript[i]).attr("id"));
+			chapt.eq(subscript[i]).removeAttr("id");
+		}
+	}
+
+	if (scroll){
+		// 移到倒序前的阅读位置（目标滚动距离 = content_box高度 + margin(20px) + 2 * top_box_top高度 - 滚动距离 - 可视高度 - top_box高度）
+		var targetScroll = $("#content_box").prop("scrollHeight") + 20 + 2 * $("#top_box_top").height() -
+			$(document).scrollTop() - $(window).height() - $("#top_box").height() + addScrollDis;
+		$("html, body").animate({scrollTop: targetScroll}, 250);
+	}
+
+	// 关闭菜单
+	menuToggle();
+}
+
+
+
+
+
+
+
+
+
+
+/********************
+ *       正文
+ *******************/
+
+/**
+ * 渐显/渐隐 chapter
+ */
+var fadeObj = $("#upper_box, #content_box .content");
+function chapFade(){
+	for (var i = 0; i < fadeObj.length; i++){
+		// 渐显
+		if (fadeObj.eq(i).offset().top < $(window).scrollTop() + $(window).height() &&
+		fadeObj.eq(i).offset().top + fadeObj.eq(i).height() > $(window).scrollTop()){
+			fadeObj.eq(i).addClass("fade_in");
+			
+			if (fadeObj.eq(i).attr("id") != "upper_box"){
+				fadeObj.eq(i).parents(".chapter, .section").addClass("fade_in");
+			}
+		}
+			
+		// 渐隐
+		if (fadeObj.eq(i).offset().top > $(window).scrollTop() + $(window).height() ||
+		fadeObj.eq(i).offset().top + fadeObj.eq(i).height() < $(window).scrollTop()){
+			fadeObj.eq(i).removeClass("fade_in");
+		}
+		if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".section").children(".fade_in").length == 0){
+			fadeObj.eq(i).parents(".section").removeClass("fade_in");
+		}
+		if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".chapter").children(".fade_in").length == 0){
+			fadeObj.eq(i).parents(".chapter").removeClass("fade_in");
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+/********************
+ *       图片
+ ********************/
+
+/**
+ * saimg自适应在线/离线src
+ */
+
 var saImg = $(".saimg"), saImgSrc;
 for(var i = 0; i < saImg.length; i++){
 	// 在线时
@@ -19,10 +377,13 @@ for(var i = 0; i < saImg.length; i++){
 }
 
 
+
+
+
 /**
- * 单击图片放大
- * 对图片的操作在mouseHandler函数里
+ * 缩放图片
  */
+
 var magImgDiv = $(".magnifiable");
 magImgDiv.attr("title", "点击放大查看");
 magImgDiv.on("click", magnifyImg);
@@ -54,6 +415,14 @@ $("#mag_img_wrapper").mousedown(function(){
 	console.debug("mousedown")
 })
 
+
+
+
+
+/**
+ * 关闭图片
+ */
+
 function closeImg(){
 	var imgDiv = $("#mag_img_wrapper");
 	imgDiv.css({"animation":"fade_out 0.3s ease-out", "-webkit-animation":"fade_out 0.3s ease-out"});
@@ -64,15 +433,25 @@ function closeImg(){
 }
 
 
-/**
- * 大标题及更新日期的动画效果
- */
+
+
+
+
+
+
+
+
+/********************
+ *      大标题
+ ********************/
+
 var bigTitle = $("#big_title_div"), lastUp = $("#last_update"), lastBtPos = 0, topBoxScroll;
 // 移动端阈值
 if(isMobile) topBoxScroll = 75;
 // PC端阈值
 else topBoxScroll = 120;
-$(document).on("scroll ready", function () {
+
+function changeBT(){
 	// 页面滚动超过阈值
 	if ($(document).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
 		lastBtPos = $(document).scrollTop();
@@ -139,172 +518,25 @@ $(document).on("scroll ready", function () {
 			});
 		});
 	}
-});
+}
 
 
-/**
- * 导航&菜单
+
+
+
+
+
+
+
+
+/********************
+ *       其他
+ ********************/
+
+/** 
+ * 避免click的300ms延迟
  */
-// 导航内容
-var navContent = [
-    {
-        section: "第一章 SMT相关",
-        tutors: [
-            {name: "SMT组规", uri: "rules.html"},
-            {name: "SMT历史", uri: "history.html"},
-            {name: "SMT组员", uri: "members.html"}
-        ]
-    },
-    {
-        section: "第二章 资源下载",
-        tutors: [
-            {name: "导航版本更新&离线", uri: "nav_update.html", id: "offline_ver_down"},
-            {name: "资源下载整合", uri: "resources.html"},
-            {name: "SMT logo", uri: "logo.html"}
-        ]
-    },
-    {
-        section: "第三章 主要教程",
-        tutors: [
-            {name: "Content解析", uri: "content_folder_tutorial.html"},
-            {name: "Windows基础教程", uri: "windows_tutorial.html"},
-            {name: "Android基础教程", uri: "android_tutorial.html"},
-            {name: "IOS基础教程", uri: "ios_tutorial.html"},
-            {name: "XML基础教程", uri: "xml_tutorial.html"},
-            {name: "CraftingRecipes解析", uri: "crafting_recipes_tutorial.html"},
-            {name: "Clothes解析", uri: "clothes_tutorial.html"},
-            {name: "Blocksdata解析", uri: "blocksdata_tutorial.html"},
-            {name: "Database解析", uri: "database_tutorial.html"},
-            {name: "“源代码”教程", uri: "source_code_tutorial.html"}
-        ]
-    },
-    {
-        section: "第四章 其他教程",
-        tutors: [
-            {name: "正则表达式教程", uri: "regex_tutorial.html"},
-			{name: "发布范例", uri: "publication_example.html"}
-        ]
-    }
-];
-// 写入
-function generateNav(navData) {
-    var html = "<img id='nav_logo' src='image/nav_logo.png' onclick='navHide()' />\n";
-	
-    for (var i = 0; i < navData.length; ++i) {
-        var section = navData[i].section;
-        var tutors = navData[i].tutors;
-		
-		html += "<div class='parent'> " + section + " </div>\n";
-		html += "<div id='nav_children_" + (i + 1) + "' class='children'>\n";
-		
-        for (var j = 0; j < tutors.length; ++j) {
-			var name = tutors[j].name;
-			var uri = tutors[j].uri;
-			var id = tutors[j].id;
-			
-            var tag = "<a class='child' href='" +  uri + "' ";
-			if (!!id) { tag += "id='" + id + "' " }; // 如果存在id，则写入
-			tag += "> " + name + " </a>";
-			
-			html += tag + "\n";
-        }
-		html += "</div>\n"; // children
-    }
-    
-	html += "<br />\n";
-	return html;
-}
-$("#nav").html(generateNav(navContent));
 
-
-/**
- * 折叠导航项
- */
-function openNavItem(e){
-	var childrenDiv = $(e.target).next(".children");
-
-	$("#nav .parent").css("background", ""); // 取消全部高亮
-	$(e.target).css("background", "#ddd"); // 高亮选择的项
-
-	// 展开/折叠
-	if (childrenDiv.css("height") == "0px"){ // 如果选中的项未展开
-		$("#nav .children").height(0); // 收起全部项
-		childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height()); // 展开选中的项
-	}
-	else { // 如果选中的项已展开
-		$("#nav .parent").css("background", ""); // 取消高亮
-		childrenDiv.height(0); // 收起选中的项
-	}
-}
-
-$("#nav .parent").click(function(e){
-	openNavItem(e);
-});
-
-
-/**
- * 突出导航栏中当前所在页
- */
-// 展开当前所在的项
-function openCurNavItem(navItemId){
-	var childrenDiv = $("#nav_children_" + navItemId);
-	childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height()); // 展开该项
-	childrenDiv.prev().css("background", "#ddd"); // 高亮所在的章节
-}
-openCurNavItem($("#nav").attr("data-open"));
-
-// 高亮当前页
-function highlightCurNavItem(){
-	var page = document.location.toString(),
-		tmp = page.split("/");
-	page = tmp[tmp.length - 1]; // 获取当前页面名称
-	$("[href='" + page + "']").css({"background":$("#top_box").css("background-color"), "color":"#fff"}); //href=当前页名称的元素高亮
-}
-highlightCurNavItem();
-
-
-/**
- * 导航开关
- */
-var isNavOpen = false;
-
-function navDisp(){
-	var nav = $("#nav");
-	//$("body").css("overflow", "hidden");
-	nav.removeClass("nav_hide");
-	nav.addClass("nav_show");
-	$("#nav_overlay").css({
-		"animation":"nav_overlay_show 0.4s linear forwards",
-		"-webkit-animation":"nav_overlay_show 0.4s linear forwards"
-	});
-	isNavOpen = true;
-}
-
-function navHide(){
-	var nav = $("#nav");
-	//$("body").css("overflow", "auto");
-	nav.removeClass("nav_show");
-	nav.addClass("nav_hide");
-	$("body").removeClass("lock_position");
-	$("#nav_overlay").css({
-		"animation":"nav_overlay_hide 0.4s linear forwards",
-		"-webkit-animation":"nav_overlay_hide 0.4s linear forwards"
-	});
-	isNavOpen = false;
-}
-// 点击导航栏外，关闭导航栏
-$("#nav_overlay").bind("click touchstart touchmove touchend", function(){
-	click(navHide);
-})
-// 导航按钮
-$("#nav_btn").bind("click touchstart touchmove touchend", function(){
-	click(navDisp);
-})
-
-
-
-
-// 避免click的300ms延迟
 function click(func){
 	var e = e || window.event;
 	
@@ -336,6 +568,53 @@ function click(func){
 }
 
 
+
+
+
+
+
+
+
+
+/********************
+ *      公用事件
+ ********************/
+
+/*
+ * 页面滚动
+ */
+
+$(document).on("scroll", function () {
+	// 大标题缩放
+	changeBT();
+	
+	// 章节渐显
+	chapFade();
+});
+
+document.ready = function(){
+	// 章节渐显
+	chapFade();
+}
+
+window.onload = function(){
+	// 章节渐显
+	chapFade();
+}
+
+
+
+// PC鼠标事件绑定
+$(document).bind("click", handler);
+$(document).bind("mousedown", handler);
+$(document).bind("mouseup", handler);
+$(document).bind("mousemove", handler);
+$(document).bind("mousewheel", handler);
+$(document).bind("DOMMouseScroll", handler);
+// 移动端触摸事件绑定
+$(document).bind("touchstart", handler);
+$(document).bind("touchend", handler);
+$(document).bind("touchmove", handler);
 
 /**
  * 鼠标/触摸操作处理函数
@@ -398,13 +677,12 @@ function handler(e){
 	}
 
 	// 移动端禁止在导航栏内滚动正文页面
-	else if (isNavOpen ) {
+	else if (isNavOpen) {
 		if (e.type == "touchstart"){ // 触摸开始
 			// 单指触发
 			if (e.touches.length == 1) {
 				var touch = e.touches[0];
 				startY = touch.pageY;
-
 			}
 		}
 		if (e.type == "touchmove"){ // 移动开始
@@ -589,120 +867,4 @@ function handler(e){
 	}
 	
 	*/
-}
-// PC鼠标事件绑定
-$(document).bind("click", handler);
-$(document).bind("mousedown", handler);
-$(document).bind("mouseup", handler);
-$(document).bind("mousemove", handler);
-$(document).bind("mousewheel", handler);
-$(document).bind("DOMMouseScroll", handler);
-// 移动端触摸事件绑定
-$(document).bind("touchstart", handler);
-$(document).bind("touchend", handler);
-$(document).bind("touchmove", handler);
-
-/**
- * 菜单开关
- */
-var isMenuShow = false;
-function menuToggle(){
-	if (isMenuShow){
-		$("#menu").css({"animation":"menu_hide 0.3s forwards", "-webkit-animation":"menu_hide 0.3s forwards"});
-		$("#menu").bind("animationend webkitAnimationEnd", function(){
-			$("#menu").unbind();
-			isMenuShow = false;
-		})
-	} else {
-		$("#menu").css({"animation":"menu_show 0.3s forwards", "-webkit-animation":"menu_show 0.3s forwards"});
-		$("#menu").bind("animationend webkitAnimationEnd", function(){
-			$("#menu").unbind();
-			isMenuShow = true;
-		})
-	}
-}
-// 菜单按钮
-$("#menu_btn").bind("click touchstart touchmove touchend", function(){
-	click(menuToggle);
-})
-
-
-/**
- * 菜单跳转功能
- */
-function menuTo(target){
-	if (isMobile){
-		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 45},250);
-	} else {
-		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 60},250);
-	}
-
-    location.hash = target;
-
-	// 关闭菜单
-	menuToggle();
-}
-
-/**
- * 文章倒序功能
- */
-function reverseChapter(scroll, addScrollDis) {
-	var chapt = $(".chapter"),
-		menu = $("#menu .parent"),
-		scrollTop = $(document).scrollTop();
-		tmp = [];
-
-	// 倒序读入正文
-	for (var i = chapt.length - 1, j = 0; i >= 0; i--, j++) {
-		tmp[i] = chapt.eq(j).prop("outerHTML");
-	}
-	// 顺序写出正文
-	for (var i = 0; i < chapt.length; i++) {
-		chapt.eq(i).prop("outerHTML", tmp[i]);
-	}
-
-	// 倒序读入菜单
-	for (var i = menu.length - 1, j = 0; i >= 0; i--, j++){
-		tmp[i] = menu.eq(j).prop("outerHTML");
-	}
-	// 顺序写出菜单
-	for (var i =0; i < menu.length; i++){
-		menu.eq(i).prop("outerHTML", tmp[i]);
-	}
-
-	// 更新数组
-	chapt = $(".chapter"),
-	menu = $("#menu .parent");
-
-	// 如果第一个chapter没有锚标记，则更新锚标记（history.html）
-	if (typeof(chapt.eq(0).attr("id")) == "undefined"){
-		var subscript = [];
-
-		// 记录所有锚标记的角标
-		for (var i = 0, j = 0; i < chapt.length; i++){
-			if (typeof(chapt.eq(i).attr("id")) != "undefined"){
-				subscript[j] = i;
-				j++;
-			}
-		}
-		// 把第一个锚标记提前到第一个chapter
-		chapt.eq(0).attr("id", chapt.eq(subscript[0]).attr("id"));
-		chapt.eq(subscript[0]).removeAttr("id");
-
-		// 提前剩余锚标记
-		for (var i = 1; i < subscript.length; i++){
-			chapt.eq(subscript[i - 1] + 1).attr("id", chapt.eq(subscript[i]).attr("id"));
-			chapt.eq(subscript[i]).removeAttr("id");
-		}
-	}
-
-	if (scroll){
-		// 移到倒序前的阅读位置（目标滚动距离 = content_box高度 + margin(20px) + 2 * top_box_top高度 - 滚动距离 - 可视高度 - top_box高度）
-		var targetScroll = $("#content_box").prop("scrollHeight") + 20 + 2 * $("#top_box_top").height() -
-			$(document).scrollTop() - $(window).height() - $("#top_box").height() + addScrollDis;
-		$("html, body").animate({scrollTop: targetScroll}, 250);
-	}
-
-	// 关闭菜单
-	menuToggle();
 }
