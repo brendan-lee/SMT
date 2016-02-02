@@ -12,8 +12,13 @@ var _hmt = _hmt || [];
 })();
 
 // 判断是否在线
-if (window.location.protocol.match(/http/i)) var isOnline = true;
-else var isOnline = false;
+var href = window.location.href;
+if (window.location.protocol.match(/http/i)){
+	var isOnline = true;
+}
+else {
+	var isOnline = false;
+}
 
 // IE在页首显示警示
 var ua = navigator.userAgent.toLowerCase();
