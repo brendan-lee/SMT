@@ -317,27 +317,29 @@ function reverseChapter(scroll, addScrollDis) {
  */
 var fadeObj = $("#upper_box, #content_box .content");
 function chapFade(){
-	for (var i = 0; i < fadeObj.length; i++){
-		// 渐显
-		if (fadeObj.eq(i).offset().top < $(window).scrollTop() + $(window).height() &&
-		fadeObj.eq(i).offset().top + fadeObj.eq(i).height() > $(window).scrollTop()){
-			fadeObj.eq(i).addClass("fade_in");
-			
-			if (fadeObj.eq(i).attr("id") != "upper_box"){
-				fadeObj.eq(i).parents(".chapter, .section").addClass("fade_in");
+	if (!isMobile){
+		for (var i = 0; i < fadeObj.length; i++){
+			// 渐显
+			if (fadeObj.eq(i).offset().top < $(window).scrollTop() + $(window).height() &&
+			fadeObj.eq(i).offset().top + fadeObj.eq(i).height() > $(window).scrollTop()){
+				fadeObj.eq(i).addClass("fade_in");
+				
+				if (fadeObj.eq(i).attr("id") != "upper_box"){
+					fadeObj.eq(i).parents(".chapter, .section").addClass("fade_in");
+				}
 			}
-		}
-			
-		// 渐隐
-		if (fadeObj.eq(i).offset().top > $(window).scrollTop() + $(window).height() ||
-		fadeObj.eq(i).offset().top + fadeObj.eq(i).height() < $(window).scrollTop()){
-			fadeObj.eq(i).removeClass("fade_in");
-		}
-		if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".section").children(".fade_in").length == 0){
-			fadeObj.eq(i).parents(".section").removeClass("fade_in");
-		}
-		if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".chapter").children(".fade_in").length == 0){
-			fadeObj.eq(i).parents(".chapter").removeClass("fade_in");
+				
+			// 渐隐
+			if (fadeObj.eq(i).offset().top > $(window).scrollTop() + $(window).height() ||
+			fadeObj.eq(i).offset().top + fadeObj.eq(i).height() < $(window).scrollTop()){
+				fadeObj.eq(i).removeClass("fade_in");
+			}
+			if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".section").children(".fade_in").length == 0){
+				fadeObj.eq(i).parents(".section").removeClass("fade_in");
+			}
+			if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".chapter").children(".fade_in").length == 0){
+				fadeObj.eq(i).parents(".chapter").removeClass("fade_in");
+			}
 		}
 	}
 }
