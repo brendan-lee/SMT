@@ -4,12 +4,12 @@ var version = "v2.6.6.11"
 
 // 百度统计
 if (isOnline){
-	var _hmt = _hmt || [];
+var _hmt = _hmt || [];
 	(function() {
-	  var hm = document.createElement("script");
-	  hm.src = "//hm.baidu.com/hm.js?af71c0d27742f679093d9e185eee17fb";
-	  var s = document.getElementsByTagName("script")[0]; 
-	  s.parentNode.insertBefore(hm, s);
+		var hm = document.createElement("script");
+		hm.src = "//hm.baidu.com/hm.js?af71c0d27742f679093d9e185eee17fb";
+		var s = document.getElementsByTagName("script")[0]; 
+		s.parentNode.insertBefore(hm, s);
 	})();
 }
 
@@ -38,5 +38,9 @@ if ((ua.match(/msie/i)) && (ua.match(/windows nt/i))){
 
 // 返回顶部
 function goTop(){
-	$("html, body").animate({scrollTop:0}, 250);
+	fadeLock = true;
+	$("html, body").animate({scrollTop:0}, 250, function(){
+		fadeLock = false;
+		chapFade();
+	});
 }

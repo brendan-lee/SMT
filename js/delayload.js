@@ -46,7 +46,7 @@ var navContent = [
 
 // 写入导航栏
 function generateNav(navData) {
-    var html = "<img id='nav_logo' src='image/nav_logo.png' onclick='navHide()' />\n";
+    var html = "<img id='nav_logo' src='image/nav_logo.png' />\n";
 	
     for (var i = 0; i < navData.length; ++i) {
         var section = navData[i].section;
@@ -73,6 +73,9 @@ function generateNav(navData) {
 	return html;
 }
 $("#nav").html(generateNav(navContent));
+$("#nav_logo").bind("click touchstart touchmove touchend", function(){
+	click(navHide);
+})
 
 
 
@@ -317,18 +320,35 @@ $(document).bind("click touchstart touchmove touchend", function(){
 /**
  * 菜单跳转功能
  */
-function menuTo(target){
+function menuTo(id){
+	fadeLock = true;
 	if (isMobile){
-		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 45},250);
-	} else {
-		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 60},250);
+		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 45}, 250, function(){
+			fadeLock = false;
+			chapFade(); // 章节渐显
+		});
+	}
+	else {
+		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 60}, 250, function(){
+			fadeLock = false;
+			chapFade(); // 章节渐显
+			
+		});
 	}
 
-    location.hash = target;
+    location.hash = id;
 
 	// 关闭菜单
 	menuToggle();
 }
+
+// 菜单项点击事件
+var menuItems = $("#menu [data-menuto]");
+menuItems.bind("click touchstart touchmove touchend", function(e){
+	click(function(){
+		menuTo($(e.target).attr("data-menuto"))
+	})
+})
 
 
 
@@ -414,9 +434,10 @@ function reverseChapter(scroll, addScrollDis) {
 /**
  * 渐显/渐隐 chapter
  */
-var fadeObj = $("#upper_box, #content_box .content");
+var fadeObj = $("#upper_box, #content_box .content"),
+	fadeLock = false;
 function chapFade(){
-	if (!isMobile){
+	if (!isMobile && !fadeLock){
 		for (var i = 0; i < fadeObj.length; i++){
 			// 渐显
 			if (fadeObj.eq(i).offset().top < $(window).scrollTop() + $(window).height() &&
@@ -487,9 +508,13 @@ for(var i = 0; i < saImg.length; i++){
 
 var magImgDiv = $(".magnifiable");
 magImgDiv.attr("title", "点击放大查看");
-magImgDiv.on("click", magnifyImg);
+magImgDiv.bind("click touchstart touchmove touchend", function(){
+	var src = this.src;
+	click(function(){magnifyImg(src)});
+})
 
-function magnifyImg(){
+
+function magnifyImg(src){
 	// 插入放大图片div
 /*	$("body").append("<div id='mag_img_wrapper'><img id='mag_img' src='" + $(this).attr("src") + "' /></div>");
 	var magImg = $("#mag_img");
@@ -518,7 +543,8 @@ function magnifyImg(){
 */
 
 	// 暂定
-	window.open(this.src);
+	window.open(src);
+	//console.debug(this.src)
 }
 
 
@@ -573,7 +599,7 @@ function changeBT(){
 			"-webkit-animation": "fade_out 0.01s forwards"
 		});
 		bigTitle.bind("animationend webkitAnimationEnd", function () {
-			bigTitle.unbind();
+			bigTitle.unbind("animationend webkitAnimationEnd");
 			if (isMobile) bigTitle.css({
 				"position": "fixed",
 				"top": "12px",
@@ -601,7 +627,7 @@ function changeBT(){
 			"-webkit-animation": "fade_out 0.01s forwards"
 		});
 		bigTitle.bind("animationend webkitAnimationEnd", function () {
-			bigTitle.unbind();
+			bigTitle.unbind("animationend webkitAnimationEnd");
 			if (isMobile) {
 				bigTitle.css({
 					"position": "absolute",
@@ -629,6 +655,17 @@ function changeBT(){
 		});
 	}
 }
+
+
+
+
+/**
+ * 点击返回顶部
+ */
+$(document.getElementById("big_title_div")).bind("click touchstart touchmove touchend", function(){
+	click(goTop)
+})
+
 
 
 
@@ -702,6 +739,7 @@ document.onscroll = function (){
  * DOM加载完成
  */
 document.ready = function(){
+	changeBT(); // 大标题缩放
 	chapFade(); // 章节渐显
 }
 
