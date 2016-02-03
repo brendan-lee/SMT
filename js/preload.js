@@ -3,13 +3,15 @@
 var version = "v2.6.6.11"
 
 // 百度统计
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?af71c0d27742f679093d9e185eee17fb";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
+if (isOnline){
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?af71c0d27742f679093d9e185eee17fb";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+}
 
 // 判断是否在线
 var href = window.location.href;
