@@ -28,19 +28,19 @@
 
 	<!--目录-->
 	<div id="menu">
-		<li class="parent"><span onclick="menuTo('cont_1')">一.所需工具</span></li>
+		<li class="parent"><span data-menuto="cont_1">一.所需工具</span></li>
 		<div class="divide_line"></div>
 
-		<li class="parent"><span onclick="menuTo('cont_2')">二.反编译</span></li>
+		<li class="parent"><span data-menuto="cont_2">二.反编译</span></li>
 		<div class="divide_line"></div>
 
-		<li class="parent"><span onclick="menuTo('cont_3')">三.定位修改</span></li>
+		<li class="parent"><span data-menuto="cont_3">三.定位修改</span></li>
 		<div class="divide_line"></div>
 
-		<li class="parent"><span onclick="menuTo('cont_4')">四.IL语言</span></li>
+		<li class="parent"><span data-menuto="cont_4">四.IL语言</span></li>
 		<div class="divide_line"></div>
 
-		<li class="parent"><span onclick="menuTo('cont_5')">五.编译</span></li>
+		<li class="parent"><span data-menuto="cont_5">五.编译</span></li>
 	</div>
 	
 	<!--导航-->
@@ -48,7 +48,7 @@
 	<div id="nav_overlay"></div>
 	
 	<!--顶栏-->
-	<div id="big_title_div" onclick="goTop()">“源代码”教程</div>
+	<div id="big_title_div">“源代码”教程</div>
 	<div id="last_update">——更新日期 2016年1月29日——</div>
 	<div id="top_box"></div>
 	<div id="top_box_top"></div>
@@ -134,12 +134,12 @@
 		<div class="chapter" id="cont_4">
 			<h1>第四节 IL指令</h1>
 			<div class="content">
-				回到<span onclick="menuTo('cont_2')">第一节 反编译</span>出的文件，用文本编辑器打开即可直接进行编辑<br />
+				回到<span data-menuto="cont_2">第一节 反编译</span>出的文件，用文本编辑器打开即可直接进行编辑<br />
 				这里只提供以下IL指令，通过这些指令和与高级语言对照，那么基本上就能够做一些简单的修改了，若要更深入了解请自行百度<br />
 			</div>
 			<div class="content" style="overflow-x:auto;">
               <table style="font-size:14px;line-height:20px;">
-                <tr  style="font-weight:bold; text-align:center;">
+                <tr style="font-weight:bold; text-align:center;">
                   <td>名称</td>
                   <td>说明</td>
                 </tr>

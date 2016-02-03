@@ -46,7 +46,7 @@ var navContent = [
 
 // 写入导航栏
 function generateNav(navData) {
-    var html = "<img id='nav_logo' src='image/nav_logo.png' onclick='navHide()' />\n";
+    var html = "<img id='nav_logo' src='image/nav_logo.png' />\n";
 	
     for (var i = 0; i < navData.length; ++i) {
         var section = navData[i].section;
@@ -73,6 +73,9 @@ function generateNav(navData) {
 	return html;
 }
 $("#nav").html(generateNav(navContent));
+$("#nav_logo").bind("click touchstart touchmove touchend", function(){
+	click(navHide);
+})
 
 
 
@@ -176,6 +179,97 @@ $("#nav_btn").bind("click touchstart touchmove touchend", function(){
 
 
 
+/**
+ * 禁止页面滚动
+ */
+
+// 导航栏外
+$("#nav_overlay").bind("mousewheel DOMMouseScroll touchmove", function(){
+	var e = e || window.event;
+	e.preventDefault();
+	e.returnValue = false;
+})
+
+// PC 导航栏内
+$("#nav").bind("mousewheel DOMMouseScroll", function(){
+	var e = e || window.event
+		nav = $("#nav");
+		
+	// 没有滚动条
+	if (nav.prop("scrollHeight") == $(window).height()){
+		e.returnValue = false;
+		e.preventDefault();
+	}
+	
+	// 有滚动条,位于顶端
+	else if (nav.scrollTop() == 0){
+		if (e.wheelDelta){
+			if (e.wheelDelta > 0){
+				e.returnValue = false;
+				e.preventDefault();
+			}
+		}
+		else {
+			if (e.detail < 0){
+				e.returnValue = false;
+				e.preventDefault();
+			}
+		}
+	}
+
+	// 有滚动条,位于底端
+	else if (nav.prop("scrollHeight") - $(window).height() - nav.scrollTop() == 0){
+		if (e.wheelDelta){
+			if (e.wheelDelta < 0){
+				e.returnValue = false;
+				e.preventDefault();
+			}
+		}
+		else {
+			if (e.detail > 0){
+				e.returnValue = false;
+				e.preventDefault();
+			}
+		}
+	}
+})
+
+// 移动端 导航栏内
+$("#nav").bind("touchstart", function(e){
+	window.startY = e.originalEvent.touches[0].pageY;
+})
+
+$("#nav").bind("touchmove", function(e){
+	var spanY = e.originalEvent.touches[0].pageY - startY,
+		nav = $("#nav");
+
+	// 无滚动条时禁止滚动
+	if (nav.prop("scrollHeight") == $(window).height()){
+	 	e.preventDefault();
+	 	e.returnValue = false;
+	}
+	// 向上滑动
+	else if (spanY > 0) {
+		if (nav.scrollTop() == 0){
+			e.preventDefault();
+			e.returnValue = false;
+		}
+	}
+	// 向下滑动
+	else if (spanY < 0) {
+		if (nav.prop("scrollHeight") - $(window).height() - nav.scrollTop() == 0){
+			e.preventDefault();
+			e.returnValue = false;
+		}
+	}
+
+	// 滑动时锁定body（在navHide方法中解锁）
+	$("body").addClass("lock_position");
+})
+
+
+
+
 
 
 
@@ -211,6 +305,14 @@ $("#menu_btn").bind("click touchstart touchmove touchend", function(){
 	click(menuToggle);
 })
 
+// 点击菜单外关闭菜单
+$(document).bind("click touchstart touchmove touchend", function(){
+	var e = e || window.event;
+	if ($(e.target).parents("#menu").length == 0 && e.target.id != "menu" && isMenuShow){
+		click(menuToggle);
+	}
+})
+
 
 
 
@@ -218,18 +320,35 @@ $("#menu_btn").bind("click touchstart touchmove touchend", function(){
 /**
  * 菜单跳转功能
  */
-function menuTo(target){
+function menuTo(id){
+	fadeLock = true;
 	if (isMobile){
-		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 45},250);
-	} else {
-		$("html, body").animate({scrollTop:document.getElementById(target).offsetTop - 60},250);
+		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 45}, 250, function(){
+			fadeLock = false;
+			chapFade(); // 章节渐显
+		});
+	}
+	else {
+		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 60}, 250, function(){
+			fadeLock = false;
+			chapFade(); // 章节渐显
+			
+		});
 	}
 
-    location.hash = target;
+    location.hash = id;
 
 	// 关闭菜单
 	menuToggle();
 }
+
+// 菜单项点击事件
+var menuItems = $("#menu [data-menuto]");
+menuItems.bind("click touchstart touchmove touchend", function(e){
+	click(function(){
+		menuTo($(e.target).attr("data-menuto"))
+	})
+})
 
 
 
@@ -315,29 +434,32 @@ function reverseChapter(scroll, addScrollDis) {
 /**
  * 渐显/渐隐 chapter
  */
-var fadeObj = $("#upper_box, #content_box .content");
+var fadeObj = $("#upper_box, #content_box .content"),
+	fadeLock = false;
 function chapFade(){
-	for (var i = 0; i < fadeObj.length; i++){
-		// 渐显
-		if (fadeObj.eq(i).offset().top < $(window).scrollTop() + $(window).height() &&
-		fadeObj.eq(i).offset().top + fadeObj.eq(i).height() > $(window).scrollTop()){
-			fadeObj.eq(i).addClass("fade_in");
-			
-			if (fadeObj.eq(i).attr("id") != "upper_box"){
-				fadeObj.eq(i).parents(".chapter, .section").addClass("fade_in");
+	if (!isMobile && !fadeLock){
+		for (var i = 0; i < fadeObj.length; i++){
+			// 渐显
+			if (fadeObj.eq(i).offset().top < $(window).scrollTop() + $(window).height() &&
+			fadeObj.eq(i).offset().top + fadeObj.eq(i).height() > $(window).scrollTop()){
+				fadeObj.eq(i).addClass("fade_in");
+				
+				if (fadeObj.eq(i).attr("id") != "upper_box"){
+					fadeObj.eq(i).parents(".chapter, .section").addClass("fade_in");
+				}
 			}
-		}
-			
-		// 渐隐
-		if (fadeObj.eq(i).offset().top > $(window).scrollTop() + $(window).height() ||
-		fadeObj.eq(i).offset().top + fadeObj.eq(i).height() < $(window).scrollTop()){
-			fadeObj.eq(i).removeClass("fade_in");
-		}
-		if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".section").children(".fade_in").length == 0){
-			fadeObj.eq(i).parents(".section").removeClass("fade_in");
-		}
-		if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".chapter").children(".fade_in").length == 0){
-			fadeObj.eq(i).parents(".chapter").removeClass("fade_in");
+				
+			// 渐隐
+			if (fadeObj.eq(i).offset().top > $(window).scrollTop() + $(window).height() ||
+			fadeObj.eq(i).offset().top + fadeObj.eq(i).height() < $(window).scrollTop()){
+				fadeObj.eq(i).removeClass("fade_in");
+			}
+			if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".section").children(".fade_in").length == 0){
+				fadeObj.eq(i).parents(".section").removeClass("fade_in");
+			}
+			if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".chapter").children(".fade_in").length == 0){
+				fadeObj.eq(i).parents(".chapter").removeClass("fade_in");
+			}
 		}
 	}
 }
@@ -386,11 +508,15 @@ for(var i = 0; i < saImg.length; i++){
 
 var magImgDiv = $(".magnifiable");
 magImgDiv.attr("title", "点击放大查看");
-magImgDiv.on("click", magnifyImg);
+magImgDiv.bind("click touchstart touchmove touchend", function(){
+	var src = this.src;
+	click(function(){magnifyImg(src)});
+})
 
-function magnifyImg(){
+
+function magnifyImg(src){
 	// 插入放大图片div
-	$("body").append("<div id='mag_img_wrapper'><img id='mag_img' src='" + $(this).attr("src") + "' /></div>");
+/*	$("body").append("<div id='mag_img_wrapper'><img id='mag_img' src='" + $(this).attr("src") + "' /></div>");
 	var magImg = $("#mag_img");
 
 	magImg.on("load", function(){
@@ -409,11 +535,17 @@ function magnifyImg(){
 		// 明确img宽度，以在首次滚轮缩放时产生transition动画
 		magImg.width(magImg.width());
 	})
-}
+	
+	// 点击关闭图片
+	$("#mag_img_wrapper").bind("click touchstart touchmove touchend", function(){
+		click(closeImg);
+	})
+*/
 
-$("#mag_img_wrapper").mousedown(function(){
-	console.debug("mousedown")
-})
+	// 暂定
+	window.open(src);
+	//console.debug(this.src)
+}
 
 
 
@@ -441,6 +573,9 @@ function closeImg(){
 
 
 
+
+
+
 /********************
  *      大标题
  ********************/
@@ -452,7 +587,7 @@ if(isMobile) topBoxScroll = 75;
 else topBoxScroll = 120;
 
 function changeBT(){
-	// 页面滚动超过阈值
+	// 滚动超过阈值
 	if ($(document).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
 		lastBtPos = $(document).scrollTop();
 		bigTitle.css({
@@ -464,7 +599,7 @@ function changeBT(){
 			"-webkit-animation": "fade_out 0.01s forwards"
 		});
 		bigTitle.bind("animationend webkitAnimationEnd", function () {
-			bigTitle.unbind();
+			bigTitle.unbind("animationend webkitAnimationEnd");
 			if (isMobile) bigTitle.css({
 				"position": "fixed",
 				"top": "12px",
@@ -483,7 +618,8 @@ function changeBT(){
 			});
 		});
 	}
-	// 页面滚动低于阈值
+	
+	// 滚动低于阈值
 	else if ($(document).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
 		lastBtPos = $(document).scrollTop();
 		bigTitle.css({
@@ -491,7 +627,7 @@ function changeBT(){
 			"-webkit-animation": "fade_out 0.01s forwards"
 		});
 		bigTitle.bind("animationend webkitAnimationEnd", function () {
-			bigTitle.unbind();
+			bigTitle.unbind("animationend webkitAnimationEnd");
 			if (isMobile) {
 				bigTitle.css({
 					"position": "absolute",
@@ -519,6 +655,17 @@ function changeBT(){
 		});
 	}
 }
+
+
+
+
+/**
+ * 点击返回顶部
+ */
+$(document.getElementById("big_title_div")).bind("click touchstart touchmove touchend", function(){
+	click(goTop)
+})
+
 
 
 
@@ -583,187 +730,39 @@ function click(func){
 /*
  * 页面滚动
  */
-
-$(document).on("scroll", function () {
-	// 大标题缩放
-	changeBT();
-	
-	// 章节渐显
-	chapFade();
-});
-
-document.ready = function(){
-	// 章节渐显
-	chapFade();
+document.onscroll = function (){
+	changeBT(); // 大标题缩放
+	chapFade(); // 章节渐显
 }
-
-window.onload = function(){
-	// 章节渐显
-	chapFade();
-}
-
-
-
-// PC鼠标事件绑定
-$(document).bind("click", handler);
-$(document).bind("mousedown", handler);
-$(document).bind("mouseup", handler);
-$(document).bind("mousemove", handler);
-$(document).bind("mousewheel", handler);
-$(document).bind("DOMMouseScroll", handler);
-// 移动端触摸事件绑定
-$(document).bind("touchstart", handler);
-$(document).bind("touchend", handler);
-$(document).bind("touchmove", handler);
 
 /**
- * 鼠标/触摸操作处理函数
+ * DOM加载完成
  */
-function handler(e){
-	var nav = $("#nav");
-/*	if (e.target.id == "nav_overlay"){
-		// 点击导航栏外 隐藏导航栏
-		if (e.type == "click"){
-			navHide();
-		}
-		// 导航栏外禁止滚轮
-		else if (e.type == "mousewheel" || e.type == "touchmove" || e.type == "DOMMouseScroll"){
-			e.returnValue = false;
-			e.preventDefault();
-		}
-	}*/
+document.ready = function(){
+	changeBT(); // 大标题缩放
+	chapFade(); // 章节渐显
+}
 
-	// PC禁止在导航栏内滚动正文页面
-	if (e.target.id != "nav_overlay" && isNavOpen && (e.type == "mousewheel" || e.type == "DOMMouseScroll")){
-		// 导航栏中没有滚动条时，禁止滚动
-		if (nav.prop("scrollHeight") == $(window).height()){
-			e.returnValue = false;
-			e.preventDefault();
-		}
+/**
+ * 资源加载完成
+ */
+window.onload = function(){
+	chapFade(); // 章节渐显
+}
 
-		// 有滚动条且位于导航栏顶端时，禁止向上滚动
-		else if ($("#nav").scrollTop() == 0){
-			// 鼠标滚轮
-			if (e.wheelDelta){ // 其他浏览器
-				if (e.wheelDelta > 0){ // 向上滚动
-					e.returnValue = false;
-					e.preventDefault();
-				}
-			}
-			else { // FF
-				if (e.detail < 0){ // 向上滚动
-					e.returnValue = false;
-					e.preventDefault();
-				}
-			}
-		}
 
-		// 有滚动条且位于导航栏底端时，禁止向下滚动
-		else if (nav.prop("scrollHeight") - $(window).height() - nav.scrollTop() == 0){
-			// 鼠标滚轮
-			if (e.wheelDelta){ // 其他浏览器
-				if (e.wheelDelta < 0){ // 向下滚动
-					e.returnValue = false;
-					e.preventDefault();
-				}
-			}
-			else { // FF
-				if (e.detail > 0){ // 向下滚动
-					e.returnValue = false;
-					e.preventDefault();
-				}
-			}
-		}
-	}
 
-	// 移动端禁止在导航栏内滚动正文页面
-	else if (isNavOpen) {
-		if (e.type == "touchstart"){ // 触摸开始
-			// 单指触发
-			if (e.touches.length == 1) {
-				var touch = e.touches[0];
-				startY = touch.pageY;
-			}
-		}
-		if (e.type == "touchmove"){ // 移动开始
-			// 单指触发
-			if (e.touches.length == 1) {
-				var touch = e.touches[0];
-				var spanY = touch.pageY - startY;
 
-				// 无滚动条时禁止滚动
-				if (nav.prop("scrollHeight") == $(window).height()){
-				 	e.preventDefault();
-				}
 
-				// 向上滑动时
-				else if (spanY > 0) {
-					// 有滚动条且位于导航栏顶端时，禁止向上滚动
-					if ($("#nav").scrollTop() == 0){
-						e.preventDefault();
-					}
-				}
 
-				// 向下滑动时
-				else if (spanY < 0) {
-					// 有滚动条且位于导航栏底端时，禁止向下滚动
-					if (nav.prop("scrollHeight") - $(window).height() - nav.scrollTop() == 0){
-						e.preventDefault();
-					}
-				}
-			}
 
-			// 在导航栏内滑动时锁定body的滚动（在navHide方法中解锁）
-			$("body").addClass("lock_position");
-		}
-	}
 
-	// 点击页面关闭菜单
-/*	if (e.type == "click" && e.target.id != "menu" && e.target.id != "menu_btn" && $(e.target).parents("#menu").length == 0 && isMenuShow){
-		menuToggle();
-	}
 
+
+/*
 	// 放大图片相关操作
 	if (e.target.id == "mag_img_wrapper" || e.target.id == "mag_img") {
 		var img = $("#mag_img");
-
-		// 点击图片或图片外区域 关闭图片
-		switch (e.type) {
-			case "mousedown":
-				startX = finalX = e.pageX;
-				startY = finalY = e.pageY;
-				break;
-
-			case "touchstart":
-				if (e.touches.length == 1) {
-					var touch = e.touches[0];
-					startX = finalX = touch.pageX;
-					startY = finalY = touch.pageY;
-				}
-				break;
-
-			case "touchmove":
-				if (e.touches.length == 1) {
-					var touch = e.touches[0];
-					finalX = touch.pageX;
-					finalY = touch.pageY;
-				}
-				break;
-
-			case "touchend":
-				if (Math.abs(finalX - startX) < 3 && Math.abs(finalY - startY) < 3) { // 防止屏幕误差导致无法关闭
-					$(this).unbind();
-					closeImg();
-				}
-				break;
-
-			case "mouseup":
-				if (e.pageX == startX && e.pageY == startY) {
-					$(this).unbind();
-					closeImg();
-				}
-				break;
-		}
 
 		// 鼠标移动图片
 		if (e.type == "mousedown" && e.target.id == "mag_img"){
@@ -866,5 +865,4 @@ function handler(e){
 		e.returnValue = false;
 	}
 	
-	*/
-}
+*/
