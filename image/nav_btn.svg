@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="25" height="25">
+	// 上
+	<rect x="3" y="5" width="21" height="3" style="stroke-width:0; fill:#333;" />
+	<rect x="2" y="4" width="21" height="3" style="stroke-width:0; fill:#fff;" />
+	
+	// 中
+	<rect x="3" y="12" width="21" height="3" style="stroke-width:0; fill:#333;" />
+	<rect x="2" y="11" width="21" height="3" style="stroke-width:0; fill:#fff;" />
+	
+	// 下
+	<rect x="3" y="19" width="21" height="3" style="stroke-width:0; fill:#333;" />
+	<rect x="2" y="18" width="21" height="3" style="stroke-width:0; fill:#fff;" />
+</svg>

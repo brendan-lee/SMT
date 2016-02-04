@@ -50,16 +50,17 @@
 /*按钮*/
 	#buttons #menu_btn, #buttons #nav_btn {
 		position:fixed;
+		width: 25px;
 		z-index:7;
-		top:13px;
+		top:10.5px;
 	}
 
 	#buttons #menu_btn {
-		right:12px;
+		right:7.5px;
 	}
 
 	#buttons #nav_btn {
-		left:12px;
+		left:7.5px;
 	}
 
 /*目录*/

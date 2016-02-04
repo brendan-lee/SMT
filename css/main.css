@@ -52,17 +52,18 @@
 /*按钮*/
 	#buttons #menu_btn, #buttons #nav_btn {
 		position:fixed;
+		width: 25px;
 		z-index:7;
-		top:20px;
+		top:17.5px;
 		cursor:pointer;
 	}
 
 	#buttons #menu_btn {
-		right:20px;
+		right:17.5px;
 	}
 
 	#buttons #nav_btn {
-		left:20px;
+		left:17.5px;
 	}
 
 /*目录*/
