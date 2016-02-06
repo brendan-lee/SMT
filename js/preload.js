@@ -11,16 +11,24 @@ else {
 	var isOnline = false;
 }
 
-// 百度统计
+/**
+ * 统计代码
+ */
+
 if (isOnline){
-var _hmt = _hmt || [];
+	// 百度统计
+	var _hmt = _hmt || [];
 	(function() {
 		var hm = document.createElement("script");
 		hm.src = "//hm.baidu.com/hm.js?af71c0d27742f679093d9e185eee17fb";
 		var s = document.getElementsByTagName("script")[0]; 
 		s.parentNode.insertBefore(hm, s);
 	})();
+	
+	// 腾讯统计
+	document.write("<script type='text/javascript' src='http://tajs.qq.com/stats?sId=40571723' charset='UTF-8'></script>")
 }
+
 
 // 自适应 电脑/手机 css
 	var isMobile = false,
