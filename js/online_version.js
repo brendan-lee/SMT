@@ -1,1 +1,1 @@
-﻿var online_ver="v2.6.6.11";
+﻿var online_ver="v2.7.7.12";
