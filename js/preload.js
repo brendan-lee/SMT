@@ -2,6 +2,15 @@
 /*	主版本号(大修).内容子版本号.框架子版本号.修正版本号	*/
 var version = "v2.7.7.12"
 
+// 判断是否在线
+var href = window.location.href;
+if (window.location.protocol.match(/http/i)){
+	var isOnline = true;
+}
+else {
+	var isOnline = false;
+}
+
 // 百度统计
 if (isOnline){
 var _hmt = _hmt || [];
@@ -12,16 +21,6 @@ var _hmt = _hmt || [];
 		s.parentNode.insertBefore(hm, s);
 	})();
 }
-
-// 判断是否在线
-var href = window.location.href;
-if (window.location.protocol.match(/http/i)){
-	var isOnline = true;
-}
-else {
-	var isOnline = false;
-}
-
 
 // 自适应 电脑/手机 css
 	var isMobile = false,
