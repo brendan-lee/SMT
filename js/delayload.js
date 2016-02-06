@@ -718,6 +718,21 @@ function click(func){
 
 
 
+/**
+ * ban各种sb浏览器
+ */
+
+if ((ua.match(/msie/i) && ua.match(/Windows NT/i)) // PC IE
+	|| ua.match(/\MQQBrowser.*\QQ\//i)) // 手Q X5
+{
+	$("#cont_wrapper").css("display", "none");
+	$("#error").css("display", "block");
+}
+
+
+
+
+
 
 
 
