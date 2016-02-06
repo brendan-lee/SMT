@@ -11,7 +11,7 @@
 	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
 	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
 	<script>
-		if (isOnline == false && navigator.onLine){
+		if (!isOnline && navigator.onLine){
 			document.write("<script src='http://survivalcraft.cn/smt/js/online_version.js?" + Math.random() +  "'><"+"/script>");
 		}
 	</script>
@@ -64,7 +64,7 @@
 		</div>
 
 		<script>
-			if(isOnline == false && navigator.onLine && ver != online_ver){
+			if(!isOnline && navigator.onLine && ver != online_ver){
 				document.write("<div class='chapter'><h1>更新导航</h1><div class='content'>在线最新版：" + online_ver +"<br />请更新离线导航 <a href='http://survivalcraft.cn/smt/nav_update.html' target='_blank'>点击更新</a></div></div>")
 			}
 		</script>
@@ -80,7 +80,7 @@
 				<script>if (ver == version) $("#current_version").html(version);</script>
 			</div>
 			<div class="content">
-			本版本更新日期 2016年2月6日<br />
+			本版本更新日期 2016年2月7日<br />
 			本版本mod教程对应Survivalcraft 1.29
 			</div>
 		</div>
