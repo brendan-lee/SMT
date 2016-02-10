@@ -4,7 +4,7 @@ var version = "v2.7.7.12"
 
 // 判断是否在线
 var href = window.location.href;
-if (window.location.protocol.match(/http/i)){
+if (window.location.protocol.match(/http/ig) && !href.match(/localhost|127\.0\.0\.1|192\.168\.\d{1,3}\.\d{1,3}/ig)){
 	var isOnline = true;
 }
 else {
