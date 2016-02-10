@@ -429,6 +429,51 @@ function reverseChapter(scroll, addScrollDis) {
  *       正文
  *******************/
 
+/**
+ * 表格折叠
+ */
+
+function tableFold(target){
+	var table = $(target).parents('table'),
+		content = table.find('tr:not(:first)'),
+		img = table.find('tr:first').find('td:last').children('img');
+	
+	if (table.hasClass('folded')){
+		table.removeClass('folded');
+		content.css('display', 'table-row');
+		img.attr('src', 'image/fold.svg');
+	}
+	else {
+		table.addClass('folded');
+		content.css('display', 'none');
+		img.attr('src', 'image/unfold.svg');
+	}
+}
+
+function findFoldableTables(){
+	var tables = $('table');
+	if (isMobile){
+		var threshold = 400;
+	}
+	else {
+		var threshold = 600;
+	}
+	
+	for (var i = 0; i < tables.length; i++){
+		if (tables.eq(i).height() > threshold){
+			var td = tables.eq(i).find('tr:first').find('td:last');
+			
+			td.css({'position':'relative', 'padding-right':'26px'});
+			td.append('<img class="fold_btn" style="position:absolute; right:3px; cursor:pointer;" />');
+			tableFold(tables.eq(i).children().eq(0));
+		}
+	}
+	
+	$('.fold_btn').bind("click touchstart touchmove touchend", function(e){
+		e = event || window.event;
+		click(function(){tableFold(e.target)});
+	})
+}
 
 
 
@@ -719,6 +764,7 @@ document.onscroll = function (){
  */
 document.ready = function(){
 	changeBT(); // 大标题缩放
+	findFoldableTables(); // 折叠表格
 }
 
 

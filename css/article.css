@@ -121,3 +121,11 @@
 .fade_in {
 	opacity: 1 !important;
 }
+
+.fold_btn {
+	position: absolute;
+	right: 3px;
+	cursor: pointer;
+	margin-top: -10px;
+	top: 50%;
+}
