@@ -325,13 +325,11 @@ function menuTo(id){
 	if (isMobile){
 		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 45}, 250, function(){
 			fadeLock = false;
-			chapFade(); // 章节渐显
 		});
 	}
 	else {
 		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 60}, 250, function(){
 			fadeLock = false;
-			chapFade(); // 章节渐显
 			
 		});
 	}
@@ -430,39 +428,6 @@ function reverseChapter(scroll, addScrollDis) {
 /********************
  *       正文
  *******************/
-
-/**
- * 渐显/渐隐 chapter
- */
-var fadeObj = $("#upper_box, #content_box .content"),
-	fadeLock = false;
-function chapFade(){
-	if (!isMobile && !fadeLock){
-		for (var i = 0; i < fadeObj.length; i++){
-			// 渐显
-			if (fadeObj.eq(i).offset().top < $(window).scrollTop() + $(window).height() &&
-			fadeObj.eq(i).offset().top + fadeObj.eq(i).height() > $(window).scrollTop()){
-				fadeObj.eq(i).addClass("fade_in");
-				
-				if (fadeObj.eq(i).attr("id") != "upper_box"){
-					fadeObj.eq(i).parents(".chapter, .section").addClass("fade_in");
-				}
-			}
-				
-			// 渐隐
-			if (fadeObj.eq(i).offset().top > $(window).scrollTop() + $(window).height() ||
-			fadeObj.eq(i).offset().top + fadeObj.eq(i).height() < $(window).scrollTop()){
-				fadeObj.eq(i).removeClass("fade_in");
-			}
-			if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".section").children(".fade_in").length == 0){
-				fadeObj.eq(i).parents(".section").removeClass("fade_in");
-			}
-			if (fadeObj.eq(i).attr("id") != "upper_box" && fadeObj.eq(i).parents(".chapter").children(".fade_in").length == 0){
-				fadeObj.eq(i).parents(".chapter").removeClass("fade_in");
-			}
-		}
-	}
-}
 
 
 
@@ -747,7 +712,6 @@ if ((ua.match(/msie/i) && ua.match(/Windows NT/i)) // PC IE
  */
 document.onscroll = function (){
 	changeBT(); // 大标题缩放
-	chapFade(); // 章节渐显
 }
 
 /**
@@ -755,14 +719,6 @@ document.onscroll = function (){
  */
 document.ready = function(){
 	changeBT(); // 大标题缩放
-	chapFade(); // 章节渐显
-}
-
-/**
- * 资源加载完成
- */
-window.onload = function(){
-	chapFade(); // 章节渐显
 }
 
 
