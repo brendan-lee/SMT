@@ -765,6 +765,9 @@ document.onscroll = function (){
 document.ready = function(){
 	changeBT(); // 大标题缩放
 	findFoldableTables(); // 折叠表格
+	$('#reverse_chapter').bind("click touchstart touchmove touchend", function(){
+		click(function(){reverseChapter(false, 0)});
+	})
 }
 
 
