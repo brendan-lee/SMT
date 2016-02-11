@@ -44,6 +44,5 @@ function goTop(){
 	fadeLock = true;
 	$("html, body").animate({scrollTop:0}, 250, function(){
 		fadeLock = false;
-		chapFade();
 	});
 }
