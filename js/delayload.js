@@ -293,9 +293,12 @@ function menuToggle(){
 		})
 	} else {
 		$("#menu").css({"animation":"menu_show 0.3s forwards", "-webkit-animation":"menu_show 0.3s forwards"});
+		setTimeout(function(){
+			isMenuShow = true;
+		}, 1);
 		$("#menu").bind("animationend webkitAnimationEnd", function(){
 			$("#menu").unbind();
-			isMenuShow = true;
+			
 		})
 	}
 }
