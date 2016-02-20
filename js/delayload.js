@@ -694,7 +694,7 @@ $(document.getElementById("big_title_div")).bind("click touchstart touchmove tou
  */
 
 function click(func){
-	var e = arguments.callee.caller.arguments[0] || window.event;
+	var e = window.event || arguments.callee.caller.arguments[0];
 	
 	switch (e.type){
 		case "touchstart":
