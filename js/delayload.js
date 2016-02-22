@@ -184,15 +184,15 @@ $("#nav_btn").bind("click touchstart touchmove touchend", function(){
  */
 
 // 导航栏外
-$("#nav_overlay").bind("mousewheel DOMMouseScroll touchmove", function(){
-	var e = e || window.event;
+$("#nav_overlay").bind("mousewheel DOMMouseScroll touchmove", function(e){
+	e = e || window.event;
 	e.preventDefault();
 	e.returnValue = false;
 })
 
 // PC 导航栏内
-$("#nav").bind("mousewheel DOMMouseScroll", function(){
-	var e = e || window.event
+$("#nav").bind("mousewheel DOMMouseScroll", function(e){
+	e = e || window.event
 		nav = $("#nav");
 		
 	// 没有滚动条
@@ -293,9 +293,12 @@ function menuToggle(){
 		})
 	} else {
 		$("#menu").css({"animation":"menu_show 0.3s forwards", "-webkit-animation":"menu_show 0.3s forwards"});
+		setTimeout(function(){
+			isMenuShow = true;
+		}, 1);
 		$("#menu").bind("animationend webkitAnimationEnd", function(){
 			$("#menu").unbind();
-			isMenuShow = true;
+			
 		})
 	}
 }
@@ -306,8 +309,8 @@ $("#menu_btn").bind("click touchstart touchmove touchend", function(){
 })
 
 // 点击菜单外关闭菜单
-$(document).bind("click touchstart touchmove touchend", function(){
-	var e = e || window.event;
+$(document).bind("click touchstart touchmove touchend", function(e){
+	e = e || window.event;
 	if ($(e.target).parents("#menu").length == 0 && e.target.id != "menu" && isMenuShow){
 		click(menuToggle);
 	}
@@ -321,17 +324,11 @@ $(document).bind("click touchstart touchmove touchend", function(){
  * 菜单跳转功能
  */
 function menuTo(id){
-	fadeLock = true;
 	if (isMobile){
-		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 45}, 250, function(){
-			fadeLock = false;
-		});
+		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 45}, 250);
 	}
 	else {
-		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 60}, 250, function(){
-			fadeLock = false;
-			
-		});
+		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 60}, 250);
 	}
 
     location.hash = id;
@@ -470,7 +467,7 @@ function findFoldableTables(){
 	}
 	
 	$('.fold_btn').bind("click touchstart touchmove touchend", function(e){
-		e = event || window.event;
+		e = e || window.event;
 		click(function(){tableFold(e.target)});
 	})
 }
@@ -610,12 +607,14 @@ function changeBT(){
 		});
 		bigTitle.bind("animationend webkitAnimationEnd", function () {
 			bigTitle.unbind("animationend webkitAnimationEnd");
+			// 移动端
 			if (isMobile) bigTitle.css({
 				"position": "fixed",
 				"top": "12px",
 				"left": "40px",
 				"font-size": "20px"
 			});
+			// 电脑
 			else bigTitle.css({
 				"position": "fixed",
 				"top": "15px",
@@ -695,7 +694,7 @@ $(document.getElementById("big_title_div")).bind("click touchstart touchmove tou
  */
 
 function click(func){
-	var e = e || window.event;
+	var e = window.event || arguments.callee.caller.arguments[0];
 	
 	switch (e.type){
 		case "touchstart":
@@ -765,6 +764,9 @@ document.onscroll = function (){
 document.ready = function(){
 	changeBT(); // 大标题缩放
 	findFoldableTables(); // 折叠表格
+	$('#reverse_chapter').bind("click touchstart touchmove touchend", function(){
+		click(function(){reverseChapter(false, 0)});
+	})
 }
 
 
