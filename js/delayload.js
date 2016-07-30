@@ -46,33 +46,37 @@ var navContent = [
 
 // 写入导航栏
 function generateNav(navData) {
-    var html = "<img id='nav_logo' src='image/nav_logo.png' />\n";
+	var nav_logo = $("<img id='nav_logo' src='image/nav_logo.png' />");
+	$("#nav").append(nav_logo);
 	
     for (var i = 0; i < navData.length; ++i) {
         var section = navData[i].section;
         var tutors = navData[i].tutors;
 		
-		html += "<div class='parent'> " + section + " </div>\n";
-		html += "<div id='nav_children_" + (i + 1) + "' class='children'>\n";
+		var parent = $("<div class='parent'></div>")
+		parent.html(section);
+		$("#nav").append(parent);
+
+		var children = $("<div class='children'></div>");
+		children.attr("id", "nav_children_" + (i+1).toString());
 		
         for (var j = 0; j < tutors.length; ++j) {
 			var name = tutors[j].name;
 			var uri = tutors[j].uri;
 			var id = tutors[j].id;
 			
-            var tag = "<a class='child' href='" +  uri + "' ";
-			if (!!id) { tag += "id='" + id + "' " }; // 如果存在id，则写入
-			tag += "> " + name + " </a>";
-			
-			html += tag + "\n";
+			var child = $("<a class='child'></a>");
+			child.attr("href", uri);
+			child.html(name);
+			if (typeof(id) != "undefined") {
+				child.attr("id", id);
+			}
+			children.append(child);
         }
-		html += "</div>\n"; // children
+		$("#nav").append(children);
     }
-    
-	html += "<br />\n";
-	return html;
 }
-$("#nav").html(generateNav(navContent));
+generateNav(navContent);
 $("#nav_logo").bind("click touchstart touchmove touchend", function(){
 	click(navHide);
 })
