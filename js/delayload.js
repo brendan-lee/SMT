@@ -46,8 +46,11 @@ var navContent = [
 
 // 写入导航栏
 function generateNav(navData) {
+	var nav = $("#nav");
+	nav.hide();
+
 	var nav_logo = $("<img id='nav_logo' src='image/nav_logo.png' />");
-	$("#nav").append(nav_logo);
+	nav.append(nav_logo);
 	
     for (var i = 0; i < navData.length; ++i) {
         var section = navData[i].section;
@@ -55,7 +58,7 @@ function generateNav(navData) {
 		
 		var parent = $("<div class='parent'></div>")
 		parent.html(section);
-		$("#nav").append(parent);
+		nav.append(parent);
 
 		var children = $("<div class='children'></div>");
 		children.attr("id", "nav_children_" + (i+1).toString());
@@ -73,10 +76,13 @@ function generateNav(navData) {
 			}
 			children.append(child);
         }
-		$("#nav").append(children);
+		nav.append(children);
+
+		nav.show();
     }
 }
 generateNav(navContent);
+
 $("#nav_logo").bind("click touchstart touchmove touchend", function(){
 	click(navHide);
 })
