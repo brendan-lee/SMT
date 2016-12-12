@@ -83,9 +83,7 @@ function generateNav(navData) {
 }
 generateNav(navContent);
 
-$("#nav_logo").bind("click touchstart touchmove touchend", function(){
-	click(navHide);
-})
+onClick($('#nav_logo'), navHide);
 
 
 
@@ -95,11 +93,11 @@ $("#nav_logo").bind("click touchstart touchmove touchend", function(){
  * 点击折叠章节
  */
 
-function openNavItem(e){
-	var childrenDiv = $(e.target).next(".children");
+function openNavItem(evt){
+	var childrenDiv = $(evt.target).next(".children");
 
 	$("#nav .parent").css("background", ""); // 取消全部高亮
-	$(e.target).css("background", "#ddd"); // 高亮选择的项
+	$(evt.target).css("background", "#ddd"); // 高亮选择的项
 
 	// 展开/折叠
 	if (childrenDiv.css("height") == "0px"){ // 如果选中的项未展开
@@ -112,9 +110,10 @@ function openNavItem(e){
 	}
 }
 
-$("#nav .parent").click(function(e){
+onClick($('#nav .parent'), function(e) {
+	e = e || window.event;
 	openNavItem(e);
-});
+})
 
 
 
@@ -176,13 +175,10 @@ function navHide(){
 }
 
 // 点击导航栏外，关闭导航栏
-$("#nav_overlay").bind("click touchstart touchmove touchend", function(){
-	click(navHide);
-})
+onClick($('#nav_overlay'), navHide);
 
 // 导航按钮 点击事件
-$("#nav_btn").bind("click touchstart touchmove touchend", function(){
-	click(navDisp);
+onClick($('nav_btn'), navDisp);
 })
 
 
@@ -314,15 +310,12 @@ function menuToggle(){
 }
 
 // 菜单按钮 点击事件
-$("#menu_btn").bind("click touchstart touchmove touchend", function(){
-	click(menuToggle);
-})
+onClick($('#menu_btn'), menuToggle);
 
-// 点击菜单外关闭菜单
-$(document).bind("click touchstart touchmove touchend", function(e){
+onClick($(document), function(e){
 	e = e || window.event;
-	if ($(e.target).parents("#menu").length == 0 && e.target.id != "menu" && isMenuShow){
-		click(menuToggle);
+	if ($(e.target).parents('#menu').length == 0 && e.target.id != "menu" && isMenuShow){
+		menuToggle();
 	}
 })
 
@@ -348,12 +341,10 @@ function menuTo(id){
 }
 
 // 菜单项点击事件
-var menuItems = $("#menu [data-menuto]");
-menuItems.bind("click touchstart touchmove touchend", function(e){
-	click(function(){
-		menuTo($(e.target).attr("data-menuto"))
-	})
-})
+onClick($('#menu [data-menuto]'), function(e) {
+	e = e || window.event;
+	menuTo($(e.target).attr("data-menuto"));
+});
 
 
 
@@ -476,10 +467,10 @@ function findFoldableTables(){
 		}
 	}
 	
-	$('.fold_btn').bind("click touchstart touchmove touchend", function(e){
+	onClick($('.fold_btn'), function(e) {
 		e = e || window.event;
-		click(function(){tableFold(e.target)});
-	})
+		tableFold(e.target);
+	});
 }
 
 
@@ -525,9 +516,10 @@ for(var i = 0; i < saImg.length; i++){
 
 var magImgDiv = $(".magnifiable");
 magImgDiv.attr("title", "点击放大查看");
-magImgDiv.bind("click touchstart touchmove touchend", function(){
-	var src = this.src;
-	click(function(){magnifyImg(src)});
+
+onClick(magImgDiv, function(e) {
+	e = e || window.event;
+	magnifyImg(e.target.src);
 })
 
 
@@ -554,9 +546,7 @@ function magnifyImg(src){
 	})
 	
 	// 点击关闭图片
-	$("#mag_img_wrapper").bind("click touchstart touchmove touchend", function(){
-		click(closeImg);
-	})
+	onClick($("#mag_img_wrapper"), closeImg)
 */
 
 	// 暂定
@@ -681,9 +671,7 @@ function changeBT(){
 /**
  * 点击返回顶部
  */
-$(document.getElementById("big_title_div")).bind("click touchstart touchmove touchend", function(){
-	click(goTop)
-})
+onClick($('#big_title_div'), goTop);
 
 
 
@@ -703,34 +691,39 @@ $(document.getElementById("big_title_div")).bind("click touchstart touchmove tou
  * 避免click的300ms延迟
  */
 
-function click(func){
-	var e = window.event || arguments.callee.caller.arguments[0];
+function onClick(obj, func){
+	obj.on('click touchstart touchmove touchend', function() {
+		var e = window.event || arguments.callee.caller.arguments[0];
 	
-	switch (e.type){
-		case "touchstart":
-			startX = e.touches[0].pageX;
-			startY = e.touches[0].pageY;
-			spanX = 0;
-			spanY = 0;
-			break;
+		switch (e.type){
+			case "touchstart":
+				startX = e.touches[0].pageX;
+				startY = e.touches[0].pageY;
+				spanX = 0;
+				spanY = 0;
+				break;
+				
+			case "touchmove":
+				spanX = e.touches[0].pageX - startX;
+				spanY = e.touches[0].pageY - startY;
+				break;
 			
-		case "touchmove":
-			spanX = e.touches[0].pageX - startX;
-			spanY = e.touches[0].pageY - startY;
-			break;
-		
-		case "touchend":
-			if (Math.abs(spanX) < 3 && Math.abs(spanY) < 3){
-				func();
-			}
-			break;
-			
-		case "click":
-			if (!isMobile){
-				func();
-			}
-			break;
-	}
+			case "touchend":
+				if (Math.abs(spanX) < 3 && Math.abs(spanY) < 3){
+					obj.on()
+					func();
+				}
+				break;
+				
+			case "click":
+				if (!isMobile){
+					func();
+				}
+				break;
+		}
+	});
+	
+	
 }
 
 
@@ -774,8 +767,9 @@ document.onscroll = function (){
 document.ready = function(){
 	changeBT(); // 大标题缩放
 	findFoldableTables(); // 折叠表格
-	$('#reverse_chapter').bind("click touchstart touchmove touchend", function(){
-		click(function(){reverseChapter(false, 0)});
+	
+	onClick($('#reverse_chapter'), function() {
+		reverseChapter(false, 0);
 	})
 }
 
