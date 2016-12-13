@@ -179,9 +179,65 @@ onClick($('#nav_overlay'), navHide);
 
 // 导航按钮 点击事件
 onClick($('#nav_btn'), navDisp);
+
+/**
+ * Material Design按钮
+ */
+$('.md_btn').on('mousedown', function() {
+	var width = $(this).width();
+	var height = $(this).height();
+	
+	var html = '<div class="md_bg" style="top:' + getMousePos('y') + 'px; left:' + getMousePos('x')+ 'px;"></div>'
+	
+	$(this).append(html);
+	
+	var curMdBg = $(this).children('.md_bg:last');
+	
+	// 延迟1ms更新css，使过渡动画生效
+	setTimeout(function() {
+		curMdBg.css('box-shadow', '0 0 0 ' + (width > height ? width : height) + 'px #000')
+	}, 1);
+	
+	// 鼠标抬起 & 过渡动画结束 同时满足时，移除MD Background
+	$('body').one('mouseup', function() {
+		curMdBg.addClass('mouseup');
+		if (curMdBg.hasClass('trans_over'))
+			curMdBg.remove();
+	})
+	curMdBg.one('transitionend webkitTransitionEnd', function() {
+		curMdBg.addClass('trans_over');
+		if (curMdBg.hasClass('mouseup'))
+			curMdBg.remove();
+	})
 })
 
+/**
+ * 获取鼠标点击相对容器的位置
+ */
+function getMousePos(axis, event) {
+	var e = event || window.event;
+	var obj = e.target;
+	while (obj.className != 'md_btn') {
+		obj = obj.parentElement;
+	}
 
+	// 目标元素距窗口边框距离
+	var Left = obj.offsetLeft,
+		Top = obj.offsetTop;
+	while (obj.offsetParent != null) {
+		obj = obj.offsetParent;
+		Left += obj.offsetLeft;
+		Top += obj.offsetTop;
+	}
+
+	var x = e.clientX - Left;
+	var y = e.clientY - Top;
+
+	return {
+		'x': x,
+		'y': y
+	}[axis];
+}
 
 
 
