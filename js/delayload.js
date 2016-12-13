@@ -178,7 +178,7 @@ function navHide(){
 onClick($('#nav_overlay'), navHide);
 
 // 导航按钮 点击事件
-onClick($('nav_btn'), navDisp);
+onClick($('#nav_btn'), navDisp);
 })
 
 
