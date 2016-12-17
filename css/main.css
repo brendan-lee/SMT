@@ -57,6 +57,7 @@
 		z-index:7;
 		top:5px;
 		cursor:pointer;
+		border-radius: 50%;
 	}
 	
 	#buttons img {
@@ -76,7 +77,6 @@
 	}
 	
 	.md_btn {
-		border-radius: 50%;
 		overflow: hidden;
 	}
 	
