@@ -50,20 +50,46 @@
 	}
 
 /*按钮*/
-	#buttons #menu_btn, #buttons #nav_btn {
+	#menu_btn, #nav_btn {
 		position:fixed;
-		width: 25px;
+		width: 50px;
+		height: 50px;
 		z-index:7;
-		top:17.5px;
+		top:5px;
 		cursor:pointer;
 	}
-
-	#buttons #menu_btn {
-		right:17.5px;
+	
+	#buttons img {
+		position: absolute;
+		margin: -12.5px 0 0 -12.5px;
+		left: 50%;
+		top: 50%;
+	}
+	
+	#menu_btn {
+		right:5px;
 	}
 
-	#buttons #nav_btn {
-		left:17.5px;
+	#nav_btn {
+		left:5px;
+		cursor:pointer;
+	}
+	
+	.md_btn {
+		border-radius: 50%;
+		overflow: hidden;
+	}
+	
+	.md_bg {
+		width: 1px;
+		height: 1px;
+		box-shadow: 0 0 0 0 #000;
+		border-radius: 50%;
+		position: absolute;
+		background: #000;
+		opacity: 0.4;
+		transition: all 0.18s linear;
+		-webkit-transition: all 0.18s linear;
 	}
 
 /*目录*/

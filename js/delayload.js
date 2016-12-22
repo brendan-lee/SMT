@@ -46,36 +46,44 @@ var navContent = [
 
 // 写入导航栏
 function generateNav(navData) {
-    var html = "<img id='nav_logo' src='image/nav_logo.png' />\n";
+	var nav = $("#nav");
+	nav.hide();
+
+	var nav_logo = $("<img id='nav_logo' src='image/nav_logo.png' />");
+	nav.append(nav_logo);
 	
     for (var i = 0; i < navData.length; ++i) {
         var section = navData[i].section;
         var tutors = navData[i].tutors;
 		
-		html += "<div class='parent'> " + section + " </div>\n";
-		html += "<div id='nav_children_" + (i + 1) + "' class='children'>\n";
+		var parent = $("<div class='parent'></div>")
+		parent.html(section);
+		nav.append(parent);
+
+		var children = $("<div class='children'></div>");
+		children.attr("id", "nav_children_" + (i+1).toString());
 		
         for (var j = 0; j < tutors.length; ++j) {
 			var name = tutors[j].name;
 			var uri = tutors[j].uri;
 			var id = tutors[j].id;
 			
-            var tag = "<a class='child' href='" +  uri + "' ";
-			if (!!id) { tag += "id='" + id + "' " }; // 如果存在id，则写入
-			tag += "> " + name + " </a>";
-			
-			html += tag + "\n";
+			var child = $("<a class='child'></a>");
+			child.attr("href", uri);
+			child.html(name);
+			if (typeof(id) != "undefined") {
+				child.attr("id", id);
+			}
+			children.append(child);
         }
-		html += "</div>\n"; // children
+		nav.append(children);
+
+		nav.show();
     }
-    
-	html += "<br />\n";
-	return html;
 }
-$("#nav").html(generateNav(navContent));
-$("#nav_logo").bind("click touchstart touchmove touchend", function(){
-	click(navHide);
-})
+generateNav(navContent);
+
+onClick($('#nav_logo'), navHide);
 
 
 
@@ -85,11 +93,11 @@ $("#nav_logo").bind("click touchstart touchmove touchend", function(){
  * 点击折叠章节
  */
 
-function openNavItem(e){
-	var childrenDiv = $(e.target).next(".children");
+function openNavItem(evt){
+	var childrenDiv = $(evt.target).next(".children");
 
 	$("#nav .parent").css("background", ""); // 取消全部高亮
-	$(e.target).css("background", "#ddd"); // 高亮选择的项
+	$(evt.target).css("background", "#ddd"); // 高亮选择的项
 
 	// 展开/折叠
 	if (childrenDiv.css("height") == "0px"){ // 如果选中的项未展开
@@ -102,9 +110,10 @@ function openNavItem(e){
 	}
 }
 
-$("#nav .parent").click(function(e){
+onClick($('#nav .parent'), function(e) {
+	e = e || window.event;
 	openNavItem(e);
-});
+})
 
 
 
@@ -166,16 +175,69 @@ function navHide(){
 }
 
 // 点击导航栏外，关闭导航栏
-$("#nav_overlay").bind("click touchstart touchmove touchend", function(){
-	click(navHide);
-})
+onClick($('#nav_overlay'), navHide);
 
 // 导航按钮 点击事件
-$("#nav_btn").bind("click touchstart touchmove touchend", function(){
-	click(navDisp);
+onClick($('#nav_btn'), navDisp);
+
+/**
+ * Material Design按钮
+ */
+$('.md_btn').on('mousedown', function() {
+	var width = $(this).width();
+	var height = $(this).height();
+	
+	var html = '<div class="md_bg" style="top:' + getMousePos('y') + 'px; left:' + getMousePos('x')+ 'px;"></div>'
+	
+	$(this).append(html);
+	
+	var curMdBg = $(this).children('.md_bg:last');
+	
+	// 延迟1ms更新css，使过渡动画生效
+	setTimeout(function() {
+		curMdBg.css('box-shadow', '0 0 0 ' + (width > height ? width : height) + 'px #000')
+	}, 1);
+	
+	// 鼠标抬起 & 过渡动画结束 同时满足时，移除MD Background
+	$('body').one('mouseup', function() {
+		curMdBg.addClass('mouseup');
+		if (curMdBg.hasClass('trans_over'))
+			curMdBg.remove();
+	})
+	curMdBg.one('transitionend webkitTransitionEnd', function() {
+		curMdBg.addClass('trans_over');
+		if (curMdBg.hasClass('mouseup'))
+			curMdBg.remove();
+	})
 })
 
+/**
+ * 获取鼠标点击相对容器的位置
+ */
+function getMousePos(axis, event) {
+	var e = event || window.event;
+	var obj = e.target;
+	while (obj.className != 'md_btn') {
+		obj = obj.parentElement;
+	}
 
+	// 目标元素距窗口边框距离
+	var Left = obj.offsetLeft,
+		Top = obj.offsetTop;
+	while (obj.offsetParent != null) {
+		obj = obj.offsetParent;
+		Left += obj.offsetLeft;
+		Top += obj.offsetTop;
+	}
+
+	var x = e.clientX - Left;
+	var y = e.clientY - Top;
+
+	return {
+		'x': x,
+		'y': y
+	}[axis];
+}
 
 
 
@@ -304,15 +366,12 @@ function menuToggle(){
 }
 
 // 菜单按钮 点击事件
-$("#menu_btn").bind("click touchstart touchmove touchend", function(){
-	click(menuToggle);
-})
+onClick($('#menu_btn'), menuToggle);
 
-// 点击菜单外关闭菜单
-$(document).bind("click touchstart touchmove touchend", function(e){
+onClick($(document), function(e){
 	e = e || window.event;
-	if ($(e.target).parents("#menu").length == 0 && e.target.id != "menu" && isMenuShow){
-		click(menuToggle);
+	if ($(e.target).parents('#menu').length == 0 && e.target.id != "menu" && isMenuShow){
+		menuToggle();
 	}
 })
 
@@ -338,12 +397,10 @@ function menuTo(id){
 }
 
 // 菜单项点击事件
-var menuItems = $("#menu [data-menuto]");
-menuItems.bind("click touchstart touchmove touchend", function(e){
-	click(function(){
-		menuTo($(e.target).attr("data-menuto"))
-	})
-})
+onClick($('#menu [data-menuto]'), function(e) {
+	e = e || window.event;
+	menuTo($(e.target).attr("data-menuto"));
+});
 
 
 
@@ -466,10 +523,10 @@ function findFoldableTables(){
 		}
 	}
 	
-	$('.fold_btn').bind("click touchstart touchmove touchend", function(e){
+	onClick($('.fold_btn'), function(e) {
 		e = e || window.event;
-		click(function(){tableFold(e.target)});
-	})
+		tableFold(e.target);
+	});
 }
 
 
@@ -515,9 +572,10 @@ for(var i = 0; i < saImg.length; i++){
 
 var magImgDiv = $(".magnifiable");
 magImgDiv.attr("title", "点击放大查看");
-magImgDiv.bind("click touchstart touchmove touchend", function(){
-	var src = this.src;
-	click(function(){magnifyImg(src)});
+
+onClick(magImgDiv, function(e) {
+	e = e || window.event;
+	magnifyImg(e.target.src);
 })
 
 
@@ -544,9 +602,7 @@ function magnifyImg(src){
 	})
 	
 	// 点击关闭图片
-	$("#mag_img_wrapper").bind("click touchstart touchmove touchend", function(){
-		click(closeImg);
-	})
+	onClick($("#mag_img_wrapper"), closeImg)
 */
 
 	// 暂定
@@ -671,9 +727,7 @@ function changeBT(){
 /**
  * 点击返回顶部
  */
-$(document.getElementById("big_title_div")).bind("click touchstart touchmove touchend", function(){
-	click(goTop)
-})
+onClick($('#big_title_div'), goTop);
 
 
 
@@ -693,34 +747,39 @@ $(document.getElementById("big_title_div")).bind("click touchstart touchmove tou
  * 避免click的300ms延迟
  */
 
-function click(func){
-	var e = window.event || arguments.callee.caller.arguments[0];
+function onClick(obj, func){
+	obj.on('click touchstart touchmove touchend', function() {
+		var e = window.event || arguments.callee.caller.arguments[0];
 	
-	switch (e.type){
-		case "touchstart":
-			startX = e.touches[0].pageX;
-			startY = e.touches[0].pageY;
-			spanX = 0;
-			spanY = 0;
-			break;
+		switch (e.type){
+			case "touchstart":
+				startX = e.touches[0].pageX;
+				startY = e.touches[0].pageY;
+				spanX = 0;
+				spanY = 0;
+				break;
+				
+			case "touchmove":
+				spanX = e.touches[0].pageX - startX;
+				spanY = e.touches[0].pageY - startY;
+				break;
 			
-		case "touchmove":
-			spanX = e.touches[0].pageX - startX;
-			spanY = e.touches[0].pageY - startY;
-			break;
-		
-		case "touchend":
-			if (Math.abs(spanX) < 3 && Math.abs(spanY) < 3){
-				func();
-			}
-			break;
-			
-		case "click":
-			if (!isMobile){
-				func();
-			}
-			break;
-	}
+			case "touchend":
+				if (Math.abs(spanX) < 3 && Math.abs(spanY) < 3){
+					obj.on()
+					func();
+				}
+				break;
+				
+			case "click":
+				if (!isMobile){
+					func();
+				}
+				break;
+		}
+	});
+	
+	
 }
 
 
@@ -764,8 +823,9 @@ document.onscroll = function (){
 document.ready = function(){
 	changeBT(); // 大标题缩放
 	findFoldableTables(); // 折叠表格
-	$('#reverse_chapter').bind("click touchstart touchmove touchend", function(){
-		click(function(){reverseChapter(false, 0)});
+	
+	onClick($('#reverse_chapter'), function() {
+		reverseChapter(false, 0);
 	})
 }
 
