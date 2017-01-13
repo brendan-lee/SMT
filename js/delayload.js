@@ -767,13 +767,13 @@ function onClick(obj, func){
 			case "touchend":
 				if (Math.abs(spanX) < 3 && Math.abs(spanY) < 3){
 					obj.on()
-					func();
+					func(e);
 				}
 				break;
 				
 			case "click":
 				if (!isMobile){
-					func();
+					func(e);
 				}
 				break;
 		}
