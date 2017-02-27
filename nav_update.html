@@ -35,10 +35,10 @@
 	<!--导航-->
 	<div id="nav" class="nav" data-open="2"></div>
 	<div id="nav_overlay"></div>
-	
+
 	<!--顶栏-->
 	<div id="big_title_div">导航版本更新&amp;离线</div>
-	<div id="last_update">——更新日期 2016年2月5日——</div>
+	<div id="last_update">——更新日期 2017年2月27日——</div>
 	<div id="top_box"></div>
 	<div id="top_box_top"></div>
 	<div id="top_box_strutting"></div>
@@ -49,8 +49,10 @@
 			<h1>说明</h1>
 			<div class="content">
 			<script>
+				if(String(document.location.href).indexOf("survivalcraft.cn") >= 0)document.write("体验版网址：<a href='https://lzm956902416.github.io/SMT/' target='_blank'>https://lzm956902416.github.io/SMT/</a><br />");
+				if(String(document.location.href).indexOf("lzm956902416.github.io") >= 0)document.write("在线版网址：<a href='http://survivalcraft.cn/smt/index.html' target='_blank'>http://smt.survivalcraft.cn</a><br />");
 				if (isOnline == false){
-					document.write("在线版网址：<a href='http://survivalcraft.cn/smt/index.html' target='_blank'>http://smt.survivalcraft.cn</a><br />");
+					document.write("在线版网址：<a href='http://survivalcraft.cn/smt/index.html' target='_blank'>http://smt.survivalcraft.cn</a><br />体验版网址：<a href='https://lzm956902416.github.io/SMT/' target='_blank'>https://lzm956902416.github.io/SMT/</a><br />");
 				}
 			</script>
 				版本号中四组数字从左到右代表的意思分别是：<br />
@@ -60,9 +62,16 @@
 		<div class="chapter">
 			<h1>离线导航下载</h1>
 			<div class="content">
-				点击<a href="http://pan.baidu.com/share/link?shareid=317197273&uk=2788149454" target="_blank">此处</a>下载
+				<a href="http://pan.baidu.com/share/link?shareid=317197273&uk=2788149454" target="_blank">离线正式版</a><br />
+				<a href="https://github.com/lzm956902416/SMT/archive/master.zip" target="_blank">离线体验版</a>
 			</div>
-			<script>if(isOnline){if(ua.match(/android/i)){document.write("<div class='content'>安卓设备建议使用UC浏览器、QQ浏览器打开离线导航</div>")}else if(ua.match(/(ipad|iphone|ipod)/i)){document.write("<div class='content'>IOS设备建议使用<a href='resources.html#cont_3'>Filza、ifile</a>打开离线导航</div>")}}</script>
+			<script>if(isOnline){if(ua.match(/android/i)){document.write("<div class='content'>安卓设备建议使用<a href='http://www.coolapk.com/apk/com.UCMobile' target='_blank'>UC浏览器</a>、<a href='http://www.coolapk.com/apk/mark.via' target='_blank'>Via浏览器</a>打开离线导航</div>")}else if(ua.match(/(ipad|iphone|ipod)/i)){document.write("<div class='content'>IOS设备建议使用<a href='resources.html#cont_3'>Filza、ifile</a>打开离线导航</div>")}}</script>
+		</div>
+		<div class="chapter">
+			<h1>完整版更新日志</h1>
+			<div class="content">
+				<a href="https://github.com/lzm956902416/SMT/commits/master" target="_blank">点击查看</a>
+			</div>
 		</div>
 		<div class="chapter">
 			<h1>2.7.7.12</h1>
