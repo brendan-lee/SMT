@@ -57,6 +57,7 @@
 		z-index:7;
 		top:5px;
 		cursor:pointer;
+		border-radius: 50%;
 	}
 	
 	#buttons img {
@@ -76,7 +77,6 @@
 	}
 	
 	.md_btn {
-		border-radius: 50%;
 		overflow: hidden;
 	}
 	
@@ -88,8 +88,11 @@
 		position: absolute;
 		background: #000;
 		opacity: 0.4;
-		transition: all 0.18s linear;
-		-webkit-transition: all 0.18s linear;
+		transition: opacity 0.08s linear;
+		-webkit-transition: opacity 0.08s linear;
+		transition: all 0.2s ease-in;
+		-webkit-transition: all 0.2s ease-in;
+		
 	}
 
 /*目录*/
@@ -174,6 +177,7 @@
 		font-weight:bold;
 		cursor: pointer;
 		transition: background 0.06s linear;
+		position: relative;
 	}
 	#nav .child {
 		display: block;
@@ -182,7 +186,9 @@
 		line-height: 40px;
 		padding-left: 30px;
 		font-size:16px;
-		transition: background 0.08s linear, color 0.1s linear;
+		position: relative;
+		color: #03a9f4;
+		cursor: pointer;
 	}
 	#nav .children {
 		transition: height 0.3s;
@@ -191,9 +197,6 @@
 	}
 	#nav .parent:hover, #nav .child:hover {
 		background: #eee;
-	}
-	#nav .parent:active, #nav .child:active {
-		background: #ddd;
 	}
 
 /*动画*/
