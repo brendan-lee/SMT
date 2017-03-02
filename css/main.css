@@ -3,6 +3,12 @@
 	overflow-y: hidden;
 }
 
+body {
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
+	-webkit-transition: opacity 0.2s ease-in-out;
+}
+
 /*顶栏*/
 	#top_box, #top_box_top{
 		position:fixed;

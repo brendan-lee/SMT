@@ -1,4 +1,9 @@
-﻿/********************
+﻿// 页面渐显
+setTimeout(function() {
+	$("body").css("opacity", 1);
+}, 1);
+
+/********************
  *       导航
  ********************/
 
@@ -89,6 +94,8 @@ onClick($('#nav_logo'), navHide);
 	var children = $("#nav").find(".child");
 	for (var i = 0; i < children.length; i++) {
 		onClick(children.eq(i), function() {
+			$("body").css("opacity", 0)
+			
 			var e = window.event || arguments.callee.caller.arguments[0];
 			setTimeout(function() {
 				window.location.href = $(e.target).attr("data-uri");
