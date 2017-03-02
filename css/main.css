@@ -3,6 +3,12 @@
 	overflow-y: hidden;
 }
 
+body {
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
+	-webkit-transition: opacity 0.2s ease-in-out;
+}
+
 /*顶栏*/
 	#top_box, #top_box_top{
 		position:fixed;
@@ -28,12 +34,12 @@
 	#big_title_div {/*标题 滚动为0时的样式*/
 		position:absolute;
 		z-index:6;
-		color:#FFF; 
-		font-size:50px; 
+		color:#FFF;
+		font-size:50px;
 		text-shadow:1px 1px 3px #000;
 		font-weight:bold;
 		cursor:pointer;
-		top: 160px;
+		top: 140px;
 		left: 22.5%; /* 22.5% = content_box.width(55%) / 2*/
 	}
 	
@@ -45,7 +51,7 @@
 		text-shadow:1px 1px 2px #000;
 		font-weight:lighter;
 		cursor:pointer;
-		top: 220px;
+		top: 215px;
 		left: 22.5%; /* 22.5% = content_box.width(55%) / 2*/
 	}
 

@@ -1,4 +1,9 @@
-﻿/********************
+﻿// 页面渐显
+setTimeout(function() {
+	$("body").css("opacity", 1);
+}, 1);
+
+/********************
  *       导航
  ********************/
 
@@ -89,6 +94,8 @@ onClick($('#nav_logo'), navHide);
 	var children = $("#nav").find(".child");
 	for (var i = 0; i < children.length; i++) {
 		onClick(children.eq(i), function() {
+			$("body").css("opacity", 0)
+			
 			var e = window.event || arguments.callee.caller.arguments[0];
 			setTimeout(function() {
 				window.location.href = $(e.target).attr("data-uri");
@@ -704,9 +711,9 @@ function changeBT(){
 			// 电脑
 			else bigTitle.css({
 				"position": "fixed",
-				"top": "15px",
-				"left": "60px",
-				"font-size": "24px"
+				"top": "13px",
+				"left": "80px",
+				"font-size": "25px"
 			});
 			bigTitle.css({
 				"animation": "fade_in 0.2s linear",
@@ -735,7 +742,7 @@ function changeBT(){
 			else {
 				bigTitle.css({
 					"position": "absolute",
-					"top": "160px",
+					"top": "140px",
 					"left": "22.5%",
 					"font-size": "50px"
 				});
