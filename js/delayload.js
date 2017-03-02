@@ -704,9 +704,9 @@ function changeBT(){
 			// 电脑
 			else bigTitle.css({
 				"position": "fixed",
-				"top": "15px",
-				"left": "60px",
-				"font-size": "24px"
+				"top": "13px",
+				"left": "80px",
+				"font-size": "25px"
 			});
 			bigTitle.css({
 				"animation": "fade_in 0.2s linear",
@@ -735,7 +735,7 @@ function changeBT(){
 			else {
 				bigTitle.css({
 					"position": "absolute",
-					"top": "160px",
+					"top": "140px",
 					"left": "22.5%",
 					"font-size": "50px"
 				});
