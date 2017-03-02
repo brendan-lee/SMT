@@ -49,18 +49,18 @@ function generateNav(navData) {
 	var nav = $("#nav");
 	nav.hide();
 
-	var nav_logo = $("<img id='nav_logo' src='image/nav_logo.png' />");
+	var nav_logo = $("<img id=\"nav_logo\" src=\"image/nav_logo.png\" />");
 	nav.append(nav_logo);
 
     for (var i = 0; i < navData.length; ++i) {
         var section = navData[i].section;
         var tutors = navData[i].tutors;
 
-		var parent = $("<div class='parent'></div>")
-		parent.html(section);
+		var parent = $("<div class=\"parent\"></div>")
+		parent.text(section);
 		nav.append(parent);
 
-		var children = $("<div class='children'></div>");
+		var children = $("<div class=\"children\"></div>");
 		children.attr("id", "nav_children_" + (i+1).toString());
 
         for (var j = 0; j < tutors.length; ++j) {
@@ -68,9 +68,9 @@ function generateNav(navData) {
 			var uri = tutors[j].uri;
 			var id = tutors[j].id;
 
-			var child = $("<a class='child'></a>");
+			var child = $("<a class=\"child\">");
 			child.attr("href", uri);
-			child.html(name);
+			child.text(name);
 			if (typeof(id) != "undefined") {
 				child.attr("id", id);
 			}
