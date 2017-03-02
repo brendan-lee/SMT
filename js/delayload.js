@@ -56,7 +56,7 @@ function generateNav(navData) {
         var section = navData[i].section;
         var tutors = navData[i].tutors;
 
-		var parent = $("<div class=\"parent\"></div>")
+		var parent = $("<div class=\"parent md_btn\"></div>")
 		parent.text(section);
 		nav.append(parent);
 
@@ -68,8 +68,8 @@ function generateNav(navData) {
 			var uri = tutors[j].uri;
 			var id = tutors[j].id;
 
-			var child = $("<a class=\"child\">");
-			child.attr("href", uri);
+			var child = $("<a class=\"child md_btn\">");
+			child.attr("data-uri", uri);
 			child.text(name);
 			if (typeof(id) != "undefined") {
 				child.attr("id", id);
@@ -82,8 +82,20 @@ function generateNav(navData) {
     }
 }
 generateNav(navContent);
-
 onClick($('#nav_logo'), navHide);
+
+// 延迟200ms后跳转，以完整播放按钮的过渡动画
+(function() {
+	var children = $("#nav").find(".child");
+	for (var i = 0; i < children.length; i++) {
+		onClick(children.eq(i), function() {
+			var e = window.event || arguments.callee.caller.arguments[0];
+			setTimeout(function() {
+				window.location.href = $(e.target).attr("data-uri");
+			}, 200)
+		})
+	}
+})()
 
 
 
@@ -111,7 +123,7 @@ function openNavItem(evt){
 }
 
 onClick($('#nav .parent'), function(e) {
-	e = e || window.event;
+	e = window.event || arguments.callee.caller.arguments[0];
 	openNavItem(e);
 })
 
@@ -136,7 +148,7 @@ function highlightCurNavItem(){
 	var page = document.location.toString(),
 		tmp = page.split("/");
 	page = tmp[tmp.length - 1]; // 获取当前页面名称
-	$("[href='" + page + "']").css({"background":$("#top_box").css("background-color"), "color":"#fff"}); //href=当前页名称的元素高亮
+	$("[data-uri='" + page + "']").css({"background":$("#top_box").css("background-color"), "color":"#fff"}); //data-uri = 当前页名称的元素高亮
 }
 highlightCurNavItem();
 
@@ -184,30 +196,49 @@ onClick($('#nav_btn'), navDisp);
  * Material Design按钮
  */
 $('.md_btn').on('mousedown', function() {
-	var width = $(this).width();
-	var height = $(this).height();
-
+	var padding = new Array(
+		$(this).css("padding-top"),
+		$(this).css("padding-right"),
+		$(this).css("padding-bottom"),
+		$(this).css("padding-left")
+	);
+	
+	for (var i = 0; i < padding.length; i++) {
+		padding[i] = parseInt(padding[i].substr(0, padding[i].length - 2));
+	}
+	
+	var width = $(this).width() + padding[1] + padding[3] + $(this).height();
+	var height = $(this).height() + padding[0] + padding[2] + $(this).width();
+	
 	var html = '<div class="md_bg" style="top:' + getMousePos('y') + 'px; left:' + getMousePos('x')+ 'px;"></div>'
-
+	
 	$(this).append(html);
-
+	
 	var curMdBg = $(this).children('.md_bg:last');
-
+	
 	// 延迟1ms更新css，使过渡动画生效
 	setTimeout(function() {
-		curMdBg.css('box-shadow', '0 0 0 ' + (width > height ? width : height) + 'px #000')
+		curMdBg.css('box-shadow', '0 0 0 ' + (width > height ? width : height) + 'px #000');
 	}, 1);
-
+	
 	// 鼠标抬起 & 过渡动画结束 同时满足时，移除MD Background
 	$('body').one('mouseup', function() {
 		curMdBg.addClass('mouseup');
-		if (curMdBg.hasClass('trans_over'))
-			curMdBg.remove();
+		if (curMdBg.hasClass('trans_over')) {
+			curMdBg.css("opacity", 0);
+			curMdBg.one("transitionend webkitTransitionEnd", function() {
+				curMdBg.remove();
+			})
+		}
 	})
 	curMdBg.one('transitionend webkitTransitionEnd', function() {
 		curMdBg.addClass('trans_over');
-		if (curMdBg.hasClass('mouseup'))
-			curMdBg.remove();
+		if (curMdBg.hasClass('mouseup')) {
+			curMdBg.css("opacity", 0);
+			curMdBg.one("transitionend webkitTransitionEnd", function() {
+				curMdBg.remove();
+			})
+		}
 	})
 })
 
@@ -217,7 +248,7 @@ $('.md_btn').on('mousedown', function() {
 function getMousePos(axis, event) {
 	var e = event || window.event;
 	var obj = e.target;
-	while (obj.className != 'md_btn') {
+	while (obj.className.indexOf('md_btn') == -1) {
 		obj = obj.parentElement;
 	}
 
@@ -247,7 +278,7 @@ function getMousePos(axis, event) {
 
 // 导航栏外
 $("#nav_overlay").bind("mousewheel DOMMouseScroll touchmove", function(e){
-	e = e || window.event;
+	e = window.event || arguments.callee.caller.arguments[0];
 	e.preventDefault();
 	e.returnValue = false;
 })
@@ -256,13 +287,13 @@ $("#nav_overlay").bind("mousewheel DOMMouseScroll touchmove", function(e){
 $("#nav").bind("mousewheel DOMMouseScroll", function(e){
 	e = e || window.event
 		nav = $("#nav");
-
+		
 	// 没有滚动条
 	if (nav.prop("scrollHeight") == $(window).height()){
 		e.returnValue = false;
 		e.preventDefault();
 	}
-
+	
 	// 有滚动条,位于顶端
 	else if (nav.scrollTop() == 0){
 		if (e.wheelDelta){
@@ -360,7 +391,7 @@ function menuToggle(){
 		}, 1);
 		$("#menu").bind("animationend webkitAnimationEnd", function(){
 			$("#menu").unbind();
-
+			
 		})
 	}
 }
@@ -369,7 +400,7 @@ function menuToggle(){
 onClick($('#menu_btn'), menuToggle);
 
 onClick($(document), function(e){
-	e = e || window.event;
+	e = window.event || arguments.callee.caller.arguments[0];
 	if ($(e.target).parents('#menu').length == 0 && e.target.id != "menu" && isMenuShow){
 		menuToggle();
 	}
@@ -398,7 +429,7 @@ function menuTo(id){
 
 // 菜单项点击事件
 onClick($('#menu [data-menuto]'), function(e) {
-	e = e || window.event;
+	e = window.event || arguments.callee.caller.arguments[0];
 	menuTo($(e.target).attr("data-menuto"));
 });
 
@@ -491,7 +522,7 @@ function tableFold(target){
 	var table = $(target).parents('table'),
 		content = table.find('tr:not(:first)'),
 		img = table.find('tr:first').find('td:last').children('img');
-
+		
 	if (table.hasClass('folded')){
 		table.removeClass('folded');
 		content.css('display', 'table-row');
@@ -512,19 +543,19 @@ function findFoldableTables(){
 	else {
 		var threshold = 600;
 	}
-
+	
 	for (var i = 0; i < tables.length; i++){
 		if (tables.eq(i).height() > threshold){
 			var td = tables.eq(i).find('tr:first').find('td:last');
-
+			
 			td.css({'position':'relative', 'padding-right':'80px'});
 			td.append('<img class="fold_btn" style="position:absolute; right:3px; cursor:pointer;" />');
 			tableFold(tables.eq(i).children().eq(0));
 		}
 	}
-
+	
 	onClick($('.fold_btn'), function(e) {
-		e = e || window.event;
+		e = window.event || arguments.callee.caller.arguments[0];
 		tableFold(e.target);
 	});
 }
@@ -574,7 +605,7 @@ var magImgDiv = $(".magnifiable");
 magImgDiv.attr("title", "点击放大查看");
 
 onClick(magImgDiv, function(e) {
-	e = e || window.event;
+	e = window.event || arguments.callee.caller.arguments[0];
 	magnifyImg(e.target.src);
 })
 
@@ -600,7 +631,7 @@ function magnifyImg(src){
 		// 明确img宽度，以在首次滚轮缩放时产生transition动画
 		magImg.width(magImg.width());
 	})
-
+	
 	// 点击关闭图片
 	onClick($("#mag_img_wrapper"), closeImg)
 */
@@ -683,7 +714,7 @@ function changeBT(){
 			});
 		});
 	}
-
+	
 	// 滚动低于阈值
 	else if ($(document).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
 		lastBtPos = $(document).scrollTop();
@@ -750,7 +781,7 @@ onClick($('#big_title_div'), goTop);
 function onClick(obj, func){
 	obj.on('click touchstart touchmove touchend', function() {
 		var e = window.event || arguments.callee.caller.arguments[0];
-
+		
 		switch (e.type){
 			case "touchstart":
 				startX = e.touches[0].pageX;
@@ -758,19 +789,19 @@ function onClick(obj, func){
 				spanX = 0;
 				spanY = 0;
 				break;
-
+				
 			case "touchmove":
 				spanX = e.touches[0].pageX - startX;
 				spanY = e.touches[0].pageY - startY;
 				break;
-
+				
 			case "touchend":
 				if (Math.abs(spanX) < 3 && Math.abs(spanY) < 3){
 					obj.on()
 					func(e);
 				}
 				break;
-
+				
 			case "click":
 				if (!isMobile){
 					func(e);
@@ -778,8 +809,6 @@ function onClick(obj, func){
 				break;
 		}
 	});
-
-
 }
 
 
@@ -823,7 +852,7 @@ document.onscroll = function (){
 document.ready = function(){
 	changeBT(); // 大标题缩放
 	findFoldableTables(); // 折叠表格
-
+	
 	onClick($('#reverse_chapter'), function() {
 		reverseChapter(false, 0);
 	})
@@ -943,5 +972,5 @@ document.ready = function(){
 		e.preventDefault();
 		e.returnValue = false;
 	}
-
+	
 */
