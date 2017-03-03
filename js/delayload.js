@@ -503,6 +503,12 @@ function reverseChapter(scroll, addScrollDis) {
 			$(document).scrollTop() - $(window).height() - $("#top_box").height() + addScrollDis;
 		$("html, body").animate({scrollTop: targetScroll}, 250);
 	}
+	
+	// 重新绑定菜单项点击事件
+	onClick($('#menu [data-menuto]'), function(e) {
+		e = window.event || arguments.callee.caller.arguments[0];
+		menuTo($(e.target).attr("data-menuto"));
+	});
 
 	// 关闭菜单
 	menuToggle();
