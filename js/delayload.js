@@ -89,7 +89,7 @@ function generateNav(navData) {
 generateNav(navContent);
 onClick($('#nav_logo'), navHide);
 
-// 延迟200ms后跳转，以完整播放按钮的过渡动画
+// 延迟250ms后跳转，以完整播放按钮的过渡动画
 (function() {
 	var children = $("#nav").find(".child");
 	for (var i = 0; i < children.length; i++) {
@@ -99,7 +99,7 @@ onClick($('#nav_logo'), navHide);
 			var e = window.event || arguments.callee.caller.arguments[0];
 			setTimeout(function() {
 				window.location.href = $(e.target).attr("data-uri");
-			}, 200)
+			}, 250)
 		})
 	}
 })()
