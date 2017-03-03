@@ -42,12 +42,12 @@ body {
 		top: 140px;
 		left: 22.5%; /* 22.5% = content_box.width(55%) / 2*/
 	}
-	
+
 	#last_update {/*更新日期 滚动为0时的样式*/
 		position:absolute;
 		z-index:6;
-		color:#FFF; 
-		font-size:20px; 
+		color:#FFF;
+		font-size:20px;
 		text-shadow:1px 1px 2px #000;
 		font-weight:lighter;
 		cursor:pointer;
@@ -65,14 +65,14 @@ body {
 		cursor:pointer;
 		border-radius: 50%;
 	}
-	
+
 	#buttons img {
 		position: absolute;
 		margin: -12.5px 0 0 -12.5px;
 		left: 50%;
 		top: 50%;
 	}
-	
+
 	#menu_btn {
 		right:5px;
 	}
@@ -81,11 +81,11 @@ body {
 		left:5px;
 		cursor:pointer;
 	}
-	
+
 	.md_btn {
 		overflow: hidden;
 	}
-	
+
 	.md_bg {
 		width: 1px;
 		height: 1px;
@@ -98,7 +98,7 @@ body {
 		-webkit-transition: opacity 0.08s linear;
 		transition: all 0.25s ease-out;
 		-webkit-transition: all 0.25s ease-out;
-		
+
 	}
 
 /*目录*/
@@ -113,13 +113,13 @@ body {
 		box-shadow:0 1px 6px #000;
 		border-radius:2px;
 	}
-	
+
 	#menu li {/*列表项*/
 		list-style:none;
 		cursor:default;
 		font-size:16px;
 	}
-	
+
 	#menu li span {
 		cursor:pointer;
 	}
@@ -179,8 +179,7 @@ body {
 		height:40px;
 		line-height: 40px;
 		padding-left: 20px;
-		font-size:20px;
-		font-weight:bold;
+		font-size:18px;
 		cursor: pointer;
 		transition: background 0.06s linear;
 		position: relative;
@@ -190,7 +189,7 @@ body {
 		width: calc(100% - 30px);
 		height: 40px;
 		line-height: 40px;
-		padding-left: 30px;
+		padding-left: 40px;
 		font-size:16px;
 		position: relative;
 		color: #03a9f4;
@@ -318,8 +317,8 @@ body {
 			visibility: hidden;
 		}
 	}
-	
-	
+
+
 ::-webkit-scrollbar{width:12px;height:12px;margin:0;}
 ::-webkit-scrollbar-button{height:0;width:0;}
 ::-webkit-scrollbar-button:horizontal{background-color:transparent;width:8px;}
