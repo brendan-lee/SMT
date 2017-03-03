@@ -5,8 +5,8 @@
 
 body {
 	opacity: 0;
-	transition: opacity 0.2s ease-in-out;
-	-webkit-transition: opacity 0.2s ease-in-out;
+	transition: opacity 0.25s ease-in-out;
+	-webkit-transition: opacity 0.25s ease-in-out;
 }
 
 /*顶栏*/
@@ -96,8 +96,8 @@ body {
 		opacity: 0.4;
 		transition: opacity 0.08s linear;
 		-webkit-transition: opacity 0.08s linear;
-		transition: all 0.2s ease-in;
-		-webkit-transition: all 0.2s ease-in;
+		transition: all 0.25s ease-out;
+		-webkit-transition: all 0.25s ease-out;
 		
 	}
 
