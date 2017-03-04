@@ -710,9 +710,10 @@ function changeBT(){
 			// 移动端
 			if (isMobile) bigTitle.css({
 				"position": "fixed",
-				"top": "12px",
+				"top": "0px",
 				"left": "40px",
-				"font-size": "20px"
+				"font-size": "20px",
+				"line-height": $("#top_box").css("height")
 			});
 			// 电脑
 			else bigTitle.css({
