@@ -202,7 +202,7 @@ onClick($('#nav_btn'), navDisp);
 /**
  * Material Design按钮
  */
-$('.md_btn').on('mousedown', function() {
+$('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {
 	var padding = new Array(
 		$(this).css("padding-top"),
 		$(this).css("padding-right"),
@@ -253,12 +253,12 @@ $('.md_btn').on('mousedown', function() {
  * 获取鼠标点击相对容器的位置
  */
 function getMousePos(axis, event) {
-	var e = event || window.event;
+	var e = window.event || arguments.callee.caller.arguments[0];
 	var obj = e.target;
 	while (obj.className.indexOf('md_btn') == -1) {
 		obj = obj.parentElement;
 	}
-
+	
 	// 目标元素距窗口边框距离
 	var Left = obj.offsetLeft,
 		Top = obj.offsetTop;
@@ -267,9 +267,12 @@ function getMousePos(axis, event) {
 		Left += obj.offsetLeft;
 		Top += obj.offsetTop;
 	}
-
-	var x = e.clientX - Left;
-	var y = e.clientY - Top;
+	
+	var posX = e.clientX || e.changedTouches[0].clientX;
+	var posY = e.clientY || e.changedTouches[0].clientY;
+	
+	var x = posX - Left;
+	var y = posY - Top;
 
 	return {
 		'x': x,
@@ -710,16 +713,18 @@ function changeBT(){
 			// 移动端
 			if (isMobile) bigTitle.css({
 				"position": "fixed",
-				"top": "12px",
+				"top": "0px",
 				"left": "40px",
-				"font-size": "20px"
+				"font-size": "20px",
+				"line-height": $("#top_box").css("height")
 			});
 			// 电脑
 			else bigTitle.css({
 				"position": "fixed",
-				"top": "13px",
+				"top": "0px",
 				"left": "80px",
-				"font-size": "25px"
+				"font-size": "25px",
+				"line-height": $("#top_box").css("height")
 			});
 			bigTitle.css({
 				"animation": "fade_in 0.2s linear",

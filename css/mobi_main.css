@@ -3,6 +3,12 @@
 	overflow-y: hidden;
 }
 
+body {
+	opacity: 0;
+	transition: opacity 0.25s ease-in-out;
+	-webkit-transition: opacity 0.25s ease-in-out;
+}
+
 /*顶栏*/
 	#top_box, #top_box_top{
 		position:fixed;
@@ -48,21 +54,46 @@
 	}
 
 /*按钮*/
-	#buttons #menu_btn, #buttons #nav_btn {
+	#menu_btn, #nav_btn {
 		position:fixed;
-		width: 25px;
+		width: 36px;
+		height: 36px;
 		z-index:7;
-		top:10.5px;
+		top:5px;
+		border-radius: 50%;
 	}
 
-	#buttons #menu_btn {
-		right:7.5px;
+	#buttons img {
+		position: absolute;
+		margin: -11px 0 0 -11px;
+		left: 50%;
+		top: 50%;
+		width: 22px;
 	}
 
-	#buttons #nav_btn {
-		left:7.5px;
+	#menu_btn {
+		right:5px;
 	}
 
+	#nav_btn {
+		left:5px;
+	}
+
+	.md_btn {
+		overflow: hidden;
+	}
+
+	.md_bg {
+		width: 1px;
+		height: 1px;
+		box-shadow: 0 0 0 0 #000;
+		border-radius: 50%;
+		position: absolute;
+		background: #000;
+		opacity: 0.3;
+		transition: all 0.25s ease-out, opacity 0.14s ease-out;
+		-webkit-transition: all 0.25s ease-out, opacity 0.14s ease-out;
+	}
 /*目录*/
 	#menu {/*菜单 文字内容*/
 		z-index:9;
@@ -139,8 +170,8 @@
 		line-height: 35px;
 		padding-left:20px;
 		font-size:18px;
-		font-weight:bold;
 		transition: background 0.06s linear;
+		position: relative;
 	}
 	#nav .child {
 		display: block;
@@ -149,7 +180,8 @@
 		line-height: 35px;
 		padding-left: 30px;
 		font-size: 15px;
-		transition: background 0.08s linear, color 0.08s linear;
+		position: relative;
+		color: #03a9f4;
 	}
 	#nav .children {
 		transition: height 0.3s;
@@ -158,9 +190,6 @@
 	}
 	#nav .parent:hover, #nav .child:hover {
 		background: #eee;
-	}
-	#nav .parent:active, #nav .child:active {
-		background: #ddd;
 	}
 
 /*动画*/
