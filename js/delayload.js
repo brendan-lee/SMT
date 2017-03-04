@@ -717,9 +717,10 @@ function changeBT(){
 			// 电脑
 			else bigTitle.css({
 				"position": "fixed",
-				"top": "13px",
+				"top": "0px",
 				"left": "80px",
-				"font-size": "25px"
+				"font-size": "25px",
+				"line-height": $("#top_box").css("height")
 			});
 			bigTitle.css({
 				"animation": "fade_in 0.2s linear",
