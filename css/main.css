@@ -94,10 +94,8 @@ body {
 		position: absolute;
 		background: #000;
 		opacity: 0.4;
-		transition: opacity 0.08s linear;
-		-webkit-transition: opacity 0.08s linear;
-		transition: all 0.25s ease-out;
-		-webkit-transition: all 0.25s ease-out;
+		transition: all 0.25s ease-out, opacity 0.14s ease-out;
+		-webkit-transition: all 0.25s ease-out, opacity 0.14s ease-out;
 
 	}
 
