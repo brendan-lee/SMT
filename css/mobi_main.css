@@ -148,8 +148,8 @@ body {
 		line-height: 35px;
 		padding-left:20px;
 		font-size:18px;
-		font-weight:bold;
 		transition: background 0.06s linear;
+		position: relative;
 	}
 	#nav .child {
 		display: block;
