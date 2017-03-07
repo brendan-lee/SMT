@@ -202,7 +202,7 @@ onClick($('#nav_btn'), navDisp);
 /**
  * Material Design按钮
  */
-$('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {
+$('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {	
 	var padding = new Array(
 		$(this).css("padding-top"),
 		$(this).css("padding-right"),
@@ -229,7 +229,7 @@ $('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {
 	}, 1);
 	
 	// 鼠标抬起 & 过渡动画结束 同时满足时，移除MD Background
-	$('body').one('mouseup', function() {
+	$('body').one(isMobile ? "touchend" : "mouseup", function() {
 		curMdBg.addClass('mouseup');
 		if (curMdBg.hasClass('trans_over')) {
 			curMdBg.css("opacity", 0);
