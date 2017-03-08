@@ -389,20 +389,15 @@ $("#nav").bind("touchmove", function(e){
 var isMenuShow = false;
 function menuToggle(){
 	if (isMenuShow){
-		$("#menu").css({"animation":"menu_hide 0.3s forwards", "-webkit-animation":"menu_hide 0.3s forwards"});
-		$("#menu").bind("animationend webkitAnimationEnd", function(){
-			$("#menu").unbind();
+		$("#menu").css({"animation":"menu_hide 0.3s forwards"});
+		$("#menu").one("animationend", function(){
 			isMenuShow = false;
 		})
 	} else {
-		$("#menu").css({"animation":"menu_show 0.3s forwards", "-webkit-animation":"menu_show 0.3s forwards"});
+		$("#menu").css({"animation":"menu_show 0.3s forwards"});
 		setTimeout(function(){
 			isMenuShow = true;
 		}, 1);
-		$("#menu").bind("animationend webkitAnimationEnd", function(){
-			$("#menu").unbind();
-			
-		})
 	}
 }
 
