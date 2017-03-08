@@ -183,6 +183,7 @@ body {
 		padding-left:20px;
 		font-size:18px;
 		transition: background 0.06s linear;
+		-webkit-transition: background 0.06s linear;
 		position: relative;
 	}
 	#nav .child {
@@ -194,6 +195,8 @@ body {
 		font-size: 15px;
 		position: relative;
 		color: #03a9f4;
+		transition: background 0.06s linear;
+		-webkit-transition: background 0.06s linear;
 	}
 	#nav .children {
 		transition: height 0.3s;

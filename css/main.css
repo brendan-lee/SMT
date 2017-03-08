@@ -190,6 +190,7 @@ body {
 		font-size:18px;
 		cursor: pointer;
 		transition: background 0.06s linear;
+		-webkit-transition: background 0.06s linear;
 		position: relative;
 	}
 	#nav .child {
@@ -202,6 +203,8 @@ body {
 		position: relative;
 		color: #03a9f4;
 		cursor: pointer;
+		transition: background 0.06s linear;
+		-webkit-transition: background 0.06s linear;
 	}
 	#nav .children {
 		transition: height 0.3s;
