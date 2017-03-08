@@ -419,17 +419,9 @@ onClick($(document), function(e){
  * 菜单跳转功能
  */
 function menuTo(id){
-	if (isMobile){
-		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 45}, 250);
-	}
-	else {
-		$("html, body").animate({scrollTop:document.getElementById(id).offsetTop - 60}, 250);
-	}
-
-    location.hash = id;
-
-	// 关闭菜单
-	menuToggle();
+	var target = document.getElementById(id).offsetTop - (isMobile ? 45 : 60);
+	$("body").animate({scrollTop: target}, 250);
+	menuToggle(); // 关闭菜单
 }
 
 // 菜单项点击事件
