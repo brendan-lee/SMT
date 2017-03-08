@@ -9,6 +9,14 @@ body {
 	-webkit-transition: opacity 0.25s ease-in-out;
 }
 
+hr {
+	border: 0;
+	/*border-top: solid 1px #ddd;*/
+	height: 1px;
+	background-image: radial-gradient(circle at center, #ccc 40%, #fff);;
+	margin: 4px 0;
+}
+
 /*顶栏*/
 	#top_box, #top_box_top{
 		position:fixed;
@@ -95,6 +103,7 @@ body {
 
 	.md_btn {
 		overflow: hidden;
+		position: relative;
 	}
 
 	.md_bg {
@@ -110,37 +119,33 @@ body {
 	}
 
 /*目录*/
-	#menu {/*菜单 文字内容*/
+	#menu {
 		z-index:9;
 		position:fixed;
 		right: 6px;
 		top: 6px;
-		padding:10px 20px;
 		visibility: hidden;
 		background: #FFF;
 		box-shadow:0 1px 6px #000;
 		border-radius:2px;
 	}
 
-	#menu li {/*列表项*/
+	#menu li {
 		list-style:none;
-		cursor:default;
-		font-size:16px;
-	}
-
-	#menu li span {
+		font-size:18px;
+		padding: 12px 20px;
 		cursor:pointer;
+		transition: background 0.06s linear;
+		-webkit-transition: background 0.06s linear;
+	}
+	
+	#menu li:hover {
+		background: #eee;
 	}
 
-	#menu .child {/*子级*/
-		margin:6px 0 0 15px;
-		font-size:14px;
-	}
-
-	#menu .divide_line {/*分隔线*/
-		height:1px;
-		border-top:solid 1px #e0e0e0;
-		margin:6px -10px;
+	#menu .child {
+		padding: 12px 14px 12px 26px;
+		font-size:16px;
 	}
 
 /*导航*/
