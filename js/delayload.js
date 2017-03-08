@@ -690,42 +690,30 @@ function closeImg(){
  *      大标题
  ********************/
 
-var bigTitle = $("#big_title_div"), lastUp = $("#last_update"), lastBtPos = 0, topBoxScroll;
-// 移动端阈值
-if(isMobile) topBoxScroll = 75;
-// PC端阈值
-else topBoxScroll = 120;
+var bigTitle = $("#big_title_div"), lastUp = $("#last_update");
+var lastBtPos = 0;
+var topBoxScroll = isMobile ? 75 : 120; // 滚动阈值
 
 function changeBT(){
-	// 滚动超过阈值
+	// 滚动大于阈值
 	if ($(document).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
 		lastBtPos = $(document).scrollTop();
+		
+		// 渐隐标题&更新日期
 		bigTitle.css({
-			"animation": "fade_out 0.01s forwards",
-			"-webkit-animation": "fade_out 0.01s forwards"
+			"animation": "fade_out 0.03s forwards",
+			"-webkit-animation": "fade_out 0.03s forwards"
 		});
 		lastUp.css({
-			"animation": "fade_out 0.01s forwards",
-			"-webkit-animation": "fade_out 0.01s forwards"
+			"animation": "fade_out 0.03s forwards",
+			"-webkit-animation": "fade_out 0.03s forwards"
 		});
-		bigTitle.bind("animationend webkitAnimationEnd", function () {
-			bigTitle.unbind("animationend webkitAnimationEnd");
-			// 移动端
-			if (isMobile) bigTitle.css({
-				"position": "fixed",
-				"top": "0px",
-				"left": "40px",
-				"font-size": "20px",
-				"line-height": $("#top_box").css("height")
-			});
-			// 电脑
-			else bigTitle.css({
-				"position": "fixed",
-				"top": "0px",
-				"left": "80px",
-				"font-size": "25px",
-				"line-height": $("#top_box").css("height")
-			});
+		
+		// 渐隐结束后缩小并渐显标题
+		bigTitle.one("animationend webkitAnimationEnd", function () {
+			bigTitle.removeClass("big");
+			bigTitle.addClass("small");
+			
 			bigTitle.css({
 				"animation": "fade_in 0.2s linear",
 				"-webkit-animation": "fade_in 0.2s linear"
@@ -733,38 +721,28 @@ function changeBT(){
 		});
 	}
 	
-	// 滚动低于阈值
-	else if ($(document).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
+	// 滚动小于阈值
+	if ($(document).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
 		lastBtPos = $(document).scrollTop();
+		
+		// 渐隐标题
 		bigTitle.css({
-			"animation": "fade_out 0.01s forwards",
-			"-webkit-animation": "fade_out 0.01s forwards"
+			"animation": "fade_out 0.03s forwards",
+			"-webkit-animation": "fade_out 0.03s forwards"
 		});
-		bigTitle.bind("animationend webkitAnimationEnd", function () {
-			bigTitle.unbind("animationend webkitAnimationEnd");
-			if (isMobile) {
-				bigTitle.css({
-					"position": "absolute",
-					"top": "90px",
-					"left": "40px",
-					"font-size": "30px"
-				});
-			}
-			else {
-				bigTitle.css({
-					"position": "absolute",
-					"top": "140px",
-					"left": "22.5%",
-					"font-size": "50px"
-				});
-			}
+		
+		// 渐隐结束后放大并渐显标题&更新日期
+		bigTitle.one("animationend webkitAnimationEnd", function () {
+			bigTitle.removeClass("small");
+			bigTitle.addClass("big");
+			
 			bigTitle.css({
 				"animation": "fade_in 0.2s linear",
 				"-webkit-animation": "fade_in 0.2s linear"
 			});
 			lastUp.css({
-				"animation": "fade_in 0.3s linear",
-				"-webkit-animation": "fade_in 0.3s linear"
+				"animation": "fade_in 0.2s linear",
+				"-webkit-animation": "fade_in 0.2s linear"
 			});
 		});
 	}

@@ -31,16 +31,27 @@ body {
 		height:260px;
 	}
 
-	#big_title_div {/*标题 滚动为0时的样式*/
-		position:absolute;
+	#big_title_div {
+		line-height: 60px;
 		z-index:6;
 		color:#FFF;
-		font-size:50px;
 		text-shadow:1px 1px 3px #000;
 		font-weight:bold;
 		cursor:pointer;
+	}
+	
+	#big_title_div.big {
+		position: absolute;
+		font-size: 50px; 
 		top: 140px;
 		left: 22.5%; /* 22.5% = content_box.width(55%) / 2*/
+	}
+	
+	#big_title_div.small {
+		position: fixed;
+		font-size: 25px; 
+		top: 0px;
+		left: 80px;
 	}
 
 	#last_update {/*更新日期 滚动为0时的样式*/
@@ -52,7 +63,7 @@ body {
 		font-weight:lighter;
 		cursor:pointer;
 		top: 215px;
-		left: 22.5%; /* 22.5% = content_box.width(55%) / 2*/
+		left: calc(22.5% + 40px); /* 22.5% = content_box.width(55%) / 2*/
 	}
 
 /*按钮*/
