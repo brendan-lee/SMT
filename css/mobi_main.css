@@ -136,10 +136,6 @@ hr {
 		transition: background 0.06s linear;
 		-webkit-transition: background 0.06s linear;
 	}
-	
-	#menu li:hover {
-		background: #eee;
-	}
 
 	#menu .child {
 		padding: 12px 14px 12px 26px;
@@ -212,9 +208,6 @@ hr {
 		transition: height 0.3s;
 		overflow: hidden;
 		height: 0;
-	}
-	#nav .parent:hover, #nav .child:hover {
-		background: #eee;
 	}
 
 /*动画*/

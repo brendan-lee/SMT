@@ -217,7 +217,7 @@ $('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {
 	var width = $(this).width() + padding[1] + padding[3] + $(this).height();
 	var height = $(this).height() + padding[0] + padding[2] + $(this).width();
 	
-	var html = '<div class="md_bg" style="top:' + getMousePos('y') + 'px; left:' + getMousePos('x')+ 'px;"></div>'
+	var html = '<div class="md_bg" style="top:' + (getMousePos('y') + 1) + 'px; left:' + getMousePos('x')+ 'px;"></div>'
 	
 	$(this).append(html);
 	
