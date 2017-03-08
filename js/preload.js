@@ -6,25 +6,26 @@ var version = "v2.7.7.12"
 var href = window.location.href;
 if (window.location.protocol.match(/http/ig) && !href.match(/localhost|127\.0\.0\.1|192\.168\.\d{1,3}\.\d{1,3}/ig)){
 	var isOnline = true;
-}
-else {
+} else {
 	var isOnline = false;
 }
 
 /**
  * 统计代码
  */
-// Google Analytics
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-46827483-3', 'auto');
-ga('send', 'pageview');
-
-// 腾讯统计
-document.write("<script type='text/javascript' src='http://tajs.qq.com/stats?sId=40571723' charset='UTF-8'></script>")
+if (isOnline) {
+	// Google Analytics
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	
+	ga('create', 'UA-46827483-3', 'auto');
+	ga('send', 'pageview');
+	
+	// 腾讯统计
+	document.write("<script type='text/javascript' src='http://tajs.qq.com/stats?sId=40571723' charset='UTF-8'></script>")
+}
 	
 
 
