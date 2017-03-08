@@ -113,8 +113,8 @@ body {
 	#menu {/*菜单 文字内容*/
 		z-index:9;
 		position:fixed;
-		right:15px;
-		top:15px;
+		right: 6px;
+		top: 6px;
 		padding:10px 20px;
 		visibility: hidden;
 		background: #FFF;
