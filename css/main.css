@@ -95,11 +95,16 @@ hr {
 
 	#menu_btn {
 		right:5px;
+		background: url(../image/menu_btn.svg);
+		background-repeat: no-repeat;
+		background-position: center;
 	}
 
 	#nav_btn {
 		left:5px;
-		cursor:pointer;
+		background: url(../image/nav_btn.svg);
+		background-repeat: no-repeat;
+		background-position: center;
 	}
 
 	.md_btn {
