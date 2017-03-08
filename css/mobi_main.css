@@ -9,6 +9,14 @@ body {
 	-webkit-transition: opacity 0.25s ease-in-out;
 }
 
+hr {
+	border: 0;
+	/*border-top: solid 1px #ddd;*/
+	height: 1px;
+	background-image: radial-gradient(circle at center, #ccc 40%, #fff);;
+	margin: 4px 0;
+}
+
 /*顶栏*/
 	#top_box, #top_box_top{
 		position:fixed;
@@ -31,15 +39,26 @@ body {
 		height:160px;
 	}
 	
-	#big_title_div {/*标题样式 滚动为0时的样式*/
-		position:absolute;
+	#big_title_div {
+		line-height: 46px;
+		color:#FFF;
 		z-index:6;
-		color:#FFF; 
-		font-size:30px; 
 		text-shadow:1px 1px 3px #000;
 		font-weight:bold;
-		top: 90px;
-		left: 40px;
+	}
+	
+	#big_title_div.big {
+		position: absolute;
+		font-size: 30px; 
+		top: 85px;
+		left: 45px;
+	}
+	
+	#big_title_div.small {
+		position:fixed;
+		font-size:20px; 
+		top: 0px;
+		left: 50px;
 	}
 	
 	#last_update {/*更新日期 滚动为0时的样式*/
@@ -50,7 +69,7 @@ body {
 		text-shadow:1px 1px 2px #000;
 		font-weight:lighter;
 		top: 130px;
-		left: 40px;
+		left: 65px;
 	}
 
 /*按钮*/
@@ -81,6 +100,7 @@ body {
 
 	.md_btn {
 		overflow: hidden;
+		position: relative;
 	}
 
 	.md_bg {
@@ -91,37 +111,38 @@ body {
 		position: absolute;
 		background: #000;
 		opacity: 0.3;
-		transition: all 0.25s ease-out, opacity 0.14s ease-out;
-		-webkit-transition: all 0.25s ease-out, opacity 0.14s ease-out;
+		transition: all 0.25s ease-out, opacity 0.1s ease-out;
+		-webkit-transition: all 0.25s ease-out, opacity 0.1s ease-out;
 	}
+	
 /*目录*/
-	#menu {/*菜单 文字内容*/
+	#menu {
 		z-index:9;
 		position:fixed;
-		right:10px;
-		top:40px;
-		padding:10px 14px;
-		visibility:hidden;
-		background:#FFF;
+		right: 6px;
+		top: 6px;
+		visibility: hidden;
+		background: #FFF;
 		box-shadow:0 1px 6px #000;
 		border-radius:2px;
 	}
 	
-	#menu li {/*列表项*/
+	#menu li {
 		list-style:none;
-		cursor:default;
+		font-size:18px;
+		padding: 12px 20px;
+		cursor:pointer;
+		transition: background 0.06s linear;
+		-webkit-transition: background 0.06s linear;
+	}
+	
+	#menu li:hover {
+		background: #eee;
+	}
+
+	#menu .child {
+		padding: 12px 14px 12px 26px;
 		font-size:16px;
-	}
-
-	#menu .child {/*子级*/
-		margin:6px 0 0 15px;
-		font-size:14px;
-	}
-
-	#menu .divide_line {/*分隔线*/
-		height:1px;
-		border-top:solid 1px #e0e0e0;
-		margin:6px -8px;
 	}
 
 /*导航*/
@@ -171,6 +192,7 @@ body {
 		padding-left:20px;
 		font-size:18px;
 		transition: background 0.06s linear;
+		-webkit-transition: background 0.06s linear;
 		position: relative;
 	}
 	#nav .child {
@@ -182,6 +204,8 @@ body {
 		font-size: 15px;
 		position: relative;
 		color: #03a9f4;
+		transition: background 0.06s linear;
+		-webkit-transition: background 0.06s linear;
 	}
 	#nav .children {
 		transition: height 0.3s;

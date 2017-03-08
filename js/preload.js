@@ -40,7 +40,7 @@ document.write("<script type='text/javascript' src='http://tajs.qq.com/stats?sId
 // 返回顶部
 function goTop(){
 	fadeLock = true;
-	$("html, body").animate({scrollTop:0}, 250, function(){
+	$("body").animate({scrollTop:0}, 250, function(){
 		fadeLock = false;
 	});
 }
