@@ -105,9 +105,8 @@ body {
 		position: absolute;
 		background: #000;
 		opacity: 0.3;
-		transition: all 0.25s ease-out, opacity 0.14s ease-out;
-		-webkit-transition: all 0.25s ease-out, opacity 0.14s ease-out;
-
+		transition: all 0.25s ease-out, opacity 0.1s ease-out;
+		-webkit-transition: all 0.25s ease-out, opacity 0.1s ease-out;
 	}
 
 /*目录*/
