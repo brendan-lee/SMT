@@ -7,6 +7,7 @@ body {
 	opacity: 0;
 	transition: opacity 0.25s ease-in-out;
 	-webkit-transition: opacity 0.25s ease-in-out;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 hr {
@@ -119,8 +120,8 @@ hr {
 	#menu {
 		z-index:9;
 		position:fixed;
-		right: 6px;
-		top: 6px;
+		right: 5px;
+		top: 5px;
 		visibility: hidden;
 		background: #FFF;
 		box-shadow:0 1px 6px #000;
