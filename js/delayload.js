@@ -491,18 +491,21 @@ function reverseChapter(scroll, addScrollDis) {
 		// 移到倒序前的阅读位置（目标滚动距离 = content_box高度 + margin(20px) + 2 * top_box_top高度 - 滚动距离 - 可视高度 - top_box高度）
 		var targetScroll = $("#content_box").prop("scrollHeight") + 20 + 2 * $("#top_box_top").height() -
 			$(document).scrollTop() - $(window).height() - $("#top_box").height() + addScrollDis;
-		$("html, body").animate({scrollTop: targetScroll}, 250);
+		$("body").animate({scrollTop: targetScroll}, 250);
 	}
 	
 	// 重新绑定菜单项点击事件
-	onClick($('#menu [data-menuto]'), function(e) {
-		e = window.event || arguments.callee.caller.arguments[0];
+	onClick($('#menu [data-menuto]'), function() {
+		var e = window.event || arguments.callee.caller.arguments[0];
 		menuTo($(e.target).attr("data-menuto"));
 	});
 
 	// 关闭菜单
 	menuToggle();
 }
+onClick($('#reverse_chapter'), function() {
+	reverseChapter(true, 0);
+})
 
 
 
@@ -562,6 +565,7 @@ function findFoldableTables(){
 		tableFold(e.target);
 	});
 }
+findFoldableTables();
 
 
 
@@ -734,6 +738,7 @@ function changeBT(){
 		});
 	}
 }
+changeBT();
 
 
 
@@ -827,18 +832,6 @@ if ((ua.match(/msie/i) && ua.match(/Windows NT/i)) // PC IE
  */
 document.onscroll = function (){
 	changeBT(); // 大标题缩放
-}
-
-/**
- * DOM加载完成
- */
-document.ready = function(){
-	changeBT(); // 大标题缩放
-	findFoldableTables(); // 折叠表格
-	
-	onClick($('#reverse_chapter'), function() {
-		reverseChapter(false, 0);
-	})
 }
 
 
