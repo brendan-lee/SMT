@@ -95,7 +95,7 @@ onClick($('#nav_logo'), navHide);
 	for (var i = 0; i < children.length; i++) {
 		onClick(children.eq(i), function() {
 			$("body").css("opacity", 0)
-			
+
 			var e = window.event || arguments.callee.caller.arguments[0];
 			setTimeout(function() {
 				window.location.href = $(e.target).attr("data-uri");
@@ -202,32 +202,32 @@ onClick($('#nav_btn'), navDisp);
 /**
  * Material Design按钮
  */
-$('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {	
+$('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {
 	var padding = new Array(
 		$(this).css("padding-top"),
 		$(this).css("padding-right"),
 		$(this).css("padding-bottom"),
 		$(this).css("padding-left")
 	);
-	
+
 	for (var i = 0; i < padding.length; i++) {
 		padding[i] = parseInt(padding[i].substr(0, padding[i].length - 2));
 	}
-	
+
 	var width = $(this).width() + padding[1] + padding[3] + $(this).height();
 	var height = $(this).height() + padding[0] + padding[2] + $(this).width();
-	
+
 	var html = '<div class="md_bg" style="top:' + (getMousePos('y') + 1) + 'px; left:' + getMousePos('x')+ 'px;"></div>'
-	
+
 	$(this).append(html);
-	
+
 	var curMdBg = $(this).children('.md_bg:last');
-	
+
 	// 延迟1ms更新css，使过渡动画生效
 	setTimeout(function() {
 		curMdBg.css('box-shadow', '0 0 0 ' + (width > height ? width : height) + 'px #000');
 	}, 1);
-	
+
 	// 鼠标抬起 & 过渡动画结束 同时满足时，移除MD Background
 	$('body').one(isMobile ? "touchend" : "mouseup", function() {
 		curMdBg.addClass('mouseup');
@@ -258,7 +258,7 @@ function getMousePos(axis, event) {
 	while (obj.className.indexOf('md_btn') == -1) {
 		obj = obj.parentElement;
 	}
-	
+
 	// 目标元素距窗口边框距离
 	var Left = obj.offsetLeft,
 		Top = obj.offsetTop;
@@ -267,10 +267,10 @@ function getMousePos(axis, event) {
 		Left += obj.offsetLeft;
 		Top += obj.offsetTop;
 	}
-	
+
 	var posX = e.clientX || e.changedTouches[0].clientX;
 	var posY = e.clientY || e.changedTouches[0].clientY;
-	
+
 	var x = posX - Left;
 	var y = posY - Top;
 
@@ -297,13 +297,13 @@ $("#nav_overlay").bind("mousewheel DOMMouseScroll touchmove", function(e){
 $("#nav").bind("mousewheel DOMMouseScroll", function(e){
 	e = e || window.event
 		nav = $("#nav");
-		
+
 	// 没有滚动条
 	if (nav.prop("scrollHeight") == $(window).height()){
 		e.returnValue = false;
 		e.preventDefault();
 	}
-	
+
 	// 有滚动条,位于顶端
 	else if (nav.scrollTop() == 0){
 		if (e.wheelDelta){
@@ -493,7 +493,7 @@ function reverseChapter(scroll, addScrollDis) {
 			$(document).scrollTop() - $(window).height() - $("#top_box").height() + addScrollDis;
 		$("body").animate({scrollTop: targetScroll}, 250);
 	}
-	
+
 	// 重新绑定菜单项点击事件
 	onClick($('#menu [data-menuto]'), function() {
 		var e = window.event || arguments.callee.caller.arguments[0];
@@ -528,7 +528,7 @@ function tableFold(target){
 	var table = $(target).parents('table'),
 		content = table.find('tr:not(:first)'),
 		img = table.find('tr:first').find('td:last').children('img');
-		
+
 	if (table.hasClass('folded')){
 		table.removeClass('folded');
 		content.css('display', 'table-row');
@@ -549,17 +549,17 @@ function findFoldableTables(){
 	else {
 		var threshold = 600;
 	}
-	
+
 	for (var i = 0; i < tables.length; i++){
 		if (tables.eq(i).height() > threshold){
 			var td = tables.eq(i).find('tr:first').find('td:last');
-			
+
 			td.css({'position':'relative', 'padding-right':'80px'});
 			td.append('<img class="fold_btn" style="position:absolute; right:3px; cursor:pointer;" />');
 			tableFold(tables.eq(i).children().eq(0));
 		}
 	}
-	
+
 	onClick($('.fold_btn'), function(e) {
 		e = window.event || arguments.callee.caller.arguments[0];
 		tableFold(e.target);
@@ -638,7 +638,7 @@ function magnifyImg(src){
 		// 明确img宽度，以在首次滚轮缩放时产生transition动画
 		magImg.width(magImg.width());
 	})
-	
+
 	// 点击关闭图片
 	onClick($("#mag_img_wrapper"), closeImg)
 */
@@ -689,7 +689,7 @@ function changeBT(){
 	// 滚动大于阈值
 	if ($(document).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
 		lastBtPos = $(document).scrollTop();
-		
+
 		// 渐隐标题&更新日期
 		bigTitle.css({
 			"animation": "fade_out 0.03s forwards",
@@ -699,34 +699,34 @@ function changeBT(){
 			"animation": "fade_out 0.03s forwards",
 			"-webkit-animation": "fade_out 0.03s forwards"
 		});
-		
+
 		// 渐隐结束后缩小并渐显标题
 		bigTitle.one("animationend webkitAnimationEnd", function () {
 			bigTitle.removeClass("big");
 			bigTitle.addClass("small");
-			
+
 			bigTitle.css({
 				"animation": "fade_in 0.2s linear",
 				"-webkit-animation": "fade_in 0.2s linear"
 			});
 		});
 	}
-	
+
 	// 滚动小于阈值
 	if ($(document).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
 		lastBtPos = $(document).scrollTop();
-		
+
 		// 渐隐标题
 		bigTitle.css({
 			"animation": "fade_out 0.03s forwards",
 			"-webkit-animation": "fade_out 0.03s forwards"
 		});
-		
+
 		// 渐隐结束后放大并渐显标题&更新日期
 		bigTitle.one("animationend webkitAnimationEnd", function () {
 			bigTitle.removeClass("small");
 			bigTitle.addClass("big");
-			
+
 			bigTitle.css({
 				"animation": "fade_in 0.2s linear",
 				"-webkit-animation": "fade_in 0.2s linear"
@@ -769,7 +769,7 @@ onClick($('#big_title_div'), goTop);
 function onClick(obj, func){
 	obj.on('click touchstart touchmove touchend', function() {
 		var e = window.event || arguments.callee.caller.arguments[0];
-		
+
 		switch (e.type){
 			case "touchstart":
 				startX = e.touches[0].pageX;
@@ -777,19 +777,19 @@ function onClick(obj, func){
 				spanX = 0;
 				spanY = 0;
 				break;
-				
+
 			case "touchmove":
 				spanX = e.touches[0].pageX - startX;
 				spanY = e.touches[0].pageY - startY;
 				break;
-				
+
 			case "touchend":
 				if (Math.abs(spanX) < 3 && Math.abs(spanY) < 3){
 					obj.on()
 					func(e);
 				}
 				break;
-				
+
 			case "click":
 				if (!isMobile){
 					func(e);
@@ -834,8 +834,54 @@ document.onscroll = function (){
 	changeBT(); // 大标题缩放
 }
 
+/**
+ * DOM加载完成
+ */
+document.ready = function(){
+	changeBT(); // 大标题缩放
+	findFoldableTables(); // 折叠表格
 
+	onClick($('#reverse_chapter'), function() {
+		reverseChapter(false, 0);
+	})
+}
 
+isWideScreen = (document.body.clientWidth>=1000)?true:false;
+if(isWideScreen)change2widescreen();
+//屏幕大小变化时
+var last_isWideScreen = false;
+$(window).resize(function(){
+	last_isWideScreen = isWideScreen;
+	isWideScreen = (document.body.clientWidth>=1000)?true:false;
+	console.log(isWideScreen);
+	if(isWideScreen != last_isWideScreen){
+		if(isWideScreen)change2widescreen();else change2narrowscreen();
+	}else if(isWideScreen)$("#cont_wrapper").css("width",document.body.clientWidth-260);
+});
+
+function change2widescreen(){
+	$("#nav").removeClass("nav_hide");
+	$("#nav").addClass("nav_show");
+	isNavOpen = true;
+	$("#cont_wrapper").removeClass("cont_wrapper_narrowscreen");
+	$("#cont_wrapper").addClass("cont_wrapper_widescreen");
+	$("#cont_wrapper").css("width",document.body.clientWidth-260);
+	$("#nav_btn").hide();
+	$("#nav_overlay").css({
+		"animation":"nav_overlay_hide 0.4s linear forwards",
+		"-webkit-animation":"nav_overlay_hide 0.4s linear forwards"
+	});
+}
+
+function change2narrowscreen(){
+	$("#nav").removeClass("nav_show");
+	$("#nav").addClass("nav_hide");
+	isNavOpen = false;
+	$("#cont_wrapper").removeClass("cont_wrapper_widescreen");
+	$("#cont_wrapper").addClass("cont_wrapper_narrowscreen");
+	$("#cont_wrapper").css("width","100%");
+	$("#nav_btn").show();
+}
 
 
 
@@ -948,5 +994,5 @@ document.onscroll = function (){
 		e.preventDefault();
 		e.returnValue = false;
 	}
-	
+
 */

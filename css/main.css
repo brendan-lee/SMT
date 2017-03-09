@@ -18,6 +18,20 @@ hr {
 	margin: 4px 0;
 }
 
+#cont_wrapper{
+	width:100%;
+	transition: transform 0.5s, width 0.5s;
+	-webkit-transition: -webkit-transform 0.2s, width 0.2s;
+}
+.cont_wrapper_narrowscreen {
+	transform: translate(0);
+	-webkit-transform: translate(0);
+}
+.cont_wrapper_widescreen {
+	transform: translate(230px);
+	-webkit-transform: translate(230px);
+}
+
 /*顶栏*/
 	#top_box, #top_box_top{
 		position:fixed;
@@ -48,17 +62,17 @@ hr {
 		font-weight:bold;
 		cursor:pointer;
 	}
-	
+
 	#big_title_div.big {
 		position: absolute;
-		font-size: 50px; 
+		font-size: 50px;
 		top: 140px;
 		left: 22.5%; /* 22.5% = content_box.width(55%) / 2*/
 	}
-	
+
 	#big_title_div.small {
 		position: fixed;
-		font-size: 25px; 
+		font-size: 25px;
 		top: 0px;
 		left: 80px;
 	}
@@ -144,7 +158,7 @@ hr {
 		transition: background 0.06s linear;
 		-webkit-transition: background 0.06s linear;
 	}
-	
+
 	#menu li:hover {
 		background: #eee;
 	}
@@ -158,12 +172,11 @@ hr {
 	.nav {
 		z-index:10;
 		position:fixed;
-		transform: translate(-270px);
-		-webkit-transform: translate(-270px);
+		transform: translate(-300px);
+		-webkit-transform: translate(-300px);
 		height:100%;
-		width:230px;
+		width:260px;
 		background-color:#FFF;
-		box-shadow:0 0 20px 2px #000;
 		overflow-x:hidden;
 		overflow-y:auto;
 		transition: transform 0.5s;
@@ -174,8 +187,8 @@ hr {
 		-webkit-transform: translate(0);
 	}
 	.nav_hide {
-		transform: translate(-270px);
-		-webkit-transform: translate(-270px);
+		transform: translate(-300px);
+		-webkit-transform: translate(-300px);
 	}
 
 	#nav_overlay {/*打开导航栏时的黑色透明背景（单击关闭导航）*/
