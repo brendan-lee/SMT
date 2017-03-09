@@ -16,6 +16,7 @@
 
 <body>
 <iframe id="error" src="error.html"></iframe>
+<div id="nav" class="nav" data-open="3"></div>
 <div id="cont_wrapper" style="display:none;">
 	<script>
 		// JS正常加载时隐藏error、显示cont_wrapper
@@ -29,9 +30,8 @@
 	</div>
 
 	<!--导航-->
-	<div id="nav" class="nav" data-open="3"></div>
 	<div id="nav_overlay"></div>
-	
+
 	<!--顶栏-->
 	<div id="big_title_div" class="big">XML基础知识</div>
 	<div id="last_update">——更新日期 2016年1月28日——</div>
@@ -42,12 +42,12 @@
 	<!--目录-->
 	<div id="menu">
 		<li class="parent md_btn" data-menuto="cont_1">一.标签</li>
-				
+
 		<li class="parent md_btn" data-menuto="cont_2">二.识别码和继承码</li>
-				
+
 		<li class="parent md_btn" data-menuto="cont_3">三.默认继承</li>
 	</div>
-	
+
 	<!--上栏-->
 	<div id="upper_box">
 		<h1>前言</h1>
@@ -82,7 +82,7 @@
 				</div>
 			</div>
 		</div>
-	 
+
 		<div class="chapter" id="cont_2">
 			<h1>第二节 识别码和继承码</h1>
 			<div class="section">
@@ -114,7 +114,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="chapter" id="cont_3">
 			<h1>第三节 默认继承</h1>
 			<div class="section">
@@ -126,7 +126,7 @@
 	&lt;/MemberComponentTemplate&gt;
 	...
 &lt;/EntityTemplate&gt;
-				
+
 &lt;EntityTemplate Name="AICreature" Guid="3f077159-f492-419b-859a-bb051de6339f" InheritanceParent="bc5be211-c1f8-4e50-9ffb-4fde625d2692"&gt;
 	&lt;MemberComponentTemplate Name="Mount" Guid="d7655ac3-4c88-4e89-8018-83155cd7bfbc" InheritanceParent="d0b14127-39ce-4490-af00-fb4111e9c51e"&gt;
 		&lt;Parameter Name="DismountOffset" Guid="3be6ca1c-17c5-4fd7-ad58-6f52d9651188" Value="1.5,0.3,0" Type="Microsoft.Xna.Framework.Vector3" /&gt;
