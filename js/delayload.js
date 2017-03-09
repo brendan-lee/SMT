@@ -832,19 +832,8 @@ if ((ua.match(/msie/i) && ua.match(/Windows NT/i)) // PC IE
  */
 document.onscroll = function (){
 	changeBT(); // 大标题缩放
-}
+};
 
-/**
- * DOM加载完成
- */
-document.ready = function(){
-	changeBT(); // 大标题缩放
-	findFoldableTables(); // 折叠表格
-
-	onClick($('#reverse_chapter'), function() {
-		reverseChapter(false, 0);
-	})
-}
 
 isWideScreen = (document.body.clientWidth>=1000)?true:false;
 if(isWideScreen)change2widescreen();
