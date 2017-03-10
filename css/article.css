@@ -1,7 +1,7 @@
 ﻿/*	更新日期 2015年8月5日	*/
 
 #content_box {
-	width:55%;
+	width:65%;
 	margin:0 auto;
 }
 
@@ -91,7 +91,7 @@
 
 #upper_box {/*上栏*/
 	margin:20px auto;
-	width:55%;
+	width:65%;
 	padding:6px 0;
 	box-shadow:0 2px 5px 0 #555;
 	background-color:#FFF;

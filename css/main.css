@@ -20,16 +20,16 @@ hr {
 
 #cont_wrapper{
 	width:100%;
-	transition: transform 0.5s, width 0.5s;
-	-webkit-transition: -webkit-transform 0.2s, width 0.2s;
+	transition: transform 0.5;
+	-webkit-transition: -webkit-transform 0.2s;
 }
 .cont_wrapper_narrowscreen {
 	transform: translate(0);
 	-webkit-transform: translate(0);
 }
 .cont_wrapper_widescreen {
-	transform: translate(230px);
-	-webkit-transform: translate(230px);
+	transform: translate(260px);
+	-webkit-transform: translate(260px);
 }
 
 /*顶栏*/
@@ -67,7 +67,7 @@ hr {
 		position: absolute;
 		font-size: 50px;
 		top: 140px;
-		left: 22.5%; /* 22.5% = content_box.width(55%) / 2*/
+		left: 17.5%; /* 17.5% = content_box.width(35%) / 2*/
 	}
 
 	#big_title_div.small {
@@ -86,7 +86,7 @@ hr {
 		font-weight:lighter;
 		cursor:pointer;
 		top: 215px;
-		left: calc(22.5% + 40px); /* 22.5% = content_box.width(55%) / 2*/
+		left: calc(17.5% + 40px); /* 17.5% = content_box.width(35%) / 2*/
 	}
 
 /*按钮*/

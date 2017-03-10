@@ -709,6 +709,8 @@ function changeBT(){
 				"animation": "fade_in 0.2s linear",
 				"-webkit-animation": "fade_in 0.2s linear"
 			});
+
+			if(isWideScreen)bigTitle.css("left", "280px");else bigTitle.css("left", "");
 		});
 	}
 
@@ -735,6 +737,8 @@ function changeBT(){
 				"animation": "fade_in 0.2s linear",
 				"-webkit-animation": "fade_in 0.2s linear"
 			});
+
+			if(isWideScreen)bigTitle.css("left", $("#cont_wrapper").width()*0.175+260);else bigTitle.css("left", "");
 		});
 	}
 }
@@ -835,7 +839,7 @@ document.onscroll = function (){
 };
 
 
-isWideScreen = (document.body.clientWidth>=1000)?true:false;
+var isWideScreen = (document.body.clientWidth>=1000)?true:false;
 if(isWideScreen)change2widescreen();
 //屏幕大小变化时
 var last_isWideScreen = false;
@@ -845,31 +849,42 @@ $(window).resize(function(){
 	console.log(isWideScreen);
 	if(isWideScreen != last_isWideScreen){
 		if(isWideScreen)change2widescreen();else change2narrowscreen();
-	}else if(isWideScreen)$("#cont_wrapper").css("width",document.body.clientWidth-260);
+	}else if(isWideScreen){
+		var cont_wrapper = $("#cont_wrapper");
+		cont_wrapper.css("width",document.body.clientWidth-260);
+		if($("#big_title_div.big")[0] === undefined)$("#big_title_div.small").css("left","340px");else $("#big_title_div.big").css("left",cont_wrapper.width()*0.175+260);
+		$("#last_update").css("left",cont_wrapper.width()*0.175+300);
+	}
 });
 
 function change2widescreen(){
 	$("#nav").removeClass("nav_hide");
 	$("#nav").addClass("nav_show");
 	isNavOpen = true;
-	$("#cont_wrapper").removeClass("cont_wrapper_narrowscreen");
-	$("#cont_wrapper").addClass("cont_wrapper_widescreen");
-	$("#cont_wrapper").css("width",document.body.clientWidth-260);
+	var cont_wrapper = $("#cont_wrapper");
+	cont_wrapper.removeClass("cont_wrapper_narrowscreen");
+	cont_wrapper.addClass("cont_wrapper_widescreen");
+	cont_wrapper.css("width",document.body.clientWidth-260);
 	$("#nav_btn").hide();
 	$("#nav_overlay").css({
 		"animation":"nav_overlay_hide 0.4s linear forwards",
 		"-webkit-animation":"nav_overlay_hide 0.4s linear forwards"
 	});
+	$("#big_title_div.big").css("left",cont_wrapper.width()*0.175+260);
+	$("#last_update").css("left",cont_wrapper.width()*0.175+300);
 }
 
 function change2narrowscreen(){
 	$("#nav").removeClass("nav_show");
 	$("#nav").addClass("nav_hide");
 	isNavOpen = false;
-	$("#cont_wrapper").removeClass("cont_wrapper_widescreen");
-	$("#cont_wrapper").addClass("cont_wrapper_narrowscreen");
-	$("#cont_wrapper").css("width","100%");
+	var cont_wrapper = $("#cont_wrapper");
+	cont_wrapper.removeClass("cont_wrapper_widescreen");
+	cont_wrapper.addClass("cont_wrapper_narrowscreen");
+	cont_wrapper.css("width","100%");
 	$("#nav_btn").show();
+	$("#big_title_div.big").css("left","");
+	$("#last_update").css("left","");
 }
 
 
