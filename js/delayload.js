@@ -839,21 +839,24 @@ document.onscroll = function (){
 };
 
 
-var isWideScreen = (document.body.clientWidth>=1000)?true:false;
+var isWideScreen = !isMobile?((document.body.clientWidth>=1000)?true:false):false;
 if(isWideScreen)change2widescreen();
 //屏幕大小变化时
 var last_isWideScreen = false;
-$(window).resize(function(){
-	last_isWideScreen = isWideScreen;
-	isWideScreen = (document.body.clientWidth>=1000)?true:false;
-	console.log(isWideScreen);
-	if(isWideScreen != last_isWideScreen){
-		if(isWideScreen)change2widescreen();else change2narrowscreen();
-	}else if(isWideScreen){
-		var cont_wrapper = $("#cont_wrapper");
-		cont_wrapper.css("width",document.body.clientWidth-260);
-		if($("#big_title_div.big")[0] === undefined)$("#big_title_div.small").css("left","340px");else $("#big_title_div.big").css("left",cont_wrapper.width()*0.175+260);
-		$("#last_update").css("left",cont_wrapper.width()*0.175+300);
+$(window).resize(function() {
+	if (!isMobile) {
+		last_isWideScreen = isWideScreen;
+		isWideScreen = (document.body.clientWidth >= 1000) ? true : false;
+		if (isWideScreen != last_isWideScreen) {
+			if (isWideScreen) change2widescreen();
+			else change2narrowscreen();
+		} else if (isWideScreen) {
+			var cont_wrapper = $("#cont_wrapper");
+			cont_wrapper.css("width", document.body.clientWidth - 260);
+			if ($("#big_title_div.big")[0] === undefined) $("#big_title_div.small").css("left", "340px");
+			else $("#big_title_div.big").css("left", cont_wrapper.width() * 0.175 + 260);
+			$("#last_update").css("left", cont_wrapper.width() * 0.175 + 300);
+		}
 	}
 });
 
