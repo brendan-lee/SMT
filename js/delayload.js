@@ -686,7 +686,9 @@ function closeImg(){
 
 var bigTitle = $("#big_title_div"), lastUp = $("#last_update");
 var lastBtPos = 0;
+var lastBtPos1 = 0;
 var topBoxScroll = isMobile ? 75 : 120; // 滚动阈值
+var topBoxtopScroll = isMobile ? 114 : 200;
 
 function changeBT(){
 	// 滚动大于阈值
@@ -743,6 +745,16 @@ function changeBT(){
 
 			if(isWideScreen)bigTitle.css("left", $("#cont_wrapper").width()*0.175+260);else bigTitle.css("left", "");
 		});
+	}
+
+	//top_box出现时调整top_box和top_box_top的z-index
+	if($(document).scrollTop() > topBoxtopScroll && lastBtPos1 <= topBoxtopScroll){
+		lastBtPos1 = $(document).scrollTop();
+		$("#top_box_top").css("z-index","4");
+	}
+	if($(document).scrollTop() <= topBoxtopScroll && lastBtPos1 > topBoxtopScroll){
+		lastBtPos1 = $(document).scrollTop();
+		$("#top_box_top").css("z-index","5");
 	}
 }
 changeBT();
