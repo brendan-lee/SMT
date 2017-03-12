@@ -172,8 +172,8 @@ hr {
 	.nav {
 		z-index:10;
 		position:fixed;
-		transform: translate(-300px);
-		-webkit-transform: translate(-300px);
+		transform: translate(-110%);
+		-webkit-transform: translate(-110%);
 		height:100%;
 		width:260px;
 		background-color:#FFF;
@@ -187,8 +187,8 @@ hr {
 		-webkit-transform: translate(0);
 	}
 	.nav_hide {
-		transform: translate(-300px);
-		-webkit-transform: translate(-300px);
+		transform: translate(-110%);
+		-webkit-transform: translate(-110%);
 	}
 
 	#nav_overlay {/*打开导航栏时的黑色透明背景（单击关闭导航）*/
