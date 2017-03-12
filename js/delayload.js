@@ -853,7 +853,7 @@ $(window).resize(function() {
 		} else if (isWideScreen) {
 			var cont_wrapper = $("#cont_wrapper");
 			cont_wrapper.css("width", document.body.clientWidth - 260);
-			if ($("#big_title_div.big")[0] === undefined) $("#big_title_div.small").css("left", "340px");
+			if ($("#big_title_div.big")[0] === undefined) $("#big_title_div.small").css("left", "280px");
 			else $("#big_title_div.big").css("left", cont_wrapper.width() * 0.175 + 260);
 			$("#last_update").css("left", cont_wrapper.width() * 0.175 + 300);
 		}
@@ -886,7 +886,7 @@ function change2narrowscreen(){
 	cont_wrapper.addClass("cont_wrapper_narrowscreen");
 	cont_wrapper.css("width","100%");
 	$("#nav_btn").show();
-	$("#big_title_div.big").css("left","");
+	$("#big_title_div").css("left","");
 	$("#last_update").css("left","");
 }
 
