@@ -54,7 +54,7 @@ function generateNav(navData) {
 	var nav = $("#nav");
 	nav.hide();
 
-	var nav_logo = $("<img id=\"nav_logo\" src=\"image/nav_logo.png\" />");
+	var nav_logo = $("<img id=\"nav_logo\" src=\"image/nav_logo.jpg\" />");
 	nav.append(nav_logo);
 
     for (var i = 0; i < navData.length; ++i) {
