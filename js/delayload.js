@@ -87,7 +87,10 @@ function generateNav(navData) {
     }
 }
 generateNav(navContent);
-onClick($('#nav_logo'), navHide);
+onClick($('#nav_logo'), function(){
+	if(!isWideScreen)navHide();
+	else window.location.href="index.html";
+});
 
 // 延迟250ms后跳转，以完整播放按钮的过渡动画
 (function() {
