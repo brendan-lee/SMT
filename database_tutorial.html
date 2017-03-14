@@ -16,19 +16,21 @@
 
 <body>
 <iframe id="error" src="error.html"></iframe>
-<div id="nav" class="nav" data-open="3"></div>
-<div id="cont_wrapper" style="display:none;">
-	<script>
-		// JS正常加载时隐藏error、显示cont_wrapper
-		$("#error").css("display", "none");
-		$("#cont_wrapper").css("display", "block");
-	</script>
+<div id="divs_fixed" style="display:none;">
 	<!--顶栏 按钮-->
 	<div id="buttons">
 		<div id='menu_btn' class='md_btn'></div>
 		<div id='nav_btn' class='md_btn'></div>
 	</div>
-
+	<!--导航-->
+	<div id="nav" class="nav" data-open="3"></div>
+	<div id="nav_overlay"></div>
+	<!--顶栏-->
+	<div id="big_title_div" class="big">Database解析</div>
+	<div id="last_update">——更新日期 2017年3月15日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
 	<!--目录-->
 	<div id="menu">
 		<li class="parent md_btn" data-menuto="cont_2">一.结构解析</li>
@@ -36,16 +38,14 @@
 		<li class="parent md_btn" data-menuto="cont_4">三.启发例子</li>
 		<li class="parent md_btn" data-menuto="cont_appendix">附件</li>
 	</div>
-
-	<!--导航-->
-	<div id="nav_overlay"></div>
-
-	<!--顶栏-->
-	<div id="big_title_div" class="big">Database解析</div>
-	<div id="last_update">——更新日期 2016年1月28日——</div>
-	<div id="top_box"></div>
-	<div id="top_box_top"></div>
-	<div id="top_box_strutting"></div>
+</div>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+		$("#divs_fixed").css("display", "block");
+	</script>
 
 	<!--上栏-->
 	<div id="upper_box">
@@ -63,7 +63,8 @@
 		<div class="chapter" id="cont_2">
 			<h1>第一节 结构解析</h1>
 			<div class="content">
-				用专门的代码编辑器打开Database.xml，折叠所有层次后打开Database层次，可以看到整个文件由四个大层次组成
+				用专门的代码编辑器打开Database.xml，折叠所有层次后打开Database层次，可以看到整个文件由四个大层次组成<br />
+				注：不是所有文本编辑器都有折叠功能
 				<img class="saimg magnifiable"
 				data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/database_1.png"
 				data-offline="saimg/database_1.png" />

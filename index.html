@@ -19,7 +19,7 @@
 
 <body>
 <iframe id="error" src="error.html"></iframe>
-<div id="divs_fixed">
+<div id="divs_fixed" style="display:none;">
 	<!--顶栏 按钮-->
 	<div id="buttons">
 		<div id="nav_btn" class='md_btn'></div>
@@ -38,6 +38,7 @@
 		// JS正常加载时隐藏error、显示cont_wrapper
 		$("#error").css("display", "none");
 		$("#cont_wrapper").css("display", "block");
+		$("#divs_fixed").css("display", "block");
 	</script>
 
 	<!--内容栏-->

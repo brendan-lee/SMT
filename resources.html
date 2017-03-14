@@ -14,19 +14,21 @@
 
 <body>
 <iframe id="error" src="error.html"></iframe>
-<div id="nav" class="nav" data-open="2"></div>
-<div id="cont_wrapper" style="display:none;">
-	<script>
-		// JS正常加载时隐藏error、显示cont_wrapper
-		$("#error").css("display", "none");
-		$("#cont_wrapper").css("display", "block");
-	</script>
+<div id="divs_fixed" style="display:none;">
 	<!--顶栏 按钮-->
 	<div id="buttons">
 		<div id='menu_btn' class='md_btn'></div>
 		<div id='nav_btn' class='md_btn'></div>
 	</div>
-
+	<!--导航-->
+	<div id="nav" class="nav" data-open="2"></div>
+	<div id="nav_overlay"></div>
+	<!--顶栏-->
+	<div id="big_title_div" class="big">资源下载整合</div>
+	<div id="last_update">——更新日期 2017年3月15日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
 	<!--目录-->
 	<div id="menu">
 		<li class="parent md_btn" data-menuto="cont_1">一.游戏下载</li>
@@ -34,16 +36,14 @@
 		<li class="parent md_btn" data-menuto="cont_3">三.IOS资源</li>
 		<li class="parent md_btn" data-menuto="cont_4">四.Windows资源</li>
 	</div>
-
-	<!--导航-->
-	<div id="nav_overlay"></div>
-
-	<!--顶栏-->
-	<div id="big_title_div" class="big">资源下载整合</div>
-	<div id="last_update">——更新日期 2017年2月20日——</div>
-	<div id="top_box"></div>
-	<div id="top_box_top"></div>
-	<div id="top_box_strutting"></div>
+</div>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+		$("#divs_fixed").css("display", "block");
+	</script>
 
 	<!--上栏-->
 	<div id="upper_box">
@@ -165,6 +165,7 @@
 
 		<div class="chapter" id="cont_3">
 			<h1>第三节 IOS资源</h1>
+			<span style="font-size:10pt; display:block; font-weight:bold;">——由于暂时没有IOS平台解包打包工具，加上高版本IOS系统越狱困难，因此IOS基础教程停止更新，如为您带来不便，敬请谅解</span>
 			<div class="section" id="cont_3.1">
 				<h2>1.文件管理</h2>
 				<div class="content">

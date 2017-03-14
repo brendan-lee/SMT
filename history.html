@@ -25,35 +25,37 @@
 
 <body>
 <iframe id="error" src="error.html"></iframe>
-<div id="nav" class="nav" data-open="1"></div>
-<div id="cont_wrapper" style="display:none;">
-	<script>
-		// JS正常加载时隐藏error、显示cont_wrapper
-		$("#error").css("display", "none");
-		$("#cont_wrapper").css("display", "block");
-	</script>
+<div id="divs_fixed" style="display:none;">
 	<!--顶栏 按钮-->
 	<div id="buttons">
 		<div id='menu_btn' class='md_btn'></div>
 		<div id='nav_btn' class='md_btn'></div>
 	</div>
-
+	<!--导航-->
+	<div id="nav" class="nav" data-open="1"></div>
+	<div id="nav_overlay"></div>
+	<!--顶栏-->
+	<div id="big_title_div" class="big">SMT历史</div>
+	<div id="last_update">——更新日期 2017年3月15日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
 	<!--目录-->
 	<div id="menu">
 		<li class="parent md_btn" data-menuto="cont_1">2013年</li>
 		<li class="parent md_btn" data-menuto="cont_2">2014年</li>
 		<li class="parent md_btn" data-menuto="cont_3">2015年</li>
+		<li class="parent md_btn" data-menuto="cont_4">2017年</li>
 		<li id="reverse_chapter" class="md_btn">倒序查看</li>
 	</div>
-	<!--导航-->
-	<div id="nav_overlay"></div>
-
-	<!--顶栏-->
-	<div id="big_title_div" class="big">SMT历史</div>
-	<div id="last_update">——更新日期 2015年8月7日——</div>
-	<div id="top_box"></div>
-	<div id="top_box_top"></div>
-	<div id="top_box_strutting"></div>
+</div>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+		$("#divs_fixed").css("display", "block");
+	</script>
 
 	<!--内容栏-->
 	<div id="content_box">
@@ -148,7 +150,7 @@
 		<div class="chapter" id="cont_3">
 			<date>2015年1月28日</date>
 			<div class="content">
-				SMT情报部成立，百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=512542248&ie=utf-8" target="_blank">512542248</a>担任首任部长。SMT情报部在当时主要为应对组内资料外传事件进行调查取证，以及探查各工作室对mod的研究进展情况进行调查。
+				SMT情报部成立，百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=512542248&ie=utf-8" target="_blank">512542248</a>担任首任部长。SMT情报部在当时主要为应对组内资料外传事件进行调查取证，以及探查各工作室对mod的研究进展情况进行调查。现已完成历史使命。
 			</div>
 		</div>
 		<div class="chapter">
@@ -162,6 +164,12 @@
 			<div class="content">
 				用于对外公布的SMT导航2.6.6.9已基本完成，开始内测，并再次在网站上线<br />
 				QQ群-SMT组交流群改名为SC MOD交流群(SMT)，也开始用于给组外人员讨论mod，以及教学用途
+			</div>
+		</div>
+		<div class="chapter" id="cont_4">
+			<date>2017年x月x日</date>
+			<div class="content">
+				SMT导航全面升级至3.0，更新详情<a href="nav_update.html">点我</a>，除了正式站外，挂载在github上的gh-pages作为体验新版导航功能的体验站而使用。
 			</div>
 		</div>
 		<br />
