@@ -4,12 +4,12 @@ html, body, div, iframe, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4, table, th, 
 }
 html, body {
     height: 100%;
-    background-color:#E4E4E4;
-	color:#373737;
+    background-color:#f0f0f0;
+	   color:#373737;
     font-family: Arial, sans-serif;
 }
 a:link, a:visited {
-	text-decoration: none; 
+	text-decoration: none;
 	color: #03a9f4;
 }
 #error {

@@ -54,7 +54,7 @@ function generateNav(navData) {
 	var nav = $("#nav");
 	nav.hide();
 
-	var nav_logo = $("<img id=\"nav_logo\" src=\"image/nav_logo.png\" />");
+	var nav_logo = $("<img id=\"nav_logo\" src=\"image/nav_logo.jpg\" />");
 	nav.append(nav_logo);
 
     for (var i = 0; i < navData.length; ++i) {
@@ -87,7 +87,10 @@ function generateNav(navData) {
     }
 }
 generateNav(navContent);
-onClick($('#nav_logo'), navHide);
+onClick($('#nav_logo'), function(){
+	if(!isWideScreen)navHide();
+	else window.location.href="index.html";
+});
 
 // 延迟250ms后跳转，以完整播放按钮的过渡动画
 (function() {
@@ -95,7 +98,7 @@ onClick($('#nav_logo'), navHide);
 	for (var i = 0; i < children.length; i++) {
 		onClick(children.eq(i), function() {
 			$("body").css("opacity", 0)
-			
+
 			var e = window.event || arguments.callee.caller.arguments[0];
 			setTimeout(function() {
 				window.location.href = $(e.target).attr("data-uri");
@@ -202,32 +205,32 @@ onClick($('#nav_btn'), navDisp);
 /**
  * Material Design按钮
  */
-$('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {	
+$('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {
 	var padding = new Array(
 		$(this).css("padding-top"),
 		$(this).css("padding-right"),
 		$(this).css("padding-bottom"),
 		$(this).css("padding-left")
 	);
-	
+
 	for (var i = 0; i < padding.length; i++) {
 		padding[i] = parseInt(padding[i].substr(0, padding[i].length - 2));
 	}
-	
+
 	var width = $(this).width() + padding[1] + padding[3] + $(this).height();
 	var height = $(this).height() + padding[0] + padding[2] + $(this).width();
-	
+
 	var html = '<div class="md_bg" style="top:' + (getMousePos('y') + 1) + 'px; left:' + getMousePos('x')+ 'px;"></div>'
-	
+
 	$(this).append(html);
-	
+
 	var curMdBg = $(this).children('.md_bg:last');
-	
+
 	// 延迟1ms更新css，使过渡动画生效
 	setTimeout(function() {
 		curMdBg.css('box-shadow', '0 0 0 ' + (width > height ? width : height) + 'px #000');
 	}, 1);
-	
+
 	// 鼠标抬起 & 过渡动画结束 同时满足时，移除MD Background
 	$('body').one(isMobile ? "touchend" : "mouseup", function() {
 		curMdBg.addClass('mouseup');
@@ -258,7 +261,7 @@ function getMousePos(axis, event) {
 	while (obj.className.indexOf('md_btn') == -1) {
 		obj = obj.parentElement;
 	}
-	
+
 	// 目标元素距窗口边框距离
 	var Left = obj.offsetLeft,
 		Top = obj.offsetTop;
@@ -267,10 +270,10 @@ function getMousePos(axis, event) {
 		Left += obj.offsetLeft;
 		Top += obj.offsetTop;
 	}
-	
+
 	var posX = e.clientX || e.changedTouches[0].clientX;
 	var posY = e.clientY || e.changedTouches[0].clientY;
-	
+
 	var x = posX - Left;
 	var y = posY - Top;
 
@@ -297,13 +300,13 @@ $("#nav_overlay").bind("mousewheel DOMMouseScroll touchmove", function(e){
 $("#nav").bind("mousewheel DOMMouseScroll", function(e){
 	e = e || window.event
 		nav = $("#nav");
-		
+
 	// 没有滚动条
 	if (nav.prop("scrollHeight") == $(window).height()){
 		e.returnValue = false;
 		e.preventDefault();
 	}
-	
+
 	// 有滚动条,位于顶端
 	else if (nav.scrollTop() == 0){
 		if (e.wheelDelta){
@@ -493,7 +496,7 @@ function reverseChapter(scroll, addScrollDis) {
 			$(document).scrollTop() - $(window).height() - $("#top_box").height() + addScrollDis;
 		$("body").animate({scrollTop: targetScroll}, 250);
 	}
-	
+
 	// 重新绑定菜单项点击事件
 	onClick($('#menu [data-menuto]'), function() {
 		var e = window.event || arguments.callee.caller.arguments[0];
@@ -528,7 +531,7 @@ function tableFold(target){
 	var table = $(target).parents('table'),
 		content = table.find('tr:not(:first)'),
 		img = table.find('tr:first').find('td:last').children('img');
-		
+
 	if (table.hasClass('folded')){
 		table.removeClass('folded');
 		content.css('display', 'table-row');
@@ -549,17 +552,17 @@ function findFoldableTables(){
 	else {
 		var threshold = 600;
 	}
-	
+
 	for (var i = 0; i < tables.length; i++){
 		if (tables.eq(i).height() > threshold){
 			var td = tables.eq(i).find('tr:first').find('td:last');
-			
+
 			td.css({'position':'relative', 'padding-right':'80px'});
 			td.append('<img class="fold_btn" style="position:absolute; right:3px; cursor:pointer;" />');
 			tableFold(tables.eq(i).children().eq(0));
 		}
 	}
-	
+
 	onClick($('.fold_btn'), function(e) {
 		e = window.event || arguments.callee.caller.arguments[0];
 		tableFold(e.target);
@@ -638,7 +641,7 @@ function magnifyImg(src){
 		// 明确img宽度，以在首次滚轮缩放时产生transition动画
 		magImg.width(magImg.width());
 	})
-	
+
 	// 点击关闭图片
 	onClick($("#mag_img_wrapper"), closeImg)
 */
@@ -683,13 +686,15 @@ function closeImg(){
 
 var bigTitle = $("#big_title_div"), lastUp = $("#last_update");
 var lastBtPos = 0;
+var lastBtPos1 = 0;
 var topBoxScroll = isMobile ? 75 : 120; // 滚动阈值
+var topBoxtopScroll = isMobile ? 114 : 200;
 
 function changeBT(){
 	// 滚动大于阈值
 	if ($(document).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
 		lastBtPos = $(document).scrollTop();
-		
+
 		// 渐隐标题&更新日期
 		bigTitle.css({
 			"animation": "fade_out 0.03s forwards",
@@ -699,34 +704,36 @@ function changeBT(){
 			"animation": "fade_out 0.03s forwards",
 			"-webkit-animation": "fade_out 0.03s forwards"
 		});
-		
+
 		// 渐隐结束后缩小并渐显标题
 		bigTitle.one("animationend webkitAnimationEnd", function () {
 			bigTitle.removeClass("big");
 			bigTitle.addClass("small");
-			
+
 			bigTitle.css({
 				"animation": "fade_in 0.2s linear",
 				"-webkit-animation": "fade_in 0.2s linear"
 			});
+
+			if(isWideScreen)bigTitle.css("left", "280px");else bigTitle.css("left", "");
 		});
 	}
-	
+
 	// 滚动小于阈值
 	if ($(document).scrollTop() <= topBoxScroll && lastBtPos > topBoxScroll) {
 		lastBtPos = $(document).scrollTop();
-		
+
 		// 渐隐标题
 		bigTitle.css({
 			"animation": "fade_out 0.03s forwards",
 			"-webkit-animation": "fade_out 0.03s forwards"
 		});
-		
+
 		// 渐隐结束后放大并渐显标题&更新日期
 		bigTitle.one("animationend webkitAnimationEnd", function () {
 			bigTitle.removeClass("small");
 			bigTitle.addClass("big");
-			
+
 			bigTitle.css({
 				"animation": "fade_in 0.2s linear",
 				"-webkit-animation": "fade_in 0.2s linear"
@@ -735,7 +742,19 @@ function changeBT(){
 				"animation": "fade_in 0.2s linear",
 				"-webkit-animation": "fade_in 0.2s linear"
 			});
+
+			if(isWideScreen)bigTitle.css("left", $("#cont_wrapper").width()*0.175+260);else bigTitle.css("left", "");
 		});
+	}
+
+	//top_box出现时调整top_box和top_box_top的z-index
+	if($(document).scrollTop() > topBoxtopScroll && lastBtPos1 <= topBoxtopScroll){
+		lastBtPos1 = $(document).scrollTop();
+		$("#top_box_top").css("z-index","4");
+	}
+	if($(document).scrollTop() <= topBoxtopScroll && lastBtPos1 > topBoxtopScroll){
+		lastBtPos1 = $(document).scrollTop();
+		$("#top_box_top").css("z-index","5");
 	}
 }
 changeBT();
@@ -769,7 +788,7 @@ onClick($('#big_title_div'), goTop);
 function onClick(obj, func){
 	obj.on('click touchstart touchmove touchend', function() {
 		var e = window.event || arguments.callee.caller.arguments[0];
-		
+
 		switch (e.type){
 			case "touchstart":
 				startX = e.touches[0].pageX;
@@ -777,19 +796,19 @@ function onClick(obj, func){
 				spanX = 0;
 				spanY = 0;
 				break;
-				
+
 			case "touchmove":
 				spanX = e.touches[0].pageX - startX;
 				spanY = e.touches[0].pageY - startY;
 				break;
-				
+
 			case "touchend":
 				if (Math.abs(spanX) < 3 && Math.abs(spanY) < 3){
 					obj.on()
 					func(e);
 				}
 				break;
-				
+
 			case "click":
 				if (!isMobile){
 					func(e);
@@ -832,10 +851,59 @@ if ((ua.match(/msie/i) && ua.match(/Windows NT/i)) // PC IE
  */
 document.onscroll = function (){
 	changeBT(); // 大标题缩放
+};
+
+
+var isWideScreen = !isMobile?((document.body.clientWidth>=1000)?true:false):false;
+if(isWideScreen)change2widescreen();
+//屏幕大小变化时
+var last_isWideScreen = false;
+$(window).resize(function() {
+	if (!isMobile) {
+		last_isWideScreen = isWideScreen;
+		isWideScreen = (document.body.clientWidth >= 1000) ? true : false;
+		if (isWideScreen != last_isWideScreen) {
+			if (isWideScreen) change2widescreen();
+			else change2narrowscreen();
+		} else if (isWideScreen) {
+			var cont_wrapper = $("#cont_wrapper");
+			cont_wrapper.css("width", document.body.clientWidth - 260);
+			if ($("#big_title_div.big")[0] === undefined) $("#big_title_div.small").css("left", "280px");
+			else $("#big_title_div.big").css("left", cont_wrapper.width() * 0.175 + 260);
+			$("#last_update").css("left", cont_wrapper.width() * 0.175 + 300);
+		}
+	}
+});
+
+function change2widescreen(){
+	$("#nav").removeClass("nav_hide");
+	$("#nav").addClass("nav_show");
+	isNavOpen = true;
+	var cont_wrapper = $("#cont_wrapper");
+	cont_wrapper.removeClass("cont_wrapper_narrowscreen");
+	cont_wrapper.addClass("cont_wrapper_widescreen");
+	cont_wrapper.css("width",document.body.clientWidth-260);
+	$("#nav_btn").hide();
+	$("#nav_overlay").css({
+		"animation":"nav_overlay_hide 0.4s linear forwards",
+		"-webkit-animation":"nav_overlay_hide 0.4s linear forwards"
+	});
+	$("#big_title_div.big").css("left",cont_wrapper.width()*0.175+260);
+	$("#last_update").css("left",cont_wrapper.width()*0.175+300);
 }
 
-
-
+function change2narrowscreen(){
+	$("#nav").removeClass("nav_show");
+	$("#nav").addClass("nav_hide");
+	isNavOpen = false;
+	var cont_wrapper = $("#cont_wrapper");
+	cont_wrapper.removeClass("cont_wrapper_widescreen");
+	cont_wrapper.addClass("cont_wrapper_narrowscreen");
+	cont_wrapper.css("width","100%");
+	$("#nav_btn").show();
+	$("#big_title_div").css("left","");
+	$("#last_update").css("left","");
+}
 
 
 
@@ -948,5 +1016,5 @@ document.onscroll = function (){
 		e.preventDefault();
 		e.returnValue = false;
 	}
-	
+
 */

@@ -16,27 +16,28 @@
 
 <body>
 <iframe id="error" src="error.html"></iframe>
+<div id="divs_fixed" style="display:none;">
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<div id="nav_btn" class='md_btn'></div>
+	</div>
+	<!--导航-->
+	<div id="nav" class="nav" data-open="3"></div>
+	<div id="nav_overlay"></div>
+	<!--顶栏-->
+	<div id="big_title_div" class="big">Clothes解析</div>
+	<div id="last_update">——更新日期 2016年3月15日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
+</div>
 <div id="cont_wrapper" style="display:none;">
 	<script>
 		// JS正常加载时隐藏error、显示cont_wrapper
 		$("#error").css("display", "none");
 		$("#cont_wrapper").css("display", "block");
+		$("#divs_fixed").css("display", "block");
 	</script>
-	<!--顶栏 按钮-->
-	<div id="buttons">
-		<div id='nav_btn' class='md_btn'></div>
-	</div>
-
-	<!--导航-->
-	<div id="nav" class="nav" data-open="3"></div>
-	<div id="nav_overlay"></div>
-	
-	<!--顶栏-->
-	<div id="big_title_div" class="big">Clothes解析</div>
-	<div id="last_update">——更新日期 2016年1月25日——</div>
-	<div id="top_box"></div>
-	<div id="top_box_top"></div>
-	<div id="top_box_strutting"></div>
 
 	<!--上栏-->
 	<div id="upper_box">
@@ -60,7 +61,7 @@
 <pre class="language-markup line-numbers" style="height:50px"><code>&lt;ClothingData Index=&quot;1&quot; DisplayName=&quot;Old Shirt&quot; Slot=&quot;Torso&quot; ArmorProtection=&quot;0.2&quot; Sturdiness=&quot;10&quot; Insulation=&quot;2.0&quot; MovementSpeedFactor=&quot;1&quot; DensityModifier=&quot;0.0&quot; IsOuter=&quot;False&quot; CanByDyed=&quot;True&quot; Layer=&quot;1&quot; TextureName=&quot;Textures\Clothing\OldShirt&quot; ImpactSoundsFolder=&quot;&quot; Description=&quot;Old shirt you wore when being abandoned on this land. Can be dyed. No protection. Weak insulation.&quot; /&gt;</code></pre>
 			</div>
 		</div>
-		
+
 		<div class="chapter">
 			<h1>属性解析</h1>
 			<div class="content">

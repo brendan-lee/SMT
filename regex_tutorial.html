@@ -14,27 +14,28 @@
 
 <body>
 <iframe id="error" src="error.html"></iframe>
+<div id="divs_fixed" style="display:none;">
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<div id="nav_btn" class='md_btn'></div>
+	</div>
+	<!--导航-->
+	<div id="nav" class="nav" data-open="4"></div>
+	<div id="nav_overlay"></div>
+	<!--顶栏-->
+	<div id="big_title_div" class="big">正则表达式教程</div>
+	<div id="last_update">——更新日期 2017年3月15日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
+</div>
 <div id="cont_wrapper" style="display:none;">
 	<script>
 		// JS正常加载时隐藏error、显示cont_wrapper
 		$("#error").css("display", "none");
 		$("#cont_wrapper").css("display", "block");
+		$("#divs_fixed").css("display", "block");
 	</script>
-	<!--顶栏 按钮-->
-	<div id="buttons">
-		<div id='nav_btn' class='md_btn'></div>
-	</div>
-
-	<!--导航-->
-	<div id="nav" class="nav" data-open="4"></div>
-	<div id="nav_overlay"></div>
-	
-	<!--顶栏-->
-	<div id="big_title_div" class="big">正则表达式教程</div>
-	<div id="last_update">——更新日期 2015年8月5日——</div>
-	<div id="top_box"></div>
-	<div id="top_box_top"></div>
-	<div id="top_box_strutting"></div>
 
 	<!--上栏-->
 	<div id="upper_box">
@@ -104,11 +105,11 @@
 						<td>匹配x或y。例如，“z|food”能匹配“z”或“food”。“(z|f)ood”则匹配“zood”或“food”。</td>
 					</tr>
 				</table>
-			</div>	
+			</div>
 		</div>
-	 
+
 		<div class="chapter" id="cont_2">
-			<h1>第二节 例子</h1>				
+			<h1>第二节 例子</h1>
 			<div class="section">
 				<h2>例一</h2>
 				<div class="content">
@@ -128,8 +129,8 @@
 					^((([^;\n]*);){m})[^;\n]*<br />
 					替换<br />
 					($1)x<br />
-					m为该属性前面的分号个数，x为要替换成的值<br />（注：部分只有分号的行需要把手动改回没有内容,在1.26版的blocksdata.txt中第2,29,50,74,132,134,136,163,176,186行是这样的。<br />
-					查找中最后的[^;\n]*就是那个位置的值，可以把它改成特定的值来批量修改所有为该值的属性的值。）
+					m为该属性前面的分号个数，x为要替换成的值<br />（注一：部分只有分号的行需要把手动改回没有内容,在1.26版的blocksdata.txt中第2,29,50,74,132,134,136,163,176,186行是这样的。<br />
+					查找中最后的[^;\n]*就是那个位置的值，可以把它改成特定的值来批量修改所有为该值的属性的值。）<br />（注二：手机上的文本编辑器可能此例使用不正常）
 				</div>
 			</div>
 		</div>

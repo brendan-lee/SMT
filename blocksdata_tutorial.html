@@ -14,18 +14,21 @@
 
 <body>
 <iframe id="error" src="error.html"></iframe>
-<div id="cont_wrapper" style="display:none;">
-	<script>
-		// JS正常加载时隐藏error、显示cont_wrapper
-		$("#error").css("display", "none");
-		$("#cont_wrapper").css("display", "block");
-	</script>
+<div id="divs_fixed" style="display:none;">
 	<!--顶栏 按钮-->
 	<div id="buttons">
 		<div id='menu_btn' class='md_btn'></div>
 		<div id='nav_btn' class='md_btn'></div>
 	</div>
-
+	<!--导航-->
+	<div id="nav" class="nav" data-open="3"></div>
+	<div id="nav_overlay"></div>
+	<!--顶栏-->
+	<div id="big_title_div" class="big">Blocksdata教程</div>
+	<div id="last_update">——更新日期 2017年3月15日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
 	<!--目录-->
 	<div id="menu">
 		<li class="parent md_btn" data-menuto="cont_1">一.数据类型</li>
@@ -33,24 +36,22 @@
 		<li class="parent md_btn" data-menuto="cont_3">三.启发例子</li>
 		<li class="parent md_btn" data-menuto="cont_appendix">附录</li>
 	</div>
-
-	<!--导航-->
-	<div id="nav" class="nav" data-open="3"></div>
-	<div id="nav_overlay"></div>
-
-	<!--顶栏-->
-	<div id="big_title_div" class="big">Blocksdata教程</div>
-	<div id="last_update">——更新日期 2017年2月20日——</div>
-	<div id="top_box"></div>
-	<div id="top_box_top"></div>
-	<div id="top_box_strutting"></div>
+</div>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+		$("#divs_fixed").css("display", "block");
+	</script>
 
 	<!--上栏-->
 	<div id="upper_box">
 		<h1>前言</h1>
 		<div class="content">
 			内容详解原表大致框架及翻译由百度贴吧-大王派提供，游戏1.22.7及以后更新内容和其他更多解释说明由百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=%E9%94%80%E9%94%8B%E9%95%9D%E9%93%B8&ie=utf-8" target="_blank">销锋镝铸</a>编写。<br />
-			目前本页内容对应游戏2.0。
+			目前本页内容对应游戏2.0。<br />
+			为方便查看，所有英文属性名单词间已加上空格。
 			<script>if(isMobile == true){document.write("<br />提示：手机端建议横屏查看");}</script>
 		</div>
 	</div>
@@ -666,7 +667,7 @@
 				<h2>4.超级工具</h2>
 				<div class="content">
 					即秒砍挖铲杀，耐久几乎无限。<br />
-					修改要修改的工具方块的ShovelPower，QuarryPower，HackPower为99，DefaultMeleePower或DefaultProjectilePower为999(虎鲸攻击抗性为200)，ToolLevel为4，ToolDurability为50000(没人用的完，比无限省3个字节，且太大容易出错)
+					修改要修改的工具方块的Shovel Power，Quarry Power，Hack Power为99，Default Melee Power或Default Projectile Power为999(虎鲸攻击抗性为200)，Tool Level为4，Durability为50000(没人用的完，比无限省3个字节，且太大容易出错)
 				</div>
 			</div>
 			<div class="section">
