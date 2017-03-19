@@ -16,45 +16,43 @@
 
 <body>
 <iframe id="error" src="error.html"></iframe>
-<div id="cont_wrapper" style="display:none;">
-	<script>
-		// JS正常加载时隐藏error、显示cont_wrapper
-		$("#error").css("display", "none");
-		$("#cont_wrapper").css("display", "block");
-	</script>
+<div id="divs_fixed" style="display:none;">
 	<!--顶栏 按钮-->
 	<div id="buttons">
 		<div id='menu_btn' class='md_btn'></div>
 		<div id='nav_btn' class='md_btn'></div>
 	</div>
-
 	<!--导航-->
 	<div id="nav" class="nav" data-open="3"></div>
 	<div id="nav_overlay"></div>
-	
 	<!--顶栏-->
 	<div id="big_title_div" class="big">XML基础知识</div>
-	<div id="last_update">——更新日期 2016年1月28日——</div>
+	<div id="last_update">——更新日期 2017年3月15日——</div>
 	<div id="top_box"></div>
 	<div id="top_box_top"></div>
 	<div id="top_box_strutting"></div>
-
 	<!--目录-->
 	<div id="menu">
-		<li class="parent md_btn" data-menuto="cont_1">一.标签</li>
-				
+		<li class="parent md_btn" data-menuto="cont_1">一.树结构与标签</li>
 		<li class="parent md_btn" data-menuto="cont_2">二.识别码和继承码</li>
-				
 		<li class="parent md_btn" data-menuto="cont_3">三.默认继承</li>
 	</div>
-	
+</div>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+		$("#divs_fixed").css("display", "block");
+	</script>
+
 	<!--上栏-->
 	<div id="upper_box">
 		<h1>前言</h1>
 		<div class="content">
 			<ul>
 				<li>XML是可扩展标记语言文件的扩展名（后缀），是一种用于标记电子文件使其具有结构性的标记语言</li>
-				<li>在这里不要求各位完全掌握，只需要了解一些基础知识即可。</li>
+				<li>之后多篇解析、教程需要用到此处知识</li>
 				<li>本教程由-百度贴吧<a href="http://tieba.baidu.com/home/main/?un=%E9%94%80%E9%94%8B%E9%95%9D%E9%93%B8&ie=utf-8" target="_blank">销锋镝铸</a>编写</li>
 				<li>更多内容请访问<a href='http://runoob.com/xml/xml-tutorial.html' target='_blank'>http://runoob.com/xml/xml-tutorial.html</a></li>
 			</ul>
@@ -64,25 +62,60 @@
 	<!--内容栏-->
 	<div id="content_box">
 		<div class="chapter" id="cont_1">
-			<h1>第一节 标签</h1>
+			<h1>第一节 树结构与元素</h1>
+			<span style="font-size:10pt; display:block; font-weight:bold;">——若此节无法理解可查看前言的<a href='http://runoob.com/xml/xml-tutorial.html' target='_blank'>更多内容</a></span>
 			<div class="section">
-				<div class="content">标记语言由标签包裹内容，包裹形式有以下两种：
-					<h2>(1)&lt;abc&gt;xxx&lt;/abc&gt;</h2>
-					<h3>&lt;abc&gt;：</h3>
-					开始标签，以&lt;开始，以&gt;结尾，abc是元素名，表示abc元素的开始<br />
-					<h3>xxx：</h3>
-					abc元素的内容<br />
-					<h3>&lt;/abc&gt;：</h3>
-					结束标签，以&lt;/开始，以&gt;结尾，abc是元素名，表示abc元素的结束<br />
-					（注：内容为标签时形成层级关系，内层元素从属外层元素。例如&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;中b元素属于a元素，b元素是a元素的子元素，a元素是b元素的父元素，同时a元素在此也叫做根元素，一个xml文件必须包含根元素，它是所有其他元素的父元素）
-					<h2>(2)&lt;xxx/&gt;</h2>
-					自闭合标签，以&lt;开始，以/&gt;结尾，xxx是内容，是最低的层级
-					<h2>元素的属性</h2>
-					&lt;abc def="ghi" /&gt;中，def="ghi"是abd元素的属性，其中def是属性名，ghi是属性值，属性值须加引号
+				<h2>1.树结构</h2>
+				<div class="content">
+					首先看此XML实例：
+<pre class="language-markup line-numbers"><code>&lt;bookstore&gt;
+	&lt;book category=&quot;FANTASY&quot;&gt;
+		&lt;title lang=&quot;en&quot;&gt;The Chronicles of Narnia&lt;/title&gt;
+		&lt;author&gt;Clive Staples Lewis&lt;/author&gt;
+		&lt;year&gt;1950&lt;/year&gt;
+		&lt;series count=&quot;7&quot; /&gt;
+	&lt;/book&gt;
+		&lt;book category=&quot;SF&quot;&gt;
+			&lt;title lang=&quot;zh&quot;&gt;The Three Body Problem&lt;/title&gt;
+			&lt;author&gt;Big Liu&lt;/author&gt;
+			&lt;year&gt;2008&lt;/year&gt;
+			&lt;series count=&quot;3&quot; /&gt;
+		&lt;/book&gt;
+&lt;/bookstore&gt;</code></pre>
+					此实例中bookstore被称作根元素，两个book则是bookstore的两个子元素，这两个子元素被包含在根元素的开始标签&lt;<span style="color:#c92c2c">bookstore</span>&gt;到结束标签&lt;/<span style="color:#c92c2c">bookstore</span>&gt;之间<br />
+					同理title、author、year、series都是book的子元素，对于这些元素来说book则是它们的父元素，因为它们拥有相同的父元素，所以它们互称同胞<br />
+					某元素的父元素、父元素的父元素、等等则被称为先辈，例如bookstore和book是title的先辈<br />
+					某元素的子元素、子元素的子元素、等等则被称为后代，例如book、title、author是bookstore的后代<br />
+				</div>
+			</div>
+			<div class="section">
+				<h2>2.元素</h2>
+				<div class="content">
+					XML元素指的是从（且包括）开始标签直到（且包括）结束标签的部分，必须包含：
+					<ol style="margin:10px;">
+						<li>开始标签和结束标签或一个自结束标签：所有元素必须得到结束，否则错误。</li>
+							<ul style="font-size:10pt;">
+								<li>开始标签：特点是标签开头或结尾没有“/”符号，例如上例中的&lt;<span style="color:#c92c2c">bookstore</span>&gt;、&lt;<span style="color:#c92c2c">book</span> <span style="color:#2f9c0a">category</span>=&quot;<span style="color:#1990b8">FANTASY</span>&quot;&gt;等</li>
+								<li>结束标签：特点是标签开头有“/”符号，例如上例中的&lt;/<span style="color:#c92c2c">title</span>&gt;、&lt;/<span style="color:#c92c2c">book</span>&gt;等</li>
+								<li>自结束标签：特点是标签结尾有“/”符号，例如上例中的&lt;<span style="color:#c92c2c">series</span> <span style="color:#2f9c0a">count</span>=&quot;<span style="color:#1990b8">7</span>&quot; /&gt;，该标签本身构成一个元素，因此无法拥有下文提到的文本、其他元素</li>
+							</ul>
+						<li>元素名称：放在标签开头处
+					</ol>
+					不一定包含：
+					<ol style="margin:10px;">
+						<li>属性：例如上例中的<span style="color:#2f9c0a">category</span>=&quot;<span style="color:#1990b8">FANTASY</span>&quot;就是它所在<span style="color:#c92c2c">book</span>元素的属性，其中<span style="color:#2f9c0a">category</span>是属性名称，<span style="color:#1990b8">FANTASY</span>是属性的值，属性的值必须加引号；属性位于开始标签或自结束标签之中</li>
+						<li>文本：例如上例中的The Chronicles of Narnia，位于第一个title元素的开始标签与结束标签之间</li>
+						<li>其他元素：例如子元素、后代元素</li>
+					</ol>
+					注意：元素之间必须正确嵌套，一个元素的子元素的结束标签不能出现在该元素的结束标签之后，例如下例是错误的
+<pre class="language-markup line-numbers"><code>&lt;Father&gt;
+	&lt;Son&gt;
+	&lt;/Father&gt;
+&lt;/Son&gt;</code></pre>
 				</div>
 			</div>
 		</div>
-	 
+
 		<div class="chapter" id="cont_2">
 			<h1>第二节 识别码和继承码</h1>
 			<div class="section">
@@ -114,7 +147,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="chapter" id="cont_3">
 			<h1>第三节 默认继承</h1>
 			<div class="section">
@@ -126,7 +159,7 @@
 	&lt;/MemberComponentTemplate&gt;
 	...
 &lt;/EntityTemplate&gt;
-				
+
 &lt;EntityTemplate Name="AICreature" Guid="3f077159-f492-419b-859a-bb051de6339f" InheritanceParent="bc5be211-c1f8-4e50-9ffb-4fde625d2692"&gt;
 	&lt;MemberComponentTemplate Name="Mount" Guid="d7655ac3-4c88-4e89-8018-83155cd7bfbc" InheritanceParent="d0b14127-39ce-4490-af00-fb4111e9c51e"&gt;
 		&lt;Parameter Name="DismountOffset" Guid="3be6ca1c-17c5-4fd7-ad58-6f52d9651188" Value="1.5,0.3,0" Type="Microsoft.Xna.Framework.Vector3" /&gt;

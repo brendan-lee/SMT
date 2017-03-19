@@ -27,34 +27,34 @@
 
 <body>
 <iframe id="error" src="error.html"></iframe>
-<div id="cont_wrapper" style="display:none;">
-	<script>
-		// JS正常加载时隐藏error、显示cont_wrapper
-		$("#error").css("display", "none");
-		$("#cont_wrapper").css("display", "block");
-	</script>
+<div id="divs_fixed" style="display:none;">
 	<!--顶栏 按钮-->
 	<div id="buttons">
 		<div id='menu_btn' class='md_btn'></div>
 		<div id='nav_btn' class='md_btn'></div>
 	</div>
-
+	<!--导航-->
+	<div id="nav" class="nav" data-open="2"></div>
+	<div id="nav_overlay"></div>
+	<!--顶栏-->
+	<div id="big_title_div" class="big">SMT Logo</div>
+	<div id="last_update">——更新日期 2017年3月15日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
 	<!--目录-->
 	<div id="menu">
 		<li class="parent md_btn" data-menuto="cont_1">一.现用logo</li>
 		<li class="parent md_btn" data-menuto="cont_2">二.曾用logo</li>
 	</div>
-
-	<!--导航-->
-	<div id="nav" class="nav" data-open="2"></div>
-	<div id="nav_overlay"></div>
-	
-	<!--顶栏-->
-	<div id="big_title_div" class="big">SMT Logo</div>
-	<div id="last_update">——更新日期 2015年1月22日——</div>
-	<div id="top_box"></div>
-	<div id="top_box_top"></div>
-	<div id="top_box_strutting"></div>
+</div>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+		$("#divs_fixed").css("display", "block");
+	</script>
 
 	<!--内容栏-->
 	<div id="content_box">
@@ -85,7 +85,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="chapter" id="cont_2">
 			<h1>第二节 曾用logo</h1>
 			<div class="content">

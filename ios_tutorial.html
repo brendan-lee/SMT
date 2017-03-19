@@ -14,18 +14,21 @@
 
 <body>
 <iframe id="error" src="error.html"></iframe>
-<div id="cont_wrapper" style="display:none;">
-	<script>
-		// JS正常加载时隐藏error、显示cont_wrapper
-		$("#error").css("display", "none");
-		$("#cont_wrapper").css("display", "block");
-	</script>
+<div id="divs_fixed" style="display:none;">
 	<!--顶栏 按钮-->
 	<div id="buttons">
 		<div id='menu_btn' class='md_btn'></div>
 		<div id='nav_btn' class='md_btn'></div>
 	</div>
-
+	<!--导航-->
+	<div id="nav" class="nav" data-open="3"></div>
+	<div id="nav_overlay"></div>
+	<!--顶栏-->
+	<div id="big_title_div" class="big">IOS基础教程</div>
+	<div id="last_update">——更新日期 2017年3月15日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
 	<!--目录-->
 	<div id="menu">
 		<li class="parent md_btn" data-menuto="cont_1">一.所需工具</li>
@@ -34,23 +37,21 @@
 			<li class="child md_btn" data-menuto="cont_2.2">2.替换Content</li>
 		<li class="parent md_btn" data-menuto="cont_3">三.生成安装包</li>
 	</div>
-
-	<!--导航-->
-	<div id="nav" class="nav" data-open="3"></div>
-	<div id="nav_overlay"></div>
-	
-	<!--顶栏-->
-	<div id="big_title_div" class="big">IOS基础教程</div>
-	<div id="last_update">——更新日期 2016年1月25日——</div>
-	<div id="top_box"></div>
-	<div id="top_box_top"></div>
-	<div id="top_box_strutting"></div>
+</div>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+		$("#divs_fixed").css("display", "block");
+	</script>
 
 	<!--上栏-->
 	<div id="upper_box">
 		<h1>前言</h1>
 		<div class="content">
-			本教程由百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=%E9%94%80%E9%94%8B%E9%95%9D%E9%93%B8&ie=utf-8" target="_blank">销锋镝铸</a>编写
+			本教程由百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=%E9%94%80%E9%94%8B%E9%95%9D%E9%93%B8&ie=utf-8" target="_blank">销锋镝铸</a>编写<br />
+			由于暂时没有IOS平台解包打包工具，加上高版本IOS系统越狱困难，因此IOS基础教程停止更新，如为您带来不便，敬请谅解
 		</div>
 	</div>
 
@@ -62,7 +63,7 @@
 				一台越狱了的IOS系统设备，<a href="resources.html#cont_3">ifile</a>（一个越狱后使用的文件管理器），<a href="resources.html#cont_4">PP助手（越狱版）</a>
 			</div>
 		</div>
-		
+
 		<div class="chapter" id="cont_2">
 			<h1>第二节 详细步骤</h1>
 			<div class="section" id="cont_2.1">
@@ -94,7 +95,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="chapter" id="cont_3">
 			<h1>第三节 生成安装包</h1>
 			<span style="font-size:10pt; display:block; font-weight:bold;">——注：按此步骤生成的安装包不保证能够在所有IOS设备上能够正常使用，建议越狱玩家按照第二节的第二步手动替换Content.pak</span>

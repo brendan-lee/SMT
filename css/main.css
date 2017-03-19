@@ -18,6 +18,20 @@ hr {
 	margin: 4px 0;
 }
 
+#cont_wrapper{
+	width:100%;
+	transition: transform 0.5;
+	-webkit-transition: -webkit-transform 0.2s;
+}
+.cont_wrapper_narrowscreen {
+	transform: translate(0);
+	-webkit-transform: translate(0);
+}
+.cont_wrapper_widescreen {
+	transform: translate(260px);
+	-webkit-transform: translate(260px);
+}
+
 /*顶栏*/
 	#top_box, #top_box_top{
 		position:fixed;
@@ -26,12 +40,12 @@ hr {
 		height:60px;
 		background-color:#259b24;
 		z-index:5;
-		box-shadow:0 0 6px 1px #000;
+		box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
 	}
 
 	#top_box_top {/*顶栏 遮罩层*/
 		z-index:5;
-		box-shadow:0 0 0 0;
+		box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
 		position:absolute;
 		height:260px;
 	}
@@ -48,17 +62,17 @@ hr {
 		font-weight:bold;
 		cursor:pointer;
 	}
-	
+
 	#big_title_div.big {
 		position: absolute;
-		font-size: 50px; 
+		font-size: 50px;
 		top: 140px;
-		left: 22.5%; /* 22.5% = content_box.width(55%) / 2*/
+		left: 17.5%; /* 17.5% = content_box.width(35%) / 2*/
 	}
-	
+
 	#big_title_div.small {
 		position: fixed;
-		font-size: 25px; 
+		font-size: 25px;
 		top: 0px;
 		left: 80px;
 	}
@@ -72,7 +86,7 @@ hr {
 		font-weight:lighter;
 		cursor:pointer;
 		top: 215px;
-		left: calc(22.5% + 40px); /* 22.5% = content_box.width(55%) / 2*/
+		left: calc(17.5% + 40px); /* 17.5% = content_box.width(35%) / 2*/
 	}
 
 /*按钮*/
@@ -144,7 +158,7 @@ hr {
 		transition: background 0.06s linear;
 		-webkit-transition: background 0.06s linear;
 	}
-	
+
 	#menu li:hover {
 		background: #eee;
 	}
@@ -158,12 +172,12 @@ hr {
 	.nav {
 		z-index:10;
 		position:fixed;
-		transform: translate(-270px);
-		-webkit-transform: translate(-270px);
+		transform: translate(-110%);
+		-webkit-transform: translate(-110%);
 		height:100%;
-		width:230px;
+		width:260px;
 		background-color:#FFF;
-		box-shadow:0 0 20px 2px #000;
+		box-shadow: 2px 0px 4px -1px rgba(0,0,0,.2), 4px 0px 5px 0 rgba(0,0,0,.14), 1px 0px 10px 0 rgba(0,0,0,.12);
 		overflow-x:hidden;
 		overflow-y:auto;
 		transition: transform 0.5s;
@@ -174,8 +188,8 @@ hr {
 		-webkit-transform: translate(0);
 	}
 	.nav_hide {
-		transform: translate(-270px);
-		-webkit-transform: translate(-270px);
+		transform: translate(-110%);
+		-webkit-transform: translate(-110%);
 	}
 
 	#nav_overlay {/*打开导航栏时的黑色透明背景（单击关闭导航）*/

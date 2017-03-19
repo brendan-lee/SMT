@@ -39,7 +39,7 @@ hr {
 	#top_box_strutting {/*顶撑*/
 		height:160px;
 	}
-	
+
 	#big_title_div {
 		line-height: 46px;
 		color:#FFF;
@@ -47,26 +47,26 @@ hr {
 		text-shadow:1px 1px 3px #000;
 		font-weight:bold;
 	}
-	
+
 	#big_title_div.big {
 		position: absolute;
-		font-size: 30px; 
+		font-size: 30px;
 		top: 85px;
 		left: 45px;
 	}
-	
+
 	#big_title_div.small {
 		position:fixed;
-		font-size:20px; 
+		font-size:20px;
 		top: 0px;
 		left: 50px;
 	}
-	
+
 	#last_update {/*更新日期 滚动为0时的样式*/
 		position:absolute;
 		z-index:6;
-		color:#FFF; 
-		font-size:14px; 
+		color:#FFF;
+		font-size:14px;
 		text-shadow:1px 1px 2px #000;
 		font-weight:lighter;
 		top: 130px;
@@ -121,7 +121,7 @@ hr {
 		transition: all 0.25s ease-out, opacity 0.1s ease-out;
 		-webkit-transition: all 0.25s ease-out, opacity 0.1s ease-out;
 	}
-	
+
 /*目录*/
 	#menu {
 		z-index:9;
@@ -133,7 +133,7 @@ hr {
 		box-shadow:0 1px 6px #000;
 		border-radius:2px;
 	}
-	
+
 	#menu li {
 		list-style:none;
 		font-size:18px;
@@ -152,10 +152,11 @@ hr {
 	.nav {
 		z-index:10;
 		position:fixed;
-		transform:translate(-215px);
-		-webkit-transform:translate(-215px);
+		transform:translate(-110%);
+		-webkit-transform:translate(-110%);
 		height:100%;
-		width:190px;
+		width:60%;
+		max-width: 260px;
 		background-color:#FFF;
 		box-shadow:0 0 10px 2px #000;
 		overflow-x:hidden;
@@ -168,8 +169,8 @@ hr {
 		-webkit-transform: translate(0);
 	}
 	.nav_hide {
-		transform: translate(-215px);
-		-webkit-transform: translate(-215px);
+		transform: translate(-110%);
+		-webkit-transform: translate(-110%);
 	}
 
 	#nav_overlay {/*打开导航栏时的黑色透明背景（单击关闭导航）*/
@@ -184,7 +185,8 @@ hr {
 
 	#nav_logo {
 		margin: 20px auto;
-		width:80px;
+		width: 65%;
+		max-width: 200px;
 		display:block;
 	}
 
