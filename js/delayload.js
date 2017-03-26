@@ -44,7 +44,8 @@ var navContent = [
         section: "第四章 其他教程",
         tutors: [
             {name: "正则表达式教程", uri: "regex_tutorial.html"},
-			{name: "发布范例", uri: "publication_example.html"}
+		        {name: "实例合集", uri: "examples_collection.html"},
+						{name: "发布范例", uri: "publication_example.html"}
         ]
     }
 ];

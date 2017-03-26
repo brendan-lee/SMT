@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no" />
+	<title>实例合集</title>
+	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery.min.js"></script>
+	<link href="css/prism.css" rel="stylesheet"/>
+	<script src="js/prism.js"></script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
+	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
+	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
+	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+</head>
+
+<body>
+<iframe id="error" src="error.html"></iframe>
+<div id="divs_fixed" style="display:none;">
+	<!--顶栏 按钮-->
+	<div id="buttons">
+		<div id='nav_btn' class='md_btn'></div>
+	</div>
+	<!--导航-->
+	<div id="nav" class="nav" data-open="4"></div>
+	<div id="nav_overlay"></div>
+	<!--顶栏-->
+	<div id="big_title_div" class="big">实例合集</div>
+	<div id="last_update">——更新日期 2017年3月26日——</div>
+	<div id="top_box"></div>
+	<div id="top_box_top"></div>
+	<div id="top_box_strutting"></div>
+</div>
+<div id="cont_wrapper" style="display:none;">
+	<script>
+		// JS正常加载时隐藏error、显示cont_wrapper
+		$("#error").css("display", "none");
+		$("#cont_wrapper").css("display", "block");
+		$("#divs_fixed").css("display", "block");
+	</script>
+
+
+
+	<!--上栏-->
+	<div id="upper_box">
+		<h1>前言</h1>
+		<div class="content">
+			<ul>
+				<li>该合集内容可能会和最新版游戏有所冲突，仅供参考</li>
+				<li>本合集由-百度贴吧<a href="http://tieba.baidu.com/home/main/?un=%E9%94%80%E9%94%8B%E9%95%9D%E9%93%B8&ie=utf-8" target="_blank">销锋镝铸</a>收集</li>
+			</ul>
+		</div>
+	</div>
+
+	<!--内容栏-->
+	<div id="content_box">
+		<div class="chapter" id="cont_1">
+			<h1>背包扩展</h1>
+			<div class="content">
+				<h2>说明</h2>
+				将生存模式背包提高至6×5，附3×3的背包合成台
+				<h3>实例编写时游戏版本</h3>
+				2.0
+				<h3>实例作者</h3>
+				百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=%E9%94%80%E9%94%8B%E9%95%9D%E9%93%B8&ie=utf-8" target="_blank">销锋镝铸</a>
+				<h3>参考建议</h3>
+				通读<a href="content_folder_tutorial.html">Content解析</a>、<a href="xml_tutorial.html">XML基础教程</a>、<a href="database_tutorial.html">Database解析</a>
+			</div>
+			<div class="content">
+				<h2>步骤</h2>
+        <h3>1.提取Content.pak并解包</h3>
+        （略，打包测试亦略）
+        <h3>2.修改FullInventoryWidget.xml</h3>
+        FullInventoryWidget.xml在Content\Widgets中，它是生存模式左上角背包按钮打开的背包部件（暂且把“Widget”翻译成“部件”），以下将该部件称作主背包，之后还会有很多为方便称呼的不标准翻译。原文如下，注意注释
+<pre class="language-markup line-numbers"><code>&lt;FullInventoryWidget xmlns=&quot;runtime-namespace:Game&quot;&gt;
+&lt;!--主背包部件（根元素）--&gt;
+  &lt;BevelledRectangleWidget Size=&quot;614, 382&quot; Texture=&quot;{Textures/Gui/Panel}&quot; BevelSize=&quot;3&quot; TextureScale=&quot;0.5&quot;/&gt;
+  &lt;!--斜边矩形部件（在这里被当作背景使用）大小：614（宽）×382（高） 材质：{Textures/Gui/Panel}（文件路径） 斜边宽度：3 材质缩放：0.5--&gt;
+  &lt;GridPanelWidget Name=&quot;InventoryGrid&quot; CanvasWidget.Position=&quot;286, 52&quot; ColumnsCount=&quot;4&quot; RowsCount=&quot;4&quot;/&gt;
+  &lt;!--网格部件 名字：物品栏 位置：286（x横），52（y纵） 网格纵列数：4 网格横行数：4--&gt;
+  &lt;GridPanelWidget Name=&quot;CraftingGrid&quot; CanvasWidget.Position=&quot;36, 52&quot; ColumnsCount=&quot;2&quot; RowsCount=&quot;2&quot;/&gt;
+  &lt;!--网格部件 名字：合成栏 ……--&gt;
+  &lt;InventorySlotWidget Name=&quot;CraftingResultSlot&quot; CanvasWidget.Position=&quot;36, 268&quot; /&gt;
+  &lt;!--物品格部件 名字：第一个合成结果格 ……--&gt;
+  &lt;InventorySlotWidget Name=&quot;CraftingRemainsSlot&quot; CanvasWidget.Position=&quot;108, 268&quot; &gt;
+  &lt;!--物品格部件 名字：第二个合成结果格 ……--&gt;
+    &lt;LabelWidget Text=&quot;...&quot; Font=&quot;{Fonts/Pericles24}&quot; Color=&quot;0, 0, 0, 64&quot; HorizontalAlignment=&quot;Center&quot; VerticalAlignment=&quot;Center&quot;/&gt;
+    &lt;!--标签部件（看起来就是一个文本部件） 文本：... 字体：{Fonts/Pericles24}（文件路径） 颜色（RGBA，红绿蓝透明度，0~255）：0（R）,0（G）,0（B）,64（A）垂直对齐：居中--&gt;
+  &lt;/InventorySlotWidget&gt;
+  &lt;LabelWidget CanvasWidget.Position=&quot;36, 14&quot; Text=&quot;Handcrafting&quot; Font=&quot;{Fonts/Pericles24}&quot; Color=&quot;255, 255, 255, 192&quot;/&gt;
+  &lt;!--略……--&gt;
+  &lt;LabelWidget CanvasWidget.Position=&quot;286, 14&quot; Text=&quot;Inventory&quot; Font=&quot;{Fonts/Pericles24}&quot; Color=&quot;255, 255, 255, 192&quot;/&gt;
+  &lt;!--略……--&gt;
+  &lt;ArrowLineWidget Color=&quot;0, 0, 0, 96&quot; Width=&quot;8&quot; ArrowWidth=&quot;24&quot; PointsString=&quot;108, 211; 108, 241&quot; AbsoluteCoordinates=&quot;true&quot;/&gt;
+  &lt;!--箭头部件 …… 箭尾宽度：8 箭头宽度：24 起始点坐标：108（开始点x）,211（开始点y）,108（结束点x）,241（结束点y） 是否绝对坐标：是--&gt;
+&lt;/FullInventoryWidget&gt;</code></pre>
+        以上行号对应在图中位置
+        <img class="saimg magnifiable"
+        data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/examples_01_01.png"
+        data-offline="saimg/examples_01_01.png" />
+        首先我们把CraftingGrid合成栏与InventoryGrid物品栏的ColumnsCount网格纵列数和RowsCount网格横行数改成需要的数值，查看效果如下：
+        <img class="saimg magnifiable"
+        data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/examples_01_02.png"
+        data-offline="saimg/examples_01_02.png" />
+        可以看到，CraftingGrid合成栏与InventoryGrid物品栏都出现了超出范围或占用其他部件位置的情况，对此有两个解决方案，可选择采用第一个或两个一起采用
+        <ol>
+        <li>调整其他部件Size大小和CanvasWidget.Position位置</li>
+        <li>调整格子大小（修改Content\Widgets\InventorySlotWidget.xml，详细略）</li>
+        </ol>
+        以下为仅采用第一个解决方案的效果和修改好的代码，请对照原版查看
+        <img class="saimg magnifiable"
+        data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/examples_01_03.png"
+        data-offline="saimg/examples_01_03.png" />
+<pre class="language-markup line-numbers"><code>&lt;FullInventoryWidget xmlns=&quot;runtime-namespace:Game&quot;&gt;
+  &lt;BevelledRectangleWidget Size=&quot;758, 454&quot; Texture=&quot;{Textures/Gui/Panel}&quot; BevelSize=&quot;3&quot; TextureScale=&quot;0.5&quot;/&gt;
+  &lt;GridPanelWidget Name=&quot;InventoryGrid&quot; CanvasWidget.Position=&quot;286, 52&quot; ColumnsCount=&quot;6&quot; RowsCount=&quot;5&quot;/&gt;
+  &lt;GridPanelWidget Name=&quot;CraftingGrid&quot; CanvasWidget.Position=&quot;36, 52&quot; ColumnsCount=&quot;3&quot; RowsCount=&quot;3&quot;/&gt;
+  &lt;InventorySlotWidget Name=&quot;CraftingResultSlot&quot; CanvasWidget.Position=&quot;36, 340&quot; /&gt;
+  &lt;InventorySlotWidget Name=&quot;CraftingRemainsSlot&quot; CanvasWidget.Position=&quot;108, 340&quot; &gt;
+    &lt;LabelWidget Text=&quot;...&quot; Font=&quot;{Fonts/Pericles24}&quot; Color=&quot;0, 0, 0, 64&quot; HorizontalAlignment=&quot;Center&quot; VerticalAlignment=&quot;Center&quot;/&gt;
+  &lt;/InventorySlotWidget&gt;
+  &lt;LabelWidget CanvasWidget.Position=&quot;36, 14&quot; Text=&quot;Handcrafting&quot; Font=&quot;{Fonts/Pericles24}&quot; Color=&quot;255, 255, 255, 192&quot;/&gt;
+  &lt;LabelWidget CanvasWidget.Position=&quot;286, 14&quot; Text=&quot;Inventory&quot; Font=&quot;{Fonts/Pericles24}&quot; Color=&quot;255, 255, 255, 192&quot;/&gt;
+  &lt;ArrowLineWidget Color=&quot;0, 0, 0, 96&quot; Width=&quot;8&quot; ArrowWidth=&quot;24&quot; PointsString=&quot;108, 283; 108, 313&quot; AbsoluteCoordinates=&quot;true&quot;/&gt;
+&lt;/FullInventoryWidget&gt;</code></pre>
+        至此FullInventoryWidget.xml已修改完成
+        <h3>2.修改Database.xml</h3>
+        修改完成FullInventoryWidget.xml后主背包的合成栏第4格之后和背包栏第16格之后仍然无法使用，原因是FullInventoryWidget.xml只是主背包的布局文件，并不包含背包的“实质”属性，合成栏与背包栏还是和原版一样大，对此，我们需要修改Database.xml中背包的“实质”属性。
+				通过之前的修改，可以看出和背包相关的关键词是“Inventory”，在Database.xml中搜索得到多个结果，逐一排查，可以发现以下代码
+<pre class="language-markup line-numbers"><code>&lt;ComponentTemplate Name=&quot;Inventory&quot; Description=&quot;Player's inventory&quot; Guid=&quot;de5c0cb9-42d1-4ee4-b58f-bb9bb668b890&quot; InheritanceParent=&quot;81a44c6a-c30a-4f53-8d64-0c30aabab8f9&quot;&gt;
+	&lt;Parameter Name=&quot;Class&quot; Guid=&quot;b4723611-8b4e-4763-a11d-b4ff19c6109f&quot; Value=&quot;Game.ComponentInventory&quot; Type=&quot;string&quot; /&gt;
+	&lt;Parameter Name=&quot;SlotsCount&quot; Guid=&quot;c3a21e8b-d503-4c6d-af0f-67a67afaad96&quot; Value=&quot;22&quot; Type=&quot;int&quot; /&gt;
+	&lt;!--参数 名字：格子数量 识别码：…… 值：22 类型：整数--&gt;
+	&lt;Parameter Name=&quot;ActiveSlotIndex&quot; Description=&quot;Index of active slot&quot; Guid=&quot;f4215298-f311-4bbc-932d-9f783e5a6e66&quot; Value=&quot;0&quot; Type=&quot;int&quot; /&gt;
+&lt;/ComponentTemplate&gt;</code></pre>
+				可以确定以上代码中的SlotsCount格子数量中的Value值就是决定背包格子数量的关键，原版底部6个格子+背包16个格子=合计22个格子，之前我们已经把主背包的布局文件中的背包改成了6×5=30，因此需要把22改成6+30=36，代码与效果略<br />
+				通过以上修改，尝试继续搜索“SlotsCount”，可以发现CraftingTable合成台、Chest箱子、Furnace火炉、Dispenser发射器都有该Name名字为SlotsCount的Parameter参数元素，其中有一个Value值是6的SlotsCount格子数量在Name名字为Player玩家（、主角）的EntityTemplate实体模板元素中，主角背包中的小合成台有原料区域2×2+合成结果格2=6，可以确定该SlotsCount决定了背包中合成台格子的数量，修改成3×3+2=11，之前在主背包的布局文件中修改好的3×3合成台就可以正常使用了。<br />
+				同理，之前提到的有SlotsCount的CraftingTable合成台、Chest箱子、Furnace火炉、Dispenser发射器都能以类似方法修改格子数量
+				<h3>3.修改Widgets文件夹</h3>
+				除了主背包外，还有大量的部件内含有背包，例如箱子、合成台等，对此需要一一修改它们的布局文件，方法同第一步，以下列出要修改的Widgets文件夹中的文件清单，请自行修改
+				<ul>
+					<li>BowWidget.xml</li>
+					<li>ChestWidget.xml</li>
+					<li>ClothingWidget.xml</li>
+					<li>CraftingTableWidget.xml</li>
+					<li>CrossbowWidget.xml</li>
+					<li>DispenserWidget.xml</li>
+					<li>FullInventoryWidget.xml</li>
+					<li>FurnaceWidget.xml</li>
+					<li>FurnitureInventoryPanel.xml</li>
+					<li>MusketWidget.xml</li>
+				</ul>
+				提示：可以使用合适的文本编辑器在整个Widgets文件夹搜索<br />
+				ColumnsCount=&quot;4&quot; RowsCount=&quot;4&quot;<br />
+				替换<br />
+				ColumnsCount=&quot;6&quot; RowsCount=&quot;5&quot;<br />
+				注意这样也会修改ChestWidget.xml中的ChestGrid，请自行改正<br /><br />
+				至此，背包扩展mod实例教程结束
+      </div>
+		</div>
+		<br />
+	</div>
+</div>
+
+<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+</body>
+</html>
