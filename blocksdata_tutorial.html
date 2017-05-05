@@ -25,7 +25,7 @@
 	<div id="nav_overlay"></div>
 	<!--顶栏-->
 	<div id="big_title_div" class="big">Blocksdata教程</div>
-	<div id="last_update">——更新日期 2017年4月4日——</div>
+	<div id="last_update">——更新日期 2017年5月5日——</div>
 	<div id="top_box"></div>
 	<div id="top_box_top"></div>
 	<div id="top_box_strutting"></div>
@@ -146,7 +146,7 @@
 						<td>String</td>
 						<td>Behaviors</td>
 						<td>行为</td>
-						<td>即特殊属性多种行为可以用逗号隔开，详情见<a href="#cont_appendix">附录</a></td>
+						<td>即方块的特殊属性，多个行为可以用逗号隔开，详情见<a href="#cont_appendix">附录</a></td>
 					</tr>
 					<tr>
 						<td>4</td>
@@ -564,14 +564,14 @@
 						<td>double</td>
 						<td>Default Explosion Pressure</td>
 						<td>默认爆炸压力</td>
-						<td>此值影响爆炸范围和威力。对范围的影响是要多少倍范围乘1后面多少个0，例如2倍范围数值需要乘100。威力和此值成正比，为每秒的伤害</td>
+						<td>此值影响爆炸范围和威力。对一种方块爆炸直径的影响是要多少倍范围乘1后面多少个0，例如2倍直径数值需要乘100。威力和此值成正比，为每秒的伤害</td>
 					</tr>
 					<tr>
 						<td>64</td>
 						<td>double</td>
 						<td>Default Explosion Incendiary</td>
-						<td>默认爆炸燃烧？</td>
-						<td>待研究</td>
+						<td>默认爆炸燃烧</td>
+						<td>FALSE时正常爆炸，TRUE时带有燃烧效果</td>
 					</tr>
 					<tr>
 						<td>65</td>
@@ -719,10 +719,10 @@
 		<div class="chapter" id="cont_appendix">
 			<h1>附录</h1>
 			<div class="content">
-					注：本附录最后一次更新对应的游戏版本为1.25左右
+					注：本附录最后一次更新对应的游戏版本为2.0，收集于Database.xml
 			</div>
 			<div class="content">
-				<h3>(1)此项输入以下内容此方块将获得各种不同特殊属性，原来留空但有特殊属性的不会发生覆盖，而会同时拥有这两种特殊属性(收集于Database.xml)</h3>
+				<h3>(1)此项加上以下内容此方块将获得各种不同特殊属性，原来留空但有特殊属性的不会发生覆盖，而会同时拥有这两种特殊属性</h3>
 				<div style="font-size:10pt;">
 					<ul>
 						<li>FertilizerBlockBehavior此方块可作为肥料使用，同时将导致不可放置。发现：TallGrassBlock有此属性时，地形生成时该方块下方的土块会一同消失</li>
@@ -731,49 +731,62 @@
 						<li>RakeBlockBehavior此方块可作为耙子使用</li>
 						<li>SaplingBlockBehavior此方块放置到土地上如果条件适合，将长成Oak树，若条件不允许将直接消失。用途示例：让杂草长成树木</li>
 						<li>CactusBlockBehavior此方块将从上面长出仙人掌，如果此方块不是沙子，长出的仙人掌将直接破坏并掉落，此方块也将只能放置在沙子和仙人掌上表面。用途示例：长满仙人掌沙漠，沙滩；刷仙人掌机</li>
+						<li>MagmaBlockBehavior此方块将点燃周围可燃物如果该物品可燃则自己也会燃烧。不一定对所有方块有效</li>
+						<li>SoilBlockBehavior此方块上表面放置实心方块后变成DirtBlock</li>
+						<li>GrassBlockBehavior此方块上表面放置实心方块后变成DirtBlock</li>
 						<li>IvyBlockBehavior此方块若透明将只能挂在树上(未知原因经常挂不上)，并向下长出此方块。用途示例：刷物品机</li>
-						<li>TreasureGeneratorBlockBehavior此方块将在周围有方块变为空气时随机掉落宝物。</li>
+						<li>BottomSuckerBlockBehavior此方块将使方块变得难以放置(?)，海胆、海星具有该属性</li>
+						<li>TreasureGeneratorBlockBehavior此方块将在周围有方块变为空气时随机掉落宝物</li>
+						<li>WaterPlantBlockBehavior此方块将只能像海胆、海星一样放置在水中</li>
 						<li>SaddleBlockBehavior此方块将可作为马鞍使用</li>
+						<li>BowBlockBehavior有此属性后该方块在物品栏放一个弓箭到上面会变成弓</li>
+						<li>BulletBlockBehavior此方块将像子弹一样投掷出后破碎</li>
 						<li>WhistleBlockBehavior此方块将可作为哨子使用，并将不可放置</li>
 						<li>ThrowableBlockBehavior此方块将可投掷，需要调整其他和投掷有关属性</li>
+						<li>FireworksBlockBehavior此方块将像烟花一样投掷出后带火焰尾迹，撞击到方块或动物后破碎，或飞行一段距离后消失</li>
 						<li>MagnetBlockBehavior此方块被放置后将相当于一个磁铁</li>
-						<li>ExplosivesBlockBehavior此方块将可爆炸，需要调整其他和爆炸有关属性。</li>
-						<li>MagmaBlockBehavior此方块将点燃周围可燃物如果该物品可燃则自己也会燃烧。不一定对所有方块有效</li>
-						<li>GrassBlockBehavior此方块上表面放置实心方块后变成DirtBlock</li>
-						<li>SoilBlockBehavior此方块上表面放置实心方块后变成DirtBlock</li>
-						<li>BombBlockBehavior此方块投掷出后可爆炸，同时也会影响Is Stickable</li>
-						<li>BowBlockBehavior有此属性后该方块在物品栏放一个弓箭到上面会变成弓</li>
+						<li>ExplosivesBlockBehavior此方块将可爆炸，需要调整其他和爆炸有关属性</li>
+						<li>ImpactExplosivesBlockBehavior炸弹都有此属性，当该方块作为投掷物撞击到方块或动物时爆炸</li>
+						<li>BombBlockBehavior此方块投掷出后可爆炸，附带燃烧引线，同时也会影响Is Stickable</li>
+						<li>HammerBlockBehavior此方块将可作为锤子使用</li>
 					</ul>
 				</div>
 			</div>
 			<div class="content">
-				<h3>(2)一些有效果但不知道如何有那种方块原本拥有的特殊属性的属性：</h3>
+				<h3>(2)一些可能有效果，但可能还需要修改源码中对应的“Subsystem+下列名称”中的“HandledBlocks”成员的返回值来使其他方块拥有该特殊属性：</h3>
 				<div style="font-size:10pt;">
 					<ul>
 						<li>GraveBlockBehavior将可导致方块只能放到一个方块上表面，下方方块被破坏后上面的此方块将破坏(原版GraveBlock会向下掉落)。用途示例：撸树mod</li>
 						<li>SignBlockBehavior</li>
 						<li>BatteryBlockBehavior</li>
 						<li>ElectricBlockBehavior</li>
+						<li>CampfireBlockBehavior</li>
+						<li>MusketBlockBehavior</li>
+						<li>FurnitureBlockBehavior</li>
 						<li>BucketBlockBehavior</li>
-						<li>MatersBlockBehavior</li>
+						<li>MetersBlockBehavior</li>
+						<li>CrossbowBlockBehavior</li>
+						<li>PistonBlockBehavior</li>
 						<li>MemoryBlockBehavior</li>
 						<li>FenceGateBlockBehavior</li>
 						<li>FenceBlockBehavior(Fence类无此属性将不能和其他Fence类连接)</li>
 						<li>ArrowBlockBehavior弓箭和弩箭都是ArrowBlock，含有此属性</li>
+						<li>InWaterBlockBehavior</li>
 						<li>StairsBlockBehavior</li>
+						<li>AdjustableDelayGateBlockBehavior</li>
+						<li>DispenserBlockBehavior</li>
+						<li>CarpetBlockBehavior</li>
 						<li>EggBlockBehavior</li>
 						<li>CollapsingBlockBehavior</li>
 						<li>BoatBlockBehavior</li>
-						<li>ImpactExplosivesBlockBehavior炸弹都有此属性，但去掉不影响</li>
-						<li>CrossbowBlockBehavior</li>
 					</ul>
 				</div>
 			</div>
 			<div class="content">
-				<h3>(3)直接报错的属性</h3>
+				<h3>(3)在Blocksdata中添加直接报错的属性（验证于1.25版本）</h3>
 				<div style="font-size:10pt;">
 					<ul>
-						<li>TruthTableBlockBehavior</li>
+						<li>TruthTableCircuitBlockBehavior</li>
 						<li>TorchBlockBehavior</li>
 						<li>LedBlockBehavior</li>
 						<li>LadderBlockBehavior</li>
@@ -798,7 +811,7 @@
 		<div class="chapter">
 			<h1>附件</h1>
 			<div class="content">
-				<a href="http://pan.baidu.com/share/link?shareid=170360941&uk=2788149454" target="_blank">表格化1.26Blocksdata</a>
+				<a href="http://pan.baidu.com/share/link?shareid=1678648347&uk=2788149454" target="_blank">表格化2.0Blocksdata</a>
 			</div>
 		</div>
 		<br />
