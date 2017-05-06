@@ -19,6 +19,7 @@
 <div id="divs_fixed" style="display:none;">
 	<!--顶栏 按钮-->
 	<div id="buttons">
+		<div id='menu_btn' class='md_btn'></div>
 		<div id='nav_btn' class='md_btn'></div>
 	</div>
 	<!--导航-->
@@ -26,10 +27,15 @@
 	<div id="nav_overlay"></div>
 	<!--顶栏-->
 	<div id="big_title_div" class="big">实例合集</div>
-	<div id="last_update">——更新日期 2017年3月26日——</div>
+	<div id="last_update">——更新日期 2017年5月6日——</div>
 	<div id="top_box"></div>
 	<div id="top_box_top"></div>
 	<div id="top_box_strutting"></div>
+	<!--目录-->
+	<div id="menu">
+		<li class="parent md_btn" data-menuto="cont_1">背包扩展</li>
+		<li class="parent md_btn" data-menuto="cont_2">添加方块</li>
+	</div>
 </div>
 <div id="cont_wrapper" style="display:none;">
 	<script>
@@ -69,7 +75,7 @@
 			<div class="content">
 				<h2>步骤</h2>
         <h3>1.提取Content.pak并解包</h3>
-        （略，打包测试亦略）
+        （略，打包、测试亦略，详情查看<a href="content_folder_tutorial.html">Content解析</a>）
         <h3>2.修改FullInventoryWidget.xml</h3>
         FullInventoryWidget.xml在Content\Widgets中，它是生存模式左上角背包按钮打开的背包部件（暂且把“Widget”翻译成“部件”），以下将该部件称作主背包，之后还会有很多为方便称呼的不标准翻译。原文如下，注意注释
 <pre class="language-markup line-numbers"><code>&lt;FullInventoryWidget xmlns=&quot;runtime-namespace:Game&quot;&gt;
@@ -157,6 +163,83 @@
 				注意这样也会修改ChestWidget.xml中的ChestGrid，请自行改正<br /><br />
 				至此，背包扩展mod实例教程结束
       </div>
+		</div>
+		<div class="chapter" id="cont_2">
+			<h1>添加方块</h1>
+			<div class="content">
+				<h2>说明</h2>
+				这里以Windows平台为例，以文本编辑IL和<a href="resources.html#cont_4.5">dnSpy</a>添加C#类两种方式添加（复制）一个新的泥土方块
+				<h3>实例编写时游戏版本</h3>
+				2.0
+				<h3>实例作者</h3>
+				百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=%E9%94%80%E9%94%8B%E9%95%9D%E9%93%B8&ie=utf-8" target="_blank">销锋镝铸</a>
+				<h3>参考建议</h3>
+				通读<a href="content_folder_tutorial.html">Content解析</a>、<a href="windows_tutorial.html">Windows基础教程</a>、<a href="blocksdata_tutorial.html">Blocksdata解析</a>、<a href="source_code_tutorial.html">“源代码”教程</a>
+			</div>
+			<div class="content">
+				<h2>添加方块数据</h2>
+				<h3>1.提取Content.pak并解包</h3>
+				（略，打包、测试亦略，详情查看<a href="content_folder_tutorial.html">Content解析</a>）
+				<h3>修改Blocksdata.txt</h3>
+				搜索DirtBlock，将Class Name是DirtBlock的一整行数据复制并另起一行粘贴，这里将粘贴的这一行的Class Name修改成DirtNewBlock，DefaultDisplayName修改成New Dirt，Display Order为300，保存，打包，接下来选择方法一或方法二进行操作
+				<h2>方法一. 文本编辑IL</h2>
+				<h3>1.反编译</h3>
+        按照<a href="source_code_tutorial.html">“源代码”教程</a>中的步骤反编译安装包中的Survivalcraft.exe，使用任意文本编辑器打开保存的Survivalcraft.il
+				<h3>2.定位</h3>
+				搜索DirtBlock，结果如下图，可以看出是一个类
+				<img class="saimg magnifiable"
+        data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/examples_02_01.png"
+        data-offline="saimg/examples_02_01.png" />
+				<h3 id="code_DirtBlock">3.复制并修改</h3>
+				将以上IL代码复制一遍并在“} // end of method DirtBlock::.ctor”（即最后一行）的下一空行粘贴<br />
+				使用<a href="resources.html#cont_4.5">ILSpy</a>或<a href="resources.html#cont_4.5">dnSpy</a>等源代码查看工具查看DirtBlock类的C#源码，如下
+<pre class="language-csharp line-numbers"><code>namespace Game
+//命名空间 Game
+{
+	public class DirtBlock : CubeBlock
+	//公用类 泥土方块 继承于 立方体方块
+	{
+		public const int Index = 2;
+		//公用整数常量 索引（方块ID，不可重复） = 2
+	}
+}</code></pre>
+				一个新方块需要新的方块名称和方块ID，因此需要修改复制好的IL代码中的类名称和Index，这里修改成了DirtNewBlock（和之前在Blocksdata中添加的一行的Class Name相同）和300（十六进制则是0x0000012C），如下
+				<img class="saimg magnifiable"
+        data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/examples_02_02.png"
+        data-offline="saimg/examples_02_02.png" />
+				<h3>4.编译并检查</h3>
+				使用<a href="resources.html#cont_4.5">ilasm</a>进行编译，并使用<a href="resources.html#cont_4.5">ILSpy</a>或<a href="resources.html#cont_4.5">dnSpy</a>等源代码查看工具检查是否编译成功，如果编译成功则可以在这些工具中以C#方式查看新添加的DirtNewBlock类，验证成功后可覆盖游戏安装目录的Survivalcraft.exe
+				<h2>方法二. dnSpy添加C#类</h2>
+				<h3>1.打开Survivalcraft.exe</h3>
+				安装<a href="resources.html#cont_4.5">dnSpy</a>后，可以通过dnSpy（软件窗口）-文件（右上角）-打开，或在Survivalcraft.exe文件上右键-使用dnSpy打开，两种方式来在dnSpy中打开Survivalcraft.exe
+				<h3>2.定位</h3>
+				搜索DirtBlock，找到一个DirtBlock类，如下图（<a href="#code_DirtBlock">点我查看中文说明</a>）
+				<img class="saimg magnifiable"
+        data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/examples_02_03.png"
+        data-offline="saimg/examples_02_03.png" />
+				<h3>3.复制并修改</h3>
+				将DirtBlock类中的C#代码复制，在窗口左侧程序资源管理器的DirtBlock上右键-Add Class(C#)…，在弹出的窗口中粘贴刚才复制的内容<br />
+				一个新方块需要新的方块名称和方块ID，因此需要修改新类中的类名称和Index，这里修改成了DirtNewBlock（和之前在Blocksdata中添加的一行的Class Name相同）和300，如下
+<pre class="language-csharp line-numbers"><code>using System;
+namespace Game
+{
+	// Token: 0x0200026F RID: 623
+	public class DirtNewBlock : CubeBlock
+	{
+		// Token: 0x04000F01 RID: 3841
+		public const int Index = 300;
+	}
+}</code></pre>
+				点击Add Class窗口右下角Compile完成编译<br />
+				注：不是所有复制粘贴进的C#源码都能编译成功，因为反编译出的C#源码通常并不正确，仅供参考，如果遇到不能编译的情况，请自行根据报错进行修复或按方法一操作
+				<h3>4.保存</h3>
+				dnSpy主窗口左上角 文件-保存模块-确定
+				<h2>查看效果</h2>
+				新方块已成功添加到游戏中
+				<img class="saimg magnifiable"
+        data-online="https://raw.githubusercontent.com/lzm956902416/SMT/master/saimg/examples_02_04.png"
+        data-offline="saimg/examples_02_04.png" />
+			</div>
 		</div>
 		<br />
 	</div>
