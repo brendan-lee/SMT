@@ -25,7 +25,7 @@
 	<div id="nav_overlay"></div>
 	<!--顶栏-->
 	<div id="big_title_div" class="big">Content解析</div>
-	<div id="last_update">——更新日期 2017年3月15日——</div>
+	<div id="last_update">——更新日期 2017年5月6日——</div>
 	<div id="top_box"></div>
 	<div id="top_box_top"></div>
 	<div id="top_box_strutting"></div>
@@ -98,7 +98,8 @@
 				</div>
 				<div class="content">
 					<h3>ctags.tmp</h3>
-					一个可以无视的临时文件
+					一个可以无视的临时文件<br />
+					现在使用scpak解包已不会出现该文件
 				</div>
 				<div class="content">
 					<h3>DataBase.xml</h3>
@@ -113,9 +114,9 @@
 					存储了新建世界时随机出现的世界名的文本文件，可直接用文本编辑器编辑，以行为分割，每行对应一个随机出现的世界名字
 				</div>
 				<div class="content">
-					<h3>PackageInfo.txt</h3>
-					解包后自动生成的文本文件，如果在解包生成的文件夹中添加或删除了文件，那么就需要对其进行编辑<br />
-					例如在\Textures\Creatures\中添加了一个Zebra_Saddled.png，那么需要在该文件中另起一行加上Textures/Creatures/Zebra_Saddled:Engine.Graphics.Texture2D，这样在打包该文件夹时会把添加的文件也打包进去
+					<h3>PackageInfo.txt 或 Scpak.meta</h3>
+					解包后自动生成的文本文件，如果在解包生成的文件夹中添加或删除了文件，那么就需要对其进行编辑。不同解包器可能会生成不同名字的该文件，内容也不尽相同，这里以scpak为例<br />
+					例如在\Textures\Creatures\中添加了一个Zebra_Saddled.png，那么需要在该文件中另起一行加上Textures/Creatures/Zebra_Saddled:Engine.Graphics.Texture2D:7，这样在打包该文件夹时会把添加的文件也打包进去
 				</div>
 				<div class="content">
 					<h3>RecoveryProject.xml</h3>
