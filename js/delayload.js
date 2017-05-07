@@ -830,6 +830,7 @@ function onClick(obj, func){
 
 if (!(ua.match(/(?!^.*mobile.*$)^.*msie.+windows nt.*$|mqqbrowser/i) === null)) {
 	$("#cont_wrapper").css("display", "none");
+	$("#divs_fixed").css("display", "none");
 	$("#error").css("display", "block");
 }
 

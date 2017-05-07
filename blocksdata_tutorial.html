@@ -109,7 +109,8 @@
 			<h1>第二节 内容详解</h1>
 			<span style="font-size:10pt; display:block; font-weight:bold;">——每一行第n个分号之后所代表的内容详解</span>
 			<div class="content">
-				可使用<a href="resources.html#cont_5.1">Blocksdata编辑器</a>方便地对下列属性进行编辑
+				可使用<a href="resources.html#cont_5.1">Blocksdata编辑器</a>方便地对下列属性进行编辑<br />
+				例子：要修改DirtBlock（泥土方块）的Max Stacking（最大背包堆叠，下表中n=35），在文本编辑器中打开该文件后搜索DirtBlock，修改这一行第35个分号后的数值即可
 			</div>
 			<div class="content" style="overflow-x:auto;">
 				<table style="font-size:14px;line-height:20px;">
@@ -125,7 +126,7 @@
 						<td>String</td>
 						<td>Class Name</td>
 						<td>类名</td>
-						<td>游戏内部文件使用的名字，例如物品被破坏和动物死亡掉落的物品就要用到</td>
+						<td>游戏内部文件使用的名字，例如物品被破坏和动物死亡掉落的物品就要用到，请勿修改现存方块的该属性</td>
 					</tr>
 					<tr>
 						<td>1</td>
@@ -369,14 +370,14 @@
 						<td>35</td>
 						<td>uint</td>
 						<td>Max Stacking</td>
-						<td>最大背包</td>
+						<td>最大背包堆叠</td>
 						<td>箱子,工作台和火炉里可以堆叠的数量</td>
 					</tr>
 					<tr>
 						<td>36</td>
 						<td>uint</td>
 						<td>Max In Hand Stacking</td>
-						<td>最大手持</td>
+						<td>最大手持堆叠</td>
 						<td>下面6个方框堆叠数量</td>
 					</tr>
 					<tr>
