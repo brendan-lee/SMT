@@ -256,27 +256,28 @@ $('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {
 /**
  * 获取鼠标点击相对容器的位置
  */
-function getMousePos(axis, event) {
+function getMousePos(axis) {
 	var e = window.event || arguments.callee.caller.arguments[0];
 	var obj = e.target;
-	while (obj.className.indexOf('md_btn') == -1) {
+	while(obj.className.indexOf('md_btn') == -1) {
 		obj = obj.parentElement;
 	}
 
-	// 目标元素距窗口边框距离
-	var Left = obj.offsetLeft,
-		Top = obj.offsetTop;
-	while (obj.offsetParent != null) {
+	// 目标元素距文档边框距离
+	var left = obj.offsetLeft,
+		top = obj.offsetTop;
+	while(obj.offsetParent != null) {
 		obj = obj.offsetParent;
-		Left += obj.offsetLeft;
-		Top += obj.offsetTop;
+		left += obj.offsetLeft;
+		top += obj.offsetTop;
 	}
 
-	var posX = e.clientX || e.changedTouches[0].clientX;
-	var posY = e.clientY || e.changedTouches[0].clientY;
+	// 鼠标位置相对文档的坐标
+	var posX = e.pageX || e.changedTouches[0].pageX;
+	var posY = e.pageY || e.changedTouches[0].pageY;
 
-	var x = posX - Left;
-	var y = posY - Top;
+	var x = posX - left;
+	var y = posY - top;
 
 	return {
 		'x': x,
