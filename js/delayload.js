@@ -28,6 +28,7 @@ var navContent = [
     {
         section: "第三章 主要教程",
         tutors: [
+            {name: "总前言", uri: "preface.html"},
             {name: "Content解析", uri: "content_folder_tutorial.html"},
             {name: "Windows基础教程", uri: "windows_tutorial.html"},
             {name: "Android基础教程", uri: "android_tutorial.html"},
