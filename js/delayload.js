@@ -267,8 +267,8 @@ $('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {
 
 	var width = $(this).width() + padding[1] + padding[3] + $(this).height();
 	var height = $(this).height() + padding[0] + padding[2] + $(this).width();
-
-	var html = '<div class="md_bg" style="top:' + (getMousePos('y') + 1) + 'px; left:' + getMousePos('x')+ 'px;"></div>'
+	var mousePos = getMousePos();
+	var html = '<div class="md_bg" style="top:' + (mousePos.y + 1) + 'px; left:' + mousePos.x + 'px;"></div>'
 
 	$(this).append(html);
 
@@ -301,38 +301,29 @@ $('.md_btn').on(isMobile ? "touchstart" : "mousedown", function() {
 })
 
 /**
- * 获取鼠标点击相对容器的位置
+ * 获取鼠标位置相对容器的坐标
  */
-function getMousePos(axis) {
+function getMousePos() {
 	var e = window.event || arguments.callee.caller.arguments[0];
-	var obj = e.target;
-	while(obj.className.indexOf('md_btn') == -1) {
-		obj = obj.parentElement;
-	}
+	var obj = $(e.currentTarget);
 
-	// 目标元素距文档边框距离
-	var left = obj.offsetLeft,
-		top = obj.offsetTop;
-	while(obj.offsetParent != null) {
-		obj = obj.offsetParent;
-		left += obj.offsetLeft;
-		top += obj.offsetTop;
-	}
+	// 目标元素左上角距文档左上角的距离
+	var left = obj.offset().left;
+	var top = obj.offset().top;
 
 	// 鼠标位置相对文档的坐标
-	var posX = e.pageX || e.changedTouches[0].pageX;
-	var posY = e.pageY || e.changedTouches[0].pageY;
+	var mouseX = e.pageX || e.changedTouches[0].pageX;
+	var mouseY = e.pageY || e.changedTouches[0].pageY;
 
-	var x = posX - left;
-	var y = posY - top;
+	// 鼠标位置相对容器的坐标
+	var x = mouseX - left;
+	var y = mouseY - top;
 
 	return {
 		'x': x,
 		'y': y
-	}[axis];
+	};
 }
-
-
 
 /**
  * 禁止页面滚动
