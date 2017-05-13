@@ -126,16 +126,14 @@ hr {
 		position: relative;
 	}
 
-	.md_bg {
-		width: 1px;
-		height: 1px;
-		box-shadow: 0 0 0 0 #000;
-		border-radius: 50%;
+	
+	.md_ripple {
 		position: absolute;
+		border-radius: 50%;
+		opacity: 0.12;
 		background: #000;
-		opacity: 0.3;
-		transition: all 0.25s ease-out, opacity 0.1s ease-out;
-		-webkit-transition: all 0.25s ease-out, opacity 0.1s ease-out;
+		transform: scale(0);
+		transition: opacity 2s cubic-bezier(0.23, 1, 0.32, 1), transform 1s cubic-bezier(0.23, 1, 0.32, 1);
 	}
 
 /*目录*/
