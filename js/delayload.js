@@ -153,16 +153,16 @@ onClick($('#nav_logo'), function () {
 
 // 延迟250ms后跳转，以完整播放按钮的过渡动画
 (function () {
-	var children = $("#nav").find(".child");
-	for (var i = 0; i < children.length; i++) {
-		onClick(children.eq(i), function () {
-			$("body").css("opacity", 0)
-
+	var btn = $("*[data-uri]");
+	for (var i = 0; i < btn.length; i++) {
+		onClick(btn.eq(i), function () {
 			var e = window.event || arguments.callee.caller.arguments[0];
-			setTimeout(function () {
+			
+			$("body").css("opacity", 0);
+			$("body").one("transitionend", function() {
 				window.location.href = $(e.target).attr("data-uri");
-			}, 250)
-		})
+			});
+		});
 	}
 })()
 
