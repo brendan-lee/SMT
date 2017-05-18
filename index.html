@@ -93,11 +93,7 @@
 		<div class="chapter">
 			<h1>使用提示</h1>
 			<div class="content">
-				<script>
-					if(isWideScreen){
-						document.write("左上角菜单键——导航目录<br />")
-					}
-				</script>
+				<span id="tip_nav" style="display:none;">左上角菜单键——导航目录<br /></span>
 				右上角菜单键——小节目录（内容过少时不显示）<br />
 				标题栏标题——返回顶部
 			</div>
@@ -107,5 +103,6 @@
 </div>
 
 <script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+<script>if(!isWideScreen)$("#tip_nav").show()</script>
 </body>
 </html>
