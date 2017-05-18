@@ -11,7 +11,13 @@
 	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
 	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
 	<script>
-		if (!isOnline && navigator.onLine)$.getScript("http://smt.survivalcraft.cn/js/online_version.js?" + Math.random());
+		if (!isOnline && navigator.onLine)$.ajax({
+			url: "http://smt.survivalcraft.cn/js/online_version.js?" + Math.random(),
+			dataType: "script",
+			cache: false,
+			timeout: 1800,
+			error: function(){console.info("获取最新版本失败，请联网重试")}
+		});
 	</script>
 </head>
 
@@ -88,7 +94,7 @@
 			<div class="content">
 			本版本更新日期 2016年2月7日<br />
 			本版本mod教程对应Survivalcraft 2.0
-			<span id="unknown_online_ver" style="display:none;"><br />获取最新版本失败</span>
+			<span id="unknown_online_ver" style="display:none;"><br />获取最新版本失败，请联网刷新</span>
 			</div>
 		</div>
 
