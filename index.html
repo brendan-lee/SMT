@@ -11,9 +11,7 @@
 	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
 	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
 	<script>
-		if (!isOnline && navigator.onLine){
-			document.write("<script src='http://smt.survivalcraft.cn/js/online_version.js?" + Math.random() +  "'><"+"/script>");
-		}
+		if (!isOnline && navigator.onLine)$.getScript("http://smt.survivalcraft.cn/js/online_version.js?" + Math.random());
 	</script>
 </head>
 
@@ -69,12 +67,15 @@
 		</div>
 
 		<script>
-			if(!isOnline && navigator.onLine && ver != online_ver){
-				document.write("<div class='chapter'><h1>更新导航</h1><div class='content'>在线最新版：" + online_ver +"<br />请更新离线导航 <a href='http://survivalcraft.cn/smt/nav_update.html' target='_blank'>点击更新</a></div></div>")
-			}
+			setTimeout(function(){
+				if(!isOnline && navigator.onLine){
+					if("undefined" == typeof online_ver)$("#unknown_online_ver").show();
+					else if(ver != online_ver)$("#chapter_version").before("<div class='chapter'><h1>更新导航</h1><div class='content'>在线最新版：" + online_ver +"<br />请更新离线导航 <a href='http://survivalcraft.cn/smt/nav_update.html' target='_blank'>点击更新</a></div></div>");
+				}
+			},2000);
 		</script>
 
-		<div class="chapter">
+		<div class="chapter" id="chapter_version">
 			<h1>版本号</h1>
 			<div class="content" id="current_version">
 				<!--缓存校验-->
@@ -87,6 +88,7 @@
 			<div class="content">
 			本版本更新日期 2016年2月7日<br />
 			本版本mod教程对应Survivalcraft 2.0
+			<span id="unknown_online_ver" style="display:none;"><br />获取最新版本失败</span>
 			</div>
 		</div>
 
