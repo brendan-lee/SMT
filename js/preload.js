@@ -1,6 +1,6 @@
 ﻿// 版本号
 /*	主版本号(大修).内容子版本号.框架子版本号.修正版本号	*/
-var version = "v2.7.7.12"
+var version = "v2.9.9.9"
 
 // 判断是否在线
 var href = window.location.href;

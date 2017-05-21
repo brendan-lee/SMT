@@ -32,6 +32,11 @@ hr {
 	-webkit-transform: translate(260px);
 }
 
+*[data-uri] {
+	color: #03a9f4;
+	cursor: pointer;
+}
+
 /*顶栏*/
 	#top_box, #top_box_top{
 		position:fixed;
@@ -224,8 +229,6 @@ hr {
 		padding-left: 40px;
 		font-size:16px;
 		position: relative;
-		color: #03a9f4;
-		cursor: pointer;
 		transition: background 0.06s linear;
 		-webkit-transition: background 0.06s linear;
 	}

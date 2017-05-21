@@ -11,9 +11,13 @@
 	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
 	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
 	<script>
-		if (!isOnline && navigator.onLine){
-			document.write("<script src='http://smt.survivalcraft.cn/js/online_version.js?" + Math.random() +  "'><"+"/script>");
-		}
+		if (!isOnline && navigator.onLine)$.ajax({
+			url: "http://smt.survivalcraft.cn/js/online_version.js?" + Math.random(),
+			dataType: "script",
+			cache: false,
+			timeout: 1800,
+			error: function(){console.info("获取最新版本失败，请联网重试")}
+		});
 	</script>
 </head>
 
@@ -64,17 +68,20 @@
 			</div>
 		</div>
 
-		<div class="chapter" style="height:120px;">
-			<div style="margin:0 auto 0 auto;width:364px;height:36px;font-size:32px;margin-top:42px;"><a href="preface.html">点我开始学习制作MOD！</a></div>
+		<div class="chapter" style="padding-top:50px; padding-bottom:50px; text-align:center;">
+			<div class="md_btn" style="display:inline-block; font-size:32px; padding: 12px;" data-uri="preface.html">点我开始学习制作MOD！</div>
 		</div>
 
 		<script>
-			if(!isOnline && navigator.onLine && ver != online_ver){
-				document.write("<div class='chapter'><h1>更新导航</h1><div class='content'>在线最新版：" + online_ver +"<br />请更新离线导航 <a href='http://survivalcraft.cn/smt/nav_update.html' target='_blank'>点击更新</a></div></div>")
-			}
+			setTimeout(function(){
+				if(!isOnline && navigator.onLine){
+					if("undefined" == typeof online_ver)$("#unknown_online_ver").show();
+					else if(ver != online_ver)$("#chapter_version").before("<div class='chapter'><h1>更新导航</h1><div class='content'>在线最新版：" + online_ver +"<br />请更新离线导航 <a href='http://survivalcraft.cn/smt/nav_update.html' target='_blank'>点击更新</a></div></div>");
+				}
+			},2000);
 		</script>
 
-		<div class="chapter">
+		<div class="chapter" id="chapter_version">
 			<h1>版本号</h1>
 			<div class="content" id="current_version">
 				<!--缓存校验-->
@@ -85,19 +92,16 @@
 				<script>if (ver == version) $("#current_version").html(version);</script>
 			</div>
 			<div class="content">
-			本版本更新日期 2016年2月7日<br />
+			本版本更新日期 2017年5月21日<br />
 			本版本mod教程对应Survivalcraft 2.0
+			<span id="unknown_online_ver" style="display:none;"><br />获取最新版本失败，请联网刷新</span>
 			</div>
 		</div>
 
 		<div class="chapter">
 			<h1>使用提示</h1>
 			<div class="content">
-				<script>
-					if(isWideScreen){
-						document.write("左上角菜单键——导航目录<br />")
-					}
-				</script>
+				<span id="tip_nav" style="display:none;">左上角菜单键——导航目录<br /></span>
 				右上角菜单键——小节目录（内容过少时不显示）<br />
 				标题栏标题——返回顶部
 			</div>
@@ -107,5 +111,6 @@
 </div>
 
 <script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+<script>if(!isWideScreen)$("#tip_nav").show()</script>
 </body>
 </html>
