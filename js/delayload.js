@@ -157,7 +157,7 @@ onClick($('#nav_logo'), function () {
 	for (var i = 0; i < btn.length; i++) {
 		onClick(btn.eq(i), function () {
 			var e = window.event || arguments.callee.caller.arguments[0];
-			
+
 			$("body").css("opacity", 0);
 			$("body").one("transitionend", function() {
 				window.location.href = $(e.target).attr("data-uri");
@@ -266,7 +266,7 @@ function pointDist(x1, y1, x2, y2) {
 }
 
 /**
- * MD按钮水波纹 
+ * MD按钮水波纹
  */
 function MDRipple(obj) {
 	obj = $(obj);
@@ -481,7 +481,7 @@ onClick($(document), function (e) {
  * 菜单跳转功能
  */
 function menuTo(id) {
-	var target = document.getElementById(id).offsetTop - (isMobile ? 45 : 60);
+	var target = document.getElementById(id).offsetTop - (isMobile ? 45 : -200);
 	$("body").animate({
 		scrollTop: target
 	}, 250);
