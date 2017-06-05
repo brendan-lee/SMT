@@ -169,15 +169,15 @@ onClick($('#nav_logo'), function () {
 /**
  * 点击折叠章节
  */
-
-function openNavItem(evt) {
-	var childrenDiv = $(evt.target).next(".children");
+function toggleNavItem(obj) {
+	obj = $(obj);
+	var childrenDiv = obj.next(".children");
 
 	$("#nav .parent").css("background", ""); // 取消全部高亮
-	$(evt.target).css("background", "#ddd"); // 高亮选择的项
+	obj.css("background", "#ddd"); // 高亮选择的项
 
 	// 展开/折叠
-	if (childrenDiv.css("height") == "0px") { // 如果选中的项未展开
+	if (childrenDiv.height() == 0) { // 如果选中的项未展开
 		$("#nav .children").height(0); // 收起全部项
 		childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height()); // 展开选中的项
 	} else { // 如果选中的项已展开
@@ -186,10 +186,9 @@ function openNavItem(evt) {
 	}
 }
 
-onClick($('#nav .parent'), function (e) {
-	e = window.event || arguments.callee.caller.arguments[0];
-	openNavItem(e);
-})
+$('#nav .parent').on("click", function() {
+	toggleNavItem(this)
+});
 
 /**
  * 突出当前所在页
@@ -489,10 +488,9 @@ function menuTo(id) {
 }
 
 // 菜单项点击事件
-onClick($('#menu [data-menuto]'), function (e) {
-	e = window.event || arguments.callee.caller.arguments[0];
-	menuTo($(e.target).attr("data-menuto"));
-});
+$("#menu [data-menuto]").on("click", function() {
+	menuTo($(this).attr("data-menuto"));
+})
 
 /**
  * 文章倒序功能
