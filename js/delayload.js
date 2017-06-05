@@ -306,7 +306,7 @@ function MDRipple(obj) {
 	}, 0);
 
 	// 鼠标抬起，渐隐、移除ripple
-	$(document).one("mouseup touchend", function () {
+	$(document).one(isMobile ? "touchend" : "mouseup", function () {
 		$(div).css("opacity", 0);
 		$(div).on("transitionend", function (event) {
 			if (event.originalEvent.propertyName == "opacity") {
@@ -321,7 +321,7 @@ function MDRipple(obj) {
  */
 function initMDBtn() {
 	var buttons = $(".md_btn");
-	buttons.on("mousedown touchstart", function() {
+	buttons.on(isMobile ? "touchstart" : "mousedown", function() {
 		MDRipple(this);
 	})
 }
