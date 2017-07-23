@@ -145,39 +145,41 @@ function generateNav(navData) {
 		nav.show();
 	}
 }
+
 generateNav(navContent);
-onClick($('#nav_logo'), function () {
-	if (!isWideScreen) navHide();
-	else window.location.href = "index.html";
-});
+
+$('#nav_logo').on("click", function () {
+	if (!isWideScreen) {
+		navHide();
+	} else {
+		window.location.href = "index.html";
+	}
+})
 
 // 延迟250ms后跳转，以完整播放按钮的过渡动画
-(function () {
-	var btn = $("*[data-uri]");
-	for (var i = 0; i < btn.length; i++) {
-		onClick(btn.eq(i), function () {
-			var e = window.event || arguments.callee.caller.arguments[0];
+var btns = $("*[data-uri]");
 
-			$("body").css("opacity", 0);
-			$("body").one("transitionend", function() {
-				window.location.href = $(e.target).attr("data-uri");
-			});
-		});
-	}
-})()
+btns.on("click", function() {
+	var uri = $(this).attr("data-uri");
+	$("body").css("opacity", 0);
+	$("body").one("transitionend", function() {
+		window.location.href = uri;
+	});
+})
+
 
 /**
  * 点击折叠章节
  */
-
-function openNavItem(evt) {
-	var childrenDiv = $(evt.target).next(".children");
+function toggleNavItem(obj) {
+	obj = $(obj);
+	var childrenDiv = obj.next(".children");
 
 	$("#nav .parent").css("background", ""); // 取消全部高亮
-	$(evt.target).css("background", "#ddd"); // 高亮选择的项
+	obj.css("background", "#ddd"); // 高亮选择的项
 
 	// 展开/折叠
-	if (childrenDiv.css("height") == "0px") { // 如果选中的项未展开
+	if (childrenDiv.height() == 0) { // 如果选中的项未展开
 		$("#nav .children").height(0); // 收起全部项
 		childrenDiv.height(childrenDiv.children().length * childrenDiv.children().eq(0).height()); // 展开选中的项
 	} else { // 如果选中的项已展开
@@ -186,10 +188,9 @@ function openNavItem(evt) {
 	}
 }
 
-onClick($('#nav .parent'), function (e) {
-	e = window.event || arguments.callee.caller.arguments[0];
-	openNavItem(e);
-})
+$('#nav .parent').on("click", function() {
+	toggleNavItem(this)
+});
 
 /**
  * 突出当前所在页
@@ -246,10 +247,11 @@ function navHide() {
 }
 
 // 点击导航栏外，关闭导航栏
-onClick($('#nav_overlay'), navHide);
+
+$('#nav_overlay').on("click", navHide);
 
 // 导航按钮 点击事件
-onClick($('#nav_btn'), navDisp);
+$('#nav_btn').on("click", navDisp);
 
 /**
  * 计算两点距离
@@ -307,7 +309,7 @@ function MDRipple(obj) {
 	}, 0);
 
 	// 鼠标抬起，渐隐、移除ripple
-	$(document).one("mouseup touchend", function () {
+	$(document).one(isMobile ? "touchend" : "mouseup", function () {
 		$(div).css("opacity", 0);
 		$(div).on("transitionend", function (event) {
 			if (event.originalEvent.propertyName == "opacity") {
@@ -322,10 +324,11 @@ function MDRipple(obj) {
  */
 function initMDBtn() {
 	var buttons = $(".md_btn");
-	buttons.on("mousedown touchstart", function() {
+	buttons.on(isMobile ? "touchstart" : "mousedown", function() {
 		MDRipple(this);
 	})
 }
+
 initMDBtn();
 
 /**
@@ -468,11 +471,11 @@ function menuToggle() {
 }
 
 // 菜单按钮 点击事件
-onClick($('#menu_btn'), menuToggle);
+$("#menu_btn").on("click", menuToggle);
 
-onClick($(document), function (e) {
+$(document).on("click", function() {
 	e = window.event || arguments.callee.caller.arguments[0];
-	if ($(e.target).parents('#menu').length == 0 && e.target.id != "menu" && isMenuShow) {
+	if (e.target.id != "menu" && isMenuShow && $(e.target).parents('#menu').length == 0) {
 		menuToggle();
 	}
 })
@@ -489,10 +492,9 @@ function menuTo(id) {
 }
 
 // 菜单项点击事件
-onClick($('#menu [data-menuto]'), function (e) {
-	e = window.event || arguments.callee.caller.arguments[0];
-	menuTo($(e.target).attr("data-menuto"));
-});
+$("#menu [data-menuto]").on("click", function() {
+	menuTo($(this).attr("data-menuto"));
+})
 
 /**
  * 文章倒序功能
@@ -557,15 +559,16 @@ function reverseChapter(scroll, addScrollDis) {
 	}
 
 	// 重新绑定菜单项点击事件
-	onClick($('#menu [data-menuto]'), function () {
-		var e = window.event || arguments.callee.caller.arguments[0];
-		menuTo($(e.target).attr("data-menuto"));
-	});
+	$('#menu [data-menuto]').on("click", function () {
+		menuTo($(this).attr("data-menuto"));
+	})
 
 	// 关闭菜单
 	menuToggle();
 }
-onClick($('#reverse_chapter'), function () {
+
+
+$('#reverse_chapter').on("click", function () {
 	reverseChapter(true, 0);
 })
 
@@ -577,8 +580,8 @@ onClick($('#reverse_chapter'), function () {
  * 表格折叠
  */
 
-function tableFold(target) {
-	var table = $(target).parents('table'),
+function tableFold(obj) {
+	var table = $(obj).parents('table'),
 		content = table.find('tr:not(:first)'),
 		img = table.find('tr:first').find('td:last').children('img');
 
@@ -614,9 +617,8 @@ function findFoldableTables() {
 		}
 	}
 
-	onClick($('.fold_btn'), function (e) {
-		e = window.event || arguments.callee.caller.arguments[0];
-		tableFold(e.target);
+	$('.fold_btn').on("click", function () {
+		tableFold(this);
 	});
 }
 findFoldableTables();
@@ -654,9 +656,8 @@ for (var i = 0; i < saImg.length; i++) {
 var magImgDiv = $(".magnifiable");
 magImgDiv.attr("title", "点击放大查看");
 
-onClick(magImgDiv, function (e) {
-	e = window.event || arguments.callee.caller.arguments[0];
-	magnifyImg(e.target.src);
+magImgDiv.on("click", function () {
+	magnifyImg(this.src);
 })
 
 function magnifyImg(src) {
@@ -793,48 +794,11 @@ changeBT();
 /**
  * 点击返回顶部
  */
-onClick($('#big_title_div'), goTop);
+$('#big_title_div').on("click", goTop);
 
 /********************
  *       其他
  ********************/
-
-/**
- * 避免click的300ms延迟
- */
-
-function onClick(obj, func) {
-	obj.on('click touchstart touchmove touchend', function () {
-		var e = window.event || arguments.callee.caller.arguments[0];
-
-		switch (e.type) {
-			case "touchstart":
-				startX = e.touches[0].pageX;
-				startY = e.touches[0].pageY;
-				spanX = 0;
-				spanY = 0;
-				break;
-
-			case "touchmove":
-				spanX = e.touches[0].pageX - startX;
-				spanY = e.touches[0].pageY - startY;
-				break;
-
-			case "touchend":
-				if (Math.abs(spanX) < 3 && Math.abs(spanY) < 3) {
-					obj.on()
-					func(e);
-				}
-				break;
-
-			case "click":
-				if (!isMobile) {
-					func(e);
-				}
-				break;
-		}
-	});
-}
 
 /**
  * ban各种sb浏览器
