@@ -6,10 +6,7 @@
 	<title>Blocksdata教程</title>
 	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js"></script>
-	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
-	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
-	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
-	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><\/script>");</script>
 </head>
 
 <body>
@@ -143,7 +140,7 @@
 						<td>string</td>
 						<td>Default Category</td>
 						<td>默认类别</td>
-						<td>帮助中的类别</td>
+						<td>帮助中的类别，可自定义新类别</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -164,7 +161,7 @@
 						<td>Vector3</td>
 						<td>Default Icon Block Offset</td>
 						<td>默认图标方块偏移</td>
-						<td>待研究</td>
+						<td>方块图标的位置偏移</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -346,7 +343,7 @@
 						<td>float</td>
 						<td>Object Shadow Strength</td>
 						<td>物体阴影强度</td>
-						<td>数值范围0到1，设置里启用Object Shadows且视角距离不超过32时将产生阴影，0表示无阴影</td>
+						<td>数值范围0到1，设置里启用Object Shadows且视角距离不超过32时该方块上的实体产生阴影的强度</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -357,10 +354,10 @@
 					</tr>
 					<tr>
 						<td>33</td>
-						<td>int</td>
+						<td>float</td>
 						<td>Default Drop Count</td>
 						<td>默认掉落数量</td>
-						<td></td>
+						<td>整数部分为最少掉落数量，小数部分为额外掉落一个的概率</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -402,7 +399,7 @@
 						<td>float</td>
 						<td>Friction Factor</td>
 						<td>（行走）摩擦系数</td>
-						<td>越小越滑，为0时无法走动</td>
+						<td>越小越滑，越大走得越慢，为0时无法走动</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -451,7 +448,7 @@
 						<td>float</td>
 						<td>Shovel Power</td>
 						<td>铲子效率</td>
-						<td rowspan=3>各种工具（ShovelPower等）是挖掘速度（每秒）（不含反应/识别时间）例如Quarry Power是20的工具挖Dig Resilience是60的方块要3秒空手的速度目前测得全部为1</td>
+						<td rowspan="3">各种工具（ShovelPower等）是挖掘速度（每秒）（不含反应/识别时间）例如Quarry Power是20的工具挖Dig Resilience是60的方块要3秒空手的速度目前测得全部为1</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -865,6 +862,6 @@
 	</div>
 </div>
 
-<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+<script>document.write("<script src='js/delayload.js?" + ver + "'><\/script>");</script>
 </body>
 </html>
