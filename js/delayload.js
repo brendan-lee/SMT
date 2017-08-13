@@ -113,12 +113,11 @@ function generateNav(navData) {
 	var nav = $("#nav");
 	nav.hide();
 
-	var nav_logo = $("<img id=\"nav_logo\" src=\"image/nav_logo.jpg\" />");
-	nav.append(nav_logo);
+	nav.append($("<img id=\"nav_logo\" src=\"image/nav_logo.jpg\" />"));
 
 	for (var i = 0; i < navData.length; ++i) {
-		var section = navData[i].section;
-		var tutors = navData[i].tutors;
+		var section = navData[i].section,
+			tutors = navData[i].tutors;
 
 		var parent = $("<div class=\"parent md_btn\"></div>")
 		parent.text(section);
@@ -128,14 +127,14 @@ function generateNav(navData) {
 		children.attr("id", "nav_children_" + (i + 1).toString());
 
 		for (var j = 0; j < tutors.length; ++j) {
-			var name = tutors[j].name;
-			var uri = tutors[j].uri;
-			var id = tutors[j].id;
+			var name = tutors[j].name,
+				uri = tutors[j].uri,
+				id = tutors[j].id;
 
 			var child = $("<a class=\"child md_btn\">");
 			child.attr("data-uri", uri);
 			child.text(name);
-			if (typeof (id) != "undefined") {
+			if (typeof id != "undefined") {
 				child.attr("id", id);
 			}
 			children.append(child);
@@ -148,7 +147,7 @@ function generateNav(navData) {
 
 generateNav(navContent);
 
-$('#nav_logo').on("click", function () {
+$("#nav_logo").on("click", function () {
 	if (!isWideScreen) {
 		navHide();
 	} else {
@@ -157,9 +156,7 @@ $('#nav_logo').on("click", function () {
 })
 
 // 延迟250ms后跳转，以完整播放按钮的过渡动画
-var btns = $("*[data-uri]");
-
-btns.on("click", function() {
+$("*[data-uri]").on("click", function() {
 	var uri = $(this).attr("data-uri");
 	$("body").css("opacity", 0);
 	$("body").one("transitionend", function() {
@@ -188,7 +185,7 @@ function toggleNavItem(obj) {
 	}
 }
 
-$('#nav .parent').on("click", function() {
+$("#nav .parent").on("click", function() {
 	toggleNavItem(this)
 });
 
@@ -248,10 +245,10 @@ function navHide() {
 
 // 点击导航栏外，关闭导航栏
 
-$('#nav_overlay').on("click", navHide);
+$("#nav_overlay").on("click", navHide);
 
 // 导航按钮 点击事件
-$('#nav_btn').on("click", navDisp);
+$("#nav_btn").on("click", navDisp);
 
 /**
  * 计算两点距离
@@ -261,10 +258,9 @@ $('#nav_btn').on("click", navDisp);
  * @param Number y2 第二个点纵坐标
  */
 function pointDist(x1, y1, x2, y2) {
-	var xDis = Math.abs(x1 - x2);
-	var yDis = Math.abs(y1 - y2);
-	var dis = Math.sqrt(Math.pow(xDis, 2) + Math.pow(yDis, 2));
-	return dis;
+	var xDis = Math.abs(x1 - x2),
+		yDis = Math.abs(y1 - y2);
+	return Math.sqrt(Math.pow(xDis, 2) + Math.pow(yDis, 2));
 }
 
 /**
@@ -272,25 +268,19 @@ function pointDist(x1, y1, x2, y2) {
  */
 function MDRipple(obj) {
 	obj = $(obj);
+	function getcss(name){return parseInt(obj.css(name))}
 
 	var mousePos = getMousePos();
 
 	// 计算鼠标位置与距容器四角最远的一个角之间的距离，用作ripple的半径
-	var objWidth = parseInt(obj.css("width"));
-	var objHeight = parseInt(obj.css("height"));
-	var objPaddingTop = parseInt(obj.css("padding-top"));
-	var objPaddingRight = parseInt(obj.css("padding-right"));
-	var objPaddingBottom = parseInt(obj.css("padding-bottom"));
-	var objPaddingLeft = parseInt(obj.css("padding-left"));
-	var xR = objWidth + objPaddingLeft + objPaddingRight;
-	var yB = objHeight + objPaddingTop + objPaddingBottom;
-	var mouseToCornerDist = [
+	var xR = getcss("width") + getcss("padding-left") + getcss("padding-right"),
+		yB = getcss("height") + getcss("padding-top") + getcss("padding-bottom");
+	var radius = Math.max(
 		Math.round(pointDist(mousePos.x, mousePos.y, 0, 0)),
 		Math.round(pointDist(mousePos.x, mousePos.y, xR, 0)),
 		Math.round(pointDist(mousePos.x, mousePos.y, xR, yB)),
-		Math.round(pointDist(mousePos.x, mousePos.y, 0, yB))
-	];
-	var radius = Math.max.apply(Math, mouseToCornerDist);
+		Math.round(pointDist(mousePos.x, mousePos.y, 0, yB)
+			));
 
 	// 构建并插入ripple div
 	var div = document.createElement("div");
@@ -323,8 +313,7 @@ function MDRipple(obj) {
  * 为.md_btn绑定点击事件
  */
 function initMDBtn() {
-	var buttons = $(".md_btn");
-	buttons.on(isMobile ? "touchstart" : "mousedown", function() {
+	$(".md_btn").on(isMobile ? "touchstart" : "mousedown", function() {
 		MDRipple(this);
 	})
 }
@@ -335,24 +324,21 @@ initMDBtn();
  * 获取鼠标位置相对容器的坐标
  */
 function getMousePos() {
-	var e = window.event || arguments.callee.caller.arguments[0];
-	var obj = $(e.currentTarget);
+	var e = window.event || arguments.callee.caller.arguments[0],
+		obj = $(e.currentTarget);
 
 	// 目标元素左上角距文档左上角的距离
-	var left = obj.offset().left;
-	var top = obj.offset().top;
+	var left = obj.offset().left,
+		top = obj.offset().top,
 
 	// 鼠标位置相对文档的坐标
-	var mouseX = e.pageX || e.changedTouches[0].pageX;
-	var mouseY = e.pageY || e.changedTouches[0].pageY;
+		mouseX = e.pageX || e.changedTouches[0].pageX,
+		mouseY = e.pageY || e.changedTouches[0].pageY;
 
 	// 鼠标位置相对容器的坐标
-	var x = mouseX - left;
-	var y = mouseY - top;
-
 	return {
-		'x': x,
-		'y': y
+		"x": mouseX - left,
+		"y": mouseY - top
 	};
 }
 
@@ -453,15 +439,16 @@ $("#nav").bind("touchmove", function (e) {
 var isMenuShow = false;
 
 function menuToggle() {
+	var menu = $("#menu");
 	if (isMenuShow) {
-		$("#menu").css({
+		menu.css({
 			"animation": "menu_hide 0.3s forwards"
 		});
-		$("#menu").one("animationend", function () {
+		menu.one("animationend", function () {
 			isMenuShow = false;
 		})
 	} else {
-		$("#menu").css({
+		menu.css({
 			"animation": "menu_show 0.3s forwards"
 		});
 		setTimeout(function () {
@@ -475,7 +462,7 @@ $("#menu_btn").on("click", menuToggle);
 
 $(document).on("click", function() {
 	e = window.event || arguments.callee.caller.arguments[0];
-	if (e.target.id != "menu" && isMenuShow && $(e.target).parents('#menu').length == 0) {
+	if (e.target.id != "menu" && isMenuShow && $(e.target).parents("#menu").length == 0) {
 		menuToggle();
 	}
 })
@@ -502,38 +489,38 @@ $("#menu [data-menuto]").on("click", function() {
 function reverseChapter(scroll, addScrollDis) {
 	var chapt = $(".chapter"),
 		menu = $("#menu .parent"),
-		scrollTop = $(document).scrollTop();
-	tmp = [];
+		scrollTop = $(document).scrollTop(),
+		tmp = [], i, j;
 
 	// 倒序读入正文
-	for (var i = chapt.length - 1, j = 0; i >= 0; i-- , j++) {
+	for (i = chapt.length - 1, j = 0; i >= 0; i-- , j++) {
 		tmp[i] = chapt.eq(j).prop("outerHTML");
 	}
 	// 顺序写出正文
-	for (var i = 0; i < chapt.length; i++) {
+	for (i = 0; i < chapt.length; i++) {
 		chapt.eq(i).prop("outerHTML", tmp[i]);
 	}
 
 	// 倒序读入菜单
-	for (var i = menu.length - 1, j = 0; i >= 0; i-- , j++) {
+	for (i = menu.length - 1, j = 0; i >= 0; i-- , j++) {
 		tmp[i] = menu.eq(j).prop("outerHTML");
 	}
 	// 顺序写出菜单
-	for (var i = 0; i < menu.length; i++) {
+	for (i = 0; i < menu.length; i++) {
 		menu.eq(i).prop("outerHTML", tmp[i]);
 	}
 
 	// 更新数组
 	chapt = $(".chapter"),
-		menu = $("#menu .parent");
+	menu = $("#menu .parent");
 
 	// 如果第一个chapter没有锚标记，则更新锚标记（history.html）
-	if (typeof (chapt.eq(0).attr("id")) == "undefined") {
+	if (typeof chapt.eq(0).attr("id") == "undefined") {
 		var subscript = [];
 
 		// 记录所有锚标记的角标
-		for (var i = 0, j = 0; i < chapt.length; i++) {
-			if (typeof (chapt.eq(i).attr("id")) != "undefined") {
+		for (i = 0, j = 0; i < chapt.length; i++) {
+			if (typeof chapt.eq(i).attr("id") != "undefined") {
 				subscript[j] = i;
 				j++;
 			}
@@ -543,7 +530,7 @@ function reverseChapter(scroll, addScrollDis) {
 		chapt.eq(subscript[0]).removeAttr("id");
 
 		// 提前剩余锚标记
-		for (var i = 1; i < subscript.length; i++) {
+		for (i = 1; i < subscript.length; i++) {
 			chapt.eq(subscript[i - 1] + 1).attr("id", chapt.eq(subscript[i]).attr("id"));
 			chapt.eq(subscript[i]).removeAttr("id");
 		}
@@ -559,7 +546,7 @@ function reverseChapter(scroll, addScrollDis) {
 	}
 
 	// 重新绑定菜单项点击事件
-	$('#menu [data-menuto]').on("click", function () {
+	$("#menu [data-menuto]").on("click", function () {
 		menuTo($(this).attr("data-menuto"));
 	})
 
@@ -568,7 +555,7 @@ function reverseChapter(scroll, addScrollDis) {
 }
 
 
-$('#reverse_chapter').on("click", function () {
+$("#reverse_chapter").on("click", function () {
 	reverseChapter(true, 0);
 })
 
@@ -579,45 +566,40 @@ $('#reverse_chapter').on("click", function () {
 /**
  * 表格折叠
  */
-
 function tableFold(obj) {
-	var table = $(obj).parents('table'),
-		content = table.find('tr:not(:first)'),
-		img = table.find('tr:first').find('td:last').children('img');
+	var table = $(obj).parents("table"),
+		content = table.find("tr:not(:first)"),
+		img = table.find("tr:first").find("td:last").children("img");
 
-	if (table.hasClass('folded')) {
-		table.removeClass('folded');
-		content.css('display', 'table-row');
-		img.attr('src', 'image/fold.svg');
+	if (table.hasClass("folded")) {
+		table.removeClass("folded");
+		content.css("display", "table-row");
+		img.attr("src", "image/fold.svg");
 	} else {
-		table.addClass('folded');
-		content.css('display', 'none');
-		img.attr('src', 'image/unfold.svg');
+		table.addClass("folded");
+		content.css("display", "none");
+		img.attr("src", "image/unfold.svg");
 	}
 }
 
 function findFoldableTables() {
-	var tables = $('table');
-	if (isMobile) {
-		var threshold = 400;
-	} else {
-		var threshold = 600;
-	}
+	var tables = $("table"),
+		threshold = isMobile ? 400 : 600;
 
 	for (var i = 0; i < tables.length; i++) {
 		if (tables.eq(i).height() > threshold) {
-			var td = tables.eq(i).find('tr:first').find('td:last');
+			var td = tables.eq(i).find("tr:first").find("td:last");
 
 			td.css({
-				'position': 'relative',
-				'padding-right': '80px'
+				"position": "relative",
+				"padding-right": "80px"
 			});
-			td.append('<img class="fold_btn" style="position:absolute; right:3px; cursor:pointer;" />');
+			td.append("<img class='fold_btn' style='position:absolute;right:3px;cursor:pointer;' />");
 			tableFold(tables.eq(i).children().eq(0));
 		}
 	}
 
-	$('.fold_btn').on("click", function () {
+	$(".fold_btn").on("click", function () {
 		tableFold(this);
 	});
 }
@@ -631,20 +613,11 @@ findFoldableTables();
  * saimg自适应在线/离线src
  */
 
-var saImg = $(".saimg"),
-	saImgSrc;
-for (var i = 0; i < saImg.length; i++) {
-	// 在线时
-	if (isOnline) {
-		saImgSrc = saImg.eq(i).attr("data-online");
-	}
-	// 离线时
-	else {
-		saImgSrc = saImg.eq(i).attr("data-offline");
-	}
+var saImg = $(".saimg");
 
+for (var i = 0; i < saImg.length; i++) {
 	saImg.eq(i).attr({
-		"src": saImgSrc,
+		"src": saImg.eq(i).attr(isOnline ? "data-online" : "data-offline"),
 		"alt": "图片显示失败"
 	});
 }
@@ -664,7 +637,6 @@ function magnifyImg(src) {
 	// 插入放大图片div
 	/*	$("body").append("<div id='mag_img_wrapper'><img id='mag_img' src='" + $(this).attr("src") + "' /></div>");
 		var magImg = $("#mag_img");
-
 		magImg.on("load", function(){
 			magWidth = magImg.width();
 			magHeight = magImg.height();
@@ -672,16 +644,13 @@ function magnifyImg(src) {
 			magLeft = parseInt(magImg.css("left").split("px")[0]);
 			magMarginTop = parseInt(magImg.css("margin-top").split("px")[0]);
 			magMarginLeft = parseInt(magImg.css("margin-left").split("px")[0]);
-
 			// 设置图片水平垂直居中
 			magMarginTop -= parseInt(magImg.height() / 2);
 			magMarginLeft -= parseInt(magImg.width() / 2);
 			magImg.css({"margin-top":magMarginTop + "px", "margin-left":magMarginLeft + "px"});
-
 			// 明确img宽度，以在首次滚轮缩放时产生transition动画
 			magImg.width(magImg.width());
 		})
-
 		// 点击关闭图片
 		onClick($("#mag_img_wrapper"), closeImg)
 	*/
@@ -714,36 +683,35 @@ function closeImg() {
  ********************/
 
 var bigTitle = $("#big_title_div"),
-	lastUp = $("#last_update");
-var lastBtPos = 0;
-var lastBtPos1 = 0;
-var topBoxScroll = isMobile ? 75 : 120; // 滚动阈值
-var topBoxtopScroll = isMobile ? 114 : 200;
+	lastUp = $("#last_update"),
+	lastBtPos = 0,
+	lastBtPos1 = 0,
+	topBoxScroll = isMobile ? 75 : 120, // 滚动阈值
+	topBoxtopScroll = isMobile ? 114 : 200;
 
 function changeBT() {
+	var fadeout = {
+			"animation": "fade_out 0.03s forwards",
+			"-webkit-animation": "fade_out 0.03s forwards"
+		},
+		fadein = {
+			"animation": "fade_in 0.2s linear",
+			"-webkit-animation": "fade_in 0.2s linear"
+		};
 	// 滚动大于阈值
 	if ($(document).scrollTop() > topBoxScroll && lastBtPos <= topBoxScroll) {
 		lastBtPos = $(document).scrollTop();
 
 		// 渐隐标题&更新日期
-		bigTitle.css({
-			"animation": "fade_out 0.03s forwards",
-			"-webkit-animation": "fade_out 0.03s forwards"
-		});
-		lastUp.css({
-			"animation": "fade_out 0.03s forwards",
-			"-webkit-animation": "fade_out 0.03s forwards"
-		});
+		bigTitle.css(fadeout);
+		lastUp.css(fadeout);
 
 		// 渐隐结束后缩小并渐显标题
 		bigTitle.one("animationend webkitAnimationEnd", function () {
 			bigTitle.removeClass("big");
 			bigTitle.addClass("small");
 
-			bigTitle.css({
-				"animation": "fade_in 0.2s linear",
-				"-webkit-animation": "fade_in 0.2s linear"
-			});
+			bigTitle.css(fadein);
 
 			if (isWideScreen) bigTitle.css("left", "280px");
 			else bigTitle.css("left", "");
@@ -755,24 +723,15 @@ function changeBT() {
 		lastBtPos = $(document).scrollTop();
 
 		// 渐隐标题
-		bigTitle.css({
-			"animation": "fade_out 0.03s forwards",
-			"-webkit-animation": "fade_out 0.03s forwards"
-		});
+		bigTitle.css(fadeout);
 
 		// 渐隐结束后放大并渐显标题&更新日期
 		bigTitle.one("animationend webkitAnimationEnd", function () {
 			bigTitle.removeClass("small");
 			bigTitle.addClass("big");
 
-			bigTitle.css({
-				"animation": "fade_in 0.2s linear",
-				"-webkit-animation": "fade_in 0.2s linear"
-			});
-			lastUp.css({
-				"animation": "fade_in 0.2s linear",
-				"-webkit-animation": "fade_in 0.2s linear"
-			});
+			bigTitle.css(fadein);
+			lastUp.css(fadein);
 
 			if (isWideScreen) bigTitle.css("left", $("#cont_wrapper").width() * 0.175 + 260);
 			else bigTitle.css("left", "");
@@ -822,14 +781,14 @@ document.onscroll = function () {
 	changeBT(); // 大标题缩放
 };
 
-var isWideScreen = !isMobile ? ((document.body.clientWidth >= 1000) ? true : false) : false;
+var isWideScreen = isMobile ? false : document.body.clientWidth >= 1000;
 if (isWideScreen) change2widescreen();
 //屏幕大小变化时
 var last_isWideScreen = false;
 $(window).resize(function () {
 	if (!isMobile) {
 		last_isWideScreen = isWideScreen;
-		isWideScreen = (document.body.clientWidth >= 1000) ? true : false;
+		isWideScreen = document.body.clientWidth >= 1000;
 		if (isWideScreen != last_isWideScreen) {
 			if (isWideScreen) change2widescreen();
 			else change2narrowscreen();
@@ -877,14 +836,12 @@ function change2narrowscreen() {
 	// 放大图片相关操作
 	if (e.target.id == "mag_img_wrapper" || e.target.id == "mag_img") {
 		var img = $("#mag_img");
-
 		// 鼠标移动图片
 		if (e.type == "mousedown" && e.target.id == "mag_img"){
 			e.preventDefault(); // 阻止拖拽img时浏览器弹出禁止标志
 			var startLeft = e.clientX - parseInt(img.css("left")),
 				startTop = e.clientY - parseInt(img.css("top")),
 				isDragging = true;
-
 			$(this).bind("mouseup mouseleave", function(){
 				img.unbind();
 				isDragging = false; // 松开鼠标 & 鼠标离开时 停止拖拽
@@ -896,14 +853,12 @@ function change2narrowscreen() {
 				}
 			});
 		}
-
 		// 滚轮缩放
 		if ((e.type == "mousewheel" || e.type == "DOMMouseScroll") && (e.target.id == "mag_img" || e.target.id == "mag_img_wrapper")){
 			if (e.target.id == "mag_img") {
 				// 禁止滚动页面
 				e.preventDefault();
 				e.returnValue = false;
-
 				// 放大
 				function magnify() {
 					magWidth += 100;
@@ -922,7 +877,6 @@ function change2narrowscreen() {
 					img.css("margin-top", magMarginTop);
 					img.css("margin-left", magMarginLeft);
 				}
-
 				if (e.wheelDelta) {
 					if (e.wheelDelta > 0) { // 放大
 						magnify();
@@ -946,7 +900,6 @@ function change2narrowscreen() {
 				e.returnValue = false;
 			}
 		}
-
 		// 移动端移动图片
 		if (e.type == "touchstart" && e.target.id == "mag_img"){
 			// 禁止滑动页面
@@ -972,11 +925,9 @@ function change2narrowscreen() {
 			magLeft = parseInt(img.css("left").split("px")[0]);
 		}
 	}
-
 	// 禁止在图片外滚动页面
 	if (e.type == "touchmove" && e.target.id == "mag_img_wrapper"){
 		e.preventDefault();
 		e.returnValue = false;
 	}
-
 */
