@@ -3,7 +3,7 @@
 var version = "v2.9.9.9";
 
 // 判断是否在线
-var href = window.location.href, isOnline = window.location.protocol.match(/http/ig) && !href.match(/localhost|127\.0\.0\.1|192\.168\.\d{1,3}\.\d{1,3}/ig));
+var href = window.location.href, isOnline = window.location.protocol.match(/http/ig) && !href.match(/localhost|127\.0\.0\.1|192\.168\.\d{1,3}\.\d{1,3}/ig);
 
 /**
  * 统计代码
