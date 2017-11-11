@@ -1,14 +1,9 @@
 ﻿// 版本号
 /*	主版本号(大修).内容子版本号.框架子版本号.修正版本号	*/
-var version = "v2.9.9.9"
+var version = "v2.9.9.9";
 
 // 判断是否在线
-var href = window.location.href;
-if (window.location.protocol.match(/http/ig) && !href.match(/localhost|127\.0\.0\.1|192\.168\.\d{1,3}\.\d{1,3}/ig)){
-	var isOnline = true;
-} else {
-	var isOnline = false;
-}
+var href = window.location.href, isOnline = window.location.protocol.match(/http/ig) && !href.match(/localhost|127\.0\.0\.1|192\.168\.\d{1,3}\.\d{1,3}/ig);
 
 /**
  * 统计代码

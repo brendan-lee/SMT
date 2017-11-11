@@ -6,10 +6,7 @@
 	<title>Blocksdata教程</title>
 	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js"></script>
-	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
-	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
-	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
-	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><\/script>");</script>
 </head>
 
 <body>
@@ -90,7 +87,7 @@
 					</tr>
 					<tr>
 						<td>Vector3</td>
-						<td>三维数组</td>
+						<td>三维向量</td>
 						<td>逗号分隔的三个float（单精度浮点数）</td>
 					</tr>
 					<tr>
@@ -100,8 +97,8 @@
 					</tr>
 					<tr>
 						<td>FoodType</td>
-						<td>方块挖掘方法</td>
-						<td>None（无）、Meat（肉）、FIsh（鱼肉）、Fruit（水果）、Grass（草）、Bread（面包）</td>
+						<td>食物种类</td>
+						<td>None（无）、Meat（肉）、Fish（鱼肉）、Fruit（水果）、Grass（草）、Bread（面包）</td>
 					</tr>
 				</table>
 			</div>
@@ -143,7 +140,7 @@
 						<td>string</td>
 						<td>Default Category</td>
 						<td>默认类别</td>
-						<td>帮助中的类别</td>
+						<td>帮助中的类别，可自定义新类别</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -164,7 +161,7 @@
 						<td>Vector3</td>
 						<td>Default Icon Block Offset</td>
 						<td>默认图标方块偏移</td>
-						<td>待研究</td>
+						<td>方块图标的位置偏移</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -233,8 +230,8 @@
 						<td></td>
 						<td>int</td>
 						<td>Default Creative Data</td>
-						<td>默认创造模式是否提供</td>
-						<td>-1不提供，0创造模式免费提供</td>
+						<td>默认创造模式数据</td>
+						<td>小于0不提供，反之创造模式提供data为该值的方块</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -268,7 +265,7 @@
 						<td></td>
 						<td>bool</td>
 						<td>Default Is Interactive</td>
-						<td>默认是否交互</td>
+						<td>默认是否可交互</td>
 						<td>电器此项为TRUE，但改了没任何效果</td>
 					</tr>
 					<tr>
@@ -304,7 +301,7 @@
 						<td>bool</td>
 						<td>Kills When Stuck</td>
 						<td>卡住时杀死卡在其中的实体</td>
-						<td>仙人掌和倒刺板该值为TRUE</td>
+						<td>仙人掌和倒刺板该值为TRUE，改其他物品无效果</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -346,7 +343,7 @@
 						<td>float</td>
 						<td>Object Shadow Strength</td>
 						<td>物体阴影强度</td>
-						<td>待研究</td>
+						<td>数值范围0到1，设置里启用Object Shadows且视角距离不超过32时该方块上的实体产生阴影的强度</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -357,10 +354,10 @@
 					</tr>
 					<tr>
 						<td>33</td>
-						<td>int</td>
+						<td>float</td>
 						<td>Default Drop Count</td>
 						<td>默认掉落数量</td>
-						<td></td>
+						<td>整数部分为最少掉落数量，小数部分为额外掉落一个的概率</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -381,7 +378,7 @@
 						<td>int</td>
 						<td>Max Stacking</td>
 						<td>最大背包堆叠</td>
-						<td>箱子,工作台和火炉里可以堆叠的数量</td>
+						<td>箱子,工作台,发射器和火炉里可以堆叠的数量</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -395,21 +392,21 @@
 						<td>float</td>
 						<td>Sleep Suitability</td>
 						<td>适合睡觉</td>
-						<td>0.5好像是最适合，0代表不能睡</td>
+						<td>数值范围0到1，一般为0.5，家具地毯该值为1，0不能睡</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>float</td>
 						<td>Friction Factor</td>
 						<td>（行走）摩擦系数</td>
-						<td>越小越滑，为0时无法走动</td>
+						<td>越小越滑，越大走得越慢，为0时无法走动</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>float</td>
 						<td>Density</td>
 						<td>密度</td>
-						<td>物品掉落水中浮沉的指标</td>
+						<td>物品掉落水中浮沉的指标，单位g/cm³</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -451,7 +448,7 @@
 						<td>float</td>
 						<td>Shovel Power</td>
 						<td>铲子效率</td>
-						<td rowspan=3>各种工具（ShovelPower等）是挖掘速度（每秒）（不含反应/识别时间）例如Quarry Power是20的工具挖Dig Resilience是60的方块要3秒空手的速度目前测得全部为1</td>
+						<td rowspan="3">各种工具（ShovelPower等）是挖掘速度（每秒）（不含反应/识别时间）例如Quarry Power是20的工具挖Dig Resilience是60的方块要3秒空手的速度目前测得全部为1</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -477,7 +474,7 @@
 						<td>float</td>
 						<td>Default Melee Hit Probability</td>
 						<td>默认近战击中概率</td>
-						<td></td>
+						<td>数值范围0到1</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -505,7 +502,7 @@
 						<td>int</td>
 						<td>Durability</td>
 						<td>工具耐久度</td>
-						<td>即使用次数，留空或-1将无耐久度</td>
+						<td>即使用次数（超过65535报错，实际最大值4095），留空或-1将无耐久度</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -544,17 +541,17 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td>Vector3</td>
+						<td>float</td>
 						<td>Projectile Tip Offset</td>
 						<td>扔出点偏移</td>
-						<td>待研究</td>
+						<td>数值范围0到1，待研究</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>bool</td>
 						<td>Disintegrates On Hit</td>
 						<td>撞击时碎裂</td>
-						<td>蛋的此属性为TRUE</td>
+						<td>雪球、蛋的此属性为TRUE</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -624,7 +621,7 @@
 						<td>float</td>
 						<td>Projectile Resilience</td>
 						<td>弹射物抗性</td>
-						<td>越大越不容易被矛等投掷出的物品砸破</td>
+						<td>数值范围0到1，越大越不容易被矛等投掷出的物品砸破</td>
 					</tr>
 					<tr>
 						<td></td>
@@ -865,6 +862,6 @@
 	</div>
 </div>
 
-<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+<script>document.write("<script src='js/delayload.js?" + ver + "'><\/script>");</script>
 </body>
 </html>

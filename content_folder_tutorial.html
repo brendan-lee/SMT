@@ -6,10 +6,7 @@
 	<title>Content解析</title>
 	<link href="css/normalize.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js"></script>
-	<script>document.write("<script src='js/version.js?" + Math.random() + "'><" + "/script>");</script>
-	<script>document.write("<link id='css_main' href='css/main.css?" + ver + "' rel='stylesheet' type='text/css' />");</script>
-	<script>document.write("<link id='css_article' href='css/article.css?" + ver + "' rel='stylesheet' type='text/css' />")</script>
-	<script>document.write("<script src='js/preload.js?" + ver + "'><" + "/script>");</script>
+	<script>document.write("<script src='js/version.js?" + Math.random() + "'><\/script>");</script>
 </head>
 
 <body>
@@ -120,7 +117,7 @@
 				</div>
 				<div class="content">
 					<h3>RecoveryProject.xml</h3>
-					一个最简单的世界的Project.xml，可能是初始世界的Project.xml就是在它的基础上修改的
+					一个非常简单的世界的Project.xml，非正常退出导致某存档Project.xml损坏后重新进入时由该文件替换
 				</div>
 				<div class="content">
 					<h3>Strings.xml</h3>
@@ -179,7 +176,7 @@
 					和Dialogs文件夹类似，存放的主要是弹出式窗口的布局以及其他布局文件调用的子布局（例如使用频率较高的TopBarContents）<br />
 				</div>
 				<div class="content">
-					以上Dialoogs、Screens、Widgets存储的界面布局文件，在Survivalcraft中这些文件使用的语言和Windows Presentation Foundation（WPF）使用的XAML语言非常相似，因此可以参考来自MSDN的<a href="https://msdn.microsoft.com/zh-cn/library/ms747122(v=vs.110).aspx" target="_blank">WPF中的XAML</a>以及<a href="https://msdn.microsoft.com/zh-cn/library/aa970268.aspx#Controls" target="_blank">WPF介绍-控件</a>来学习如何修改游戏的界面，这里本导航不再另外提供教程。<br />
+					以上Dialogs、Screens、Widgets存储的界面布局文件，在Survivalcraft中这些文件使用的语言和Windows Presentation Foundation（WPF）使用的XAML语言非常相似，因此可以参考来自MSDN的<a href="https://msdn.microsoft.com/zh-cn/library/ms747122(v=vs.110).aspx" target="_blank">WPF中的XAML</a>以及<a href="https://msdn.microsoft.com/zh-cn/library/aa970268.aspx#Controls" target="_blank">WPF介绍-控件</a>来学习如何修改游戏的界面，这里本导航不再另外提供教程。<br />
 					注：很多WPF中能够使用的功能和控件在游戏中不一定能使用
 				</div>
 			</div>
@@ -188,6 +185,6 @@
 	</div>
 </div>
 
-<script>document.write("<script src='js/delayload.js?" + ver + "'><" + "/script>");</script>
+<script>document.write("<script src='js/delayload.js?" + ver + "'><\/script>");</script>
 </body>
 </html>
