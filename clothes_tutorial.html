@@ -42,7 +42,7 @@
 		<div class="content">
 			本教程由百度贴吧-<a href="http://tieba.baidu.com/home/main/?un=%E9%94%80%E9%94%8B%E9%95%9D%E9%93%B8&ie=utf-8" target="_blank">销锋镝铸</a>编写<br />
 			建议先阅读<a href="xml_tutorial.html">XML基础知识</a>，再阅读此教程
-			<script>if(isMobile == true){document.write("<br />提示：手机端建议横屏查看");}</script>
+			<script>if(isMobile){document.write("<br />提示：手机端建议横屏查看");}</script>
 		</div>
 	</div>
 
@@ -52,6 +52,7 @@
 			<h1>简述</h1>
 			<div class="content">
 				用文本编辑器打开此文件后，从第二行开始，每一行都是一种衣物<br />
+				最多允许256种衣物<br />
 				例如第二行：
 			</div>
 			<div class="content">
@@ -111,7 +112,7 @@
 					<tr>
 						<td>DensityModifier</td>
 						<td>密度增幅</td>
-						<td>使玩家密度等于初始速度加该值（大于1会在水中下沉）</td>
+						<td>使玩家密度等于初始密度（0.8）加该值（大于1会在水中下沉）</td>
 					</tr>
 					<tr>
 						<td>IsOuter</td>
