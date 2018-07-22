@@ -108,6 +108,14 @@
 </div>
 
 <script>document.write("<script src='js/delayload.js?" + ver + "'><\/script>");</script>
-<script>if(!isWideScreen)$("#tip_nav").show()</script>
+<script>
+    if (!isWideScreen) $("#tip_nav").show();
+    setTimeout(function() {
+        var cf = confirm("是否前往SMT导航3.0？");
+        if (cf == true) {
+            window.location.href = "https://xiaofengdizhu.github.io/SMT3/";
+        }
+    }, 1000);
+</script>
 </body>
 </html>
